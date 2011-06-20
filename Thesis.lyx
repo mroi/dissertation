@@ -1,0 +1,755 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass tufte-book
+\begin_preamble
+% use 19x23cm paper
+\geometry{paperwidth=190mm,paperheight=230mm,left=22mm,top=10mm,textwidth=103mm,marginparsep=7mm,marginparwidth=36mm,textheight=38\baselineskip,includehead}
+
+% letter spacing for capitalized text
+\renewcommand{\allcapsspacing}[1]{{\addfontfeature{LetterSpace=6.5}#1}}
+\renewcommand{\smallcapsspacing}[1]{{\addfontfeature{LetterSpace=5.0,Letters=SmallCaps}#1}}
+
+% disable Hoefler swashes in italic
+\setmainfont[ItalicFeatures={Contextuals={NoLineFinal,NoLineInitial}}]{Hoefler Text}
+
+% enable colored page edge when a new chapter starts
+\newcommand{\chapteredge}{
+\fancypagestyle{plain}{
+\fancyhf{}
+\fancyfoot[LE,RO]{
+\begin{picture}(0,0)
+\color{darkgray}
+\put(55,-30){\rule{10mm}{240mm}}
+\end{picture}
+}}}
+
+% epigraph command
+\newcommand{\epigraph}[2]{
+\begin{fullwidth}
+\sffamily\large
+\begin{doublespace}
+\noindent\allcaps{#1}\\% epigraph
+\noindent\allcaps{#2}% author
+\end{doublespace}
+\end{fullwidth}
+}
+\end_preamble
+\options nols
+\use_default_options true
+\begin_modules
+fixltx2e
+\end_modules
+\maintain_unincluded_children false
+\begin_local_layout
+Style Verleger
+Margin	Static
+LatexType	Command
+Category	FrontMatter
+LatexName	publisher
+InTitle	1
+InPreamble	1
+Font
+Size	Large
+EndFont
+End
+
+InsetLayout Flex:AllCaps
+CopyStyle AllCaps
+End
+
+InsetLayout Flex:SmallCaps
+CopyStyle SmallCaps
+End
+\end_local_layout
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman Hoefler Text
+\font_sans Gill Sans
+\font_typewriter Monaco
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\pdf_quoted_options "unicode=false, linktoc=all, hyperfootnotes=false, linkcolor=DarkBlue, pagecolor=DarkBlue, citecolor=DarkGreen, urlcolor=DarkGreen"
+\papersize default
+\use_geometry true
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 2
+\tocdepth 2
+\paragraph_separation skip
+\defskip smallskip
+\quotes_language english
+\papercolumns 1
+\papersides 2
+\paperpagestyle default
+\bullet 0 0 17 -1
+\bullet 1 0 15 -1
+\bullet 2 0 10 -1
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+frontmatter
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+thispagestyle{empty}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+null
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+thispagestyle{empty}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+epigraph{For I dipt into the future, far as human eye could see, saw the
+ vision of the world, and all the wonder that would be.}{Alfred Lord Tennyson}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace vfill
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+epigraph{The art of prophecy is very difficult, especially with respect
+ to the future.}{Mark Twain}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace vfill
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+epigraph{Oh dear! Oh dear! I shall be too late!}{The White Rabbit}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage cleardoublepage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Author
+Michael Roitzsch
+\end_layout
+
+\begin_layout Title
+Practical Real-Time:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent 
+\end_layout
+
+\end_inset
+
+System Support for
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent 
+\end_layout
+
+\end_inset
+
+Modern Applications
+\end_layout
+
+\begin_layout Verleger
+Dissertation
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent 
+\end_layout
+
+\end_inset
+
+Advisor: Prof.
+ Dr.
+ rer.
+ nat.
+ Hermann Härtig
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent 
+\end_layout
+
+\end_inset
+
+
+\lang ngerman
+Technische Universität Dresden
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+thispagestyle{empty}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+null
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace vfill
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent 
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename Figures/TU-Logo.pdf
+	width 5cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Full Width
+
+\lang ngerman
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+
+\lang ngerman
+Dissertation
+\end_layout
+
+\end_inset
+
+ zur Erlangung des akademischen Grades 
+\begin_inset Flex AllCaps
+status collapsed
+
+\begin_layout Plain Layout
+
+\lang ngerman
+Doktoringenieur (Dr.-Ing.)
+\end_layout
+
+\end_inset
+
+, vorgelegt an der 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+
+\lang ngerman
+Technischen Universität Dresden, Fakultät Informatik
+\end_layout
+
+\end_inset
+
+, eingereicht von 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+
+\lang ngerman
+Dipl.
+\size footnotesize
+-
+\size default
+Inf.
+ Michael Roitzsch
+\end_layout
+
+\end_inset
+
+, geboren am 15.
+ August 1980 in Dresden.
+\end_layout
+
+\begin_layout Full Width
+
+\lang ngerman
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="2">
+<features booktabs="true" tabularvalignment="middle">
+<column alignment="left" valignment="top" width="0pt" special="@{}l">
+<column alignment="left" valignment="top" width="0pt">
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang ngerman
+Betreuender Hochschullehrer:
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang ngerman
+Prof.
+ Dr.
+ rer.
+ nat.
+ Hermann Härtig
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang ngerman
+Technische Universität Dresden
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Full Width
+
+\lang ngerman
+Dresden, 
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Plain Layout
+
+\lang ngerman
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+today
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter*
+Acknowledgments
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Plain Layout
+TODO
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FloatList figure
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FloatList margintable
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage cleardoublepage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Full Width
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+thispagestyle{empty}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+null
+\end_layout
+
+\end_inset
+
+
+\begin_inset VSpace vfill
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent
+\backslash
+nohyphenation 
+\end_layout
+
+\end_inset
+
+
+\shape italic
+\size huge
+
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Plain Layout
+
+\shape italic
+\size huge
+Dedication
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Full Width
+\begin_inset VSpace vfill
+\end_inset
+
+
+\begin_inset VSpace vfill
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter*
+Introduction
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+mainmatter
+\backslash
+chapteredge
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+First Chapter
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+backmatter
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "Bibliography/Master,Bibliography/Thesis"
+options "plainnat"
+
+\end_inset
+
+
+\begin_inset CommandInset index_print
+LatexCommand printindex
+type "idx"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
