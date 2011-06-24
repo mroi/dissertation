@@ -11,8 +11,21 @@
 \renewcommand{\allcapsspacing}[1]{{\addfontfeature{LetterSpace=6.5}#1}}
 \renewcommand{\smallcapsspacing}[1]{{\addfontfeature{LetterSpace=5.0,Letters=SmallCaps}#1}}
 
-% disable Hoefler swashes in italic
-\setmainfont[ItalicFeatures={Contextuals={NoLineFinal,NoLineInitial}}]{Hoefler Text}
+% font setup: because we want to set the math font also, we cannot use LyX’s font options
+\usepackage[MnSymbol]{mathspec}
+\setmainfont[Mapping=tex-text,ItalicFeatures={Contextuals={NoLineInitial,NoLineFinal}}]{Hoefler Text}
+\setsansfont[Mapping=tex-text]{Gill Sans}
+\setmonofont{Menlo Regular}
+\setmathsfont(Digits,Latin)[ItalicFeatures={Contextuals={NoLineInitial,NoLineFinal}},Numbers=Lining]{Hoefler Text}
+%\setmathsfont(Greek){Georgia}
+
+% use all-bullets for itemize and give them the right size and height
+\AtBeginDocument{
+\def\labelitemi{\raisebox{0.3mm}{\scriptsize\(\bullet\)}}
+\def\labelitemii{\raisebox{0.3mm}{\scriptsize\(\bullet\)}}
+\def\labelitemiii{\raisebox{0.3mm}{\scriptsize\(\bullet\)}}
+\def\labelitemiv{\raisebox{0.3mm}{\scriptsize\(\bullet\)}}
+}
 
 % enable colored page edge when a new chapter starts
 \newcommand{\chapteredge}{
@@ -36,7 +49,6 @@
 \end{fullwidth}
 }
 \end_preamble
-\options nols
 \use_default_options true
 \begin_modules
 fixltx2e
@@ -65,20 +77,20 @@ End
 \end_local_layout
 \language english
 \language_package default
-\inputencoding auto
+\inputencoding utf8-plain
 \fontencoding global
-\font_roman Hoefler Text
-\font_sans Gill Sans
-\font_typewriter Monaco
+\font_roman default
+\font_sans default
+\font_typewriter default
 \font_default_family default
-\use_non_tex_fonts true
+\use_non_tex_fonts false
 \font_sc false
 \font_osf false
 \font_sf_scale 100
 \font_tt_scale 100
 
 \graphics default
-\default_output_format default
+\default_output_format pdf4
 \output_sync 0
 \bibtex_command default
 \index_command default
@@ -119,9 +131,6 @@ End
 \papercolumns 1
 \papersides 2
 \paperpagestyle default
-\bullet 0 0 17 -1
-\bullet 1 0 15 -1
-\bullet 2 0 10 -1
 \tracking_changes false
 \output_changes false
 \html_math_output 0
@@ -208,6 +217,17 @@ epigraph{For I dipt into the future, far as human eye could see, saw the
 \end_inset
 
 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+This first epigraph feels the most out-of-place of the three.
+ Can we find something more software- or technology-related?
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -225,8 +245,11 @@ status open
 
 
 \backslash
-epigraph{The art of prophecy is very difficult, especially with respect
- to the future.}{Mark Twain}
+epigraph{The art of prophecy is very difficult,
+\backslash
+newline
+\backslash
+noindent especially with respect to the future.}{Mark Twain}
 \end_layout
 
 \end_inset
@@ -576,7 +599,8 @@ Acknowledgments
 status open
 
 \begin_layout Plain Layout
-TODO
+OS group, Prof.
+ Härtig, fellow researchers, friends, parents
 \end_layout
 
 \end_inset
@@ -696,6 +720,92 @@ Introduction
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Itemize
+these are hard times for developers
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+users demand not only functionality, but are now used to quick responsiveness,
+ speedy applications and low energy use
+\end_layout
+
+\begin_layout Itemize
+these are hard problems:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+responsiveness in the face of non-real-time operating systems
+\end_layout
+
+\begin_layout Itemize
+speed in the face of stagnating single-core frequency, increasing core counts
+ and heterogeneity (GPUs)
+\end_layout
+
+\begin_layout Itemize
+energy characteristics typically dictated and managed behind the scenes
+ by hardware
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Itemize
+large body of research in these individual topics is available
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+this dissertation tries to summarize existing work
+\end_layout
+
+\begin_layout Itemize
+provide a holistic view and enhance state-of-the-art with key contributions
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+driving insight: some limited help by the application can provide insightful
+ clairvoyance and allows ahead-of-time decisions rather than post-mortem
+ control
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+apply this idea to real-time, parallelism, energy and adaptivity (table
+ or summary figure, swim lanes)
+\end_layout
+
+\begin_layout Itemize
+this is where we tell our focus: combining real-time and parallelism, name
+ contributions here?
+\end_layout
+
+\begin_layout Itemize
+overview of the organization of this text (with forward references)
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+goal: programming paradigm that must be manageable for developers
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+formulate other goals?
+\end_layout
+
+\end_deeper
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \begin_inset ERT
 status collapsed
 
@@ -714,7 +824,7 @@ chapteredge
 \end_layout
 
 \begin_layout Chapter
-First Chapter
+Anatomy of a Modern Desktop Application
 \end_layout
 
 \begin_layout Standard
