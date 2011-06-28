@@ -27,6 +27,9 @@
 \def\labelitemiv{\raisebox{0.3mm}{\scriptsize\(\bullet\)}}
 }
 
+% height-correction for dashes when typesetting in smallcaps
+%\renewcommand{\dashcorrect}[1]{\raisebox{-0.3mm}{#1}}
+
 % enable colored page edge when a new chapter starts
 \newcommand{\chapteredge}{
 \fancypagestyle{plain}{
@@ -106,7 +109,7 @@ End
 \pdf_colorlinks true
 \pdf_backref false
 \pdf_pdfusetitle true
-\pdf_quoted_options "unicode=false, linktoc=all, hyperfootnotes=false, linkcolor=DarkBlue, pagecolor=DarkBlue, citecolor=DarkGreen, urlcolor=DarkGreen"
+\pdf_quoted_options "unicode=false, linktoc=all, linkcolor=DarkBlue, citecolor=DarkGreen, urlcolor=DarkGreen"
 \papersize default
 \use_geometry true
 \use_amsmath 1
@@ -139,6 +142,45 @@ End
 \end_header
 
 \begin_body
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Itemize
+Greek letters in math mode are still typeset in computer modern.
+ Enabling Georgia as a replacement (see preamble section in document settings)
+ hangs 
+\family typewriter
+xelatex
+\family default
+.
+\end_layout
+
+\begin_layout Itemize
+The vertical position of dashes is ugly when using small caps, like in the
+ title in the fancy page headers.
+ It would need to be adjusted down, but this would adversely effect the
+ title page, where it needs to be adjusted up.
+ I tried inserting a conditional 
+\family typewriter
+raisebox
+\family default
+ or overwriting 
+\family typewriter
+MakeLowerCase
+\family default
+ to automatically inject a 
+\family typewriter
+raisebox
+\family default
+, but everything failed so far.
+\end_layout
+
+\end_inset
+
+
+\end_layout
 
 \begin_layout Standard
 \begin_inset ERT
@@ -475,17 +517,13 @@ Technischen Universität Dresden, Fakultät Informatik
 \end_inset
 
 , eingereicht von 
-\begin_inset Flex SmallCaps
+\begin_inset Flex AllCaps
 status collapsed
 
 \begin_layout Plain Layout
 
 \lang ngerman
-Dipl.
-\size footnotesize
--
-\size default
-Inf.
+Dipl.-Inf.
  Michael Roitzsch
 \end_layout
 
@@ -499,7 +537,7 @@ Inf.
 
 \lang ngerman
 \begin_inset Tabular
-<lyxtabular version="3" rows="2" columns="2">
+<lyxtabular version="3" rows="5" columns="2">
 <features booktabs="true" tabularvalignment="middle">
 <column alignment="left" valignment="top" width="0pt" special="@{}l">
 <column alignment="left" valignment="top" width="0pt">
@@ -553,6 +591,105 @@ Technische Universität Dresden
 \end_inset
 </cell>
 </row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang ngerman
+Fachreferent:
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Plain Layout
+
+\lang ngerman
+fehlt
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang ngerman
+Gutachter:
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Plain Layout
+
+\lang ngerman
+fehlt
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang ngerman
+Tag der Verteidigung:
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Plain Layout
+
+\lang ngerman
+fehlt
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
 </lyxtabular>
 
 \end_inset
@@ -561,6 +698,22 @@ Technische Universität Dresden
 \end_layout
 
 \begin_layout Full Width
+\begin_inset VSpace defskip
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent 
+\end_layout
+
+\end_inset
+
 
 \lang ngerman
 Dresden, 
@@ -769,22 +922,73 @@ provide a holistic view and enhance state-of-the-art with key contributions
 
 \end_deeper
 \begin_layout Itemize
-driving insight: some limited help by the application can provide insightful
- clairvoyance and allows ahead-of-time decisions rather than post-mortem
- control
+driving insights
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
-apply this idea to real-time, parallelism, energy and adaptivity (table
- or summary figure, swim lanes)
+applications are increasingly structured into job packets (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "chap:Anatomy"
+
+\end_inset
+
+)
 \end_layout
 
 \begin_layout Itemize
-this is where we tell our focus: combining real-time and parallelism, name
- contributions here?
+some limited help by the application can provide insightful clairvoyance
 \end_layout
 
+\begin_layout Itemize
+allows ahead-of-time decisions rather than post-mortem control
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+apply this idea to real-time, parallelism, energy and adaptivity
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+job packets help for parallelism
+\end_layout
+
+\begin_layout Itemize
+deadlines can naturally be assigned to job packets, hints help training
+ execution time prediction
+\end_layout
+
+\begin_layout Itemize
+deadlines also enable batching to save energy
+\end_layout
+
+\begin_layout Itemize
+adaptation can specify alternative execution paths with costs and benefits
+\end_layout
+
+\begin_layout Itemize
+implementations in alternative ISAs allow using specialized hardware (GPGPU,
+ fixed-function units) with time or energy benefits
+\end_layout
+
+\begin_layout Itemize
+our focus: combining real-time and parallelism, name contributions here
+\end_layout
+
+\begin_layout Itemize
+end-to-end-solutions must consider three levels: workload, application,
+ system
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+table or summary figure with columns/swim lanes for topics and layers for
+ levels
+\end_layout
+
+\end_deeper
 \begin_layout Itemize
 overview of the organization of this text (with forward references)
 \end_layout
@@ -795,6 +999,10 @@ goal: programming paradigm that must be manageable for developers
 \end_layout
 
 \begin_deeper
+\begin_layout Itemize
+mainstream programming for mere mortals instead of only for a priesthood
+\end_layout
+
 \begin_layout Itemize
 formulate other goals?
 \end_layout
@@ -824,7 +1032,273 @@ chapteredge
 \end_layout
 
 \begin_layout Chapter
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:Anatomy"
+
+\end_inset
+
 Anatomy of a Modern Desktop Application
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Itemize
+major change in application structure
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+single-threaded
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+UI blocks on every user-triggered activity
+\end_layout
+
+\begin_layout Itemize
+unresponsive, not parallel, but simple code
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+multithreaded
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+focus on responsiveness, do long-running work asynchronously off the UI
+ thread
+\end_layout
+
+\begin_layout Itemize
+explicit thread management with hard-coded or guessed thread count
+\end_layout
+
+\begin_layout Itemize
+difficult code
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+today: job packets
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+the UI thread (main thread) does no real work (see microkernel paradigm),
+ it merely dispatches (spine-analogy)
+\end_layout
+
+\begin_layout Itemize
+lambdas/closures/blocks as useful abstraction for declaring a piece of work
+ inline: code looks serial
+\end_layout
+
+\begin_layout Itemize
+Microsoft: 
+\begin_inset Formula $\lambda$
+\end_inset
+
+-functions turn out to be the holy-grail feature for developing the parallel
+ patters library as a library 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "C++AMP_Keynote"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+work queues keep pending jobs, automatic thread assignment and pooling,
+ system-wide thread balancing
+\end_layout
+
+\begin_layout Itemize
+goal: have the number of active threads match the number of (logical) cores
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Itemize
+result of this architecture: most work is done asynchronously and is announced
+ by the application ahead-of-time
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+limited view into the future as a common trait for modern applications
+\end_layout
+
+\begin_layout Itemize
+job packets (or groups of them) are natural receivers for metadata by the
+ developer (deadlines) or automatically by the system (training)
+\end_layout
+
+\begin_layout Itemize
+this work: What kind of metadata can we use to what benefit?
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+introduce video as the primary demo application
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+good sample workload, because it covers many properties: real-time, compute
+ intensive, subject to energy savings, potentially adaptive
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+increasing heterogeneity
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+pieces of GPU code (and other ISAs with tighter assumptions and less ability)
+ interwoven with CPU code
+\end_layout
+
+\begin_layout Itemize
+out of scope for this work, maybe except for hardware video decoders
+\end_layout
+
+\end_deeper
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:Real-Time"
+
+\end_inset
+
+Self-Training Scheduling
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+beef up that title
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:Parallelism"
+
+\end_inset
+
+Scheduling meets Multicore
+\end_layout
+
+\begin_layout Chapter
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:Adaptivity-Energy"
+
+\end_inset
+
+Adapting and Saving Energy
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+with a different title, this chapter can (and should?) double as the conclusion
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Itemize
+some work just needs to be done, no discussion, no adaptation possible
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+I would argue this is the common case
+\end_layout
+
+\begin_layout Itemize
+we can only hope to save energy by using the most efficient compute resource
+ and organize it the most efficient way
+\end_layout
+
+\begin_layout Itemize
+choosing between race-to-halt and slowdown depends on workload and platform
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "LeSueur:SlowDownSleep"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+we may have targeted hardware with reduced instruction sets available that
+ is more energy-efficient
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+hardware video decoders are an edge-case of this spectrum: very limited
+ instructions or fixed function
+\end_layout
+
+\begin_layout Itemize
+saves some energy (up to 25% in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "LeSueur:SlowDownSleep"
+
+\end_inset
+
+), but not game-changing savings
+\end_layout
+
+\begin_layout Itemize
+treat as any coprocessor that work with tighter restrictions on the available
+ instructions can be offloaded to (see 
+\family typewriter
+restrict
+\family default
+ keyword proposal in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "C++AMP_Keynote"
+
+\end_inset
+
+)
+\end_layout
+
+\end_deeper
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -841,13 +1315,32 @@ backmatter
 \end_inset
 
 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+setlength{
+\backslash
+labelwidth}{0mm}
+\backslash
+setlength{
+\backslash
+labelsep}{0mm} 
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 \begin_inset CommandInset bibtex
 LatexCommand bibtex
 bibfiles "Bibliography/Master,Bibliography/Thesis"
-options "plainnat"
+options "Bibliography/Thesis"
 
 \end_inset
 
