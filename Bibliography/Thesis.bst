@@ -191,7 +191,7 @@ FUNCTION {emphasize}
   if$
 }
 FUNCTION {tie.or.space.prefix}
-{ duplicate$ text.length$ #3 <
+{ duplicate$ text.length$ #8 <
     { "~" }
     { " " }
   if$
@@ -823,11 +823,11 @@ FUNCTION {format.org.or.pub}
   if$
 }
 FUNCTION {format.publisher.address}
-{ publisher "publisher" bibinfo.warn format.org.or.pub
+{ publisher "publisher" bibinfo.warn %format.org.or.pub
 }
 
 FUNCTION {format.organization.address}
-{ organization "organization" bibinfo.check format.org.or.pub
+{ organization "organization" bibinfo.check %format.org.or.pub
 }
 
 FUNCTION {article}
