@@ -105,11 +105,11 @@ End
 \pdf_bookmarksopen true
 \pdf_bookmarksopenlevel 1
 \pdf_breaklinks true
-\pdf_pdfborder true
-\pdf_colorlinks true
+\pdf_pdfborder false
+\pdf_colorlinks false
 \pdf_backref false
 \pdf_pdfusetitle true
-\pdf_quoted_options "unicode=false, linktoc=all, linkcolor=DarkBlue, citecolor=DarkGreen, urlcolor=DarkGreen"
+\pdf_quoted_options "unicode=false, linktoc=all, pdfborder=2 2 0.5, linkbordercolor=0.8 0.8 1, urlbordercolor=0.6 1 0.6"
 \papersize default
 \use_geometry true
 \use_amsmath 1
@@ -984,6 +984,10 @@ end-to-end-solutions must consider three levels: workload, application,
 
 \begin_deeper
 \begin_layout Itemize
+collaboration between system and application is beneficial
+\end_layout
+
+\begin_layout Itemize
 table or summary figure with columns/swim lanes for topics and layers for
  levels
 \end_layout
@@ -1107,7 +1111,7 @@ Microsoft:
  patters library as a library 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "C++AMP_Keynote"
+key "Sutter:C++AMP_Keynote"
 
 \end_inset
 
@@ -1183,17 +1187,7 @@ name "chap:Real-Time"
 
 \end_inset
 
-Self-Training Scheduling
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-beef up that title
-\end_layout
-
-\end_inset
-
-
+Real Simple Real-Time
 \end_layout
 
 \begin_layout Chapter
@@ -1204,6 +1198,49 @@ name "chap:Parallelism"
 \end_inset
 
 Scheduling meets Multicore
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Itemize
+trend: context switching considered harmful
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+CPUs have always been a special case, many other resources cannot be preempted
+\end_layout
+
+\begin_layout Itemize
+especially with GPUs: way too much state to save and restore
+\end_layout
+
+\begin_layout Itemize
+CPUs are going this way too, flushing cache, TLB, branch predictor, prefetcher
+ becomes prohibitively expensive
+\end_layout
+
+\begin_layout Itemize
+HPC applications have always used batch-style operation
+\end_layout
+
+\begin_layout Itemize
+work queues that are drained asynchronously fit in here well 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Soares:FlexSC"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\end_inset
+
+
 \end_layout
 
 \begin_layout Chapter
@@ -1288,11 +1325,33 @@ restrict
  keyword proposal in 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "C++AMP_Keynote"
+key "Sutter:C++AMP_Keynote"
 
 \end_inset
 
 )
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+some applications can adapt their energy or computation time needs 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Flinn:EnergyAdaptation"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+some trivial examples (disable backup on low battery) are rather obvious
+ and not interesting, more dynamic examples are rare
+\end_layout
+
+\begin_layout Itemize
+video can be one of them, if the bitstream allows it
 \end_layout
 
 \end_deeper
