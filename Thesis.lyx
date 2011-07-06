@@ -4,9 +4,6 @@
 \begin_header
 \textclass tufte-book
 \begin_preamble
-% use 19x23cm paper
-\geometry{paperwidth=190mm,paperheight=230mm,left=22mm,top=10mm,textwidth=103mm,marginparsep=7mm,marginparwidth=36mm,textheight=38\baselineskip,includehead}
-
 % letter spacing for capitalized text
 \renewcommand{\allcapsspacing}[1]{{\addfontfeature{LetterSpace=6.5}#1}}
 \renewcommand{\smallcapsspacing}[1]{{\addfontfeature{LetterSpace=5.0,Letters=SmallCaps}#1}}
@@ -15,7 +12,7 @@
 \usepackage[MnSymbol]{mathspec}
 \setmainfont[Mapping=tex-text,ItalicFeatures={Contextuals={NoLineInitial,NoLineFinal}}]{Hoefler Text}
 \setsansfont[Mapping=tex-text]{Gill Sans}
-\setmonofont{Menlo Regular}
+\setmonofont[Scale=0.9]{Menlo Regular}
 \setmathsfont(Digits,Latin)[ItalicFeatures={Contextuals={NoLineInitial,NoLineFinal}},Numbers=Lining]{Hoefler Text}
 %\setmathsfont(Greek){Georgia}
 
@@ -37,7 +34,7 @@
 \fancyfoot[LE,RO]{
 \begin{picture}(0,0)
 \color{darkgray}
-\put(55,-30){\rule{10mm}{240mm}}
+\put(52,-60){\rule{10mm}{305mm}}
 \end{picture}
 }}}
 
@@ -52,6 +49,7 @@
 \end{fullwidth}
 }
 \end_preamble
+\options a4paper
 \use_default_options true
 \begin_modules
 fixltx2e
@@ -330,7 +328,7 @@ epigraph{Oh dear! Oh dear! I shall be too late!}{The White Rabbit}
 \end_layout
 
 \begin_layout Author
-Michael Roitzsch
+Michael Roitzsch – born August 15, 1980
 \end_layout
 
 \begin_layout Title
@@ -1079,6 +1077,10 @@ focus on responsiveness, do long-running work asynchronously off the UI
 \end_layout
 
 \begin_layout Itemize
+we saw that when moving to multicores: threading is not concurrency
+\end_layout
+
+\begin_layout Itemize
 explicit thread management with hard-coded or guessed thread count
 \end_layout
 
@@ -1255,7 +1257,16 @@ Adapting and Saving Energy
 status open
 
 \begin_layout Plain Layout
-with a different title, this chapter can (and should?) double as the conclusion
+with a different title, this chapter can (and should?) double as the conclusion,
+ maybe use the 
+\begin_inset Quotes eld
+\end_inset
+
+handling over-/underload
+\begin_inset Quotes erd
+\end_inset
+
+ aspect
 \end_layout
 
 \end_inset
@@ -1283,7 +1294,6 @@ we can only hope to save energy by using the most efficient compute resource
 
 \begin_layout Itemize
 choosing between race-to-halt and slowdown depends on workload and platform
- 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "LeSueur:SlowDownSleep"
@@ -1306,7 +1316,7 @@ hardware video decoders are an edge-case of this spectrum: very limited
 \end_layout
 
 \begin_layout Itemize
-saves some energy (up to 25% in 
+saves some energy (up to 25%
 \begin_inset CommandInset citation
 LatexCommand cite
 key "LeSueur:SlowDownSleep"
@@ -1322,7 +1332,7 @@ treat as any coprocessor that work with tighter restrictions on the available
 \family typewriter
 restrict
 \family default
- keyword proposal in 
+ keyword proposal
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Sutter:C++AMP_Keynote"
@@ -1334,7 +1344,7 @@ key "Sutter:C++AMP_Keynote"
 
 \end_deeper
 \begin_layout Itemize
-some applications can adapt their energy or computation time needs 
+some applications can adapt their energy or computation time needs
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Flinn:EnergyAdaptation"
