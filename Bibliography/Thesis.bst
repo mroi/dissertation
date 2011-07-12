@@ -746,7 +746,7 @@ FUNCTION {format.booktitle}
   booktitle "booktitle" bibinfo.check
   format.number.series empty$
     { series empty$ 'skip$
-        { " (" series ")" * * * }
+        { "(" series ")" * * tie.or.space.prefix * * }
       if$
     }
     'skip$
