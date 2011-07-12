@@ -191,7 +191,7 @@ FUNCTION {emphasize}
   if$
 }
 FUNCTION {tie.or.space.prefix}
-{ duplicate$ text.length$ #8 <
+{ duplicate$ text.length$ #10 <
     { "~" }
     { " " }
   if$
@@ -595,7 +595,7 @@ FUNCTION {format.bvolume}
 FUNCTION {format.number.series}
 { volume empty$
     { number empty$
-        { series field.or.null }
+        { "" }
         { series empty$
             { number "number" bibinfo.check }
             { output.state mid.sentence =
@@ -744,6 +744,13 @@ FUNCTION {format.chapter.pages}
 FUNCTION {format.booktitle}
 {
   booktitle "booktitle" bibinfo.check
+  format.number.series empty$
+    { series empty$ 'skip$
+        { " (" series ")" * * * }
+      if$
+    }
+    'skip$
+  if$
 }
 FUNCTION {format.in.ed.booktitle}
 { format.booktitle duplicate$ empty$ 'skip$
