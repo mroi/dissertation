@@ -851,6 +851,8 @@ FUNCTION {article}
       "journal" bibinfo.check
       "journal" output.check
       format.vol.num.pages output
+      new.sentence
+      format.publisher.address output
       format.date "year" output.check
     }
     { format.article.crossref output.nonnull
