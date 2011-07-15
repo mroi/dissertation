@@ -12,7 +12,7 @@
 \usepackage[MnSymbol]{mathspec}
 \setmainfont[Mapping=tex-text,ItalicFeatures={Contextuals={NoLineInitial,NoLineFinal}}]{Hoefler Text}
 \setsansfont[Mapping=tex-text]{Gill Sans}
-\setmonofont[Scale=0.9]{Menlo Regular}
+\setmonofont[Scale=0.85]{Menlo Regular}
 \setmathsfont(Digits,Latin)[ItalicFeatures={Contextuals={NoLineInitial,NoLineFinal}},Numbers=Lining]{Hoefler Text}
 %\setmathsfont(Greek){Georgia}
 
@@ -33,8 +33,8 @@
 \fancyhf{}
 \fancyfoot[LE,RO]{
 \begin{picture}(0,0)
-\color{darkgray}
-\put(52,-60){\rule{10mm}{305mm}}
+\color{gray}
+\put(49,-60){\rule{10mm}{305mm}}
 \end{picture}
 }}}
 
@@ -250,8 +250,12 @@ status open
 
 
 \backslash
-epigraph{For I dipt into the future, far as human eye could see, saw the
- vision of the world, and all the wonder that would be.}{Alfred Lord Tennyson}
+epigraph{For I dipt into the future, far as human eye could see,
+\backslash
+newline
+\backslash
+noindent saw the vision of the world, and all the wonder that would be.}{Alfred
+ Lord Tennyson}
 \end_layout
 
 \end_inset
@@ -535,7 +539,7 @@ Dipl.-Inf.
 
 \lang ngerman
 \begin_inset Tabular
-<lyxtabular version="3" rows="5" columns="2">
+<lyxtabular version="3" rows="6" columns="2">
 <features booktabs="true" tabularvalignment="middle">
 <column alignment="left" valignment="top" width="0pt" special="@{}l">
 <column alignment="left" valignment="top" width="0pt">
@@ -561,7 +565,7 @@ Prof.
  Dr.
  rer.
  nat.
- Hermann Härtig
+ Hermann Härtig,
 \end_layout
 
 \end_inset
@@ -605,18 +609,33 @@ Fachreferent:
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Note Greyedout
-status open
+
+\lang ngerman
+Prof.
+ Dr.
+ Christof Fetzer,
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
 
 \begin_layout Plain Layout
 
 \lang ngerman
-fehlt
-\end_layout
-
-\end_inset
-
-
+Technische Universität Dresden
 \end_layout
 
 \end_inset
@@ -904,6 +923,12 @@ energy characteristics typically dictated and managed behind the scenes
 \end_layout
 
 \end_deeper
+\begin_layout Itemize
+some of these goals are at odds: speed vs.
+ energy, throughput vs.
+ responsiveness
+\end_layout
+
 \end_deeper
 \begin_layout Itemize
 large body of research in these individual topics is available
@@ -925,7 +950,7 @@ driving insights
 
 \begin_deeper
 \begin_layout Itemize
-applications are increasingly structured into job packets (see 
+applications are increasingly structured into work packets (see 
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "chap:Anatomy"
@@ -950,12 +975,12 @@ apply this idea to real-time, parallelism, energy and adaptivity
 
 \begin_deeper
 \begin_layout Itemize
-job packets help for parallelism
+work packets help for parallelism
 \end_layout
 
 \begin_layout Itemize
-deadlines can naturally be assigned to job packets, hints help training
- execution time prediction
+deadlines can naturally be assigned to groups of work packets, hints help
+ training execution time prediction
 \end_layout
 
 \begin_layout Itemize
@@ -988,6 +1013,10 @@ collaboration between system and application is beneficial
 \begin_layout Itemize
 table or summary figure with columns/swim lanes for topics and layers for
  levels
+\end_layout
+
+\begin_layout Itemize
+provide main thesis statement and clear-cut contributions
 \end_layout
 
 \end_deeper
@@ -1077,7 +1106,8 @@ focus on responsiveness, do long-running work asynchronously off the UI
 \end_layout
 
 \begin_layout Itemize
-we saw that when moving to multicores: threading is not concurrency
+threading is not concurrency (Jim Held, MARC symposium keynote), we saw
+ that when moving to multicores
 \end_layout
 
 \begin_layout Itemize
@@ -1090,18 +1120,34 @@ difficult code
 
 \end_deeper
 \begin_layout Itemize
-today: job packets
+today: work packets
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
 the UI thread (main thread) does no real work (see microkernel paradigm),
- it merely dispatches (spine-analogy)
+ it merely dispatches (spine-analogy) to keep things busy
+\end_layout
+
+\begin_layout Itemize
+analogy: packet-switching in the phone network, railway trains on a track
+ network
+\begin_inset CommandInset citation
+LatexCommand cite
+key "MacResearch:AboardGrandCentral"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Itemize
 lambdas/closures/blocks as useful abstraction for declaring a piece of work
  inline: code looks serial
+\end_layout
+
+\begin_layout Itemize
+set down the terminology here
 \end_layout
 
 \begin_layout Itemize
@@ -1121,7 +1167,7 @@ key "Sutter:C++AMP_Keynote"
 \end_layout
 
 \begin_layout Itemize
-work queues keep pending jobs, automatic thread assignment and pooling,
+work queues keep pending packets, automatic thread assignment and pooling,
  system-wide thread balancing
 \end_layout
 
@@ -1142,12 +1188,12 @@ limited view into the future as a common trait for modern applications
 \end_layout
 
 \begin_layout Itemize
-job packets (or groups of them) are natural receivers for metadata by the
+work packets (or groups of them) are natural receivers for metadata by the
  developer (deadlines) or automatically by the system (training)
 \end_layout
 
 \begin_layout Itemize
-this work: What kind of metadata can we use to what benefit?
+this thesis: What kind of metadata can we use to what benefit?
 \end_layout
 
 \end_deeper
@@ -1161,6 +1207,19 @@ good sample workload, because it covers many properties: real-time, compute
  intensive, subject to energy savings, potentially adaptive
 \end_layout
 
+\begin_layout Itemize
+other application to validate claims more comprehensively: simple game like
+ 
+\begin_inset Quotes eld
+\end_inset
+
+sheep
+\begin_inset Quotes erd
+\end_inset
+
+ combining interactivity and autonomous computation
+\end_layout
+
 \end_deeper
 \begin_layout Itemize
 increasing heterogeneity
@@ -1168,12 +1227,28 @@ increasing heterogeneity
 
 \begin_deeper
 \begin_layout Itemize
+only a limited teaser here, do not overload readers, but provide enough
+ segue for the later chapters to build upon
+\end_layout
+
+\begin_layout Itemize
 pieces of GPU code (and other ISAs with tighter assumptions and less ability)
  interwoven with CPU code
 \end_layout
 
 \begin_layout Itemize
-out of scope for this work, maybe except for hardware video decoders
+devices like GPU (and increasingly network cards
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Nightingale:Helios"
+
+\end_inset
+
+) treated as compute resources like CPU, not as a peripheral
+\end_layout
+
+\begin_layout Itemize
+mostly out of scope for this work, but will consider hardware video decoders
 \end_layout
 
 \end_deeper
@@ -1190,6 +1265,279 @@ name "chap:Real-Time"
 \end_inset
 
 Real Simple Real-Time
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Itemize
+many applications have intrinsic real-time characteristics
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+real-time naturally surfaces when computers interact with the real world,
+ in both input and output
+\end_layout
+
+\begin_layout Itemize
+deadlines for UI code driven by usability requirements: 10/100/1000
+\begin_inset space \thinspace{}
+\end_inset
+
+ms
+\end_layout
+
+\begin_layout Itemize
+obvious for animations, which become increasingly ubiquitous and which should
+ not stutter if they are supposed to help usability by supporting mental
+ transitions
+\end_layout
+
+\begin_layout Itemize
+even harder for touch-based interaction, where lag of UI breaks the user's
+ mental link of interacting with on-screen items directly
+\end_layout
+
+\begin_layout Itemize
+often buried within the application and not expressed
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+real-time programming models used to be hard
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+complicated contracts to express resource needs (examples needed)
+\end_layout
+
+\begin_layout Itemize
+admission: yet another error condition for the developer, how to communicate
+ refusal to the user?
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+things should be simplified to become widely accepted by developers
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+express requirements with deadlines only
+\end_layout
+
+\begin_layout Itemize
+this is an attribute within the application's problem domain
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+system cannot guess it
+\end_layout
+
+\begin_layout Itemize
+developers should be able to provide it
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+no complex contracts, no admission but deal with overload
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+deriving architecture from requirements
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+execution time is workload-dependent, deadlines are application-specific:
+ application-view needed
+\end_layout
+
+\begin_layout Itemize
+scheduling must distribute load (potentially) across all compute resources:
+ global view needed
+\end_layout
+
+\begin_layout Itemize
+application-level component and global scheduler must work together
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+clairvoyance
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+for autonomous computing tasks, applications already know what lies ahead
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+only code and data determine the upcoming computation, both are known ahead-of-t
+ime
+\end_layout
+
+\begin_layout Itemize
+counterexample: direct, low-latency reaction to user input
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+given the asynchronous execution model discussed above, this future execution
+ can be exposed as real-time jobs early
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+hints are needed to predict execution times
+\end_layout
+
+\begin_layout Itemize
+must stay within application domain
+\end_layout
+
+\begin_layout Itemize
+individual work packets may be too fine-grained
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+model jobs as groups of work packets
+\end_layout
+
+\begin_layout Itemize
+attach deadlines there
+\end_layout
+
+\begin_layout Itemize
+GCD supports those
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Itemize
+use this knowledge to provide insightful clairvoyance
+\end_layout
+
+\begin_layout Itemize
+previous work usually depends on black-box guessing and post-mortem control
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+state the key advancement here and forward-reference to the full related
+ work discussion
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Itemize
+end-to-end solution
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+workload: analyze dependency between data and execution time – execution
+ time metrics for video
+\begin_inset CommandInset citation
+LatexCommand cite
+key "roitzsch06:predict"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+application: derive execution time prediction from hints, attach deadlines
+ to jobs, propagate knowledge down to system level
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Krasic:CoopPoll"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+system: insert all jobs in an EDF run queue
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+explain online execution time training in detail
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+with evaluation
+\end_layout
+
+\begin_layout Itemize
+G-EDF is optimal for soft real-time
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Devi:GEDFTardiness"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+useful bounded tardiness characteristics: allows unrealistic deadlines,
+ like 0 for low latency 
+\begin_inset Quotes eld
+\end_inset
+
+right now
+\begin_inset Quotes erd
+\end_inset
+
+ work
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+however: unbounded deadline misses under overload
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+use infinite deadline for best effort background activity
+\end_layout
+
+\begin_layout Itemize
+break ties in round-robin fashion
+\end_layout
+
+\begin_layout Itemize
+G-EDF scales for today's core counts, in the future we may want to consider
+ clustered scheduling
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Calandrino:ClusteredEDF"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+discuss related work in detail
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Chapter
@@ -1212,6 +1560,10 @@ trend: context switching considered harmful
 
 \begin_deeper
 \begin_layout Itemize
+increase efficiency by avoiding mode switches
+\end_layout
+
+\begin_layout Itemize
 CPUs have always been a special case, many other resources cannot be preempted
 \end_layout
 
@@ -1228,11 +1580,91 @@ CPUs are going this way too, flushing cache, TLB, branch predictor, prefetcher
 HPC applications have always used batch-style operation
 \end_layout
 
+\end_deeper
 \begin_layout Itemize
-work queues that are drained asynchronously fit in here well 
+work queues that are drained asynchronously fit in here well
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+other than with threads, work queues just offer parallelism, dispatching
+ is separate, system can decide placement
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+careful: there is also user-level threading, but this again has the context-swit
+ch problem, just on another level
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+used within applications and also down to the kernel
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Soares:FlexSC"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+work queues also used to drive GPUs predictably
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Kato:Timegraph"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+combination of both the above: systems increasingly schedule in space instead
+ of time
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+specialize cores dynamically to execute kernel services
+\end_layout
+
+\begin_layout Itemize
+run parts of the system close or on the device they target
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Nightingale:Helios"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+real-time section covered time dimension, now look at space dimension
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+using asynchronous blocks for parallelism and deadlines and hints attached
+ to block groups for real-time, both are decoupled
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+end-to-end solution
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+workload: make amenable for data-parallel processing like intrinsic load-balanci
+ng
+\begin_inset CommandInset citation
+LatexCommand cite
+key "roitzsch07:balancing"
 
 \end_inset
 
@@ -1342,6 +1774,38 @@ key "Sutter:C++AMP_Keynote"
 )
 \end_layout
 
+\begin_layout Itemize
+special-purpose devices offer more choice for job placement and change energy
+ tradeoffs, but they do not eliminate the fundamental problem to get given
+ work done (meeting given deadlines) with as little resources (energy, time)
+ as possible
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+metadata to decide energy consequences can be collected per-job at runtime
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+energy counter in Intel Sandy Bridge CPUs
+\end_layout
+
+\begin_layout Itemize
+performance counter can help to tell memory- and CPU-bound jobs apart
+\end_layout
+
+\begin_layout Itemize
+clocking down the CPU especially helpful for memory-bound jobs
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Snowdon:Koala"
+
+\end_inset
+
+
+\end_layout
+
 \end_deeper
 \begin_layout Itemize
 some applications can adapt their energy or computation time needs
@@ -1408,7 +1872,7 @@ labelsep}{0mm}
 \begin_layout Standard
 \begin_inset CommandInset bibtex
 LatexCommand bibtex
-bibfiles "Bibliography/Master,Bibliography/Thesis"
+bibfiles "Bibliography/Thesis,Bibliography/Master"
 options "Bibliography/Thesis"
 
 \end_inset
