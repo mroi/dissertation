@@ -24,8 +24,9 @@
 \def\labelitemiv{\raisebox{0.3mm}{\scriptsize\(\bullet\)}}
 }
 
-% height-correction for dashes when typesetting in smallcaps
-%\renewcommand{\dashcorrect}[1]{\raisebox{-0.3mm}{#1}}
+% simplified title and author for fancy headers, height-correct the dash
+\renewcommand{\plaintitle}{Practical Real\raisebox{-0.45mm}{-}Time}
+\renewcommand{\plainauthor}{Michael Roitzsch}
 
 % enable colored page edge when a new chapter starts
 \newcommand{\chapteredge}{
@@ -156,23 +157,7 @@ xelatex
 \end_layout
 
 \begin_layout Itemize
-The vertical position of dashes is ugly when using small caps, like in the
- title in the fancy page headers.
- It would need to be adjusted down, but this would adversely effect the
- title page, where it needs to be adjusted up.
- I tried inserting a conditional 
-\family typewriter
-raisebox
-\family default
- or overwriting 
-\family typewriter
-MakeLowerCase
-\family default
- to automatically inject a 
-\family typewriter
-raisebox
-\family default
-, but everything failed so far.
+I might want to reset footnote numbers with each new chapter.
 \end_layout
 
 \end_inset
@@ -336,7 +321,20 @@ Michael Roitzsch – born August 15, 1980
 \end_layout
 
 \begin_layout Title
-Practical Real-Time:
+Practical Real
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+raisebox{0.8mm}{-}
+\end_layout
+
+\end_inset
+
+Time:
 \begin_inset Newline newline
 \end_inset
 
@@ -1011,6 +1009,10 @@ collaboration between system and application is beneficial
 \end_layout
 
 \begin_layout Itemize
+combine application-specific knowledge with general mechanism, not either-or
+\end_layout
+
+\begin_layout Itemize
 table or summary figure with columns/swim lanes for topics and layers for
  levels
 \end_layout
@@ -1184,7 +1186,8 @@ result of this architecture: most work is done asynchronously and is announced
 
 \begin_deeper
 \begin_layout Itemize
-limited view into the future as a common trait for modern applications
+limited view into the future as a common trait for modern applications (this
+ is a key point here)
 \end_layout
 
 \begin_layout Itemize
@@ -1222,7 +1225,7 @@ sheep
 
 \end_deeper
 \begin_layout Itemize
-increasing heterogeneity
+the future: increasing heterogeneity
 \end_layout
 
 \begin_deeper
@@ -1535,6 +1538,81 @@ key "Calandrino:ClusteredEDF"
 discuss related work in detail
 \end_layout
 
+\begin_deeper
+\begin_layout Itemize
+Redline
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Yang:Redline"
+
+\end_inset
+
+ 
+\begin_inset CommandInset href
+LatexCommand href
+name "Redline-Folien"
+target "http://os.inf.tu-dresden.de/local/dropscon/archive/2008-12-03-Michael-Redline.pdf"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+two-level scheduling
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Shin:Compositional"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+ARTIFACT
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Sasinowski:ARTIFACT"
+
+\end_inset
+
+: ubiquitous priorities, MPEG execution model hard, load-shedding (forward
+ reference to adaptivity)
+\end_layout
+
+\begin_layout Itemize
+Constant Bandwidth Server
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Abeni:CBS"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+also employs EDF as the fundamental scheduler
+\end_layout
+
+\begin_layout Itemize
+provides temporal isolation: protect hard real-time tasks from the messy
+ soft real-time tasks
+\end_layout
+
+\begin_layout Itemize
+does not target improving the soft-real time workload, thus somewhat orthogonal
+ to this work
+\end_layout
+
+\begin_layout Itemize
+could be used to provide isolated hard real-time load in our system
+\end_layout
+
+\end_deeper
+\end_deeper
 \end_inset
 
 
@@ -1580,6 +1658,34 @@ CPUs are going this way too, flushing cache, TLB, branch predictor, prefetcher
 HPC applications have always used batch-style operation
 \end_layout
 
+\begin_deeper
+\begin_layout Itemize
+no context switching 
+\begin_inset Quotes eld
+\end_inset
+
+in the small
+\begin_inset Quotes erd
+\end_inset
+
+ on one node, because it would throw off barrier-synced code that assumes
+ to run ganged
+\end_layout
+
+\begin_layout Itemize
+no context switching 
+\begin_inset Quotes eld
+\end_inset
+
+in the big
+\begin_inset Quotes erd
+\end_inset
+
+ on the entire machine, multiple jobs run concurrently by static assignment
+ of nodes
+\end_layout
+
+\end_deeper
 \end_deeper
 \begin_layout Itemize
 work queues that are drained asynchronously fit in here well
@@ -1628,6 +1734,35 @@ combination of both the above: systems increasingly schedule in space instead
 
 \begin_deeper
 \begin_layout Itemize
+Lampson predicted this
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lampson:HintsDesign"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset Quotes eld
+\end_inset
+
+split resources in a fixed way if in doubt, rather than sharing them
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+multiplex as long as hardware is expensive, statically assign once hardware
+ is cheap
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
 specialize cores dynamically to execute kernel services
 \end_layout
 
@@ -1642,6 +1777,11 @@ key "Nightingale:Helios"
 
 \end_layout
 
+\begin_layout Itemize
+process migration replaces context switching as the balancing/multiplexing
+ mechanism
+\end_layout
+
 \end_deeper
 \begin_layout Itemize
 real-time section covered time dimension, now look at space dimension
@@ -1651,6 +1791,16 @@ real-time section covered time dimension, now look at space dimension
 \begin_layout Itemize
 using asynchronous blocks for parallelism and deadlines and hints attached
  to block groups for real-time, both are decoupled
+\end_layout
+
+\begin_layout Itemize
+increasing message latency (relative to compute speed) between cores: placement
+ of work relevant
+\end_layout
+
+\begin_layout Itemize
+assume that work packets of the same job are more likely to talk to each
+ other, place closer together, more advanced: MOSIX
 \end_layout
 
 \end_deeper
@@ -1672,6 +1822,12 @@ key "roitzsch07:balancing"
 \end_layout
 
 \end_deeper
+\begin_layout Itemize
+example of a dynamic HPC load: particle system, work packets correspond
+ to patches of physical space, number of particles currently in the patch
+ determines amount of work
+\end_layout
+
 \end_inset
 
 
@@ -1828,6 +1984,40 @@ some trivial examples (disable backup on low battery) are rather obvious
 video can be one of them, if the bitstream allows it
 \end_layout
 
+\begin_layout Itemize
+load shedding is an old concept
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lampson:HintsDesign"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset Quotes eld
+\end_inset
+
+shed load to control demand, rather than allowing the system to become overloade
+d.
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Robert Morris idea: red button next to terminal, push when dissatisfied,
+ system must raise your QoS or throw you off
+\end_layout
+
+\begin_layout Itemize
+this old idea already argued for quality-aware adaptation, not just load-aware
+\end_layout
+
+\end_deeper
 \end_deeper
 \end_inset
 
