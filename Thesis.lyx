@@ -1144,12 +1144,28 @@ key "MacResearch:AboardGrandCentral"
 \end_layout
 
 \begin_layout Itemize
-lambdas/closures/blocks as useful abstraction for declaring a piece of work
- inline: code looks serial
+lambdas/closures/blocks/activities as useful abstraction for declaring a
+ piece of work inline: code looks serial
 \end_layout
 
 \begin_layout Itemize
-set down the terminology here
+set down the terminology here: 
+\begin_inset Quotes eld
+\end_inset
+
+work packets
+\begin_inset Quotes erd
+\end_inset
+
+ or just 
+\begin_inset Quotes eld
+\end_inset
+
+work
+\begin_inset Quotes erd
+\end_inset
+
+ to denote those items of code+state
 \end_layout
 
 \begin_layout Itemize
@@ -1168,6 +1184,28 @@ key "Sutter:C++AMP_Keynote"
 
 \end_layout
 
+\begin_layout Itemize
+work set model
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Kulkarni:Galois"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+executing some work packets can add new work packets to the set
+\end_layout
+
+\begin_layout Itemize
+useful to implement irregular algorithms (processing on graph-like data
+ structures with pointers, opposite: dense array)
+\end_layout
+
+\end_deeper
 \begin_layout Itemize
 work queues keep pending packets, automatic thread assignment and pooling,
  system-wide thread balancing
@@ -1547,10 +1585,14 @@ key "Yang:Redline"
 
 \end_inset
 
- 
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
 \begin_inset CommandInset href
 LatexCommand href
-name "Redline-Folien"
+name "Redline Slides"
 target "http://os.inf.tu-dresden.de/local/dropscon/archive/2008-12-03-Michael-Redline.pdf"
 
 \end_inset
@@ -1558,6 +1600,7 @@ target "http://os.inf.tu-dresden.de/local/dropscon/archive/2008-12-03-Michael-Re
 
 \end_layout
 
+\end_deeper
 \begin_layout Itemize
 two-level scheduling
 \begin_inset CommandInset citation
@@ -1577,10 +1620,16 @@ key "Sasinowski:ARTIFACT"
 
 \end_inset
 
-: ubiquitous priorities, MPEG execution model hard, load-shedding (forward
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+ubiquitous priorities, MPEG execution model hard, load-shedding (forward
  reference to adaptivity)
 \end_layout
 
+\end_deeper
 \begin_layout Itemize
 Constant Bandwidth Server
 \begin_inset CommandInset citation
@@ -1600,6 +1649,10 @@ also employs EDF as the fundamental scheduler
 \begin_layout Itemize
 provides temporal isolation: protect hard real-time tasks from the messy
  soft real-time tasks
+\end_layout
+
+\begin_layout Itemize
+server manages the deadlines (assignment, postponing), not the application
 \end_layout
 
 \begin_layout Itemize
@@ -1778,8 +1831,7 @@ key "Nightingale:Helios"
 \end_layout
 
 \begin_layout Itemize
-process migration replaces context switching as the balancing/multiplexing
- mechanism
+placement and migration replace context switching as the scheduling mechanism
 \end_layout
 
 \end_deeper
@@ -1828,6 +1880,36 @@ example of a dynamic HPC load: particle system, work packets correspond
  determines amount of work
 \end_layout
 
+\begin_layout Itemize
+discuss related work in detail
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+the execution order of work packets within a job is relevant for speed and
+ cache working set size
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Chen:ConstructiveCacheSharing"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+use a lightweight specification language to describe beneficial scheduling
+ policies
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Nguyen:ConcurrentSchedulers"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
 \end_inset
 
 
