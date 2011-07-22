@@ -417,7 +417,7 @@ FUNCTION {format.names.ed}
 }
 FUNCTION {format.key}
 { empty$
-    { key field.or.null }
+    { "" }
     { "" }
   if$
 }
