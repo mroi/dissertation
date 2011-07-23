@@ -1144,8 +1144,8 @@ key "MacResearch:AboardGrandCentral"
 \end_layout
 
 \begin_layout Itemize
-lambdas/closures/blocks/activities as useful abstraction for declaring a
- piece of work inline: code looks serial
+lambdas/closures/blocks/tasks/activities as useful abstraction for declaring
+ a piece of work inline: code looks serial, logical locality
 \end_layout
 
 \begin_layout Itemize
@@ -1173,11 +1173,17 @@ Microsoft:
 \begin_inset Formula $\lambda$
 \end_inset
 
--functions turn out to be the holy-grail feature for developing the parallel
- patters library as a library 
+-functions turn out to be the holy-grail feature
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Sutter:C++AMP_Keynote"
+
+\end_inset
+
+ for developing the parallel patterns library as a library
+\begin_inset CommandInset citation
+LatexCommand cite
+key "MSDN:C++PPL"
 
 \end_inset
 
@@ -1215,6 +1221,29 @@ work queues keep pending packets, automatic thread assignment and pooling,
 goal: have the number of active threads match the number of (logical) cores
 \end_layout
 
+\begin_layout Itemize
+on a similar way, but not quite there
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+cross-thread signal-slot-connections in Qt
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Qt:SignalsSlotsThreads"
+
+\end_inset
+
+: asynchronous method calls, no automatic thread management, no automatic
+ state-capturing
+\end_layout
+
+\begin_layout Itemize
+Go-routines in Google Go: asynchronous method calls, automatic thread management
+, no automatic state-capturing
+\end_layout
+
+\end_deeper
 \end_deeper
 \end_deeper
 \begin_layout Itemize
@@ -1249,16 +1278,7 @@ good sample workload, because it covers many properties: real-time, compute
 \end_layout
 
 \begin_layout Itemize
-other application to validate claims more comprehensively: simple game like
- 
-\begin_inset Quotes eld
-\end_inset
-
-sheep
-\begin_inset Quotes erd
-\end_inset
-
- combining interactivity and autonomous computation
+other application to validate claims more comprehensively
 \end_layout
 
 \end_deeper
@@ -1695,13 +1715,29 @@ increase efficiency by avoiding mode switches
 \end_layout
 
 \begin_layout Itemize
-CPUs have always been a special case, many other resources cannot be preempted
+we used to shred everything to little pieces, stir, and then execute; this
+ is no longer a practical approach for
+\end_layout
+
+\begin_layout Itemize
+CPUs have always been a special case, because lots of independent work needed
+ to be multiplexed in quasi-parallel fashion
+\end_layout
+
+\begin_layout Itemize
+many other resources cannot be preempted
 \end_layout
 
 \begin_layout Itemize
 especially with GPUs: way too much state to save and restore
 \end_layout
 
+\begin_deeper
+\begin_layout Itemize
+careful: GPUs get preempt-and-resume functionality, but is it efficient?
+\end_layout
+
+\end_deeper
 \begin_layout Itemize
 CPUs are going this way too, flushing cache, TLB, branch predictor, prefetcher
  becomes prohibitively expensive
@@ -1746,6 +1782,11 @@ work queues that are drained asynchronously fit in here well
 
 \begin_deeper
 \begin_layout Itemize
+main benefit of queues/bags of work: no forced control-flow transfer, work
+ is executed at the target’s discretion
+\end_layout
+
+\begin_layout Itemize
 other than with threads, work queues just offer parallelism, dispatching
  is separate, system can decide placement
 \end_layout
@@ -1769,6 +1810,15 @@ key "Soares:FlexSC"
 \end_layout
 
 \begin_layout Itemize
+DSI on L4 provides asynchronous data movement between different address
+ spaces
+\end_layout
+
+\begin_layout Itemize
+many throughput-oriented drivers (network cards) work this way, too
+\end_layout
+
+\begin_layout Itemize
 work queues also used to drive GPUs predictably
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -1786,6 +1836,14 @@ combination of both the above: systems increasingly schedule in space instead
 \end_layout
 
 \begin_deeper
+\begin_layout Itemize
+placement and migration replace context switching as the scheduling mechanism
+\end_layout
+
+\begin_layout Itemize
+scheduling is now placement + order: two dimensions
+\end_layout
+
 \begin_layout Itemize
 Lampson predicted this
 \begin_inset CommandInset citation
@@ -1828,10 +1886,6 @@ key "Nightingale:Helios"
 \end_inset
 
 
-\end_layout
-
-\begin_layout Itemize
-placement and migration replace context switching as the scheduling mechanism
 \end_layout
 
 \end_deeper
