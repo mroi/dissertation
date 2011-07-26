@@ -566,11 +566,7 @@ FUNCTION {format.date}
   ", " swap$ *
 }
 FUNCTION {format.btitle}
-{ title "title" bibinfo.check
-  duplicate$ empty$ 'skip$
-    {
-    }
-  if$
+{ format.title
 }
 FUNCTION {either.or.check}
 { empty$
