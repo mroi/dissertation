@@ -55,6 +55,44 @@
 	note = {from \href{http://msdn.microsoft.com/}{\tt msdn.microsoft.com} as of July 2011}
 }
 
+@article{Wentzlaff:fos,
+	author = {David Wentzlaff and Anant Agarwal},
+	title = {Factored Operating Systems (fos): The Case for a Scalable Operating System for Multicores},
+	journal = {SIGOPS Operating Systems Review},
+	volume = {43},
+	issue = {2},
+	month = {April},
+	year = {2009},
+	issn = {0163-5980},
+	pages = {76--85},
+	numpages = {10},
+	url = {http://groups.csail.mit.edu/carbon/docs/Wentzlaff.2009.OSR.fos.pdf},
+	doi = {http://doi.acm.org/10.1145/1531793.1531805},
+	acmid = {1531805},
+	publisher = {ACM},
+	address = {New York, NY, USA},
+	keywords = {factored operating system, multicore operating systems}
+}
+
+@article{West:CacheUtility,
+	author = {Richard West and Puneet Zaroo and Carl A. Waldspurger and Xiao Zhang},
+	title = {Online Cache Modeling for Commodity Multicore Processors},
+	journal = {SIGOPS Operating Systems Review},
+	volume = {44},
+	issue = {4},
+	month = {December},
+	year = {2010},
+	issn = {0163-5980},
+	pages = {19--29},
+	numpages = {11},
+	url = {http://www.vmware.com/files/pdf/partners/academic/vmware-TR-2010-002-wp-en.pdf},
+	doi = {http://doi.acm.org/10.1145/1899928.1899931},
+	acmid = {1899931},
+	publisher = {ACM},
+	address = {New York, NY, USA},
+	keywords = {CMPs, multicore processors, shared cache resource management}
+}
+
 @conference{LeSueur:SlowDownSleep,
 	author = {Etienne Le Sueur and Gernot Heiser},
 	title = {Slow Down or Sleep, that is the Question},
@@ -64,7 +102,7 @@
 	year = {2011},
 	month = {June},
 	isbn = {978-931971-85-0},
-	organization = {USENIX Association},
+	organization = {USENIX},
 	pages = {217--222},
 	numpages = {6},
 	url = {http://www.usenix.org/events/atc11/tech/final_files/LeSueur.pdf}
@@ -95,8 +133,59 @@
 	url = {http://retis.sssup.it/~giorgio/paps/1998/rtss98-cbs.pdf},
 	doi = {http://dx.doi.org/10.1109/REAL.1998.739726},
 	acmid = {829047},
-	publisher = {IEEE Computer Society},
+	publisher = {IEEE},
 	address = {Washington, DC, USA}
+}
+
+@inproceedings{Arnold:TaskC,
+	author = {Oliver Arnold and Gerhard Fettweis},
+	booktitle = {Proceedings of the 2010 International Conference on Embedded Computer Systems},
+	title = {Power Aware Heterogeneous MPSoC with Dynamic Task Scheduling and Increased Data Locality for Multiple Applications},
+	series = {SAMOS},
+	year = {2010},
+	month = {July},
+	isbn = {978-1-4244-7936-8},
+	location = {Samos, Greece},
+	pages = {110--117},
+	numpages = {8},
+	url = {http://mns.ifn.et.tu-dresden.de/Lists/nPublications/Attachments/639/Arnold_O_SAMOS_10.pdf},
+	doi = {http://dx.doi.org/10.1109/ICSAMOS.2010.5642075},
+	publisher = {IEEE}
+}
+
+@inproceedings{Baumann:Barrelfish,
+	author = {Andrew Baumann and Paul Barham and Pierre-Evariste Dagand and Tim Harris and Rebecca Isaacs and Simon Peter and Timothy Roscoe and Adrian Sch\"upbach and Akhilesh Singhania},
+	title = {The Multikernel: A new OS architecture for scalable multicore systems},
+	booktitle = {Proceedings of the 22nd ACM Symposium on Operating Systems Principles},
+	series = {SOSP},
+	month = {October},
+	year = {2009},
+	isbn = {978-1-60558-752-3},
+	location = {Big Sky, Montana, USA},
+	pages = {29--44},
+	numpages = {16},
+	url = {http://www.sigops.org/sosp/sosp09/papers/baumann-sosp09.pdf},
+	doi = {http://doi.acm.org/10.1145/1629575.1629579},
+	acmid = {1629579},
+	publisher = {ACM},
+	address = {New York, NY, USA},
+	keywords = {message passing, multicore processors, scalability}
+}
+
+@inproceedings{Blagodurov:DINO,
+	author = {Sergey Blagodurov and Sergey Zhuravlev and Mohammad Dashti and Alexandra Fedorova},
+	title = {A Case for NUMA-aware Contention Management on Multicore Systems},
+	booktitle = {Proceedings of the 2011 USENIX Annual Technical Conference},
+	series = {USENIX ATC},
+	isbn = {978-931971-85-0},
+	organization = {USENIX},
+	pages = {1--16},
+	numpages = {15},
+	year = {2011},
+	month = {June},
+	location = {Portland, OR, USA},
+	url = {http://www.usenix.org/events/atc11/tech/final_files/Blagodurov.pdf},
+	keywords = {NUMA systems, multicore processors, scheduling, shared resource contention}
 }
 
 @inproceedings{Chen:ConstructiveCacheSharing,
@@ -130,7 +219,7 @@
 	pages = {247--258},
 	numpages = {12},
 	url = {http://cs.unc.edu/~anderson/papers/ecrts07c.pdf},
-	doi = {10.1109/ECRTS.2007.81},
+	doi = {http://dx.doi.org/10.1109/ECRTS.2007.81},
 	acmid = {1270695},
 	publisher = {IEEE},
 	address = {Washington, DC, USA}
@@ -160,7 +249,7 @@
 	booktitle = {Proceedings of the 2011 USENIX Annual Technical Conference},
 	series = {USENIX ATC},
 	isbn = {978-931971-85-0},
-	organization = {USENIX Association},
+	organization = {USENIX},
 	pages = {17--30},
 	numpages = {14},
 	year = {2011},
@@ -279,6 +368,25 @@
 	keywords = {H.264, multicore, scalability, slices, video encoding}
 }
 
+@inproceedings{Sanchez:ADM,
+	author = {Daniel Sanchez and Richard M. Yoo and Christos Kozyrakis},
+	title = {Flexible Architectural Support for Fine-Grain Scheduling},
+	booktitle = {Proceedings of the 15th International Conference on Architectural Support for Programming Languages and Operating Systems},
+	series = {ASPLOS},
+	year = {2010},
+	month = {March},
+	isbn = {978-1-60558-839-1},
+	location = {Pittsburgh, PA, USA},
+	pages = {311--322},
+	numpages = {12},
+	url = {http://csl.stanford.edu/~christos/publications/2010.adm.asplos.pdf},
+	doi = {http://doi.acm.org/10.1145/1736020.1736055},
+	acmid = {1736055},
+	publisher = {ACM},
+	address = {New York, NY, USA},
+	keywords = {chip-multiprocessors, fine-grain scheduling, many-core, messaging, scheduling, work-stealing}
+}
+
 @inproceedings{Sasinowski:ARTIFACT,
 	author = {John E. Sasinowski and Jay K. Strosnider},
 	title = {ARTIFACT: A Platform for Evaluating Real-Time Window System Designs},
@@ -336,7 +444,7 @@
 	booktitle = {Proceedings of the 9th USENIX Symposium on Operating Systems Design and Implementation},
 	series = {OSDI},
 	location = {Vancouver, BC, Canada},
-	organization = {USENIX Association},
+	organization = {USENIX},
 	pages = {33--46},
 	numpages = {14},
 	year = {2010},
@@ -350,12 +458,41 @@
 	booktitle = {Proceedings of the 8th USENIX Symposium on Operating Systems Design and Implementation},
 	series = {OSDI},
 	location = {San Diego, CA, USA},
-	organization = {USENIX Association},
+	organization = {USENIX},
 	pages = {73--86},
 	numpages = {14},
 	year = {2008},
 	month = {December},
 	url = {http://www.usenix.org/events/osdi08/tech/full_papers/yang/yang.pdf}
+}
+
+@inproceedings{Zhuravlev:DIO,
+	author = {Sergey Zhuravlev and Sergey Blagodurov and Alexandra Fedorova},
+	title = {Addressing Shared Resource Contention in Multicore Processors via Scheduling},
+	booktitle = {Proceedings of the 15th International Conference on Architectural Support for Programming Languages and Operating Systems},
+	series = {ASPLOS},
+	year = {2010},
+	month = {March},
+	location = {Pittsburgh, PA, USA},
+	isbn = {978-1-60558-839-1},
+	pages = {129--142},
+	numpages = {14},
+	url = {http://www.cs.sfu.ca/~fedorova/papers/asplos212-zhuravlev.pdf},
+	doi = {http://doi.acm.org/10.1145/1736020.1736036},
+	acmid = {1736036},
+	publisher = {ACM},
+	address = {New York, NY, USA},
+	keywords = {multicore processors, scheduling, shared resource contention}
+}
+
+@manual{AMD_ASF_Spec,
+	title = {Advanced Synchronization Facility: Proposed Architectural Specification},
+	year = {2009},
+	month = {March},
+	organization = {Advanced Micro Devices},
+	edition = {2.1},
+	url = {http://developer.amd.com/assets/45432-ASF_Spec_2.1.pdf},
+	key = {zzz Advanced Synchronization Facility}
 }
 
 @misc{Sutter:C++AMP_Keynote,

@@ -1132,58 +1132,15 @@ the UI thread (main thread) does no real work (see microkernel paradigm),
 \end_layout
 
 \begin_layout Itemize
+similar to networks moving from switched circuits to packet routing
+\end_layout
+
+\begin_layout Itemize
 analogy: packet-switching in the phone network, railway trains on a track
  network
 \begin_inset CommandInset citation
 LatexCommand cite
 key "MacResearch:AboardGrandCentral"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-lambdas/closures/blocks/tasks/activities as useful abstraction for declaring
- a piece of work inline: code looks serial, logical locality
-\end_layout
-
-\begin_layout Itemize
-set down the terminology here: 
-\begin_inset Quotes eld
-\end_inset
-
-work packets
-\begin_inset Quotes erd
-\end_inset
-
- or just 
-\begin_inset Quotes eld
-\end_inset
-
-work
-\begin_inset Quotes erd
-\end_inset
-
- to denote those items of code+state
-\end_layout
-
-\begin_layout Itemize
-Microsoft: 
-\begin_inset Formula $\lambda$
-\end_inset
-
--functions turn out to be the holy-grail feature
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Sutter:C++AMP_Keynote"
-
-\end_inset
-
- for developing the parallel patterns library as a library
-\begin_inset CommandInset citation
-LatexCommand cite
-key "MSDN:C++PPL"
 
 \end_inset
 
@@ -1213,19 +1170,92 @@ useful to implement irregular algorithms (processing on graph-like data
 
 \end_deeper
 \begin_layout Itemize
-work queues keep pending packets, automatic thread assignment and pooling,
- system-wide thread balancing
+set down the terminology here: 
+\begin_inset Quotes eld
+\end_inset
+
+work packets
+\begin_inset Quotes erd
+\end_inset
+
+ or just 
+\begin_inset Quotes eld
+\end_inset
+
+work
+\begin_inset Quotes erd
+\end_inset
+
+ to denote those items of code+state
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Itemize
+implementations of work packet programming
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+lambdas/closures/blocks/tasks/activities as useful abstraction for declaring
+ a piece of work inline: code looks serial, logical locality
+\end_layout
+
+\begin_layout Itemize
+Microsoft: 
+\begin_inset Formula $\lambda$
+\end_inset
+
+-functions turn out to be the holy-grail feature
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Sutter:C++AMP_Keynote"
+
+\end_inset
+
+ for developing the parallel patterns library as a library
+\end_layout
+
+\begin_layout Itemize
+four aspects: logical locality, automatic state capture, asynchronous invocation
+, automatic thread management
+\end_layout
+
+\begin_layout Itemize
+closures solve the first two, work queues the other two
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+keep pending packets, automatic thread assignment and pooling, system-wide
+ thread balancing
+\end_layout
+
+\begin_layout Itemize
+thread count becomes controllable
 \end_layout
 
 \begin_layout Itemize
 goal: have the number of active threads match the number of (logical) cores
 \end_layout
 
+\end_deeper
 \begin_layout Itemize
-on a similar way, but not quite there
+do a table with checkmarks comparing different implementations of the paradigm
 \end_layout
 
 \begin_deeper
+\begin_layout Itemize
+Apple GCD, Microsoft PPL
+\begin_inset CommandInset citation
+LatexCommand cite
+key "MSDN:C++PPL"
+
+\end_inset
+
+: all four
+\end_layout
+
 \begin_layout Itemize
 cross-thread signal-slot-connections in Qt
 \begin_inset CommandInset citation
@@ -1243,7 +1273,24 @@ Go-routines in Google Go: asynchronous method calls, automatic thread management
 , no automatic state-capturing
 \end_layout
 
-\end_deeper
+\begin_layout Itemize
+TaskC model for Core Manager
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Arnold:TaskC"
+
+\end_inset
+
+: asynchronous task spawning but not nested, automatic placement decision,
+ manual statue capture because its not shared memory
+\end_layout
+
+\begin_layout Itemize
+OpenMP for regular algorithms like iterating over dense arrays, mostly paralleli
+zing loops: automatic thread assignment, guided self-scheduling to reduce
+ dispatching overhead, synchronous
+\end_layout
+
 \end_deeper
 \end_deeper
 \begin_layout Itemize
@@ -1325,7 +1372,20 @@ name "chap:Real-Time"
 
 \end_inset
 
-Real Simple Real-Time
+Real Simple Real
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+raisebox{-0.45mm}{-}
+\end_layout
+
+\end_inset
+
+Time
 \end_layout
 
 \begin_layout Standard
@@ -1340,6 +1400,10 @@ many applications have intrinsic real-time characteristics
 \begin_layout Itemize
 real-time naturally surfaces when computers interact with the real world,
  in both input and output
+\end_layout
+
+\begin_layout Itemize
+all desktops do that, yet almost no desktop software uses real-time programming
 \end_layout
 
 \begin_layout Itemize
@@ -1363,6 +1427,11 @@ even harder for touch-based interaction, where lag of UI breaks the user's
 
 \begin_layout Itemize
 often buried within the application and not expressed
+\end_layout
+
+\begin_layout Itemize
+real-time used to be a rare special case, but it should become default;
+ this work tries to pave the way
 \end_layout
 
 \end_deeper
@@ -1516,15 +1585,9 @@ key "roitzsch06:predict"
 \end_layout
 
 \begin_layout Itemize
-application: derive execution time prediction from hints, attach deadlines
- to jobs, propagate knowledge down to system level
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Krasic:CoopPoll"
-
-\end_inset
-
-
+application: offer look into the future, derive execution time prediction
+ from hints, attach deadlines to jobs, propagate knowledge down to system
+ level
 \end_layout
 
 \begin_layout Itemize
@@ -1622,6 +1685,27 @@ target "http://os.inf.tu-dresden.de/local/dropscon/archive/2008-12-03-Michael-Re
 
 \end_deeper
 \begin_layout Itemize
+coop_poll
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Krasic:CoopPoll"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+also uses application insight, no black-box approach
+\end_layout
+
+\begin_layout Itemize
+propagates application's task descriptions down to the kernel
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
 two-level scheduling
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -1685,6 +1769,17 @@ could be used to provide isolated hard real-time load in our system
 \end_layout
 
 \end_deeper
+\begin_layout Itemize
+reservation-based approaches
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+gratuitously applying control theory might cover up the real interactions
+ of components and tries to recreate them in another layer
+\end_layout
+
+\end_deeper
 \end_deeper
 \end_inset
 
@@ -1715,34 +1810,57 @@ increase efficiency by avoiding mode switches
 \end_layout
 
 \begin_layout Itemize
-we used to shred everything to little pieces, stir, and then execute; this
- is no longer a practical approach for
+we used to shred everything to little pieces, stir, and then execute
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+this used to be practical when many threads needed to be multiplexed in
+ quasi-parallel fashion on one CPU
 \end_layout
 
 \begin_layout Itemize
-CPUs have always been a special case, because lots of independent work needed
- to be multiplexed in quasi-parallel fashion
+with the number of cores approaching the number of read threads, this approach
+ gets impractical
 \end_layout
 
+\end_deeper
 \begin_layout Itemize
 many other resources cannot be preempted
 \end_layout
 
+\begin_deeper
 \begin_layout Itemize
 especially with GPUs: way too much state to save and restore
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
 careful: GPUs get preempt-and-resume functionality, but is it efficient?
 \end_layout
 
 \end_deeper
 \begin_layout Itemize
-CPUs are going this way too, flushing cache, TLB, branch predictor, prefetcher
- becomes prohibitively expensive
+CPUs are going this way too
 \end_layout
 
+\begin_deeper
+\begin_layout Itemize
+flushing cache, TLB, branch predictor, prefetcher becomes prohibitively
+ expensive
+\end_layout
+
+\begin_layout Itemize
+hardware transactional memory aborts on context switch
+\begin_inset CommandInset citation
+LatexCommand cite
+key "AMD_ASF_Spec"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
 \begin_layout Itemize
 HPC applications have always used batch-style operation
 \end_layout
@@ -1774,6 +1892,17 @@ in the big
  of nodes
 \end_layout
 
+\begin_layout Itemize
+HPC often uses static placement that is decided offline, but dynamic HPC
+ workloads exist that need dynamic decision-making
+\end_layout
+
+\begin_layout Itemize
+example: particle system, work packets correspond to patches of physical
+ space, number of particles currently in the patch determines amount of
+ work
+\end_layout
+
 \end_deeper
 \end_deeper
 \begin_layout Itemize
@@ -1793,13 +1922,18 @@ other than with threads, work queues just offer parallelism, dispatching
 
 \begin_deeper
 \begin_layout Itemize
+number of threads becomes controllable instead of being fixed in the application
+ code
+\end_layout
+
+\begin_layout Itemize
 careful: there is also user-level threading, but this again has the context-swit
 ch problem, just on another level
 \end_layout
 
 \end_deeper
 \begin_layout Itemize
-used within applications and also down to the kernel
+work queues used within applications and also down to the kernel
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Soares:FlexSC"
@@ -1809,6 +1943,7 @@ key "Soares:FlexSC"
 
 \end_layout
 
+\begin_deeper
 \begin_layout Itemize
 DSI on L4 provides asynchronous data movement between different address
  spaces
@@ -1829,6 +1964,7 @@ key "Kato:Timegraph"
 
 \end_layout
 
+\end_deeper
 \end_deeper
 \begin_layout Itemize
 combination of both the above: systems increasingly schedule in space instead
@@ -1877,17 +2013,6 @@ multiplex as long as hardware is expensive, statically assign once hardware
 specialize cores dynamically to execute kernel services
 \end_layout
 
-\begin_layout Itemize
-run parts of the system close or on the device they target
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Nightingale:Helios"
-
-\end_inset
-
-
-\end_layout
-
 \end_deeper
 \begin_layout Itemize
 real-time section covered time dimension, now look at space dimension
@@ -1900,13 +2025,15 @@ using asynchronous blocks for parallelism and deadlines and hints attached
 \end_layout
 
 \begin_layout Itemize
-increasing message latency (relative to compute speed) between cores: placement
- of work relevant
+execution time estimates give us the total execution time, but when spread
+ across cores, it might take less wall-clock time
 \end_layout
 
 \begin_layout Itemize
-assume that work packets of the same job are more likely to talk to each
- other, place closer together, more advanced: MOSIX
+how much less (i.e.
+ the parallel efficiency) and how much parallelism can be offered (i.e.
+ the parallel degree) should be provided by the application or observed
+ by the runtime
 \end_layout
 
 \end_deeper
@@ -1927,18 +2054,134 @@ key "roitzsch07:balancing"
 
 \end_layout
 
-\end_deeper
 \begin_layout Itemize
-example of a dynamic HPC load: particle system, work packets correspond
- to patches of physical space, number of particles currently in the patch
- determines amount of work
+application: offer parallelism to the system, provide estimates on parallel
+ degree and efficiency
 \end_layout
 
+\begin_layout Itemize
+system: place jobs on cores and order in time based on deadlines, execution
+ time estimates and parallelism
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+describe parallel workload and placement algorithm in detail
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+video parallelization techniques (slice, macroblock-wave)
+\end_layout
+
+\begin_layout Itemize
+system communicates consequences of placement decision back to the application
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+number of threads to be used by GCD runtime
+\end_layout
+
+\begin_layout Itemize
+avoid context-switch, so no upcall interface, but info-page-style shared
+ memory
+\end_layout
+
+\end_deeper
+\end_deeper
 \begin_layout Itemize
 discuss related work in detail
 \end_layout
 
 \begin_deeper
+\begin_layout Itemize
+schedule in space instead of in time
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+OS design for systems with 1000+ cores focus on space sharing instead of
+ time sharing
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Wentzlaff:fos"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+even stronger separation between cores: explicit communication instead of
+ cache coherent shared memory
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Baumann:Barrelfish"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+run parts of the system close or on the device they target
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Nightingale:Helios"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+placement of jobs on cores influences contention on caches, prefetcher and
+ DRAM controller
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Zhuravlev:DIO"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+on NUMA-systems, placement influences memory latency
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Blagodurov:DINO"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+developed placement strategies can augment our placement algorithm
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+fits well with our programming model of applications exposing metadata on
+ parallel work
+\end_layout
+
+\begin_layout Itemize
+performance counters often used for runtime monitoring, like online cache
+ utility modeling
+\begin_inset CommandInset citation
+LatexCommand cite
+key "West:CacheUtility"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
 \begin_layout Itemize
 the execution order of work packets within a job is relevant for speed and
  cache working set size
@@ -1951,6 +2194,7 @@ key "Chen:ConstructiveCacheSharing"
 
 \end_layout
 
+\begin_deeper
 \begin_layout Itemize
 use a lightweight specification language to describe beneficial scheduling
  policies
@@ -1963,6 +2207,64 @@ key "Nguyen:ConcurrentSchedulers"
 
 \end_layout
 
+\end_deeper
+\begin_layout Itemize
+hardware extensions supporting work queues and reduced context switching
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Asynchronous Direct Messages
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Sanchez:ADM"
+
+\end_inset
+
+ allow very fine-grained work packets
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+allows exposing more parallelism
+\end_layout
+
+\begin_layout Itemize
+scalable because of local queues and work stealing that bypasses the memory
+ hierarchy
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Core Manager distributes work and its data to processing elements
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+holistic approach for distributed systems: MOSIX
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+load balancing on networks of computers, predicts future problems within
+ manycores
+\end_layout
+
+\begin_layout Itemize
+increasing message latency between cores relative to compute speed: placement
+ of work and communication patterns relevant
+\end_layout
+
+\begin_layout Itemize
+employs gossiping to establish global system view without a central authority
+\end_layout
+
+\begin_layout Itemize
+ad-hoc solution for my approach: assume that work packets of the same job
+ are more likely to talk to each other, place closer together
+\end_layout
+
+\end_deeper
 \end_deeper
 \end_inset
 
