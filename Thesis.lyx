@@ -920,6 +920,11 @@ energy characteristics typically dictated and managed behind the scenes
  by hardware
 \end_layout
 
+\begin_layout Itemize
+also: reliable operation facing unreliable hardware, but this is a non-goal
+ for me
+\end_layout
+
 \end_deeper
 \begin_layout Itemize
 some of these goals are at odds: speed vs.
@@ -1771,9 +1776,74 @@ could be used to provide isolated hard real-time load in our system
 \end_deeper
 \begin_layout Itemize
 reservation-based approaches
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Abeni:AdaptiveReservations"
+
+\end_inset
+
+
 \end_layout
 
 \begin_deeper
+\begin_layout Itemize
+similarities: no worst-case planning, because it is wasteful; no focus on
+ preventing every single deadline violation
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+overload handling instead of admission
+\end_layout
+
+\begin_layout Itemize
+two layer approach: dedicated controller per task like HDE
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+different world view: illusion of a dedicated slower processor
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+fluid flow allocation contradicts the work packet style, more amenable to
+ threads
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+dynamic bandwidth adaptation to workflow as an afterthought
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+black-box control vs.
+ insightful cooperation using hints
+\end_layout
+
+\begin_layout Itemize
+my predictor can be used in a reservation-based system
+\end_layout
+
+\begin_layout Itemize
+still: post-mortem adaptation vs.
+ clairvoyance
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+finishing work until the deadline matters, abstracting from the application's
+ work pattern using reservations makes this harder to accomplish and requires
+ more complexity in control layer
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+slack reclaiming added
+\end_layout
+
+\end_deeper
 \begin_layout Itemize
 gratuitously applying control theory might cover up the real interactions
  of components and tries to recreate them in another layer
@@ -1944,6 +2014,18 @@ key "Soares:FlexSC"
 \end_layout
 
 \begin_deeper
+\begin_layout Itemize
+notifications from kernel to user space could work asynchronously, but don't
+ as far as I know, closest: kqueue
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lemon:Kqueue"
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Itemize
 DSI on L4 provides asynchronous data movement between different address
  spaces
@@ -2214,6 +2296,28 @@ hardware extensions supporting work queues and reduced context switching
 
 \begin_deeper
 \begin_layout Itemize
+NVIDIA Fermi uses GigaThread hardware to decide placement
+\begin_inset CommandInset citation
+LatexCommand cite
+key "NVIDIA_Fermi"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Core Manager distributes work and its data to processing elements
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Limberg:Tomahawk"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
 Asynchronous Direct Messages
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -2226,7 +2330,11 @@ key "Sanchez:ADM"
 
 \begin_deeper
 \begin_layout Itemize
-allows exposing more parallelism
+more flexible: small hardware extension to be used by work queue implementation
+\end_layout
+
+\begin_layout Itemize
+allows exposing more parallelism by splitting into smaller work packets
 \end_layout
 
 \begin_layout Itemize
@@ -2235,10 +2343,6 @@ scalable because of local queues and work stealing that bypasses the memory
 \end_layout
 
 \end_deeper
-\begin_layout Itemize
-Core Manager distributes work and its data to processing elements
-\end_layout
-
 \end_deeper
 \begin_layout Itemize
 holistic approach for distributed systems: MOSIX
