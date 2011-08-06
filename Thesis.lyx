@@ -1841,6 +1841,13 @@ finishing work until the deadline matters, abstracting from the application's
 \begin_deeper
 \begin_layout Itemize
 slack reclaiming added
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Palopoli:FeedbackReclaiming"
+
+\end_inset
+
+
 \end_layout
 
 \end_deeper
@@ -2386,7 +2393,7 @@ Adapting and Saving Energy
 \begin_inset Note Note
 status open
 
-\begin_layout Plain Layout
+\begin_layout Itemize
 with a different title, this chapter can (and should?) double as the conclusion,
  maybe use the 
 \begin_inset Quotes eld
@@ -2399,6 +2406,10 @@ handling over-/underload
  aspect
 \end_layout
 
+\begin_layout Itemize
+check how Tufte deals with conclusions
+\end_layout
+
 \end_inset
 
 
@@ -2409,6 +2420,58 @@ handling over-/underload
 status open
 
 \begin_layout Itemize
+backpressure on overload
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+our 
+\begin_inset Quotes eld
+\end_inset
+
+no admission
+\begin_inset Quotes erd
+\end_inset
+
+ policy requires us to deal with overloads when the work does not fit within
+ the deadlines
+\end_layout
+
+\begin_layout Itemize
+load shedding is an old concept
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lampson:HintsDesign"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset Quotes eld
+\end_inset
+
+shed load to control demand, rather than allowing the system to become overloade
+d.
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Robert Morris idea: red button next to terminal, push when dissatisfied,
+ system must raise your QoS or throw you off
+\end_layout
+
+\begin_layout Itemize
+this old idea already argued for quality-aware adaptation, not just load-aware
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
 some work just needs to be done, no discussion, no adaptation possible
 \end_layout
 
@@ -2418,21 +2481,162 @@ I would argue this is the common case
 \end_layout
 
 \begin_layout Itemize
-we can only hope to save energy by using the most efficient compute resource
+we can only hope to compensate by using the most efficient compute resource
  and organize it the most efficient way
 \end_layout
 
+\end_deeper
 \begin_layout Itemize
-choosing between race-to-halt and slowdown depends on workload and platform
+some work can adapt, so exert backpressure
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+some applications can make quality/resource trade-offs according to application-
+specific notion of quality
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+video is one example
+\end_layout
+
+\begin_layout Itemize
+this also applies to resources other than CPU time, like network bandwidth
+ for streaming
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+end-to-end solution
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+workload: offer different processing paths, trading resources and quality
+\end_layout
+
+\begin_layout Itemize
+application: under given resource constraints, find a quality-optimal path
+ through this lattice of options
+\end_layout
+
+\begin_layout Itemize
+system: distribute computing resource cutbacks in a quality-fair fashion
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+describe fallback decoding path for video
 \begin_inset CommandInset citation
 LatexCommand cite
-key "LeSueur:SlowDownSleep"
+key "roitzsch08:videoquality"
 
 \end_inset
 
 
 \end_layout
 
+\begin_deeper
+\begin_layout Itemize
+decoding time estimate already given by HDE, quality estimate needed
+\end_layout
+
+\begin_layout Itemize
+greedy solution for (contrained) binpacking: order jobs by quality/resource
+ ratio
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+other sources for adaptive video
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+SVC
+\end_layout
+
+\begin_layout Itemize
+adaptive streaming protocols: application propagates backpressure even to
+ the server
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+backpressure needs to be quality-fair, not resource-fair, but the quality
+ scale is application specific and does not compare
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+needs help from the applications: provide percentage of missed deadlines
+ relative to the maximum quality case, that represents the bare minimum
+ quality users will accept
+\end_layout
+
+\begin_layout Itemize
+backpressure will be distributed amongst adaptive applications weighted
+ by this minimum quality
+\end_layout
+
+\begin_layout Itemize
+assumption: linear quality drop from meeting all deadlines down to that
+ percentage
+\end_layout
+
+\begin_layout Itemize
+use of percentage of missed deadlines as quality parameter inspired by QRMS
+\begin_inset CommandInset citation
+LatexCommand cite
+key "hamann07:qrms"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+related approaches
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+overload handling with adaptive reservations
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Abeni:AdaptiveReservations"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+virtual time for progress fairness
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Krasic:CoopPoll"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+load-shedding queues in network servers
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Welsh:SEDA"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\end_deeper
 \end_deeper
 \begin_layout Itemize
 we may have targeted hardware with reduced instruction sets available that
@@ -2479,6 +2683,17 @@ special-purpose devices offer more choice for job placement and change energy
  as possible
 \end_layout
 
+\begin_layout Itemize
+choosing between race-to-halt and slowdown depends on workload and platform
+\begin_inset CommandInset citation
+LatexCommand cite
+key "LeSueur:SlowDownSleep"
+
+\end_inset
+
+
+\end_layout
+
 \end_deeper
 \begin_layout Itemize
 metadata to decide energy consequences can be collected per-job at runtime
@@ -2506,6 +2721,11 @@ key "Snowdon:Koala"
 
 \end_deeper
 \begin_layout Itemize
+using backpressure also for energy-management
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
 some applications can adapt their energy or computation time needs
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -2516,50 +2736,11 @@ key "Flinn:EnergyAdaptation"
 
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
-some trivial examples (disable backup on low battery) are rather obvious
- and not interesting, more dynamic examples are rare
+trivial examples (disable backup on low battery) are rather obvious and
+ not interesting, more dynamic examples are rare
 \end_layout
 
-\begin_layout Itemize
-video can be one of them, if the bitstream allows it
-\end_layout
-
-\begin_layout Itemize
-load shedding is an old concept
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Lampson:HintsDesign"
-
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-\begin_inset Quotes eld
-\end_inset
-
-shed load to control demand, rather than allowing the system to become overloade
-d.
-\begin_inset Quotes erd
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-Robert Morris idea: red button next to terminal, push when dissatisfied,
- system must raise your QoS or throw you off
-\end_layout
-
-\begin_layout Itemize
-this old idea already argued for quality-aware adaptation, not just load-aware
-\end_layout
-
-\end_deeper
 \end_deeper
 \end_inset
 
