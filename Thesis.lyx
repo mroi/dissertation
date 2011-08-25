@@ -99,6 +99,10 @@ End
 \paperfontsize default
 \spacing single
 \use_hyperref true
+\pdf_title "Practical Real-Time: System Support for Modern Applications"
+\pdf_author "Michael Roitzsch"
+\pdf_subject "Dissertation"
+\pdf_keywords "Real-Time, Multicore, Work Queues, Clairvoyance"
 \pdf_bookmarks true
 \pdf_bookmarksnumbered false
 \pdf_bookmarksopen true
@@ -107,8 +111,8 @@ End
 \pdf_pdfborder false
 \pdf_colorlinks false
 \pdf_backref false
-\pdf_pdfusetitle true
-\pdf_quoted_options "unicode=false, linktoc=all, pdfborder=2 2 0.5, linkbordercolor=0.8 0.8 1, urlbordercolor=0.6 1 0.6"
+\pdf_pdfusetitle false
+\pdf_quoted_options "linktoc=all, pdfborder=2 2 0.5, linkbordercolor=0.8 0.8 1, urlbordercolor=0.6 1 0.6"
 \papersize default
 \use_geometry true
 \use_amsmath 1
@@ -1722,24 +1726,6 @@ key "Shin:Compositional"
 \end_layout
 
 \begin_layout Itemize
-ARTIFACT
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Sasinowski:ARTIFACT"
-
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-ubiquitous priorities, MPEG execution model hard, load-shedding (forward
- reference to adaptivity)
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
 Constant Bandwidth Server
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -1854,6 +1840,39 @@ key "Palopoli:FeedbackReclaiming"
 \begin_layout Itemize
 gratuitously applying control theory might cover up the real interactions
  of components and tries to recreate them in another layer
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+device IO
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+propagate deadlines to device queues when jobs issue IO requests
+\end_layout
+
+\begin_layout Itemize
+GCD fosters asynchronous device access and queue-ahead of upcoming jobs:
+ provides the same clairvoyance for device IO
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+ARTIFACT
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Sasinowski:ARTIFACT"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+ubiquitous priorities, MPEG execution model hard, load-shedding (forward
+ reference to adaptivity)
 \end_layout
 
 \end_deeper
@@ -2018,9 +2037,48 @@ key "Soares:FlexSC"
 \end_inset
 
 
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Figures/Queues Mode Switches.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Work queues to prevent mode switches.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_deeper
+\begin_layout Itemize
+improves throughput and (surprisingly) also latency when loaded
+\end_layout
+
+\begin_layout Itemize
+extends the spine+worker programming model to workloads where the kernel
+ is the worker (i.e.
+ Internet servers)
+\end_layout
+
 \begin_layout Itemize
 notifications from kernel to user space could work asynchronously, but don't
  as far as I know, closest: kqueue
