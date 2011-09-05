@@ -16,6 +16,25 @@
 	acmid = {1063945}
 }
 
+@article{Anderson:SchedulerActivations,
+	author = {Thomas E. Anderson and Brian N. Bershad and Edward D. Lazowska and Henry M. Levy},
+	title = {Scheduler Activations: Effective Kernel Support for the User-Level Management of Parallelism},
+	journal = {ACM Transactions on Computer Systems},
+	volume = {10},
+	issue = {1},
+	month = {February},
+	year = {1992},
+	issn = {0734-2071},
+	pages = {53--79},
+	numpages = {27},
+	url = {http://www.cs.washington.edu/homes/bershad/Papers/p53-anderson.pdf},
+	doi = {http://doi.acm.org/10.1145/146941.146944},
+	acmid = {146944},
+	publisher = {ACM},
+	address = {New York, NY, USA},
+	keywords = {multiprocessor, thread}
+}
+
 @article{Devi:GEDFTardiness,
 	author = {UmaMaheswari C. Devi and James H. Anderson},
 	affiliation = {The University of North Carolina at Chapel Hill, Department of Computer Science, Chapel Hill, NC, USA},
@@ -174,8 +193,8 @@
 
 @inproceedings{Arnold:TaskC,
 	author = {Oliver Arnold and Gerhard Fettweis},
-	booktitle = {Proceedings of the 2010 International Conference on Embedded Computer Systems},
 	title = {Power Aware Heterogeneous MPSoC with Dynamic Task Scheduling and Increased Data Locality for Multiple Applications},
+	booktitle = {Proceedings of the 2010 International Conference on Embedded Computer Systems},
 	series = {SAMOS},
 	year = {2010},
 	month = {July},
@@ -186,6 +205,24 @@
 	url = {http://mns.ifn.et.tu-dresden.de/Lists/nPublications/Attachments/639/Arnold_O_SAMOS_10.pdf},
 	doi = {http://dx.doi.org/10.1109/ICSAMOS.2010.5642075},
 	publisher = {IEEE}
+}
+
+@inproceedings{Awan:EnhancedRaceToHalt,
+	author = {Muhammad Ali Awan and Stefan M. Petters},
+	title = {Enhanced Race-To-Halt: A Leakage-Aware Energy Management Approach for Dynamic Priority Systems},
+	booktitle = {Proceedings of the 23rd Euromicro Conference on Real-Time Systems},
+	series = {ECRTS},
+	year = {2011},
+	month = {July},
+	location = {Porto, Portugal},
+	issn = {1068-3070},
+	isbn = {978-0-7695-4442-7},
+	pages = {92--101},
+	numpages = {10},
+	url = {http://www.cister.isep.ipp.pt/docs/enhanced+race-to-halt:+a+leakage-aware+energy+management+approach+for+dynamic+priority+systems/623/download/},
+	doi = {http://doi.ieeecomputersociety.org/10.1109/ECRTS.2011.17},
+	publisher = {IEEE},
+	address = {Los Alamitos, CA, USA}
 }
 
 @inproceedings{Baumann:Barrelfish,
@@ -330,6 +367,25 @@
 	keywords = {fairness, timeliness}
 }
 
+@inproceedings{Krasic:PriorityProgress,
+	author = {Charles Krasic and Anirban Sinha and Lowell Kirsh},
+	title = {Priority-Progress CPU Adaptation for Elastic Real-Time Applications},
+	booktitle = {Proceedings of the 14th Multimedia Computing and Networking Conference},
+	series = {MMCN},
+	year = {2007},
+	month = {January},
+	issn = {0277-786X},
+	isbn = {9780819466174},
+	location = {San Jose, CA, USA},
+	volume = {6405},
+	pages = {65040G},
+	numpages = {8},
+	url = {http://qstream.org/~krasic/mda/mmcn07.pdf},
+	doi = {http://dx.doi.org/10.1117/12.705735},
+	publisher = {SPIE},
+	address = {Bellingham, WA, USA}
+}
+
 @inproceedings{Kulkarni:Galois,
 	author = {Milind Kulkarni and Keshav Pingali and Bruce Walter and Ganesh Ramanarayanan and Kavita Bala and L. Paul Chew},
 	title = {Optimistic Parallelism Requires Abstractions},
@@ -374,12 +430,31 @@
 	year = {2008}, 
 	month = {September},
 	location = {Edinburgh, Scotland, UK},
-	issn = {1930-8833}
+	issn = {1930-8833},
 	pages = {466--469},
 	numpages = {4},
 	url = {http://mns.ifn.et.tu-dresden.de/Lists/nPublications/Attachments/556/Limberg_T_ESSCIRC_08.pdf},
 	doi = {http://dx.doi.org/10.1109/ESSCIRC.2008.4681893},
 	publisher = {IEEE}
+}
+
+@inproceedings{Merkel:EnergyModel,
+	author = {Andreas Merkel and Frank Bellosa},
+	title = {Balancing Power Consumption in Multiprocessor Systems},
+	booktitle = {Proceedings of the 1st ACM European Conference on Computer Systems},
+	series = {EuroSys},
+	year = {2006},
+	month = {April},
+	isbn = {1-59593-322-0},
+	location = {Leuven, Belgium},
+	pages = {403--414},
+	numpages = {12},
+	url = {http://os.ibds.kit.edu/downloads/publ_2006_merkel-bellosa_balancing-power.pdf},
+	doi = {http://doi.acm.org/10.1145/1217935.1217974},
+	acmid = {1217974},
+	publisher = {ACM},
+	address = {New York, NY, USA},
+	keywords = {energy estimation, energy-aware scheduling, event counters, task migration, thermal management}
 }
 
 @inproceedings{Nguyen:ConcurrentSchedulers,
@@ -434,6 +509,25 @@
 	doi = {http://dx.doi.org/10.1109/ESTMED.2008.4697009},
 	url = {http://disi.unitn.it/~palopoli/publications/estimedia08.pdf},
 	publisher = {IEEE}
+}
+
+@inproceedings{Peter:30Seconds,
+	author = {Simon Peter and Andrew Baumann and Timothy Roscoe and Paul Barham and Rebecca Isaacs},
+	title = {30 Seconds is Not Enough! -- A Study of Operating System Timer Usage},
+	booktitle = {Proceedings of the 3rd ACM European Conference on Computer Systems},
+	series = {Eurosys},
+	year = {2008},
+	month = {April},
+	isbn = {978-1-60558-013-5},
+	location = {Glasgow, Scotland, UK},
+	pages = {205--218},
+	numpages = {14},
+	url = {http://research.microsoft.com/pubs/75722/30seconds-eurosys08.pdf},
+	doi = {http://doi.acm.org/10.1145/1352592.1352614},
+	acmid = {1352614},
+	publisher = {ACM},
+	address = {New York, NY, USA},
+	keywords = {adaptability, kernel interface design, scheduling, timers}
 }
 
 @inproceedings{roitzsch06:predict,
@@ -553,6 +647,24 @@
 	year = {2010},
 	month = {October},
 	url = {http://usenix.com/events/osdi10/tech/full_papers/Soares.pdf}
+}
+
+@inproceedings{Tsafrir:OSNoise,
+	author = {Dan Tsafrir and Yoav Etsion and Dror G. Feitelson and Scott Kirkpatrick},
+	title = {System Noise, OS Clock Ticks, and Fine-Grained Parallel Applications},
+	booktitle = {Proceedings of the 19th Annual International Conference on Supercomputing},
+	series = {ICS},
+	year = {2005},
+	month = {June},
+	isbn = {1-59593-167-8},
+	location = {Cambridge, Massachusetts},
+	pages = {303--312},
+	numpages = {10},
+	url = {http://www.cse.huji.ac.il/~dants/papers/Noise05ICS.pdf},
+	doi = {http://doi.acm.org/10.1145/1088149.1088190},
+	acmid = {1088190},
+	publisher = {ACM},
+	address = {New York, NY, USA}
 }
 
 @inproceedings{Welsh:SEDA,
