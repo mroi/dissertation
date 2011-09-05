@@ -161,7 +161,8 @@ xelatex
 \end_layout
 
 \begin_layout Itemize
-I might want to reset footnote numbers with each new chapter.
+I want to reset footnote numbers with each new chapter, but I don't know
+ how.
 \end_layout
 
 \end_inset
@@ -920,6 +921,10 @@ speed in the face of stagnating single-core frequency, increasing core counts
 \end_layout
 
 \begin_layout Itemize
+load adaptation without global knowledge or fairness
+\end_layout
+
+\begin_layout Itemize
 energy characteristics typically dictated and managed behind the scenes
  by hardware
 \end_layout
@@ -1246,6 +1251,13 @@ thread count becomes controllable
 
 \begin_layout Itemize
 goal: have the number of active threads match the number of (logical) cores
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Anderson:SchedulerActivations"
+
+\end_inset
+
+
 \end_layout
 
 \end_deeper
@@ -1897,6 +1909,11 @@ Scheduling meets Multicore
 status open
 
 \begin_layout Itemize
+looked at situation from a developer perspective so far, now combine with
+ a view from below
+\end_layout
+
+\begin_layout Itemize
 trend: context switching considered harmful
 \end_layout
 
@@ -1916,7 +1933,7 @@ this used to be practical when many threads needed to be multiplexed in
 \end_layout
 
 \begin_layout Itemize
-with the number of cores approaching the number of read threads, this approach
+with the number of cores approaching the number of ready threads, this approach
  gets impractical
 \end_layout
 
@@ -1943,6 +1960,18 @@ CPUs are going this way too
 \begin_layout Itemize
 flushing cache, TLB, branch predictor, prefetcher becomes prohibitively
  expensive
+\end_layout
+
+\begin_layout Itemize
+micro-benchmarks show cache-miss-related slowdown caused by only the timer
+ tick
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Tsafrir:OSNoise"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Itemize
@@ -2055,7 +2084,7 @@ status open
 \begin_inset Caption
 
 \begin_layout Plain Layout
-Work queues to prevent mode switches.
+Work queues prevent mode switches.
 \end_layout
 
 \end_inset
@@ -2410,6 +2439,62 @@ scalable because of local queues and work stealing that bypasses the memory
 \end_deeper
 \end_deeper
 \begin_layout Itemize
+knowledge about the job layout in both space and time allows disabling the
+ periodic timer tick
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+dynamically dedicate cores: place work somewhere, then let it run without
+ interference
+\end_layout
+
+\begin_layout Itemize
+currently, the timer-tick is OS-level polling, hits all cores no matter
+ what they run
+\end_layout
+
+\begin_layout Itemize
+moving to a tickless kernel helps to reducing OS noise and energy consumption
+\end_layout
+
+\begin_layout Itemize
+good for barrier-sync-style HPC applications: even the timer interrupt hurts
+ them badly
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Tsafrir:OSNoise"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+suggested solution: demand-driven 
+\begin_inset Quotes eld
+\end_inset
+
+smart
+\begin_inset Quotes erd
+\end_inset
+
+ timers which allow for batching instead of the slavish periodic tick
+\end_layout
+
+\begin_layout Itemize
+idea is an extension to timers with precision
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Peter:30Seconds"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
 holistic approach for distributed systems: MOSIX
 \end_layout
 
@@ -2443,40 +2528,58 @@ ad-hoc solution for my approach: assume that work packets of the same job
 \begin_layout Chapter
 \begin_inset CommandInset label
 LatexCommand label
-name "chap:Adaptivity-Energy"
+name "chap:Adaptivity"
 
 \end_inset
 
-Adapting and Saving Energy
-\begin_inset Note Note
-status open
-
-\begin_layout Itemize
-with a different title, this chapter can (and should?) double as the conclusion,
- maybe use the 
-\begin_inset Quotes eld
-\end_inset
-
-handling over-/underload
-\begin_inset Quotes erd
-\end_inset
-
- aspect
-\end_layout
-
-\begin_layout Itemize
-check how Tufte deals with conclusions
-\end_layout
-
-\end_inset
-
-
+Under- and Overload
 \end_layout
 
 \begin_layout Standard
 \begin_inset Note Greyedout
 status open
 
+\begin_layout Itemize
+secondary policies on underload
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+batch work by moving it around in the scheduling window to enable longer
+ sleep times
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Awan:EnhancedRaceToHalt"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+migrate to prevent fan noise or throttling
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Merkel:EnergyModel"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+idea has been discussed for timers, specifying timeout and precision to
+ allow batching
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Peter:30Seconds"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
 \begin_layout Itemize
 backpressure on overload
 \end_layout
@@ -2628,6 +2731,11 @@ backpressure needs to be quality-fair, not resource-fair, but the quality
 
 \begin_deeper
 \begin_layout Itemize
+global quality-scheduling too complex, resort to balanced backpressure and
+ per-application adaptivity
+\end_layout
+
+\begin_layout Itemize
 needs help from the applications: provide percentage of missed deadlines
  relative to the maximum quality case, that represents the bare minimum
  quality users will accept
@@ -2654,6 +2762,7 @@ key "hamann07:qrms"
 
 \end_layout
 
+\end_deeper
 \end_deeper
 \begin_layout Itemize
 related approaches
@@ -2695,18 +2804,133 @@ key "Welsh:SEDA"
 
 \end_deeper
 \end_deeper
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+Past, Present and Future
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Itemize
+changing paradigms of computing
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+past: productivity age
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+computers dominantly used in offices for work to improve business efficiency
+\end_layout
+
+\begin_layout Itemize
+focus on functionality
+\end_layout
+
+\begin_layout Itemize
+single-threaded applications
+\end_layout
+
+\begin_layout Itemize
+all was well
+\end_layout
+
 \end_deeper
+\begin_layout Itemize
+present: digital media age
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+computers used at homes with digital photos, DVDs, videos
+\end_layout
+
+\begin_layout Itemize
+see Apple's digital hub strategy
+\end_layout
+
+\begin_layout Itemize
+focus on usability and performance
+\end_layout
+
+\begin_layout Itemize
+multithreading for responsiveness and speed
+\end_layout
+
+\begin_layout Itemize
+real-time and parallelism came to the desktop
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+future: always on, always connected
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+smartphones, tablets and the cloud usher in a new era
+\end_layout
+
+\begin_layout Itemize
+mobile computing, but still with responsiveness and smooth video demanded
+ by users
+\end_layout
+
+\begin_layout Itemize
+battery and energy constraints added to the problem space
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Quotes eld
+\end_inset
+
+energy is the new speed
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+even more compute power for the desktop: heavy-load applications still exist
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Quotes eld
+\end_inset
+
+today's HPC is tomorrow's desktop
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Itemize
+energy saving by batching is already enabled by clairvoyant deadline-knowledge
+\end_layout
+
 \begin_layout Itemize
 we may have targeted hardware with reduced instruction sets available that
  is more energy-efficient
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
 hardware video decoders are an edge-case of this spectrum: very limited
  instructions or fixed function
 \end_layout
 
+\begin_deeper
 \begin_layout Itemize
 saves some energy (up to 25%
 \begin_inset CommandInset citation
@@ -2754,18 +2978,35 @@ key "LeSueur:SlowDownSleep"
 
 \end_deeper
 \begin_layout Itemize
+end-to-end solution: this is only a rough sketch
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+workload: energy-aware encoding of video
+\end_layout
+
+\begin_layout Itemize
+application: maintain energy model, adapt to save energy, use specialized
+ hardware
+\end_layout
+
+\begin_layout Itemize
+system: collect and act on energy metrics, provide interface to specialized
+ hardware
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
 metadata to decide energy consequences can be collected per-job at runtime
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
-energy counter in Intel Sandy Bridge CPUs
-\end_layout
-
-\begin_layout Itemize
 performance counter can help to tell memory- and CPU-bound jobs apart
 \end_layout
 
+\begin_deeper
 \begin_layout Itemize
 clocking down the CPU especially helpful for memory-bound jobs
 \begin_inset CommandInset citation
@@ -2777,6 +3018,39 @@ key "Snowdon:Koala"
 
 \end_layout
 
+\end_deeper
+\begin_layout Itemize
+linear combination of metrics to predict energy in a similar way to the
+ execution time
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+performance counters to train energy model
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Merkel:EnergyModel"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+energy counter in Intel Sandy Bridge CPUs
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+work queues can clairvoyantly carry per-job energy metadata
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+clock CPU down and then run all pending memory-bound jobs
+\end_layout
+
+\end_deeper
 \end_deeper
 \begin_layout Itemize
 using backpressure also for energy-management
@@ -2799,7 +3073,48 @@ trivial examples (disable backup on low battery) are rather obvious and
  not interesting, more dynamic examples are rare
 \end_layout
 
+\begin_layout Itemize
+use energy instead of CPU time as a cost metric in adaptation decisions
+\end_layout
+
 \end_deeper
+\begin_layout Itemize
+hardware becomes less reliable
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+hardware and OS-features to manage reliability explicitly
+\end_layout
+
+\begin_layout Itemize
+provide GCD queues with different reliability levels, like imprecise ALU/FPU
+\end_layout
+
+\begin_layout Itemize
+application can dispatch code blocks with different reliability requirements
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+video decoders can tolerate some imprecision
+\end_layout
+
+\begin_layout Itemize
+substring search can do the long scan unreliably, followed by a quick reliable
+ check
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Itemize
+future development is well covered by the presented design
+\end_layout
+
+\begin_layout Itemize
+summarize the key contributions again
+\end_layout
+
 \end_inset
 
 
