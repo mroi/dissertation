@@ -129,7 +129,7 @@ End
 \shortcut idx
 \color #008000
 \end_index
-\secnumdepth 2
+\secnumdepth 1
 \tocdepth 2
 \paragraph_separation skip
 \defskip smallskip
@@ -158,11 +158,6 @@ Greek letters in math mode are still typeset in computer modern.
 xelatex
 \family default
 .
-\end_layout
-
-\begin_layout Itemize
-I want to reset footnote numbers with each new chapter, but I don't know
- how.
 \end_layout
 
 \end_inset
@@ -1051,6 +1046,11 @@ mainstream programming for mere mortals instead of only for a priesthood
 \end_layout
 
 \begin_layout Itemize
+targets interactive systems (desktop, notebook, smartphone), not reactive
+ systems (industrial control, deeply embedded)
+\end_layout
+
+\begin_layout Itemize
 formulate other goals?
 \end_layout
 
@@ -1274,6 +1274,13 @@ key "MSDN:C++PPL"
 
 \end_inset
 
+, X10
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Charles:X10"
+
+\end_inset
+
 : all four
 \end_layout
 
@@ -1457,7 +1464,8 @@ real-time used to be a rare special case, but it should become default;
 
 \end_deeper
 \begin_layout Itemize
-real-time programming models used to be hard
+real-time programming: spectrum between strong guarantees + complex programming
+ and weak guarantees + simple programming
 \end_layout
 
 \begin_deeper
@@ -1470,6 +1478,23 @@ admission: yet another error condition for the developer, how to communicate
  refusal to the user?
 \end_layout
 
+\begin_layout Itemize
+existing commodity systems
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Android: all Dalvik threads use SCHED_OTHER 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Maia:AndroidRT"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
 \end_deeper
 \begin_layout Itemize
 things should be simplified to become widely accepted by developers
@@ -1669,6 +1694,17 @@ G-EDF scales for today's core counts, in the future we may want to consider
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Calandrino:ClusteredEDF"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+efficient EDF implementation strategies are known
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Short:EDFTaskManagement"
 
 \end_inset
 
@@ -2149,6 +2185,10 @@ combination of both the above: systems increasingly schedule in space instead
 
 \begin_deeper
 \begin_layout Itemize
+parallelism is replacing frequency scaling as the means to increase performance
+\end_layout
+
+\begin_layout Itemize
 placement and migration replace context switching as the scheduling mechanism
 \end_layout
 
@@ -2557,10 +2597,11 @@ key "Awan:EnhancedRaceToHalt"
 \end_layout
 
 \begin_layout Itemize
-migrate to prevent fan noise or throttling
+idea has been discussed for timers, specifying timeout and precision to
+ allow batching
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Merkel:EnergyModel"
+key "Peter:30Seconds"
 
 \end_inset
 
@@ -2568,11 +2609,10 @@ key "Merkel:EnergyModel"
 \end_layout
 
 \begin_layout Itemize
-idea has been discussed for timers, specifying timeout and precision to
- allow batching
+migrate to prevent fan noise or throttling
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Peter:30Seconds"
+key "Merkel:EnergyModel"
 
 \end_inset
 
@@ -2629,6 +2669,18 @@ Robert Morris idea: red button next to terminal, push when dissatisfied,
 
 \begin_layout Itemize
 this old idea already argued for quality-aware adaptation, not just load-aware
+\end_layout
+
+\begin_layout Itemize
+when overloaded, real-time applications become brittle and show bi-modal
+ fairness
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Krasic:PriorityProgress"
+
+\end_inset
+
+
 \end_layout
 
 \end_deeper
@@ -2781,6 +2833,32 @@ key "Abeni:AdaptiveReservations"
 \end_layout
 
 \begin_layout Itemize
+prioritize work and skip the low priorities when congested
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Krasic:PriorityProgress"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+simple quality-aware scheme
+\end_layout
+
+\begin_layout Itemize
+global priority-monotonic ordering of video frames
+\end_layout
+
+\begin_layout Itemize
+unclear how much of the fairness benefits stem from the priority sorting
+ or just from global queueing
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
 virtual time for progress fairness
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -2818,60 +2896,7 @@ Past, Present and Future
 status open
 
 \begin_layout Itemize
-changing paradigms of computing
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-past: productivity age
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-computers dominantly used in offices for work to improve business efficiency
-\end_layout
-
-\begin_layout Itemize
-focus on functionality
-\end_layout
-
-\begin_layout Itemize
-single-threaded applications
-\end_layout
-
-\begin_layout Itemize
-all was well
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-present: digital media age
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-computers used at homes with digital photos, DVDs, videos
-\end_layout
-
-\begin_layout Itemize
-see Apple's digital hub strategy
-\end_layout
-
-\begin_layout Itemize
-focus on usability and performance
-\end_layout
-
-\begin_layout Itemize
-multithreading for responsiveness and speed
-\end_layout
-
-\begin_layout Itemize
-real-time and parallelism came to the desktop
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-future: always on, always connected
+changing paradigm of computing, future: always on, always connected
 \end_layout
 
 \begin_deeper
@@ -2899,27 +2924,57 @@ energy is the new speed
 
 \end_layout
 
-\begin_layout Itemize
-even more compute power for the desktop: heavy-load applications still exist
-\end_layout
-
-\begin_layout Itemize
-\begin_inset Quotes eld
-\end_inset
-
-today's HPC is tomorrow's desktop
-\begin_inset Quotes erd
-\end_inset
-
-
-\end_layout
-
 \end_deeper
+\begin_layout Itemize
+energy works differently
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+deadlines are inherent to the application, energy limitations are driven
+ by the long-term intent of the user
+\end_layout
+
+\begin_layout Itemize
+many existing solutions throttle threads according to an energy budget,
+ but that's thinking inside the box 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Roy:Cinder"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+assuming software does only useful work against the user's stated intent,
+ throttling makes no sense
+\end_layout
+
+\begin_layout Itemize
+only energy efficiency (doing the same with less energy) and maybe adaptivity
+ remains
+\end_layout
+
 \end_deeper
 \begin_layout Itemize
 energy saving by batching is already enabled by clairvoyant deadline-knowledge
 \end_layout
 
+\begin_deeper
+\begin_layout Itemize
+batch network requests to power up radio less often 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Roy:Cinder"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
 \begin_layout Itemize
 we may have targeted hardware with reduced instruction sets available that
  is more energy-efficient
