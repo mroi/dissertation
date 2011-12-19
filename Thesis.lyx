@@ -351,7 +351,7 @@ noindent
 
 \end_inset
 
-System Support for
+A Look-Ahead Scheduler for
 \begin_inset Newline newline
 \end_inset
 
@@ -537,7 +537,7 @@ Dipl.-Inf.
 
 \lang ngerman
 \begin_inset Tabular
-<lyxtabular version="3" rows="6" columns="2">
+<lyxtabular version="3" rows="7" columns="2">
 <features booktabs="true" tabularvalignment="middle">
 <column alignment="left" valignment="top" width="0pt" special="@{}l">
 <column alignment="left" valignment="top" width="0pt">
@@ -667,6 +667,31 @@ fehlt
 \end_inset
 
 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang ngerman
+Statusvortrag:
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang ngerman
+12.
+ Dezember 2011
 \end_layout
 
 \end_inset
@@ -924,11 +949,6 @@ energy characteristics typically dictated and managed behind the scenes
  by hardware
 \end_layout
 
-\begin_layout Itemize
-also: reliable operation facing unreliable hardware, but this is a non-goal
- for me
-\end_layout
-
 \end_deeper
 \begin_layout Itemize
 some of these goals are at odds: speed vs.
@@ -937,6 +957,10 @@ some of these goals are at odds: speed vs.
 \end_layout
 
 \end_deeper
+\begin_layout Itemize
+these are hard times for the scheduler
+\end_layout
+
 \begin_layout Itemize
 large body of research in these individual topics is available
 \end_layout
@@ -1903,6 +1927,35 @@ propagate deadlines to device queues when jobs issue IO requests
 \begin_layout Itemize
 GCD fosters asynchronous device access and queue-ahead of upcoming jobs:
  provides the same clairvoyance for device IO
+\end_layout
+
+\begin_layout Itemize
+devices become smart and self-schedule: manage the queue themselves
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+example: interrupt rate limiting, low-latency packet override and another
+ rate limiting for the low-latency override in Intel 82576 network card
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Intel_NIC"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Dynamic Active Subset helps
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Reuther:DAS"
+
+\end_inset
+
+
 \end_layout
 
 \end_deeper
