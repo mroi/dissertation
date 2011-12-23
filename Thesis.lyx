@@ -25,7 +25,7 @@
 }
 
 % simplified title and author for fancy headers, height-correct the dash
-\renewcommand{\plaintitle}{Practical Real\raisebox{-0.45mm}{-}Time}
+\renewcommand{\plaintitle}{Practical Real\raisebox{-0.45mm}{-}Time with Look\raisebox{-0.45mm}{-}Ahead Scheduling}
 \renewcommand{\plainauthor}{Michael Roitzsch}
 
 % enable colored page edge when a new chapter starts
@@ -49,6 +49,14 @@
 \end{doublespace}
 \end{fullwidth}
 }
+
+% alternative chapter titling with bigger chapter number on the right
+\titleformat{\chapter}[display]
+{\relax\ifthenelse{\NOT\boolean{@tufte@symmetric}}{\begin{fullwidth}}{}}
+{\hfill\sffamily\color{gray}\fontsize{42}{0}\selectfont\thechapter}
+{0pt}
+{\vskip -33pt\huge\rmfamily\itshape}
+[\ifthenelse{\NOT\boolean{@tufte@symmetric}}{\end{fullwidth}}{}]
 \end_preamble
 \options a4paper
 \use_default_options true
@@ -99,10 +107,10 @@ End
 \paperfontsize default
 \spacing single
 \use_hyperref true
-\pdf_title "Practical Real-Time: System Support for Modern Applications"
+\pdf_title "Practical Real-Time with Look-Ahead Scheduling"
 \pdf_author "Michael Roitzsch"
 \pdf_subject "Dissertation"
-\pdf_keywords "Real-Time, Multicore, Work Queues, Clairvoyance"
+\pdf_keywords "Real-Time, Multicore, Work Queues, Look-Ahead, Clairvoyance"
 \pdf_bookmarks true
 \pdf_bookmarksnumbered false
 \pdf_bookmarksopen true
@@ -334,7 +342,7 @@ raisebox{0.8mm}{-}
 
 \end_inset
 
-Time:
+Time
 \begin_inset Newline newline
 \end_inset
 
@@ -351,7 +359,20 @@ noindent
 
 \end_inset
 
-A Look-Ahead Scheduler for
+with Look
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+raisebox{0.8mm}{-}
+\end_layout
+
+\end_inset
+
+Ahead
 \begin_inset Newline newline
 \end_inset
 
@@ -368,7 +389,7 @@ noindent
 
 \end_inset
 
-Modern Applications
+Scheduling
 \end_layout
 
 \begin_layout Verleger
@@ -932,12 +953,12 @@ these are hard problems:
 
 \begin_deeper
 \begin_layout Itemize
-responsiveness in the face of non-real-time operating systems
+responsiveness in the face of non-real-time operating system interfaces
 \end_layout
 
 \begin_layout Itemize
-speed in the face of stagnating single-core frequency, increasing core counts
- and heterogeneity (GPUs)
+speed in the face of stagnating single-core frequency and increasing core
+ counts
 \end_layout
 
 \begin_layout Itemize
@@ -961,17 +982,109 @@ some of these goals are at odds: speed vs.
 these are hard times for the scheduler
 \end_layout
 
+\begin_deeper
 \begin_layout Itemize
-large body of research in these individual topics is available
+schedulers need to provide order that
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
-this dissertation tries to summarize existing work
+fulfills timing requirements
 \end_layout
 
 \begin_layout Itemize
-provide a holistic view and enhance state-of-the-art with key contributions
+efficiently uses cores
+\end_layout
+
+\begin_layout Itemize
+handles overload gracefully and fairly
+\end_layout
+
+\begin_layout Itemize
+is energy efficient
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+schedulers for peripheral devices have more insight into requested work
+ than the CPU scheduler
+\end_layout
+
+\begin_layout Itemize
+pending jobs queue up in scheduler and can be inspected, metadata can be
+ attached or derived
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+sidetrack problem: devices get increasingly smart, so this view is simplistic
+ but still helps to illustrate the difference between scheduling devices
+ and CPU
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+this work is about CPU scheduling, not about device scheduling
+\end_layout
+
+\begin_layout Itemize
+CPU scheduler typically sees only opaque threads, behavior is hidden inside
+ applications
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+priorities are a very coarse abstraction that is hard for developers
+\end_layout
+
+\begin_layout Itemize
+implicit knowledge from periodic tasks only useful for applications that
+ fit into that rigid model
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+CPU scheduler wants ahead-of-time knowledge on timing and resource requirements
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+more discussion on existing approaches: see Chapter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:Real-Time"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Itemize
+combine both problems and provide an integrated solution
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+targets interactive systems (desktop, notebook, smartphone), not reactive
+ systems (industrial control, deeply embedded)
+\end_layout
+
+\begin_layout Itemize
+pragmatic and manageable for developers
+\end_layout
+
+\begin_layout Itemize
+sufficient information for scheduler
+\end_layout
+
+\begin_layout Itemize
+large body of research in these individual topics is available
 \end_layout
 
 \end_deeper
@@ -981,18 +1094,23 @@ driving insights
 
 \begin_deeper
 \begin_layout Itemize
-applications are increasingly structured into work packets (see 
+applications are increasingly structured into work packets: see Chapter
+\begin_inset space ~
+\end_inset
+
+
 \begin_inset CommandInset ref
-LatexCommand nameref
+LatexCommand ref
 reference "chap:Anatomy"
 
 \end_inset
 
-)
+
 \end_layout
 
 \begin_layout Itemize
-some limited help by the application can provide insightful clairvoyance
+allow applications to expose knowledge of their future execution to provide
+ insightful look-ahead for the scheduler
 \end_layout
 
 \begin_layout Itemize
@@ -1001,36 +1119,11 @@ allows ahead-of-time decisions rather than post-mortem control
 
 \end_deeper
 \begin_layout Itemize
-apply this idea to real-time, parallelism, energy and adaptivity
+apply this idea to real-time, parallelism, adaptivity and energy, name key
+ contributions in each
 \end_layout
 
 \begin_deeper
-\begin_layout Itemize
-work packets help for parallelism
-\end_layout
-
-\begin_layout Itemize
-deadlines can naturally be assigned to groups of work packets, hints help
- training execution time prediction
-\end_layout
-
-\begin_layout Itemize
-deadlines also enable batching to save energy
-\end_layout
-
-\begin_layout Itemize
-adaptation can specify alternative execution paths with costs and benefits
-\end_layout
-
-\begin_layout Itemize
-implementations in alternative ISAs allow using specialized hardware (GPGPU,
- fixed-function units) with time or energy benefits
-\end_layout
-
-\begin_layout Itemize
-our focus: combining real-time and parallelism, name contributions here
-\end_layout
-
 \begin_layout Itemize
 end-to-end-solutions must consider three levels: workload, application,
  system
@@ -1050,32 +1143,130 @@ table or summary figure with columns/swim lanes for topics and layers for
  levels
 \end_layout
 
-\begin_layout Itemize
-provide main thesis statement and clear-cut contributions
-\end_layout
-
 \end_deeper
 \begin_layout Itemize
-overview of the organization of this text (with forward references)
-\end_layout
+real-time scheduling (Chapter
+\begin_inset space ~
+\end_inset
 
-\end_deeper
-\begin_layout Itemize
-goal: programming paradigm that must be manageable for developers
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:Real-Time"
+
+\end_inset
+
+): explicit timing requirements and workload hints to describe resource
+ requirements
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
-mainstream programming for mere mortals instead of only for a priesthood
+contribution: task model and API that is manageable for developers and expressiv
+e for EDF scheduling with look-ahead
 \end_layout
 
 \begin_layout Itemize
-targets interactive systems (desktop, notebook, smartphone), not reactive
- systems (industrial control, deeply embedded)
+real-time scheduling exploits exposed timing requirement
 \end_layout
 
 \begin_layout Itemize
-formulate other goals?
+evaluation: fair sharing without timing requirements misses deadlines, workload
+ hints provide good estimate for resource requirements
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+parallel scheduling (Chapter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:Parallelism"
+
+\end_inset
+
+): load-aware placement of work on cores
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+contribution: enhancing API with work packet scaling factor (
+\begin_inset Quotes eld
+\end_inset
+
+packet width
+\begin_inset Quotes erd
+\end_inset
+
+) allows to trade core count against completion time
+\end_layout
+
+\begin_layout Itemize
+placement of parallel work exploits exposed resource requirements
+\end_layout
+
+\begin_layout Itemize
+evaluation: start more cores only when you know it will not fit
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+adaptivity (Chapter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:Adaptivity"
+
+\end_inset
+
+): exposing alternative execution paths for graceful handling of overload
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+contribution: look-ahead scheduling can mitigate overload before it occurs
+\end_layout
+
+\begin_layout Itemize
+adaptivity exploits look-ahead
+\end_layout
+
+\begin_layout Itemize
+evaluation: fallback path for video decoding with application-specific quality
+ measure
+\end_layout
+
+\end_deeper
+\begin_layout Plain Layout
+\begin_inset Note Note
+status open
+
+\begin_layout Itemize
+energy: deadlines enable batching to aggregate longer idle times
+\end_layout
+
+\begin_layout Itemize
+but I plan to include an energy argument in the parallel scheduling section
+ under 
+\begin_inset Quotes eld
+\end_inset
+
+efficient core placement
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_deeper
@@ -1117,7 +1308,7 @@ Anatomy of a Modern Desktop Application
 status open
 
 \begin_layout Itemize
-major change in application structure
+major changes in application structure
 \end_layout
 
 \begin_deeper
@@ -1146,8 +1337,8 @@ focus on responsiveness, do long-running work asynchronously off the UI
 \end_layout
 
 \begin_layout Itemize
-threading is not concurrency (Jim Held, MARC symposium keynote), we saw
- that when moving to multicores
+threading is necessary, but not sufficient for concurrency: we saw that
+ when moving to multicores
 \end_layout
 
 \begin_layout Itemize
@@ -1166,7 +1357,7 @@ today: work packets
 \begin_deeper
 \begin_layout Itemize
 the UI thread (main thread) does no real work (see microkernel paradigm),
- it merely dispatches (spine-analogy) to keep things busy
+ it merely dispatches (spine-analogy) to keep background workers busy
 \end_layout
 
 \begin_layout Itemize
@@ -1255,8 +1446,8 @@ key "Sutter:C++AMP_Keynote"
 \end_layout
 
 \begin_layout Itemize
-four aspects: logical locality, automatic state capture, asynchronous invocation
-, automatic thread management
+four aspects: logical coherence, automatic state capture, asynchronous invocatio
+n, automatic thread management
 \end_layout
 
 \begin_layout Itemize
@@ -1347,7 +1538,7 @@ zing loops: automatic thread assignment, guided self-scheduling to reduce
 \end_deeper
 \begin_layout Itemize
 result of this architecture: most work is done asynchronously and is announced
- by the application ahead-of-time
+ by the before execution
 \end_layout
 
 \begin_deeper
@@ -1362,7 +1553,8 @@ work packets (or groups of them) are natural receivers for metadata by the
 \end_layout
 
 \begin_layout Itemize
-this thesis: What kind of metadata can we use to what benefit?
+this thesis: apply concept to real-time, parallel scheduling, adaptivity,
+ energy
 \end_layout
 
 \end_deeper
@@ -1372,43 +1564,21 @@ introduce video as the primary demo application
 
 \begin_deeper
 \begin_layout Itemize
-good sample workload, because it covers many properties: real-time, compute
- intensive, subject to energy savings, potentially adaptive
+good sample workload, because it covers many properties: intrinsic deadlines,
+ high throughput, parallel, potentially adaptive, subject to energy savings
 \end_layout
 
 \begin_layout Itemize
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
 other application to validate claims more comprehensively
 \end_layout
 
-\end_deeper
-\begin_layout Itemize
-the future: increasing heterogeneity
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-only a limited teaser here, do not overload readers, but provide enough
- segue for the later chapters to build upon
-\end_layout
-
-\begin_layout Itemize
-pieces of GPU code (and other ISAs with tighter assumptions and less ability)
- interwoven with CPU code
-\end_layout
-
-\begin_layout Itemize
-devices like GPU (and increasingly network cards
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Nightingale:Helios"
-
 \end_inset
 
-) treated as compute resources like CPU, not as a peripheral
-\end_layout
 
-\begin_layout Itemize
-mostly out of scope for this work, but will consider hardware video decoders
 \end_layout
 
 \end_deeper
@@ -1488,27 +1658,74 @@ real-time used to be a rare special case, but it should become default;
 
 \end_deeper
 \begin_layout Itemize
-real-time programming: spectrum between strong guarantees + complex programming
+real-time scheduling is about ordering work so that it meets timing requirements
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+order matters with time
+\end_layout
+
+\begin_layout Itemize
+how to communicate timing and resource requirements between application
+ and scheduler?
+\end_layout
+
+\begin_layout Itemize
+existing solutions: spectrum between strong guarantees + complex programming
  and weak guarantees + simple programming
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
-complicated contracts to express resource needs (examples needed)
+points in this design space discussed in related work, here: only the ends
 \end_layout
 
+\end_deeper
 \begin_layout Itemize
-admission: yet another error condition for the developer, how to communicate
- refusal to the user?
-\end_layout
-
-\begin_layout Itemize
-existing commodity systems
+one end: classical periodic task model
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
-Android: all Dalvik threads use SCHED_OTHER 
+inflexible way to express timing requirements, pessimistic resource requirements
+\end_layout
+
+\begin_layout Itemize
+fixed share of the CPU set aside
+\end_layout
+
+\begin_layout Itemize
+for video: worst-case planning leads to infeasible reservation way off the
+ actual demand
+\end_layout
+
+\begin_layout Itemize
+however, the advantage: infinite clairvoyance allows an admission test
+\end_layout
+
+\begin_layout Itemize
+strict admission not useful on desktops: yet another error condition for
+ the developer, how to communicate refusal to the user?
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+other end: fair CPU sharing
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+nothing to be done for developers, but also: nothing can be done
+\end_layout
+
+\begin_layout Itemize
+scheduler distributes CPU evenly across applications according to a fairness
+ measure
+\end_layout
+
+\begin_layout Itemize
+Android: all Dalvik threads use SCHED_OTHER
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Maia:AndroidRT"
@@ -1518,15 +1735,29 @@ key "Maia:AndroidRT"
 
 \end_layout
 
+\begin_layout Itemize
+applications treated equally, disregarding their timing requirements because
+ they are not expressed
+\end_layout
+
+\begin_layout Itemize
+for video: heavy calculation constricts video
+\end_layout
+
+\begin_layout Itemize
+priorities would fix this, but they are an implementation detail of the
+ scheduler that is hard to determine for developers in open systems
+\end_layout
+
 \end_deeper
 \end_deeper
 \begin_layout Itemize
-things should be simplified to become widely accepted by developers
+find a good middle ground between both approaches
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
-express requirements with deadlines only
+express timing requirements, but more flexible than periodic task: deadlines
 \end_layout
 
 \begin_layout Itemize
@@ -1544,7 +1775,12 @@ developers should be able to provide it
 
 \end_deeper
 \begin_layout Itemize
-no complex contracts, no admission but deal with overload
+express resource requirements, but without asking for execution times, which
+ are hardware-dependent
+\end_layout
+
+\begin_layout Itemize
+replace full clairvoyance with limited look-ahead
 \end_layout
 
 \end_deeper
@@ -1559,8 +1795,8 @@ execution time is workload-dependent, deadlines are application-specific:
 \end_layout
 
 \begin_layout Itemize
-scheduling must distribute load (potentially) across all compute resources:
- global view needed
+scheduling must distribute all loads across all compute resources: global
+ view needed
 \end_layout
 
 \begin_layout Itemize
@@ -1569,7 +1805,7 @@ application-level component and global scheduler must work together
 
 \end_deeper
 \begin_layout Itemize
-clairvoyance
+look-ahead
 \end_layout
 
 \begin_deeper
@@ -1595,11 +1831,8 @@ given the asynchronous execution model discussed above, this future execution
 
 \begin_deeper
 \begin_layout Itemize
-hints are needed to predict execution times
-\end_layout
-
-\begin_layout Itemize
-must stay within application domain
+explain video player architecture with buffers and work submission (see
+ status talk)
 \end_layout
 
 \begin_layout Itemize
@@ -1620,6 +1853,14 @@ GCD supports those
 \end_layout
 
 \end_deeper
+\begin_layout Itemize
+must stay within application domain
+\end_layout
+
+\begin_layout Itemize
+hints are needed to predict execution times
+\end_layout
+
 \end_deeper
 \begin_layout Itemize
 use this knowledge to provide insightful clairvoyance
@@ -1671,9 +1912,44 @@ explain online execution time training in detail
 
 \begin_deeper
 \begin_layout Itemize
-with evaluation
+evaluate accuracy of execution time prediction against worst-case allocation
+ of a periodic task
 \end_layout
 
+\end_deeper
+\begin_layout Itemize
+system scheduler
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+work packet programming model not compatible with fixed task priorities
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+the same thread might execute work of different urgency
+\end_layout
+
+\begin_layout Itemize
+depends on what work the application dispatches when to what queue
+\end_layout
+
+\begin_layout Itemize
+we could restrict the programmer to allow for more implicit scheduler knowledge
+ (like minimum inter-arrival distance), but this work opts not to
+\end_layout
+
+\begin_layout Itemize
+the urgency of one job remains the same over its lifetime
+\end_layout
+
+\begin_layout Itemize
+we need dynamic task priorities, but have fixed job priorities, so G-EDF
+ is a natural choice
+\end_layout
+
+\end_deeper
 \begin_layout Itemize
 G-EDF is optimal for soft real-time
 \begin_inset CommandInset citation
@@ -1713,6 +1989,24 @@ break ties in round-robin fashion
 \end_layout
 
 \begin_layout Itemize
+efficient EDF implementation strategies are known for single cores
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Short:EDFTaskManagement"
+
+\end_inset
+
+ and extensive studies for multicores
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Brandenburg:GlobalEDF"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
 G-EDF scales for today's core counts, in the future we may want to consider
  clustered scheduling
 \begin_inset CommandInset citation
@@ -1725,14 +2019,36 @@ key "Calandrino:ClusteredEDF"
 \end_layout
 
 \begin_layout Itemize
-efficient EDF implementation strategies are known
+ongoing discussion on trading schedulability and locality using partitioning,
+ clustering
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Short:EDFTaskManagement"
+key "Bastoni:EmpiricalComparison"
 
 \end_inset
 
+ and semi-partitioning
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Bastoni:SemiPartitioned"
 
+\end_inset
+
+ (some tasks allowed to migrate)
+\end_layout
+
+\begin_layout Itemize
+evaluate my EDF scheduler overhead
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+end-to-end evaluation
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+timeliness against a fair share scheduler
 \end_layout
 
 \end_deeper
@@ -1742,10 +2058,15 @@ discuss related work in detail
 
 \begin_deeper
 \begin_layout Itemize
-Redline
+explore the spectrum introduced above, compare approaches to describe timing
+ and resource requirements
+\end_layout
+
+\begin_layout Itemize
+periodic tasks with probabilistic admission
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Yang:Redline"
+key "Hamann:QAS,Hamann:QRMS"
 
 \end_inset
 
@@ -1754,35 +2075,75 @@ key "Yang:Redline"
 
 \begin_deeper
 \begin_layout Itemize
-\begin_inset CommandInset href
-LatexCommand href
-name "Redline Slides"
-target "http://os.inf.tu-dresden.de/local/dropscon/archive/2008-12-03-Michael-Redline.pdf"
+more flexible resource requirements than strict periodic tasks, probabilistic
+ admission
+\end_layout
 
-\end_inset
+\begin_layout Itemize
+higher utilization, but still using period for timing requirements
+\end_layout
 
-
+\begin_layout Itemize
+QRMS runs on top of fixed priority scheduling
 \end_layout
 
 \end_deeper
 \begin_layout Itemize
-coop_poll
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Krasic:CoopPoll"
-
-\end_inset
-
-
+fixed priority systems
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
-also uses application insight, no black-box approach
+expose scheduler implementation to userland, other task models would be
+ implemented on top
 \end_layout
 
 \begin_layout Itemize
-propagates application's task descriptions down to the kernel
+microkernel paradigm
+\end_layout
+
+\begin_layout Itemize
+used in practice: QNX in the BlackBerry PlayBook
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+RT in Linux
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+SCHED_RR, SCHED_FIFO
+\end_layout
+
+\begin_layout Itemize
+RT-patch adds SCHED_DEADLINE
+\end_layout
+
+\begin_layout Itemize
+only for root processes
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+time-constrained threads
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+periodic thread with an average and maximum execution time
+\end_layout
+
+\begin_layout Itemize
+accessible for non-root processes
+\end_layout
+
+\begin_layout Itemize
+vague demotion policy to prevent denial of service
+\end_layout
+
+\begin_layout Itemize
+execution time provided directly
 \end_layout
 
 \end_deeper
@@ -1886,7 +2247,7 @@ my predictor can be used in a reservation-based system
 
 \begin_layout Itemize
 still: post-mortem adaptation vs.
- clairvoyance
+ look-ahead
 \end_layout
 
 \end_deeper
@@ -1916,6 +2277,110 @@ gratuitously applying control theory might cover up the real interactions
 
 \end_deeper
 \begin_layout Itemize
+Self-tuning scheduler
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Cucinotta:Self-Tuning"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+treat existing real-time application as black box: 
+\begin_inset Quotes eld
+\end_inset
+
+applications that are characterized by some temporal constraints, but are
+ not developed using a specific API
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+insight: applications have real-time behavior but do not expose it, I modify
+ applications and allow them to expose this
+\end_layout
+
+\begin_layout Itemize
+estimate period and execution time by looking at its outside behavior
+\end_layout
+
+\begin_layout Itemize
+study in this paper: choosing the wrong scheduling period causes deadline
+ misses or over-allocation, so schedulers that decouple scheduling period
+ from application period can be inefficient
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Redline
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Yang:Redline"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset CommandInset href
+LatexCommand href
+name "Redline Slides"
+target "http://os.inf.tu-dresden.de/local/dropscon/archive/2008-12-03-Michael-Redline.pdf"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+also no modifications to applications
+\end_layout
+
+\begin_layout Itemize
+manual annotation with period and fixed execution time
+\end_layout
+
+\begin_layout Itemize
+will adapt parameters at runtime using feedback
+\end_layout
+
+\begin_layout Itemize
+uses EDF scheduler
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+coop_poll
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Krasic:CoopPoll"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+uses application insight, no black-box approach, applications explicitly
+ expose knowledge
+\end_layout
+
+\begin_layout Itemize
+propagates application's task descriptions down to the kernel, but without
+ look-ahead
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
 device IO
 \end_layout
 
@@ -1926,7 +2391,7 @@ propagate deadlines to device queues when jobs issue IO requests
 
 \begin_layout Itemize
 GCD fosters asynchronous device access and queue-ahead of upcoming jobs:
- provides the same clairvoyance for device IO
+ provides the same look-ahead for device IO
 \end_layout
 
 \begin_layout Itemize
@@ -1998,57 +2463,23 @@ Scheduling meets Multicore
 status open
 
 \begin_layout Itemize
-looked at situation from a developer perspective so far, now combine with
- a view from below
+multicores add another scheduling dimension: placement in space accompanies
+ ordering in time
 \end_layout
 
 \begin_layout Itemize
-trend: context switching considered harmful
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-increase efficiency by avoiding mode switches
-\end_layout
-
-\begin_layout Itemize
-we used to shred everything to little pieces, stir, and then execute
+scheduling in time is being deemphasized
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
-this used to be practical when many threads needed to be multiplexed in
- quasi-parallel fashion on one CPU
+context switching used to be practical when many threads needed to be multiplexe
+d in quasi-parallel fashion on one CPU
 \end_layout
 
 \begin_layout Itemize
 with the number of cores approaching the number of ready threads, this approach
  gets impractical
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-many other resources cannot be preempted
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-especially with GPUs: way too much state to save and restore
-\end_layout
-
-\begin_layout Itemize
-careful: GPUs get preempt-and-resume functionality, but is it efficient?
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-CPUs are going this way too
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-flushing cache, TLB, branch predictor, prefetcher becomes prohibitively
- expensive
 \end_layout
 
 \begin_layout Itemize
@@ -2074,78 +2505,92 @@ key "AMD_ASF_Spec"
 
 \end_layout
 
-\end_deeper
 \begin_layout Itemize
-HPC applications have always used batch-style operation
+many other resources cannot be preempted at all
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
-no context switching 
+disk jobs
+\end_layout
+
+\begin_layout Itemize
+GPUs get preemption functionality, but there is a lot of state to save and
+ restore
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Itemize
+systems increasingly schedule in space instead of time
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+parallelism is replacing frequency scaling as the means to increase performance
+\end_layout
+
+\begin_layout Itemize
+Lampson predicted this
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lampson:HintsDesign"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
 \begin_inset Quotes eld
 \end_inset
 
-in the small
+split resources in a fixed way if in doubt, rather than sharing them
 \begin_inset Quotes erd
 \end_inset
 
- on one node, because it would throw off barrier-synced code that assumes
- to run ganged
+
 \end_layout
 
 \begin_layout Itemize
-no context switching 
-\begin_inset Quotes eld
-\end_inset
-
-in the big
-\begin_inset Quotes erd
-\end_inset
-
- on the entire machine, multiple jobs run concurrently by static assignment
- of nodes
-\end_layout
-
-\begin_layout Itemize
-HPC often uses static placement that is decided offline, but dynamic HPC
- workloads exist that need dynamic decision-making
-\end_layout
-
-\begin_layout Itemize
-example: particle system, work packets correspond to patches of physical
- space, number of particles currently in the patch determines amount of
- work
+multiplex as long as hardware is expensive, statically assign once hardware
+ is cheap
 \end_layout
 
 \end_deeper
+\begin_layout Itemize
+specialize cores dynamically to execute kernel services
+\end_layout
+
+\begin_layout Itemize
+shutting down cores is also an important mechanism to save energy, because
+ DVFS is losing effectiveness
+\begin_inset CommandInset citation
+LatexCommand cite
+key "LeSueur:DVFS"
+
+\end_inset
+
+
+\end_layout
+
 \end_deeper
 \begin_layout Itemize
-work queues that are drained asynchronously fit in here well
+work queues that are drained asynchronously support this well
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
-main benefit of queues/bags of work: no forced control-flow transfer, work
- is executed at the target’s discretion
+queues just offer parallelism, dispatching is separate, system can decide
+ placement
 \end_layout
 
-\begin_layout Itemize
-other than with threads, work queues just offer parallelism, dispatching
- is separate, system can decide placement
-\end_layout
-
-\begin_deeper
 \begin_layout Itemize
 number of threads becomes controllable instead of being fixed in the application
  code
 \end_layout
 
-\begin_layout Itemize
-careful: there is also user-level threading, but this again has the context-swit
-ch problem, just on another level
-\end_layout
-
-\end_deeper
 \begin_layout Itemize
 work queues used within applications and also down to the kernel
 \begin_inset CommandInset citation
@@ -2192,7 +2637,7 @@ improves throughput and (surprisingly) also latency when loaded
 \end_layout
 
 \begin_layout Itemize
-extends the spine+worker programming model to workloads where the kernel
+extends the spine+workers programming model to workloads where the kernel
  is the worker (i.e.
  Internet servers)
 \end_layout
@@ -2209,6 +2654,7 @@ key "Lemon:Kqueue"
 
 \end_layout
 
+\end_deeper
 \begin_layout Itemize
 DSI on L4 provides asynchronous data movement between different address
  spaces
@@ -2230,64 +2676,24 @@ key "Kato:Timegraph"
 \end_layout
 
 \end_deeper
-\end_deeper
-\begin_layout Itemize
-combination of both the above: systems increasingly schedule in space instead
- of time
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-parallelism is replacing frequency scaling as the means to increase performance
-\end_layout
-
-\begin_layout Itemize
-placement and migration replace context switching as the scheduling mechanism
-\end_layout
-
-\begin_layout Itemize
-scheduling is now placement + order: two dimensions
-\end_layout
-
-\begin_layout Itemize
-Lampson predicted this
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Lampson:HintsDesign"
-
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
 \begin_layout Itemize
 \begin_inset Quotes eld
 \end_inset
 
-split resources in a fixed way if in doubt, rather than sharing them
+Tetris
 \begin_inset Quotes erd
 \end_inset
 
-
-\end_layout
-
-\begin_layout Itemize
-multiplex as long as hardware is expensive, statically assign once hardware
- is cheap
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-specialize cores dynamically to execute kernel services
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-real-time section covered time dimension, now look at space dimension
+ style scheduling: we want to know the widths and heights of work packets
+ to plan placement and order
 \end_layout
 
 \begin_deeper
+\begin_layout Itemize
+prerequisite to implementing placement policies is sufficient information
+ on what you place
+\end_layout
+
 \begin_layout Itemize
 using asynchronous blocks for parallelism and deadlines and hints attached
  to block groups for real-time, both are decoupled
@@ -2295,7 +2701,7 @@ using asynchronous blocks for parallelism and deadlines and hints attached
 
 \begin_layout Itemize
 execution time estimates give us the total execution time, but when spread
- across cores, it might take less wall-clock time
+ across cores, it might take less wall-clock time to finish
 \end_layout
 
 \begin_layout Itemize
@@ -2340,7 +2746,7 @@ describe parallel workload and placement algorithm in detail
 
 \begin_deeper
 \begin_layout Itemize
-video parallelization techniques (slice, macroblock-wave)
+video parallelization and balancing
 \end_layout
 
 \begin_layout Itemize
@@ -2358,6 +2764,17 @@ avoid context-switch, so no upcall interface, but info-page-style shared
 \end_layout
 
 \end_deeper
+\end_deeper
+\begin_layout Itemize
+end-to-end evaluation
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+place work on one core as long as it fits, fire up second core only when
+ necessary
+\end_layout
+
 \end_deeper
 \begin_layout Itemize
 discuss related work in detail
@@ -2404,6 +2821,29 @@ key "Nightingale:Helios"
 
 \end_layout
 
+\end_deeper
+\begin_layout Itemize
+existing placement strategies can augment our placement algorithm
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+fits well with our programming model of applications exposing metadata on
+ parallel work
+\end_layout
+
+\begin_layout Itemize
+performance counters often used for runtime monitoring, like online cache
+ utility modeling
+\begin_inset CommandInset citation
+LatexCommand cite
+key "West:CacheUtility"
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Itemize
 placement of jobs on cores influences contention on caches, prefetcher and
  DRAM controller
@@ -2427,23 +2867,23 @@ key "Blagodurov:DINO"
 
 \end_layout
 
-\end_deeper
 \begin_layout Itemize
-developed placement strategies can augment our placement algorithm
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-fits well with our programming model of applications exposing metadata on
- parallel work
-\end_layout
-
-\begin_layout Itemize
-performance counters often used for runtime monitoring, like online cache
- utility modeling
+batch work by moving it around in the scheduling window to enable longer
+ sleep times
 \begin_inset CommandInset citation
 LatexCommand cite
-key "West:CacheUtility"
+key "Awan:EnhancedRaceToHalt"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+migrate to prevent fan noise or throttling
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Merkel:EnergyModel"
 
 \end_inset
 
@@ -2452,8 +2892,8 @@ key "West:CacheUtility"
 
 \end_deeper
 \begin_layout Itemize
-the execution order of work packets within a job is relevant for speed and
- cache working set size
+the execution order of blocks within a job is relevant for speed and cache
+ working set size
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Chen:ConstructiveCacheSharing"
@@ -2476,6 +2916,65 @@ key "Nguyen:ConcurrentSchedulers"
 
 \end_layout
 
+\end_deeper
+\begin_layout Itemize
+knowledge about the job layout in both space and time allows disabling the
+ periodic timer tick
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+dynamically dedicate cores: place work somewhere, then let it run without
+ interference
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+the timer-tick is OS-level polling, hits all cores no matter what they run
+\end_layout
+
+\begin_layout Itemize
+move to a tick-less kernels helps to reducing OS noise and energy consumption
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+good for barrier-sync-style HPC applications: even the timer interrupt hurts
+ them badly
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Tsafrir:OSNoise"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+suggested solution: demand-driven 
+\begin_inset Quotes eld
+\end_inset
+
+smart
+\begin_inset Quotes erd
+\end_inset
+
+ timers which allow for batching instead of the slavish periodic tick
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+idea is an extension to timers with precision
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Peter:30Seconds"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
 \end_deeper
 \begin_layout Itemize
 hardware extensions supporting work queues and reduced context switching
@@ -2532,63 +3031,8 @@ scalable because of local queues and work stealing that bypasses the memory
 \end_deeper
 \end_deeper
 \begin_layout Itemize
-knowledge about the job layout in both space and time allows disabling the
- periodic timer tick
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-dynamically dedicate cores: place work somewhere, then let it run without
- interference
-\end_layout
-
-\begin_layout Itemize
-currently, the timer-tick is OS-level polling, hits all cores no matter
- what they run
-\end_layout
-
-\begin_layout Itemize
-moving to a tickless kernel helps to reducing OS noise and energy consumption
-\end_layout
-
-\begin_layout Itemize
-good for barrier-sync-style HPC applications: even the timer interrupt hurts
- them badly
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Tsafrir:OSNoise"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-suggested solution: demand-driven 
-\begin_inset Quotes eld
-\end_inset
-
-smart
-\begin_inset Quotes erd
-\end_inset
-
- timers which allow for batching instead of the slavish periodic tick
-\end_layout
-
-\begin_layout Itemize
-idea is an extension to timers with precision
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Peter:30Seconds"
-
-\end_inset
-
-
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-holistic approach for distributed systems: MOSIX
+holistic approach that extends placement problems beyond individual computers
+ to distributed systems: MOSIX
 \end_layout
 
 \begin_deeper
@@ -2625,59 +3069,13 @@ name "chap:Adaptivity"
 
 \end_inset
 
-Under- and Overload
+Adapt to Handle Overload
 \end_layout
 
 \begin_layout Standard
 \begin_inset Note Greyedout
 status open
 
-\begin_layout Itemize
-secondary policies on underload
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-batch work by moving it around in the scheduling window to enable longer
- sleep times
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Awan:EnhancedRaceToHalt"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-idea has been discussed for timers, specifying timeout and precision to
- allow batching
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Peter:30Seconds"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-migrate to prevent fan noise or throttling
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Merkel:EnergyModel"
-
-\end_inset
-
-
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-backpressure on overload
-\end_layout
-
-\begin_deeper
 \begin_layout Itemize
 our 
 \begin_inset Quotes eld
@@ -2738,6 +3136,11 @@ key "Krasic:PriorityProgress"
 
 \end_deeper
 \begin_layout Itemize
+quality-aware adaptation is application-specific
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
 some work just needs to be done, no discussion, no adaptation possible
 \end_layout
 
@@ -2753,11 +3156,6 @@ we can only hope to compensate by using the most efficient compute resource
 
 \end_deeper
 \begin_layout Itemize
-some work can adapt, so exert backpressure
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
 some applications can make quality/resource trade-offs according to application-
 specific notion of quality
 \end_layout
@@ -2770,6 +3168,12 @@ video is one example
 \begin_layout Itemize
 this also applies to resources other than CPU time, like network bandwidth
  for streaming
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+look-ahead enables choosing the part to degrade amongst many options, compared
+ to forcibly degrade the job at hand
 \end_layout
 
 \end_deeper
@@ -2805,27 +3209,12 @@ key "roitzsch08:videoquality"
 
 \begin_deeper
 \begin_layout Itemize
-decoding time estimate already given by HDE, quality estimate needed
+decoding time estimate already given, quality estimate needed
 \end_layout
 
 \begin_layout Itemize
-greedy solution for (contrained) binpacking: order jobs by quality/resource
+greedy solution for (constrained) bin-packing: order jobs by quality/resource
  ratio
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-other sources for adaptive video
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-SVC
-\end_layout
-
-\begin_layout Itemize
-adaptive streaming protocols: application propagates backpressure even to
- the server
 \end_layout
 
 \end_deeper
@@ -2856,6 +3245,12 @@ assumption: linear quality drop from meeting all deadlines down to that
  percentage
 \end_layout
 
+\begin_deeper
+\begin_layout Itemize
+could also use time-utility functions to optimize
+\end_layout
+
+\end_deeper
 \begin_layout Itemize
 use of percentage of missed deadlines as quality parameter inspired by QRMS
 \begin_inset CommandInset citation
@@ -2868,12 +3263,38 @@ key "hamann07:qrms"
 \end_layout
 
 \end_deeper
-\end_deeper
 \begin_layout Itemize
-related approaches
+end-to-end evaluation
 \end_layout
 
 \begin_deeper
+\begin_layout Itemize
+compare to ad-hoc adaptation using a low water-mark in the video player
+ queue
+\end_layout
+
+\begin_layout Itemize
+compare to fully clairvoyant oracle that calculates truly quality-optimal
+ execution
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+discuss related work
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+load-shedding queues in network servers
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Welsh:SEDA"
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Itemize
 overload handling with adaptive reservations
 \begin_inset CommandInset citation
@@ -2885,6 +3306,21 @@ key "Abeni:AdaptiveReservations"
 
 \end_layout
 
+\begin_layout Itemize
+other sources for adaptive video
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+SVC
+\end_layout
+
+\begin_layout Itemize
+adaptive streaming protocols: application propagates backpressure even to
+ the server
+\end_layout
+
+\end_deeper
 \begin_layout Itemize
 prioritize work and skip the low priorities when congested
 \begin_inset CommandInset citation
@@ -2922,18 +3358,6 @@ key "Krasic:CoopPoll"
 
 \end_layout
 
-\begin_layout Itemize
-load-shedding queues in network servers
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Welsh:SEDA"
-
-\end_inset
-
-
-\end_layout
-
-\end_deeper
 \end_deeper
 \end_inset
 
@@ -2941,7 +3365,7 @@ key "Welsh:SEDA"
 \end_layout
 
 \begin_layout Chapter
-Past, Present and Future
+The Road Ahead
 \end_layout
 
 \begin_layout Standard
@@ -2989,8 +3413,7 @@ deadlines are inherent to the application, energy limitations are driven
 \end_layout
 
 \begin_layout Itemize
-many existing solutions throttle threads according to an energy budget,
- but that's thinking inside the box 
+many existing solutions throttle threads according to an energy budget
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Roy:Cinder"
@@ -3000,6 +3423,12 @@ key "Roy:Cinder"
 
 \end_layout
 
+\begin_deeper
+\begin_layout Itemize
+not graceful degradation, but just degradation
+\end_layout
+
+\end_deeper
 \begin_layout Itemize
 assuming software does only useful work against the user's stated intent,
  throttling makes no sense
@@ -3010,14 +3439,13 @@ only energy efficiency (doing the same with less energy) and maybe adaptivity
  remains
 \end_layout
 
-\end_deeper
-\begin_layout Itemize
-energy saving by batching is already enabled by clairvoyant deadline-knowledge
-\end_layout
-
 \begin_deeper
 \begin_layout Itemize
-batch network requests to power up radio less often 
+energy saving by batching is already enabled by look-ahead deadline-knowledge
+\end_layout
+
+\begin_layout Itemize
+batch network requests to power up radio less often
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Roy:Cinder"
@@ -3028,14 +3456,32 @@ key "Roy:Cinder"
 \end_layout
 
 \end_deeper
+\end_deeper
 \begin_layout Itemize
 we may have targeted hardware with reduced instruction sets available that
  is more energy-efficient
 \end_layout
 
+\begin_deeper
 \begin_layout Itemize
-hardware video decoders are an edge-case of this spectrum: very limited
- instructions or fixed function
+pieces of GPU code (and other ISAs with tighter assumptions and less ability)
+ interwoven with CPU code
+\end_layout
+
+\begin_layout Itemize
+devices like GPU (and increasingly network cards
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Nightingale:Helios"
+
+\end_inset
+
+) treated as compute resources like CPU, not as a peripheral
+\end_layout
+
+\begin_layout Itemize
+hardware video decoders as an example of a special-purpose, limited-ISA
+ co-processor
 \end_layout
 
 \begin_deeper
@@ -3066,6 +3512,7 @@ key "Sutter:C++AMP_Keynote"
 )
 \end_layout
 
+\end_deeper
 \begin_layout Itemize
 special-purpose devices offer more choice for job placement and change energy
  tradeoffs, but they do not eliminate the fundamental problem to get given
@@ -3095,13 +3542,18 @@ workload: energy-aware encoding of video
 \end_layout
 
 \begin_layout Itemize
-application: maintain energy model, adapt to save energy, use specialized
- hardware
+we get the three swim lanes again, but with a different metric and intention
 \end_layout
 
 \begin_layout Itemize
-system: collect and act on energy metrics, provide interface to specialized
- hardware
+application: maintain energy model (enhances real-time), code for specialized
+ hardware ISA (enables placement), adapt to save energy (enhances adaptivity)
+\end_layout
+
+\begin_layout Itemize
+system: collect and act on energy metrics (enhances real-time), outsource
+ to specialized hardware (enhances placement), backpressure based on energy
+ intent (enhances adaptivity)
 \end_layout
 
 \end_deeper
@@ -3126,6 +3578,11 @@ key "Snowdon:Koala"
 
 \end_layout
 
+\begin_layout Itemize
+exploit look-ahead for energy metadata: clock CPU down and then run all
+ pending memory-bound jobs
+\end_layout
+
 \end_deeper
 \begin_layout Itemize
 linear combination of metrics to predict energy in a similar way to the
@@ -3146,16 +3603,6 @@ key "Merkel:EnergyModel"
 
 \begin_layout Itemize
 energy counter in Intel Sandy Bridge CPUs
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-work queues can clairvoyantly carry per-job energy metadata
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-clock CPU down and then run all pending memory-bound jobs
 \end_layout
 
 \end_deeper
@@ -3187,36 +3634,7 @@ use energy instead of CPU time as a cost metric in adaptation decisions
 
 \end_deeper
 \begin_layout Itemize
-hardware becomes less reliable
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-hardware and OS-features to manage reliability explicitly
-\end_layout
-
-\begin_layout Itemize
-provide GCD queues with different reliability levels, like imprecise ALU/FPU
-\end_layout
-
-\begin_layout Itemize
-application can dispatch code blocks with different reliability requirements
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-video decoders can tolerate some imprecision
-\end_layout
-
-\begin_layout Itemize
-substring search can do the long scan unreliably, followed by a quick reliable
- check
-\end_layout
-
-\end_deeper
-\end_deeper
-\begin_layout Itemize
-future development is well covered by the presented design
+future development can be researched within the presented design
 \end_layout
 
 \begin_layout Itemize
@@ -3266,7 +3684,7 @@ labelsep}{0mm}
 \begin_layout Standard
 \begin_inset CommandInset bibtex
 LatexCommand bibtex
-bibfiles "Bibliography/Thesis,Bibliography/Master"
+bibfiles "Bibliography/Thesis"
 options "Bibliography/Thesis"
 
 \end_inset
