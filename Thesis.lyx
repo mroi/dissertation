@@ -934,6 +934,85 @@ Introduction
 \end_layout
 
 \begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+The computing revolution
+\end_layout
+
+\end_inset
+
+ has treated users with an impressive stream of innovation: From the mainframe
+ era through the age of productivity computing to today’s multimedia and
+ mobile world, the capabilities of systems and thus the possibilities for
+ users increased steadily.
+ This development has been driven by the exponential improvement of the
+ underlying transistor technology as predicted by Moore’s Law: The number
+ of transistors that can be integrated cost efficiently doubles approximately
+ every two years.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+This period is often misquoted as 18 months, which has actually been a follow-up
+ prediction of the increase in single chip performance.
+\end_layout
+
+\end_inset
+
+ This exponential growth is matched by software: The total body of open
+ source software in the world doubles about every 14 months.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Deshpande:GrowthSoftware"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+Developer Burden
+\end_layout
+
+\begin_layout Standard
+Users have grown accustomed to the constant improvement of the technology.
+ High-end expert use cases will become a commodity just a few years later
+ and users will expect them to work predictably and efficiently.
+ The present-day iPad
+\begin_inset space ~
+\end_inset
+
+2 would have been in 1994’s Top
+\begin_inset space ~
+\end_inset
+
+500 list of the fastest computers in the world
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Markoff:DongarraIPad"
+
+\end_inset
+
+ and it is arguably more accessible today than those supercomputers were
+ back then.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+Satisfying these user expectations
+\end_layout
+
+\end_inset
+
+ is a demanding job for developers.
+\end_layout
+
+\begin_layout Standard
 \begin_inset Note Greyedout
 status open
 
@@ -1209,7 +1288,8 @@ placement of parallel work exploits exposed resource requirements
 \end_layout
 
 \begin_layout Itemize
-evaluation: start more cores only when you know it will not fit
+evaluation: start more cores only when you know it will not fit (energy
+ saving policy)
 \end_layout
 
 \end_deeper
@@ -1243,25 +1323,27 @@ evaluation: fallback path for video decoding with application-specific quality
 \end_layout
 
 \end_deeper
-\begin_layout Plain Layout
-\begin_inset Note Note
-status open
-
+\end_deeper
 \begin_layout Itemize
-energy: deadlines enable batching to aggregate longer idle times
+introduce video as the primary demo application
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+good sample workload, because it covers many properties: intrinsic deadlines,
+ high throughput, parallel, potentially adaptive, subject to energy savings
 \end_layout
 
 \begin_layout Itemize
-but I plan to include an energy argument in the parallel scheduling section
- under 
-\begin_inset Quotes eld
-\end_inset
+this architecture also covers applications with just a subset of the properties
+\end_layout
 
-efficient core placement
-\begin_inset Quotes erd
-\end_inset
+\begin_layout Itemize
+\begin_inset Note Note
+status open
 
-
+\begin_layout Plain Layout
+other application to validate claims more comprehensively
 \end_layout
 
 \end_inset
@@ -1548,6 +1630,10 @@ limited view into the future as a common trait for modern applications (this
 \end_layout
 
 \begin_layout Itemize
+describe fundamental video player architecture
+\end_layout
+
+\begin_layout Itemize
 work packets (or groups of them) are natural receivers for metadata by the
  developer (deadlines) or automatically by the system (training)
 \end_layout
@@ -1555,30 +1641,6 @@ work packets (or groups of them) are natural receivers for metadata by the
 \begin_layout Itemize
 this thesis: apply concept to real-time, parallel scheduling, adaptivity,
  energy
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-introduce video as the primary demo application
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-good sample workload, because it covers many properties: intrinsic deadlines,
- high throughput, parallel, potentially adaptive, subject to energy savings
-\end_layout
-
-\begin_layout Itemize
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-other application to validate claims more comprehensively
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \end_deeper
@@ -2148,6 +2210,10 @@ execution time provided directly
 
 \end_deeper
 \begin_layout Itemize
+task models that express other properties: gravitational task model
+\end_layout
+
+\begin_layout Itemize
 two-level scheduling
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -2583,7 +2649,7 @@ work queues that are drained asynchronously support this well
 \begin_deeper
 \begin_layout Itemize
 queues just offer parallelism, dispatching is separate, system can decide
- placement
+ placement; threads blend this in one concept
 \end_layout
 
 \begin_layout Itemize
