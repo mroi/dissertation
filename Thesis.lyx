@@ -24,9 +24,24 @@
 \def\labelitemiv{\raisebox{0.3mm}{\scriptsize\(\bullet\)}}
 }
 
-% simplified title and author for fancy headers, height-correct the dash
-\renewcommand{\plaintitle}{Practical Real\raisebox{-0.45mm}{-}Time with Look\raisebox{-0.45mm}{-}Ahead Scheduling}
-\renewcommand{\plainauthor}{Michael Roitzsch}
+% repeat tufte chapter definition because it got garbled by hyperref
+\long\def\@caption#1[#2]#3{\par%
+\addcontentsline{\csname ext@#1\endcsname}{#1}%
+{\protect\numberline{\csname the#1\endcsname}{\ignorespaces #2}}%
+\begingroup%
+\@parboxrestore%
+\if@minipage\@setminipage\fi%
+\@tufte@caption@font\@tufte@caption@justification%
+\noindent\csname fnum@#1\endcsname: \ignorespaces#3\par%
+\endgroup}
+
+% alternative chapter titling with big chapter number on the right
+\titleformat{\chapter}[display]
+{\relax\ifthenelse{\NOT\boolean{@tufte@symmetric}}{\begin{fullwidth}}{}}
+{\hfill\sffamily\color{gray}\fontsize{42}{0}\selectfont\thechapter}
+{0pt}
+{\vskip -33pt\huge\rmfamily\itshape}
+[\ifthenelse{\NOT\boolean{@tufte@symmetric}}{\end{fullwidth}}{}]
 
 % enable colored page edge when a new chapter starts
 \newcommand{\chapteredge}{
@@ -39,6 +54,10 @@
 \end{picture}
 }}}
 
+% simplified title and author for fancy headers, height-correct the dash
+\renewcommand{\plaintitle}{Practical Real\raisebox{-0.45mm}{-}Time with Look\raisebox{-0.45mm}{-}Ahead Scheduling}
+\renewcommand{\plainauthor}{Michael Roitzsch}
+
 % epigraph command
 \newcommand{\epigraph}[2]{
 \begin{fullwidth}
@@ -49,14 +68,6 @@
 \end{doublespace}
 \end{fullwidth}
 }
-
-% alternative chapter titling with bigger chapter number on the right
-\titleformat{\chapter}[display]
-{\relax\ifthenelse{\NOT\boolean{@tufte@symmetric}}{\begin{fullwidth}}{}}
-{\hfill\sffamily\color{gray}\fontsize{42}{0}\selectfont\thechapter}
-{0pt}
-{\vskip -33pt\huge\rmfamily\itshape}
-[\ifthenelse{\NOT\boolean{@tufte@symmetric}}{\end{fullwidth}}{}]
 \end_preamble
 \options a4paper
 \use_default_options true
@@ -116,11 +127,10 @@ End
 \pdf_bookmarksopen true
 \pdf_bookmarksopenlevel 1
 \pdf_breaklinks true
-\pdf_pdfborder false
+\pdf_pdfborder true
 \pdf_colorlinks false
 \pdf_backref false
 \pdf_pdfusetitle false
-\pdf_quoted_options "linktoc=all, pdfborder=2 2 0.5, linkbordercolor=0.8 0.8 1, urlbordercolor=0.6 1 0.6"
 \papersize default
 \use_geometry true
 \use_amsmath 1
@@ -1056,6 +1066,10 @@ some of these goals are at odds: speed vs.
  responsiveness
 \end_layout
 
+\begin_layout Itemize
+developers have to build on top of a good foundation to manage complexity
+\end_layout
+
 \end_deeper
 \begin_layout Itemize
 these are hard times for the scheduler
@@ -1149,6 +1163,11 @@ combine both problems and provide an integrated solution
 \end_layout
 
 \begin_deeper
+\begin_layout Itemize
+needs vertical integration to solve problem functionally, horizontal integration
+ to curb development complexity
+\end_layout
+
 \begin_layout Itemize
 targets interactive systems (desktop, notebook, smartphone), not reactive
  systems (industrial control, deeply embedded)
@@ -2225,6 +2244,45 @@ key "Shin:Compositional"
 \end_layout
 
 \begin_layout Itemize
+integration of hard real-time, soft real-time and best effort: RBED
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Brandt:RBED"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+focus in integration while preserving strong guarantees
+\end_layout
+
+\begin_layout Itemize
+underlying hard real-time EDF scheduler, resource allocator on top protects
+ EDF scheduler from overload
+\end_layout
+
+\begin_layout Itemize
+key insight: separate resource management from resource dispatching
+\end_layout
+
+\begin_layout Itemize
+starts with periodic task model and calculates relaxation bounds for parameters
+ that keep the schedule feasible
+\end_layout
+
+\begin_layout Itemize
+applications can submit jobs with parameters within those bounds
+\end_layout
+
+\begin_layout Itemize
+set_rbed_scheduler() and rbed_deadline_met() calls similar to submit/next
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
 Constant Bandwidth Server
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -2673,7 +2731,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Figures/Queues Mode Switches.svg
+	filename Figures/Queues_Mode_Switches.svg
 
 \end_inset
 
