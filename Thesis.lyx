@@ -983,13 +983,13 @@ key "Deshpande:GrowthSoftware"
 \end_layout
 
 \begin_layout Section*
-Developer Burden
+Application Challenges
 \end_layout
 
 \begin_layout Standard
 Users have grown accustomed to the constant improvement of the technology.
- High-end expert use cases will become a commodity just a few years later
- and users will expect them to work predictably and efficiently.
+ What started as high-end and expert use cases will become a commodity just
+ a few years later and will be expect to work predictably and efficiently.
  The present-day iPad
 \begin_inset space ~
 \end_inset
@@ -1014,12 +1014,241 @@ key "Markoff:DongarraIPad"
 status collapsed
 
 \begin_layout Plain Layout
-Satisfying these user expectations
+Satisfying these expectations
 \end_layout
 
 \end_inset
 
  is a demanding job for developers.
+ Users are no longer satisfied with functionality.
+ Increasingly, non-functional properties distinguish good applications from
+ great applications.
+ Next to user interface design and visual appearance such properties include
+ responsive and stutter-free operation, performance, and the useful and
+ efficient employment of the invested resources, also driven by the resource
+ and energy constraints of today’s battery-powered devices.
+ This thesis is motivated by the following three issues:
+\end_layout
+
+\begin_layout Description
+Timeliness: User interface responsiveness and the smoothness of multimedia
+ operations require that application’s 
+\emph on
+timing requirements
+\emph default
+ are met.
+ Time being a global resource, a system-wide solution is needed.
+ However, the majority of commodity systems today offer only weak temporal
+ guarantees and predictability to applications, so developers have to work
+ around those limitations.
+ While real-time operating systems are available, they are typically applied
+ in special-purpose scenarios.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+A notable exception is the BlackBerry PlayBook, a general-purpose tablet
+ computer which runs the real-time capable QNX kernel.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+Efficient
+\begin_inset space \space{}
+\end_inset
+
+Core
+\begin_inset space \space{}
+\end_inset
+
+Placement: Single-core performance is leveling off, so CPU manufacturers
+ rely on increasing core counts to offer higher performance.
+ Applications thus have to be developed with multiple threads to benefit
+ from multiple cores.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Sutter:FreeLunch"
+
+\end_inset
+
+ The amount of parallelism exposed by applications influences the number
+ of cores occupied.
+ However, the assignment of work to cores influences cache contention
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Zhuravlev:DIO"
+
+\end_inset
+
+ and energy efficiency
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Rangan:ThreadMotion"
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+a paper on core consolidation to save energy would be better
+\end_layout
+
+\end_inset
+
+.
+ Both CPUs and energy are global resources, so they require system-wide
+ management.
+ Applications have only limited ways to manage these issues locally.
+ It is preferable for applications to contribute their local knowledge of
+ 
+\emph on
+resource requirements
+\emph default
+ to improve the system's decisions.
+\end_layout
+
+\begin_layout Description
+Quality-aware
+\begin_inset space \space{}
+\end_inset
+
+Overload
+\begin_inset space \space{}
+\end_inset
+
+Handling: Overload situations occur when all ready applications collectively
+ ask for more computation time than the system can offer without violating
+ any timing requirements.
+ Real-time systems avoid such situations statically with an admission process:
+ A task will not be allowed to start unless a formal guarantee can be establishe
+d that the total resource demand will never outgrow the available resources.
+ On interactive systems, rejecting application launches will not be accepted
+ by users.
+ These systems have to handle overload situations dynamically at runtime
+ by reducing the resource allotment of some subset of applications.
+ To maintain fairness, this reduction needs to be managed globally, but
+ applications may want to adapt their service according to a local notion
+ of quality.
+ The system should communicate the overload 
+\emph on
+ahead of time,
+\emph default
+ so those applications can prepare before the resource shortage actually
+ arrives.
+\end_layout
+
+\begin_layout Standard
+These three challenges all benefit from the aggregation of local application
+ knowledge to implement a global system-wide policy.
+ I will show how communicating application’s timing requirements helps overall
+ timeliness, how knowledge on resource requirements improves core placement
+ and how ahead-of-time overload notification improves quality when adapting.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+Modern applications are complex
+\end_layout
+
+\end_inset
+
+ in functionality because they offer many features and have to handle new
+ failure cases by being connected with the cloud.
+ To also deliver the above non-functional properties, developers need to
+ build on top of a foundation that helps them handle these problems without
+ much development overhead.
+ Libraries can mediate between the application’s view and the scheduler
+ interface.
+ After discussing the application needs, I will now motivate my work from
+ the scheduler’s perspective.
+\end_layout
+
+\begin_layout Section*
+Scheduler Knowledge
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "5cm"
+special "none"
+height "5cm"
+height_special "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset space \hfill{}
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "mar:Interaction"
+
+\end_inset
+
+Interaction between Application and Scheduler
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As illustrated by Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "mar:Interaction"
+
+\end_inset
+
+, the scheduler is responsible for accumulating the information about the
+ work applications want to perform and determine an order and core placement
+ to execute the work.
+ The ordering policy should serve the non-functional properties applications
+ expect: It should fulfill timing requirements, use cores efficiently and
+ handle overload early and fairly.
 \end_layout
 
 \begin_layout Standard
@@ -1027,77 +1256,10 @@ Satisfying these user expectations
 status open
 
 \begin_layout Itemize
-these are hard times for developers
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-users demand not only functionality, but are now used to quick responsiveness,
- speedy applications and low energy use
-\end_layout
-
-\begin_layout Itemize
-these are hard problems:
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-responsiveness in the face of non-real-time operating system interfaces
-\end_layout
-
-\begin_layout Itemize
-speed in the face of stagnating single-core frequency and increasing core
- counts
-\end_layout
-
-\begin_layout Itemize
-load adaptation without global knowledge or fairness
-\end_layout
-
-\begin_layout Itemize
-energy characteristics typically dictated and managed behind the scenes
- by hardware
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-some of these goals are at odds: speed vs.
- energy, throughput vs.
- responsiveness
-\end_layout
-
-\begin_layout Itemize
-developers have to build on top of a good foundation to manage complexity
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
 these are hard times for the scheduler
 \end_layout
 
 \begin_deeper
-\begin_layout Itemize
-schedulers need to provide order that
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-fulfills timing requirements
-\end_layout
-
-\begin_layout Itemize
-efficiently uses cores
-\end_layout
-
-\begin_layout Itemize
-handles overload gracefully and fairly
-\end_layout
-
-\begin_layout Itemize
-is energy efficient
-\end_layout
-
-\end_deeper
 \begin_layout Itemize
 schedulers for peripheral devices have more insight into requested work
  than the CPU scheduler
@@ -1168,6 +1330,14 @@ needs vertical integration to solve problem functionally, horizontal integration
  to curb development complexity
 \end_layout
 
+\begin_deeper
+\begin_layout Itemize
+some of these goals are at odds: speed vs.
+ energy, throughput vs.
+ responsiveness
+\end_layout
+
+\end_deeper
 \begin_layout Itemize
 targets interactive systems (desktop, notebook, smartphone), not reactive
  systems (industrial control, deeply embedded)
@@ -2742,7 +2912,7 @@ status open
 \begin_inset Caption
 
 \begin_layout Plain Layout
-Work queues prevent mode switches.
+Work queues prevent mode switches
 \end_layout
 
 \end_inset
@@ -2909,7 +3079,6 @@ discuss related work in detail
 schedule in space instead of in time
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
 OS design for systems with 1000+ cores focus on space sharing instead of
  time sharing
@@ -2922,6 +3091,7 @@ key "Wentzlaff:fos"
 
 \end_layout
 
+\begin_deeper
 \begin_layout Itemize
 even stronger separation between cores: explicit communication instead of
  cache coherent shared memory
