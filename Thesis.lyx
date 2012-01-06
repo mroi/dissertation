@@ -44,7 +44,7 @@
 {\relax\ifthenelse{\NOT\boolean{@tufte@symmetric}}{\begin{fullwidth}}{}}
 {\hfill\sffamily\color{gray}\fontsize{42}{0}\selectfont\thechapter}
 {0pt}
-{\vskip -33pt\huge\rmfamily\itshape}
+{\vskip -32pt\huge\rmfamily\itshape}
 [\ifthenelse{\NOT\boolean{@tufte@symmetric}}{\end{fullwidth}}{}]
 
 % colored page edge when a new chapter starts
@@ -931,7 +931,25 @@ Dedication
 
 \end_layout
 
-\begin_layout Chapter*
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+mainmatter
+\backslash
+chapteredge
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
 Introduction
 \end_layout
 
@@ -1037,7 +1055,7 @@ non-functional properties
  responsive and stutter-free operation, performance, and the useful and
  efficient employment of the invested resources, also driven by the resource
  and energy constraints of today’s battery-powered devices.
- This thesis is motivated by the following three issues:
+ This dissertation is motivated by the following three issues:
 \end_layout
 
 \begin_layout Description
@@ -1338,7 +1356,7 @@ Because every device in a system
  So the CPU and its scheduling plays a central role in the system as it
  is the gateway for the scheduling of all other devices.
  Even though I believe many of the ideas I am going to present here can
- also be applied to scheduling peripherals, this thesis focuses exclusively
+ also be applied to scheduling peripherals, this work focuses exclusively
  on scheduling the CPU cores of a computer system.
 \end_layout
 
@@ -1565,14 +1583,15 @@ native command queueing
  for the software scheduler to pre-order the request according to its own
  policy, using work item metadata derived with a simplified model of the
  device.
+ A disk scheduler may have a notion of request urgency and inter-application
+ fairness that the hardware scheduler would not know about.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Reuther:DAS"
 
 \end_inset
 
- Our disk scheduler may have a notion of request urgency and inter-application
- fairness that the hardware scheduler would not know about.
+
 \end_layout
 
 \begin_layout Standard
@@ -1724,13 +1743,6 @@ priority
 \end_inset
 
  or the Unix nice levels
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Unix:nice"
-
-\end_inset
-
-
 \begin_inset Index idx
 status collapsed
 
@@ -1741,9 +1753,15 @@ nice level
 \end_inset
 
 .
- This single numeric value is a very coarse abstraction of a thread’s behavior,
- because it only indicates the importance of a thread relative to other
- threads.
+ This single numeric value
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Unix:nice"
+
+\end_inset
+
+ is a very coarse abstraction of a thread’s behavior, because it only indicates
+ the importance of a thread relative to other threads.
  The priority has to be supplied by the application developer, which gives
  rise to other problems we will discuss in Chapter
 \begin_inset space ~
@@ -1809,53 +1827,295 @@ In this thesis
  properties discussed above.
 \end_layout
 
+\begin_layout Section*
+Driving Insights
+\end_layout
+
 \begin_layout Standard
+From the above walk-through of the problem area we can see that the considered
+ non-functional properties timeliness, efficient core placement and quality-awar
+e overload handling are cross-cutting concerns.
+ They involve both local knowledge from the applications and global policy
+ executed by the scheduler.
+ Furthermore, many applications act as an execution environment tailored
+ to a specific workload: a text editor manipulates documents, a photo album
+ manages photos, a video player renders continuous media.
+ Those applications’ behavior dynamically depends on the workload they handle.
+ This workload is what users care about after all.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+A vertically integrated solution
+\end_layout
+
+\end_inset
+
+ spanning from the workload through the application down to the scheduler
+ is called for.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "5cm"
+special "none"
+height "5cm"
+height_special "none"
+status open
+
+\begin_layout Plain Layout
 \begin_inset Note Greyedout
 status open
 
-\begin_layout Itemize
-combine both problems and provide an integrated solution
+\begin_layout Plain Layout
+TODO
 \end_layout
 
-\begin_deeper
-\begin_layout Itemize
-needs vertical integration to solve problem functionally, horizontal integration
- to curb development complexity
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
 \end_layout
 
-\begin_deeper
-\begin_layout Itemize
-some of these goals are at odds: speed vs.
- energy, throughput vs.
- responsiveness
+\end_inset
+
+
 \end_layout
 
-\end_deeper
-\begin_layout Itemize
-targets interactive systems (desktop, notebook, smartphone), not reactive
- systems (industrial control, deeply embedded)
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "mar:Vertically-Integrated-Solution"
+
+\end_inset
+
+Vertically Integrated Solution
 \end_layout
 
-\begin_layout Itemize
-pragmatic and manageable for developers
+\end_inset
+
+
 \end_layout
 
-\begin_layout Itemize
-sufficient information for scheduler
+\end_inset
+
+
 \end_layout
 
-\begin_layout Itemize
-large body of research in these individual topics is available
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+null
 \end_layout
 
-\end_deeper
-\begin_layout Itemize
-driving insights
+\end_inset
+
+
 \end_layout
 
-\begin_deeper
-\begin_layout Itemize
-applications are increasingly structured into work packets: see Chapter
+\end_inset
+
+Refining the previous concept sketch from Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "mar:Interaction"
+
+\end_inset
+
+, Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "mar:Vertically-Integrated-Solution"
+
+\end_inset
+
+ shows how I imagine this integration to operate.
+ Applications should be aware of their workload and extract information
+ to model it.
+ They communicate a useful representation of their local knowledge down
+ to the scheduler.
+ The scheduler collects this knowledge from all applications and executes
+ its global policy, consequences of this policy take effect either implicitly
+ by the scheduling decisions being carried out, or explicitly by the scheduler
+ reporting back to an application.
+ Overload situations will be communicated this way, because they require
+ an application-specific notion of quality to resolve them.
+ The application in turn will use its model of the workload to decide on
+ a quality-aware reaction.
+\end_layout
+
+\begin_layout Standard
+What information will be relayed along those paths and what the interfaces
+ look like remains to be discussed.
+ But as motivated in the section on scheduler knowledge above, the scheduler
+ should operate on self-contained work items instead of threads which hide
+ their execution behavior deep in the application state.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+Applications should expose local knowledge
+\end_layout
+
+\end_inset
+
+ to the scheduler using work items.
+ Timing and resource requirements are encapsulated in those work items and
+ depend on the current workload.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+null
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+To expose more knowledge than currently, applications likely have to be
+ modified.
+ We may get away with adapting key libraries to change the behavior of many
+ applications at once, but in the context of this dissertation, modifying
+ a library is regarded as modifying the application.
+ How to reduce programming effort by architecting software so it hides this
+ problem in library layers is outside the scope of this thesis.
+ In scope however is to design the interfaces for ease of use:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+The programming model should be approachable
+\end_layout
+
+\end_inset
+
+ by matching current application development methods and by never asking
+ the developer for parameters outside the application domain.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+null
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+I hope developers can provide parameters from within the application domain
+ with reasonable effort.
+ An example are deadlines to describe the timing requirements of a work
+ item.
+ Parameters requiring knowledge outside the application scope should be
+ avoided.
+ Estimated execution times of work items for example are specific to the
+ underlying hardware platform, so developers should not need to provide
+ those.
+\end_layout
+
+\begin_layout Standard
+An emerging trend in the development of parallel software is the use of
+ lambdas, depending on the programming language also called closures or
+ blocks
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Herb Sutter’s talk 
+\begin_inset Quotes eld
+\end_inset
+
+Lambdas, Lambdas Everywhere
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+ They are used to structure the code into pieces that can be executed asynchrono
+usly, which keeps applications responsive in the presence of long-running
+ background computation or IO
+\begin_inset space ~
+\end_inset
+
+operations.
+ Because asynchronously executed code runs concurrently with other code,
+ lambdas are also a tool to express parallelism.
+ A more in-depth discussion of this programming style follows in Chapter
 \begin_inset space ~
 \end_inset
 
@@ -1866,19 +2126,149 @@ reference "chap:Anatomy"
 
 \end_inset
 
+.
+ I will illustrate how lambdas and work items can cooperate
+\begin_inset space \thinspace{}
+\end_inset
+
+—
+\begin_inset space \thinspace{}
+\end_inset
+
+both describe a bounded, self-contained piece of code execution
+\begin_inset space \thinspace{}
+\end_inset
+
+—
+\begin_inset space \thinspace{}
+\end_inset
+
+and how the communication of work items to the scheduler can be integrated
+ with the asynchronous execution of lambdas.
+ The lambda programming style has been adopted by big platform vendors such
+ Apple
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Apple:GrandCentralDispatch"
+
+\end_inset
+
+ and Microsoft
+\begin_inset CommandInset citation
+LatexCommand cite
+key "MSDN:C++PPL"
+
+\end_inset
+
+, so by drafting my scheduler interface to lean toward it, I intend to create
+ a pragmatic solution that is manageable by developers.
+\end_layout
+
+\begin_layout Standard
+The asynchronous execution of lambdas gives rise to another interesting
+ benefit: future code execution can be announced ahead-of-time.
+ Application code can specify multiple pieces of work and dispatch them
+ for later, asynchronous and potentially parallel execution.
+ The queues in the lambda runtime therefore contain knowledge about what
+ pieces of code that will execute in the future.
+ Again, more details on how these runtimes operate are given in Chapter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:Anatomy"
+
+\end_inset
+
+.
+ Here we conclude:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+Knowledge of future execution
+\end_layout
+
+\end_inset
+
+ should be propagated to the scheduler.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+null
+\end_layout
+
+\end_inset
+
 
 \end_layout
 
-\begin_layout Itemize
-allow applications to expose knowledge of their future execution to provide
- insightful look-ahead for the scheduler
+\end_inset
+
+I claim that many applications have knowledge on their future execution
+ available, but currently lack a way to expose this information.
+ Any operation that
+\begin_inset space \thinspace{}
+\end_inset
+
+—
+\begin_inset space \thinspace{}
+\end_inset
+
+once triggered by hardware, a system event or by user interaction
+\begin_inset space \thinspace{}
+\end_inset
+
+—
+\begin_inset space \thinspace{}
+\end_inset
+
+runs autonomously is fully determined at the moment it is triggered.
+ If a user clicks 
+\begin_inset Quotes eld
+\end_inset
+
+play
+\begin_inset Quotes erd
+\end_inset
+
+ to watch a video, the application knows that it will now be fetching, decoding
+ and displaying video frames.
 \end_layout
 
-\begin_layout Itemize
-allows ahead-of-time decisions rather than post-mortem control
+\begin_layout Standard
+Like video, some of these chains of actions may be long-running, some may
+ be short, like the reaction to a user’s mouse click in a graphical interface.
+ Highly interactive applications like games may have almost no knowledge
+ of what will happen next, because the user can change the course of action
+ at any moment.
+ However, applications that do have knowledge of their future should be
+ able to tell the scheduler about it early.
+ Such insights enable the system to perform look-ahead scheduling: It can
+ make ahead-of-time, anticipating decisions rather than post-mortem, reactive
+ control.
 \end_layout
 
-\end_deeper
+\begin_layout Standard
+\begin_inset Note Greyedout
+status open
+
 \begin_layout Itemize
 apply this idea to real-time, parallelism, adaptivity and energy, name key
  contributions in each
@@ -1886,11 +2276,30 @@ apply this idea to real-time, parallelism, adaptivity and energy, name key
 
 \begin_deeper
 \begin_layout Itemize
+targets interactive systems (desktop, notebook, smartphone), not reactive
+ systems (industrial control, deeply embedded)
+\end_layout
+
+\begin_layout Itemize
 end-to-end-solutions must consider three levels: workload, application,
  system
 \end_layout
 
 \begin_deeper
+\begin_layout Itemize
+vertical integration to solve problem functionally, horizontal integration
+ to curb development complexity
+\end_layout
+
+\begin_layout Itemize
+the goals interrelate: throughput vs.
+ responsiveness
+\end_layout
+
+\begin_layout Itemize
+large body of research in these individual topics is available
+\end_layout
+
 \begin_layout Itemize
 collaboration between system and application is beneficial
 \end_layout
@@ -1999,6 +2408,42 @@ contribution: look-ahead scheduling can mitigate overload before it occurs
 adaptivity exploits look-ahead
 \end_layout
 
+\begin_deeper
+\begin_layout Itemize
+solving constraint satisfaction problems
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Schaerf:CSP"
+
+\end_inset
+
+, scheduling means directing the traversal of the search space
+\end_layout
+
+\begin_layout Itemize
+scheduling of production machines in factories
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Itoh:ProductionScheduling"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+video on demand
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Yu:VOD_LookAhead"
+
+\end_inset
+
+: buffering and stream jumping to save server disk-access when users pause
+ videos
+\end_layout
+
+\end_deeper
 \begin_layout Itemize
 evaluation: fallback path for video decoding with application-specific quality
  measure
@@ -2034,24 +2479,6 @@ other application to validate claims more comprehensively
 \end_layout
 
 \end_deeper
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-
-\backslash
-mainmatter
-\backslash
-chapteredge
-\end_layout
-
 \end_inset
 
 
@@ -2861,11 +3288,22 @@ SCHED_RR, SCHED_FIFO
 \end_layout
 
 \begin_layout Itemize
-RT-patch adds SCHED_DEADLINE
+RT-patch adds SCHED_DEADLINE, previously SCHED_EDF
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Faggioli:SCHED_EDF"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Itemize
 only for root processes
+\end_layout
+
+\begin_layout Itemize
+no look-ahead
 \end_layout
 
 \end_deeper
