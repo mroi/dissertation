@@ -1430,35 +1430,8 @@ sideways false
 status open
 
 \begin_layout Plain Layout
-\begin_inset Box Boxed
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "5cm"
-special "none"
-height "5cm"
-height_special "none"
-status open
-
-\begin_layout Plain Layout
-\begin_inset Note Greyedout
-status open
-
-\begin_layout Plain Layout
-TODO
-\end_layout
-
-\end_inset
-
-
-\begin_inset space \hfill{}
-\end_inset
-
-
-\end_layout
+\begin_inset Graphics
+	filename Figures/Peripheral_Scheduling.svg
 
 \end_inset
 
@@ -1601,35 +1574,8 @@ sideways false
 status open
 
 \begin_layout Plain Layout
-\begin_inset Box Boxed
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "5cm"
-special "none"
-height "5cm"
-height_special "none"
-status open
-
-\begin_layout Plain Layout
-\begin_inset Note Greyedout
-status open
-
-\begin_layout Plain Layout
-TODO
-\end_layout
-
-\end_inset
-
-
-\begin_inset space \hfill{}
-\end_inset
-
-
-\end_layout
+\begin_inset Graphics
+	filename Figures/CPU_Scheduling.svg
 
 \end_inset
 
@@ -1838,8 +1784,18 @@ e overload handling are cross-cutting concerns.
  They involve both local knowledge from the applications and global policy
  executed by the scheduler.
  Furthermore, many applications act as an execution environment tailored
- to a specific workload: a text editor manipulates documents, a photo album
- manages photos, a video player renders continuous media.
+ to a specific workload
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+workload
+\end_layout
+
+\end_inset
+
+: a text editor manipulates documents, a photo album manages photos, a video
+ player renders continuous media.
  Those applications’ behavior dynamically depends on the workload they handle.
  This workload is what users care about after all.
 \end_layout
@@ -1865,35 +1821,8 @@ sideways false
 status open
 
 \begin_layout Plain Layout
-\begin_inset Box Boxed
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "5cm"
-special "none"
-height "5cm"
-height_special "none"
-status open
-
-\begin_layout Plain Layout
-\begin_inset Note Greyedout
-status open
-
-\begin_layout Plain Layout
-TODO
-\end_layout
-
-\end_inset
-
-
-\begin_inset space \hfill{}
-\end_inset
-
-
-\end_layout
+\begin_inset Graphics
+	filename Figures/Verically_Integrated_Solution.svg
 
 \end_inset
 
@@ -2029,9 +1958,19 @@ null
 
 To expose more knowledge than currently, applications likely have to be
  modified.
- We may get away with adapting key libraries to change the behavior of many
- applications at once, but in the context of this dissertation, modifying
- a library is regarded as modifying the application.
+ We may get away with adapting key libraries
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+library
+\end_layout
+
+\end_inset
+
+ to change the behavior of many applications at once, but in the context
+ of this dissertation, modifying a library is regarded as modifying the
+ application.
  How to reduce programming effort by architecting software so it hides this
  problem in library layers is outside the scope of this thesis.
  In scope however is to design the interfaces for ease of use:
@@ -2086,8 +2025,37 @@ I hope developers can provide parameters from within the application domain
 
 \begin_layout Standard
 An emerging trend in the development of parallel software is the use of
- lambdas, depending on the programming language also called closures or
- blocks
+ lambdas
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+lambda
+\end_layout
+
+\end_inset
+
+, depending on the programming language also called closures
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+closure
+\end_layout
+
+\end_inset
+
+ or blocks
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+block
+\end_layout
+
+\end_inset
+
+
 \begin_inset Note Note
 status open
 
@@ -2260,9 +2228,18 @@ Like video, some of these chains of actions may be long-running, some may
  at any moment.
  However, applications that do have knowledge of their future should be
  able to tell the scheduler about it early.
- Such insights enable the system to perform look-ahead scheduling: It can
- make ahead-of-time, anticipating decisions rather than post-mortem, reactive
- control.
+ Such insights enable the system to perform look-ahead scheduling
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+look-ahead scheduling
+\end_layout
+
+\end_inset
+
+: It can make ahead-of-time, anticipating decisions rather than post-mortem,
+ reactive control.
 \end_layout
 
 \begin_layout Standard
