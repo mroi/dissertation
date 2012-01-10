@@ -81,6 +81,7 @@
 \use_default_options true
 \begin_modules
 fixltx2e
+enumitem
 \end_modules
 \maintain_unincluded_children false
 \begin_local_layout
@@ -1329,9 +1330,19 @@ reference "mar:Interaction"
 
 \end_inset
 
-, the scheduler is responsible for accumulating the information about the
- work applications want to perform and determine an order and core placement
- to execute the work.
+, the scheduler
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+define scheduler and scheduling
+\end_layout
+
+\end_inset
+
+ is responsible for accumulating the information about the work applications
+ want to perform and determine an order and core placement to execute the
+ work.
  The ordering policy should serve the non-functional properties applications
  expect: It should fulfill timing requirements, use cores efficiently and
  handle overload early and fairly.
@@ -1466,25 +1477,9 @@ The scheduler is now supposed to order the work items and send them off
  to the device for execution.
  The scheduling algorithm performs that ordering with a service goal in
  mind, for example to maximize device throughput.
- Every work item includes metadata for the request and
-\begin_inset space \thinspace{}
-\end_inset
-
-—
-\begin_inset space \thinspace{}
-\end_inset
-
-depending on the kind of the request
-\begin_inset space \thinspace{}
-\end_inset
-
-—
-\begin_inset space \thinspace{}
-\end_inset
-
-its payload.
- In the case of our disk write request, the payload is the data to be written
- and the metadata contains the size of the request and its location on disk.
+ Every work item is associated with metadata for the request.
+ In the case of our disk write request, that metadata contains the size
+ of the request and its location on disk.
 \end_layout
 
 \begin_layout Standard
@@ -2228,7 +2223,11 @@ Like video, some of these chains of actions may be long-running, some may
  at any moment.
  However, applications that do have knowledge of their future should be
  able to tell the scheduler about it early.
- Such insights enable the system to perform look-ahead scheduling
+ Such insights enable the system to perform 
+\emph on
+look-ahead scheduling
+\emph default
+
 \begin_inset Index idx
 status collapsed
 
@@ -2238,8 +2237,662 @@ look-ahead scheduling
 
 \end_inset
 
-: It can make ahead-of-time, anticipating decisions rather than post-mortem,
- reactive control.
+: It can make ahead-of-time, anticipating decisions rather than exercising
+ post-mortem, reactive control.
+\end_layout
+
+\begin_layout Section*
+Thesis Goals
+\end_layout
+
+\begin_layout Standard
+In this dissertation, I target three scheduling-related problems:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Argument
+status collapsed
+
+\begin_layout Plain Layout
+noitemsep
+\end_layout
+
+\end_inset
+
+timeliness
+\end_layout
+
+\begin_layout Itemize
+efficient core placement, and
+\end_layout
+
+\begin_layout Itemize
+quality-aware overload handling.
+\end_layout
+
+\begin_layout Standard
+I chose these problems because I believe they constitute important non-functiona
+l properties, which applications should offer to their users.
+ Therefore, I investigate these problems exclusively in the context of interacti
+ve end-user systems, running a commodity operating system
+\begin_inset CommandInset citation
+LatexCommand cite
+key "StatCounter:OSMarketShare"
+
+\end_inset
+
+ as an application platform.
+ This category of systems includes classical desktop computers, notebooks
+ and the ballooning family of smartphones and tablets.
+ It does not include servers, although I am confident that many ideas generalize
+ to this class of systems due to the large amount of shared technology.
+\end_layout
+
+\begin_layout Standard
+I do not consider reactive systems
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Harel:ReactiveSystems"
+
+\end_inset
+
+ that continuously supervise sensors and actuators, for example in an industrial
+ control environment or within other deeply embedded systems.
+ Graphical and touch user interfaces however are subject to timing constraints
+ dictated by the physical reality, therefore human-machine-interfaces and
+ reactive systems overlap.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Halbwachs:LUSTRE"
+
+\end_inset
+
+ Beyond these shared timeliness demands, I ignore reactive systems in this
+ work.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+Three layers have to be bridged
+\end_layout
+
+\end_inset
+
+ for a comprehensive solution:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Argument
+status collapsed
+
+\begin_layout Plain Layout
+noitemsep
+\end_layout
+
+\end_inset
+
+workload
+\end_layout
+
+\begin_layout Itemize
+application, and
+\end_layout
+
+\begin_layout Itemize
+CPU scheduler.
+\end_layout
+
+\begin_layout Standard
+I believe combining application-specific knowledge on workload and execution
+ behavior with system-wide knowledge on urgency and overall load is beneficial.
+ Any solution that handles any of these aspects in isolation will be incomplete.
+ Instead, applications and the scheduler have to collaborate to integrate
+ application-local and global scheduling mechanisms.
+\end_layout
+
+\begin_layout Standard
+Furthermore, the three non-functional properties in the focus of this thesis
+ interrelate: Core placement affects execution speed
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Blagodurov:DINO"
+
+\end_inset
+
+ and therefore application progress, which impacts timeliness.
+ When too tight timing requirements are requested for a single core to fulfill,
+ parallel execution on multiple cores can help to meet demand, otherwise
+ the system runs into overload.
+ Unless mitigated, overload will disturb timeliness.
+ The scheduling layer thus needs one mechanism covering all three of the
+ non-functional properties.
+ Equally, application developers should not be confronted with three different
+ programming paradigms, but one wholesale solution.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+Integration
+\end_layout
+
+\end_inset
+
+ along both the properties dimension and the layers dimension is key.
+ The thesis goals are summarized in the following Table
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Overview-Thesis"
+
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="4">
+<features booktabs="true" tabularvalignment="middle">
+<column alignment="left" valignment="top" width="16text%">
+<column alignment="left" valignment="top" width="23text%">
+<column alignment="left" valignment="top" width="23text%">
+<column alignment="left" valignment="top" width="23text%">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Timeliness
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Core Placement
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Overload Handling
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Workload
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+derive workload-aware execution time model
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+partition to enable parallel execution
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+offer degraded processing options
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Application
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+expose deadlines and execution time estimates
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+expose degree of parallelism
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+cache-miss estimates
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+balance resource and quality impact of load shedding
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+CPU Scheduler
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+globally order work items to meet deadlines, detect misses ahead of time
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+assign work items to cores according to global policy
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+exert back-pressure when anticipating deadline misses
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Enabling Feature
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Timing Requirements
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Resource Requirements
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Scheduler Look-Ahead
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Thesis Chapter
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Chapter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:Real-Time"
+
+\end_inset
+
+:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "chap:Real-Time"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Chapter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:Parallelism"
+
+\end_inset
+
+:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "chap:Parallelism"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Chapter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:Adaptivity"
+
+\end_inset
+
+:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "chap:Adaptivity"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset VSpace bigskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Overview-Thesis"
+
+\end_inset
+
+Overview of the Solution Developed in this Thesis
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Vertical integration across the three layers is necessary, because no layer
+ alone has enough knowledge to provide the desired non-functional properties.
+ Horizontal integration across the properties is necessary to curb complexity
+ for the developer and because of the cross-talk between the properties.
+\end_layout
+
+\begin_layout Standard
+A large body of existing research results are available at the nine intersection
+s in my three by three goals matrix.
+ However, in this dissertation I provide a comprehensive, end-to-end solution
+ and I demonstrate improvements over the state of the art in each of the
+ three property lanes.
+ I will now give an overview of the work within each property lane and summarize
+ the key contributions.
+ Each lane is discussed in detail in its own chapter.
+\end_layout
+
+\begin_layout Subsection*
+Timeliness
+\end_layout
+
+\begin_layout Standard
+Timeliness is the primary property of real-time scheduling.
+ A secondary service goal is only considered by the scheduling policy when
+ timeliness is not jeopardized.
+ Time is a global resource and is therefore managed by a system-wide scheduler.
+ Imposing a separation of concerns like resource kernels
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Rajkumar:ResourceKernels"
+
+\end_inset
+
+, applications specify their timing requirements to the scheduler, which
+ then exercises global management.
+ This functional separation must be accompanied by an integration of knowledge:
+ Only the application knows its workload and should expose this knowledge
+ to the scheduler using appropriate interfaces.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+I contribute a task model
+\end_layout
+
+\end_inset
+
+ and a scheduler interface that allows applications to express timing and
+ resource requirements.
+ Other than the majority of related work, I do not employ a periodic task
+ model.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Liu:RMS"
+
+\end_inset
+
+ Explicit submission of future jobs substitutes the implicit knowledge on
+ future execution that periods provide.
+\end_layout
+
+\begin_layout Standard
+The scheduler interface as seen by the application developer only asks for
+ parameters within the application domain.
+ Timing requirements are specified explicitly as deadlines.
+ Resource requirements are specified using 
+\emph on
+workload metrics
+\emph default
+
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+workload metrics
+\end_layout
+
+\end_inset
+
+: parameters from the workload that describe its computational weight.
+ Machine-learning is used to automatically derive execution time estimates
+ from the metrics.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+ask Hermann: cite own work here?
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+I claim that the flexibility
+\end_layout
+
+\end_inset
+
+ of this task model allows to inform the scheduler more accurately of applicatio
+n behavior than alternative approaches.
+ I validate this claim by demonstrating that the scheduler can predict the
+ future execution of applications precise enough to anticipate deadline
+ misses ahead-of-time.
+ No other scheduling system I am aware of features a comparable look-ahead
+ capability.
+\end_layout
+
+\begin_layout Standard
+I also evaluate the ability of my scheduler to provide timeliness by honoring
+ the requested timing requirements.
+ I compare with the behavior under conventional fair share scheduling without
+ timing constraints.
+ This evaluation serves to convince the reader of the scheduler’s basic
+ functionality with respect to the timeliness property.
+ I do not claim to improve the state of the art in this aspect.
+\end_layout
+
+\begin_layout Standard
+The real-time task model and scheduler are described and evaluated in Chapter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:Real-Time"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -2252,77 +2905,6 @@ apply this idea to real-time, parallelism, adaptivity and energy, name key
 \end_layout
 
 \begin_deeper
-\begin_layout Itemize
-targets interactive systems (desktop, notebook, smartphone), not reactive
- systems (industrial control, deeply embedded)
-\end_layout
-
-\begin_layout Itemize
-end-to-end-solutions must consider three levels: workload, application,
- system
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-vertical integration to solve problem functionally, horizontal integration
- to curb development complexity
-\end_layout
-
-\begin_layout Itemize
-the goals interrelate: throughput vs.
- responsiveness
-\end_layout
-
-\begin_layout Itemize
-large body of research in these individual topics is available
-\end_layout
-
-\begin_layout Itemize
-collaboration between system and application is beneficial
-\end_layout
-
-\begin_layout Itemize
-combine application-specific knowledge with general mechanism, not either-or
-\end_layout
-
-\begin_layout Itemize
-table or summary figure with columns/swim lanes for topics and layers for
- levels
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-real-time scheduling (Chapter
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "chap:Real-Time"
-
-\end_inset
-
-): explicit timing requirements and workload hints to describe resource
- requirements
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-contribution: task model and API that is manageable for developers and expressiv
-e for EDF scheduling with look-ahead
-\end_layout
-
-\begin_layout Itemize
-real-time scheduling exploits exposed timing requirement
-\end_layout
-
-\begin_layout Itemize
-evaluation: fair sharing without timing requirements misses deadlines, workload
- hints provide good estimate for resource requirements
-\end_layout
-
-\end_deeper
 \begin_layout Itemize
 parallel scheduling (Chapter
 \begin_inset space ~
@@ -2435,7 +3017,11 @@ introduce video as the primary demo application
 \begin_deeper
 \begin_layout Itemize
 good sample workload, because it covers many properties: intrinsic deadlines,
- high throughput, parallel, potentially adaptive, subject to energy savings
+ high throughput, parallel, potentially adaptive
+\end_layout
+
+\begin_layout Itemize
+also: used in mobile scenarios, subject to energy savings
 \end_layout
 
 \begin_layout Itemize
@@ -3820,7 +4406,7 @@ status open
 \begin_inset Caption
 
 \begin_layout Plain Layout
-Work queues prevent mode switches
+Work Queues Prevent Mode Switches
 \end_layout
 
 \end_inset
