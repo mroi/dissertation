@@ -89,8 +89,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="3.6138216"
-     inkscape:cx="66.699753"
-     inkscape:cy="138.10001"
+     inkscape:cx="95.867681"
+     inkscape:cy="104.89416"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -101,7 +101,7 @@
      fit-margin-bottom="0"
      inkscape:window-width="1191"
      inkscape:window-height="743"
-     inkscape:window-x="0"
+     inkscape:window-x="92"
      inkscape:window-y="0"
      inkscape:window-maximized="0">
     <inkscape:grid
@@ -165,7 +165,7 @@
        sodipodi:nodetypes="cccccccccc" />
     <text
        xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#0c0d0d;fill-opacity:1;stroke:none;font-family:Sans"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
        x="7.0986714"
        y="949.60059"
        id="text3792"
@@ -174,7 +174,7 @@
          id="tspan3794"
          x="7.0986714"
          y="949.60059"
-         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#0c0d0d;fill-opacity:1;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light">Scheduler</tspan></text>
+         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light">Scheduler</tspan></text>
     <path
        id="path3814"
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
