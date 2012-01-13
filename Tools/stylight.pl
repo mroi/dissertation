@@ -1,11 +1,13 @@
 #!/usr/bin/perl -w
 
+# credit to Matt Might (http://matt.might.net/)
 $weasels = "many|various|very|fairly|several|extremely\
 	|exceedingly|quite|remarkably|few|surprisingly\
 	|mostly|largely|huge|tiny|are a number|is a number\
 	|excellent|interestingly|significantly\
 	|substantially|clearly|vast|relatively|completely";
 
+# credit to Matt Might (http://matt.might.net/)
 $irregulars = "awoken\
 	|been|born|beat\
 	|become|begun|bent\
@@ -59,6 +61,7 @@ $irregulars = "awoken\
 	|withheld|withstood|wrung\
 	|written";
 
+# credit to Michael Hohmuth for the checkbiw script
 $biw = "as to whether|different than|is due to\
 	|above|below|last|all of\
 	|i'm|you're|he's|she's|it's|we're|they're\
