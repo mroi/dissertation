@@ -96,14 +96,6 @@ Font
 Size	Large
 EndFont
 End
-
-InsetLayout Flex:AllCaps
-CopyStyle AllCaps
-End
-
-InsetLayout Flex:SmallCaps
-CopyStyle SmallCaps
-End
 \end_local_layout
 \language english
 \language_package default
@@ -744,7 +736,7 @@ Statusvortrag:
 \begin_layout Plain Layout
 
 \lang ngerman
-Tag der Verteidigung:
+Verteidigung:
 \end_layout
 
 \end_inset
@@ -1265,8 +1257,8 @@ Modern applications are complex
 
 \end_inset
 
- in functionality because they offer many features and have to handle new
- failure cases by being connected with the cloud.
+ in functionality because they offer intricate features or have to handle
+ new failure cases by being connected with the cloud.
  To also deliver the above non-functional properties, developers need to
  build on top of a foundation that helps them handle these problems without
  much development overhead.
@@ -1366,6 +1358,12 @@ Because every device in a system
  code on the CPU.
  So the CPU and its scheduling plays a central role in the system as it
  is the gateway for the scheduling of all other devices.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Rajkumar:ResourceKernels"
+
+\end_inset
+
  Even though I believe many of the ideas I am going to present here can
  also be applied to scheduling peripherals, this work focuses exclusively
  on scheduling the CPU cores of a computer system.
@@ -1701,7 +1699,7 @@ key "Unix:nice"
 
 \end_inset
 
- is a very coarse abstraction of a thread’s behavior, because it only indicates
+ is a coarse abstraction of a thread’s behavior, because it only indicates
  the importance of a thread relative to other threads.
  The priority has to be supplied by the application developer, which gives
  rise to other problems we will discuss in Chapter
@@ -2289,7 +2287,16 @@ key "StatCounter:OSMarketShare"
 \end_layout
 
 \begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
 I do not consider reactive systems
+\end_layout
+
+\end_inset
+
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Harel:ReactiveSystems"
@@ -2307,8 +2314,21 @@ key "Halbwachs:LUSTRE"
 
 \end_inset
 
- Beyond these shared timeliness demands, I ignore reactive systems in this
+ Beyond these common timeliness demands, I ignore reactive systems in this
  work.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+introduce soft real-time and exclude hard real-time
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -2464,7 +2484,7 @@ Workload
 \begin_inset Text
 
 \begin_layout Plain Layout
-derive workload-aware execution time model
+derive workload hints to predict execution times
 \end_layout
 
 \end_inset
@@ -2502,7 +2522,7 @@ Application
 \begin_inset Text
 
 \begin_layout Plain Layout
-expose deadlines and execution time estimates
+expose deadlines and execution time estimates ahead of time
 \end_layout
 
 \end_inset
@@ -2856,13 +2876,13 @@ ask Hermann: cite own work here?
 status collapsed
 
 \begin_layout Plain Layout
-I claim that the flexibility
+I claim that the flexibility of this task model
 \end_layout
 
 \end_inset
 
- of this task model allows to inform the scheduler more accurately of applicatio
-n behavior than alternative approaches.
+ allows to inform the scheduler more accurately of application behavior
+ than alternative approaches.
  I validate this claim by demonstrating that the scheduler can predict the
  future execution of applications precise enough to anticipate deadline
  misses ahead-of-time.
@@ -2871,8 +2891,51 @@ n behavior than alternative approaches.
 \end_layout
 
 \begin_layout Standard
-I also evaluate the ability of my scheduler to provide timeliness by honoring
- the requested timing requirements.
+Look-ahead is mentioned in the literature together with scheduling in the
+ areas of constraint satisfaction problems
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Schaerf:CSP"
+
+\end_inset
+
+, factory scheduling
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Itoh:ProductionScheduling"
+
+\end_inset
+
+ and server management for on-demand video
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Yu:VOD_LookAhead"
+
+\end_inset
+
+.
+ For constraint satisfaction problems and factory scheduling, look-ahead
+ is applied to the traversal of the solution search space.
+ Thus, the scheduling does not look ahead along the time axis into the future,
+ but along the search tree of the solution space.
+ In the on-demand video context, the server tries to batch multiple viewers
+ of the same video to save disk requests.
+ Look-ahead and buffering is applied on the server to service multiple users
+ from the same disk stream, even if they independently pause and resume
+ playback.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+I also evaluate the timeliness
+\end_layout
+
+\end_inset
+
+ delivered by my scheduler honoring the requested timing requirements.
  I compare with the behavior under conventional fair share scheduling without
  timing constraints.
  This evaluation serves to convince the reader of the scheduler’s basic
@@ -2893,6 +2956,10 @@ reference "chap:Real-Time"
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Subsection*
+Core Placement
 \end_layout
 
 \begin_layout Standard
@@ -2969,37 +3036,17 @@ adaptivity exploits look-ahead
 
 \begin_deeper
 \begin_layout Itemize
-solving constraint satisfaction problems
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Schaerf:CSP"
-
-\end_inset
-
-, scheduling means directing the traversal of the search space
+solving constraint satisfaction problems, scheduling means directing the
+ traversal of the search space
 \end_layout
 
 \begin_layout Itemize
 scheduling of production machines in factories
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Itoh:ProductionScheduling"
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Itemize
-video on demand
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Yu:VOD_LookAhead"
-
-\end_inset
-
-: buffering and stream jumping to save server disk-access when users pause
- videos
+video on demand: buffering and stream jumping to save server disk-access
+ when users pause videos
 \end_layout
 
 \end_deeper
@@ -3114,6 +3161,19 @@ the UI thread (main thread) does no real work (see microkernel paradigm),
  it merely dispatches (spine-analogy) to keep background workers busy
 \end_layout
 
+\begin_deeper
+\begin_layout Itemize
+similar to immediate/system reservations in resource kernels
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Rajkumar:ResourceKernels"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
 \begin_layout Itemize
 similar to networks moving from switched circuits to packet routing
 \end_layout
@@ -3908,6 +3968,32 @@ key "Shin:Compositional"
 \end_layout
 
 \begin_layout Itemize
+resource kernels
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Rajkumar:ResourceKernels"
+
+\end_inset
+
+ separate concerns: applications specify, scheduler manages time
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+similar insight into task model: requirements state explicitly, execution
+ time is not portable, calibrate automatically
+\end_layout
+
+\begin_layout Itemize
+otherwise very close to periodic tasks
+\end_layout
+
+\begin_layout Itemize
+decouple different resources with buffering
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
 integration of hard real-time, soft real-time and best effort: RBED
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -3959,7 +4045,18 @@ key "Abeni:CBS"
 
 \begin_deeper
 \begin_layout Itemize
-also employs EDF as the fundamental scheduler
+based on the concept of processor reservations
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Mercer:CapacityReserve"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+employs EDF as the fundamental scheduler
 \end_layout
 
 \begin_layout Itemize
@@ -3982,7 +4079,7 @@ could be used to provide isolated hard real-time load in our system
 
 \end_deeper
 \begin_layout Itemize
-reservation-based approaches
+adaptive reservations
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Abeni:AdaptiveReservations"
@@ -5092,6 +5189,17 @@ key "Abeni:AdaptiveReservations"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Itemize
+resource kernels
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Rajkumar:ResourceKernels"
+
+\end_inset
+
+: user-level QoS expected to be more useful than stacked schedulers
 \end_layout
 
 \begin_layout Itemize
