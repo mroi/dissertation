@@ -16,3 +16,6 @@ Thesis-stylight.tex: Thesis.tex
 Thesis.tex: ../Thesis.lyx
 	lyx --export xetex $<
 	mv ../$@ ./
+
+clean:
+	rm -f Thesis-stylight.pdf

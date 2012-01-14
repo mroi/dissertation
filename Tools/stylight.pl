@@ -95,9 +95,23 @@ $biw = "as to whether|different than|is due to\
 	|respective|respectively|sort of|oftentimes|ofttimes\
 	|viewpoint|\\. while|, while|worth while|worthwhile";
 
+$last_word = "";
+
 while (<STDIN>) {
-	s/(^|[[:space:]])($weasels)($|[[:space:]])/$1\\hl{$2}$3/g;
-	s/(^|[[:space:]])(am|are|were|being|is|been|was|be)([[:space:]]+)(\w+ed|$irregulars)($|[[:space:]])/$1\\hl{$2$3$4}$5/g;
-	s/(^|[[:space:]])($biw)($|[[:space:]])/$1\\hl{$2}$3/g;
+	s/(^|\s)($weasels)($|\s)/$1\\hl{$2}$3/g;
+	s/(^|\s)(am|are|were|being|is|been|was|be)(\s+)(\w+ed|$irregulars)($|\s)/$1\\hl{$2$3$4}$5/g;
+	s/(^|\s)($biw)($|\s)/$1\\hl{$2}$3/g;
+	
+	@words = split(/(\W+)/);
+	foreach $word (@words) {
+		next if $word =~ /^\s*$/;
+		if ($word =~ /^(\W|\d)+$/) {
+			$last_word = "";
+			next;
+		}
+		s/(^|$last_word\s+)($word)($|\s)/\\hl{$1$2}$3/ if (lc($word) eq lc($last_word));
+		$last_word = $word;
+	}
+	
 	print $_;
 }
