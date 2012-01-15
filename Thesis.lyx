@@ -960,8 +960,8 @@ The computing revolution
  era through the age of productivity computing to today’s multimedia and
  mobile world, the capabilities of systems and thus the possibilities for
  users increased steadily.
- This development has been driven by the exponential improvement of the
- underlying transistor technology as predicted by Moore’s Law
+ This development thrives on the exponential improvement of the underlying
+ transistor technology as predicted by Moore’s Law
 \begin_inset Index idx
 status collapsed
 
@@ -977,14 +977,14 @@ Moore’s Law
 status open
 
 \begin_layout Plain Layout
-This period is often misquoted as 18 months, which has actually been a follow-up
- prediction of the increase in single chip performance.
+This period is often misquoted as 18 months, which is a follow-up prediction
+ of the increase in single chip performance.
 \end_layout
 
 \end_inset
 
- This exponential growth is matched by software: The total body of open
- source software in the world doubles about every 14 months.
+ Software matches this exponential growth: The total body of open source
+ software in the world doubles about every 14 months.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Deshpande:GrowthSoftware"
@@ -1033,7 +1033,17 @@ Satisfying these expectations
 
  is a demanding job for developers.
  Users are no longer satisfied with functionality.
- Increasingly, non-functional properties
+ Increasingly, 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+non-functional properties
+\end_layout
+
+\end_inset
+
+
 \begin_inset Index idx
 status collapsed
 
@@ -1043,17 +1053,27 @@ non-functional properties
 
 \end_inset
 
- distinguish good applications from great applications.
+ separate good from great applications.
  Next to user interface design and visual appearance such properties include
- responsive and stutter-free operation, performance, and the useful and
- efficient employment of the invested resources, also driven by the resource
- and energy constraints of today’s battery-powered devices.
- This dissertation is motivated by the following three issues:
+ responsive and stutter-free operation, perceived performance, and the useful
+ and efficient employment of the invested resources, also driven by the
+ resource and energy constraints of today’s battery-powered devices.
+ The following three non-functional properties motivate this dissertation:
 \end_layout
 
 \begin_layout Description
-Timeliness: User interface responsiveness and the smoothness of multimedia
- operations require that application’s 
+Timeliness
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+timeliness
+\end_layout
+
+\end_inset
+
+: User interface responsiveness and the smoothness of multimedia operations
+ require that application’s 
 \begin_inset Flex SmallCaps
 status collapsed
 
@@ -1074,12 +1094,40 @@ timing requirements
 \end_inset
 
  are met.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Sasinowski:ARTIFACT"
+
+\end_inset
+
+ Such requirements arise when computers interface with the real world.
+ Subsumed under the term real-time
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+real-time
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+cite a definition, maybe within the Liu book
+\end_layout
+
+\end_inset
+
+, they tie the completion of software results to wall-clock time.
  Time being a global resource, a system-wide solution is needed.
  However, the majority of commodity systems today offer only weak temporal
  guarantees and predictability to applications, so developers have to work
  around those limitations.
  While real-time operating systems are available, they are typically applied
- in special-purpose scenarios.
+ only in special-purpose scenarios.
 \begin_inset Foot
 status open
 
@@ -1123,17 +1171,17 @@ Core
 
 Placement: Single-core performance is leveling off, so processor manufacturers
  rely on increasing core counts to offer higher performance.
- Applications thus have to be developed with multiple threads to benefit
- from multiple cores.
+ Applications thus have to employ multiple threads to benefit from multiple
+ cores.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Sutter:FreeLunch"
 
 \end_inset
 
- The amount of parallelism exposed by applications influences the number
- of cores occupied.
- However, the assignment of work to cores influences cache contention
+ The amount of parallelism exposed by applications limits the number of
+ cores occupied.
+ However, the assignment of work to cores also influences cache contention
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Zhuravlev:DIO"
@@ -1195,10 +1243,6 @@ Quality-aware
 \end_inset
 
 Overload
-\begin_inset space \space{}
-\end_inset
-
-Handling: Overload
 \begin_inset Index idx
 status collapsed
 
@@ -1208,19 +1252,40 @@ overload
 
 \end_inset
 
- situations occur when all ready applications collectively ask for more
- computation time than the system can offer without violating any timing
- requirements.
- Real-time systems avoid such situations statically with an admission process:
- A task will not be allowed to start unless a formal guarantee can be establishe
-d that the total resource demand will never outgrow the available resources.
- On interactive systems, rejecting application launches will not be accepted
- by users.
+
+\begin_inset space \space{}
+\end_inset
+
+Handling: Overload situations occur when all ready applications collectively
+ ask for more computation time than the machine can offer without violating
+ any timing requirements.
+ Real-time systems avoid such situations statically with an admission
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+admission
+\end_layout
+
+\end_inset
+
+ process: The system will not allow new tasks unless it can establish a
+ formal guarantee that the total resource demand will never outgrow the
+ available resources.
+ On interactive systems, users will not accept rejected application launches.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+back with reference
+\end_layout
+
+\end_inset
+
  These systems have to handle overload situations dynamically at runtime
- by reducing the resource allotment of some subset of applications.
- To maintain fairness, this reduction needs to be managed globally, but
- applications may want to adapt their service according to a local notion
- of quality.
+ by reducing the resource allotment of a subset of applications.
+ To maintain fairness, this reduction needs global management, but applications
+ may want to adapt their service according to a local notion of quality.
  The system should communicate the overload 
 \begin_inset Flex SmallCaps
 status collapsed
@@ -1235,8 +1300,7 @@ ahead of time
 \emph on
  
 \emph default
-so those applications can prepare before the resource shortage actually
- arrives.
+so those applications can prepare before the resource shortage arrives.
 \end_layout
 
 \begin_layout Standard
@@ -1258,14 +1322,13 @@ Modern applications are complex
 \end_inset
 
  in functionality because they offer intricate features or have to handle
- new failure cases by being connected with the cloud.
- To also deliver the above non-functional properties, developers need to
- build on top of a foundation that helps them handle these problems without
- much development overhead.
- Libraries can mediate between the application’s view and the scheduler
- interface.
+ new failure cases by connecting with the cloud.
+ To also deliver on non-functional properties, developers need to build
+ on top of a foundation that helps them handle these problems without much
+ development overhead.
+ Libraries can mediate between the application’s view and the system interface.
  After discussing the application needs, I will now motivate my work from
- the scheduler’s perspective.
+ the system’s perspective.
 \end_layout
 
 \begin_layout Section*
@@ -1323,18 +1386,18 @@ reference "mar:Interaction"
 \end_inset
 
 , the scheduler
-\begin_inset Note Note
-status open
+\begin_inset Index idx
+status collapsed
 
 \begin_layout Plain Layout
-define scheduler and scheduling
+scheduler
 \end_layout
 
 \end_inset
 
- is responsible for accumulating the information about the work applications
- want to perform and determine an order and core placement to execute the
- work.
+ is a system component responsible for accumulating the information about
+ the work applications want to perform and determine an order and core placement
+ to execute that work.
  The ordering policy should serve the non-functional properties applications
  expect: It should fulfill timing requirements, use cores efficiently and
  handle overload early and fairly.
@@ -1350,8 +1413,8 @@ Because every device in a system
 
 \end_inset
 
- has a different notion of work and a different policy for ordering that
- work, each device has its own dedicated scheduler.
+ has a different notion of work and a different policy for ordering work,
+ each device has its own dedicated scheduler.
  However, to submit work to a peripheral, applications need to execute code
  on the CPU.
  Running the scheduler for that peripheral also requires the execution of
@@ -1364,15 +1427,16 @@ key "Rajkumar:ResourceKernels"
 
 \end_inset
 
- Even though I believe many of the ideas I am going to present here can
- also be applied to scheduling peripherals, this work focuses exclusively
- on scheduling the CPU cores of a computer system.
+ Even though I believe many of the ideas I am going to present here also
+ apply to scheduling peripherals, this work focuses exclusively on scheduling
+ the CPU cores of a computer system.
 \end_layout
 
 \begin_layout Standard
 Nevertheless, taking a closer look at peripheral schedulers does help to
  reveal an important disadvantage of CPU scheduling: Schedulers for peripheral
- devices have a deeper insight into the work items the are supposed to order.
+ devices have a deeper insight into the work items they are supposed to
+ order.
 \end_layout
 
 \begin_layout Standard
@@ -1395,10 +1459,30 @@ peripheral device scheduling
 
 \end_inset
 
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+cite a paper on driver basics?
+\end_layout
+
+\end_inset
+
  The story starts with an application asking for the service of a device.
  Let us use a write request to persistent storage as an example.
  The application collects the data it wants to make durable and submits
- the work item
+ a 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+work item
+\end_layout
+
+\end_inset
+
+
 \begin_inset Index idx
 status collapsed
 
@@ -1417,8 +1501,8 @@ work item
  Our write request is added to that queue together with concurrent requests
  arriving from other applications, from other threads of the same application
  or even from the same thread of the same application, if the initial write
- was performed asynchronously.
- This situation is depicted in Figure
+ executes asynchronously.
+ Figure
 \begin_inset space ~
 \end_inset
 
@@ -1429,7 +1513,7 @@ reference "mar:Device-Scheduling"
 
 \end_inset
 
-.
+ depicts this situation.
 \end_layout
 
 \begin_layout Standard
@@ -1471,11 +1555,11 @@ Peripheral Device Scheduling
 \end_layout
 
 \begin_layout Standard
-The scheduler is now supposed to order the work items and send them off
- to the device for execution.
+The scheduler now orders the work items and sends them off to the device
+ for execution.
  The scheduling algorithm performs that ordering with a service goal in
  mind, for example to maximize device throughput.
- Every work item is associated with metadata for the request.
+ Every work item carries metadata for the request.
  In the case of our disk write request, that metadata contains the size
  of the request and its location on disk.
 \end_layout
@@ -1494,7 +1578,7 @@ shortest access time first
 
 \end_inset
 
- (SATF) policy
+ policy
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Jacobson:SATF"
@@ -1502,13 +1586,13 @@ key "Jacobson:SATF"
 \end_inset
 
  to improve drive throughput.
- The advantage of peripheral device schedulers is that the outstanding requests
+ Peripheral device schedulers enjoy the advantage that the outstanding requests
  are self-contained work items.
  Inspecting them reveals all information the peripheral will use to execute
  them.
- This is natural, because in order to program the device, the driver must
- have all that information available anyway.
- We will see below that CPU schedulers do not share this benefit.
+ This is natural, because to program the device, the driver must have all
+ that information available anyway.
+ We will see next that CPU schedulers do not share this benefit.
 \end_layout
 
 \begin_layout Standard
@@ -1516,7 +1600,7 @@ key "Jacobson:SATF"
 status collapsed
 
 \begin_layout Plain Layout
-As a side note
+As a side note,
 \end_layout
 
 \end_inset
@@ -1524,9 +1608,18 @@ As a side note
  even though this work does not deal with peripheral scheduling: What complicate
 s the metadata-driven scheduling is the increasing complexity of devices
  themselves.
- The position of our disk write request would be a logical block number
- today, with only the drive knowing the physical position of that sector.
+ The position of our disk write request is a logical block number, with
+ only the drive knowing the physical position of the actual sector.
  Devices also increasingly develop internal self-scheduling capabilities:
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+back with reference
+\end_layout
+
+\end_inset
+
  The software scheduler in the driver can send multiple outstanding requests
  to the device and a hardware scheduler in the device will use its more
  detailed knowledge on request execution properties to order the requests
@@ -1544,7 +1637,7 @@ native command queueing
 
 \end_inset
 
- (NCQ).
+.
  But because the device’s scheduling policy is fixed, it still makes sense
  for the software scheduler to pre-order the request according to its own
  policy, using work item metadata derived with a simplified model of the
@@ -1701,8 +1794,9 @@ key "Unix:nice"
 
  is a coarse abstraction of a thread’s behavior, because it only indicates
  the importance of a thread relative to other threads.
- The priority has to be supplied by the application developer, which gives
- rise to other problems we will discuss in Chapter
+ The application developer has to supply the priority without knowledge
+ of concurrent load, which gives rise to other problems we will discuss
+ in Chapter
 \begin_inset space ~
 \end_inset
 
@@ -1724,6 +1818,13 @@ status collapsed
 \begin_layout Plain Layout
 periodic task model
 \end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Liu:RMS"
 
 \end_inset
 
@@ -1763,7 +1864,7 @@ In this thesis
  it can build up a limited look into the applications’ future and detect
  overload situations early.
  I show how such a scheduling regime improves the non-functional application
- properties discussed above.
+ properties portrayed above.
 \end_layout
 
 \begin_layout Section*
@@ -1771,11 +1872,11 @@ Driving Insights
 \end_layout
 
 \begin_layout Standard
-From the above walk-through of the problem area we can see that the considered
- non-functional properties timeliness, efficient core placement and quality-awar
-e overload handling are cross-cutting concerns.
- They involve both local knowledge from the applications and global policy
- executed by the scheduler.
+The walk-through of the problem area shows that the considered non-functional
+ properties timeliness, efficient core placement and quality-aware overload
+ handling are cross-cutting concerns.
+ They involve local knowledge from the applications and global policy executed
+ by the scheduler.
  Furthermore, many applications act as an execution environment tailored
  to a specific workload
 \begin_inset Index idx
@@ -1896,17 +1997,17 @@ reference "mar:Vertically-Integrated-Solution"
  to the scheduler.
  The scheduler collects this knowledge from all applications and executes
  its global policy, consequences of this policy take effect either implicitly
- by the scheduling decisions being carried out, or explicitly by the scheduler
- reporting back to an application.
- Overload situations will be communicated this way, because they require
- an application-specific notion of quality to resolve them.
- The application in turn will use its model of the workload to decide on
- a quality-aware reaction.
+ by executing the scheduling decisions, or explicitly by the scheduler reporting
+ back to an application.
+ Overload situations propagate this way, because they require an application-spe
+cific notion of quality to resolve them.
+ The application in turn uses its model of the workload to decide on a quality-a
+ware reaction.
 \end_layout
 
 \begin_layout Standard
-What information will be relayed along those paths and what the interfaces
- look like remains to be discussed.
+What information is relayed along those paths and what the interfaces look
+ like remains to be discussed.
  But as motivated in the section on scheduler knowledge above, the scheduler
  should operate on self-contained work items instead of threads which hide
  their execution behavior deep in the application state.
@@ -1923,8 +2024,8 @@ Applications should expose local knowledge
 \end_inset
 
  to the scheduler using work items.
- Timing and resource requirements are encapsulated in those work items and
- depend on the current workload.
+ They encapsulate timing and resource requirements depending on the current
+ workload.
 \end_layout
 
 \begin_layout Standard
@@ -1951,19 +2052,9 @@ null
 
 To expose more knowledge than currently, applications likely have to be
  modified.
- We may get away with adapting key libraries
-\begin_inset Index idx
-status collapsed
-
-\begin_layout Plain Layout
-library
-\end_layout
-
-\end_inset
-
- to change the behavior of many applications at once, but in the context
- of this dissertation, modifying a library is regarded as modifying the
- application.
+ We may get away with adapting key libraries to change the behavior of many
+ applications at once, but in the context of this dissertation, modifying
+ a library counts as modifying the application.
  How to reduce programming effort by architecting software so it hides this
  problem in library layers is outside the scope of this thesis.
  In scope however is to design the interfaces for ease of use:
@@ -2007,8 +2098,17 @@ null
 
 I hope developers can provide parameters from within the application domain
  with reasonable effort.
- An example are deadlines to describe the timing requirements of a work
- item.
+ An example are deadlines
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+deadlines
+\end_layout
+
+\end_inset
+
+ to describe the timing requirements of a work item.
  Parameters requiring knowledge outside the application scope should be
  avoided.
  Estimated execution times of work items for example are specific to the
@@ -2025,6 +2125,13 @@ status collapsed
 \begin_layout Plain Layout
 lambda
 \end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Sutter:LambdasEverywhere"
 
 \end_inset
 
@@ -2048,28 +2155,10 @@ block
 
 \end_inset
 
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Herb Sutter’s talk 
-\begin_inset Quotes eld
-\end_inset
-
-Lambdas, Lambdas Everywhere
-\begin_inset Quotes erd
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
 .
- They are used to structure the code into pieces that can be executed asynchrono
-usly, which keeps applications responsive in the presence of long-running
- background computation or IO
+ They are used to structure code into pieces that can be executed asynchronously
+, which keeps applications responsive in the presence of long-running background
+ computation or IO
 \begin_inset space ~
 \end_inset
 
@@ -2104,10 +2193,9 @@ both describe a bounded, self-contained piece of code execution
 \begin_inset space \thinspace{}
 \end_inset
 
-and how the communication of work items to the scheduler can be integrated
- with the asynchronous execution of lambdas.
- The lambda programming style has been adopted by big platform vendors such
- Apple
+and how the communication of work items to the scheduler integrates with
+ the use of lambdas.
+ Big platform vendors such Apple
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Apple:GrandCentralDispatch"
@@ -2121,18 +2209,19 @@ key "MSDN:C++PPL"
 
 \end_inset
 
-, so by drafting my scheduler interface to lean toward it, I intend to create
- a pragmatic solution that is manageable by developers.
+ adopted lambda programming, so by drafting a scheduler interface that leans
+ toward it, I intend to create a pragmatic solution that is manageable by
+ developers.
 \end_layout
 
 \begin_layout Standard
 The asynchronous execution of lambdas gives rise to another interesting
- benefit: future code execution can be announced ahead-of-time.
+ benefit: announcing future code execution ahead-of-time.
  Application code can specify multiple pieces of work and dispatch them
  for later, asynchronous and potentially parallel execution.
  The queues in the lambda runtime therefore contain knowledge about what
  pieces of code that will execute in the future.
- Again, more details on how these runtimes operate are given in Chapter
+ Again, more details on how these runtimes operate follow in Chapter
 \begin_inset space ~
 \end_inset
 
@@ -2214,17 +2303,28 @@ play
 \end_layout
 
 \begin_layout Standard
-Like video, some of these chains of actions may be long-running, some may
- be short, like the reaction to a user’s mouse click in a graphical interface.
+Like video, some of these chains of actions may be long-running, others
+ may be short, like the reaction to a user’s mouse click in a graphical
+ interface.
  Highly interactive applications like games may have almost no knowledge
  of what will happen next, because the user can change the course of action
  at any moment.
  However, applications that do have knowledge of their future should be
  able to tell the scheduler about it early.
  Such insights enable the system to perform 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+look-ahead
 \emph on
-look-ahead scheduling
+ 
 \emph default
+scheduling
+\end_layout
+
+\end_inset
+
 
 \begin_inset Index idx
 status collapsed
@@ -2270,9 +2370,29 @@ quality-aware overload handling.
 
 \begin_layout Standard
 I chose these problems because I believe they constitute important non-functiona
-l properties, which applications should offer to their users.
+l properties
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+non-functional properties
+\end_layout
+
+\end_inset
+
+, which applications should offer to their users.
  Therefore, I investigate these problems exclusively in the context of interacti
-ve end-user systems, running a commodity operating system
+ve end-user systems
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+interactive systems
+\end_layout
+
+\end_inset
+
+, running a commodity operating system
 \begin_inset CommandInset citation
 LatexCommand cite
 key "StatCounter:OSMarketShare"
@@ -2282,7 +2402,7 @@ key "StatCounter:OSMarketShare"
  as an application platform.
  This category of systems includes classical desktop computers, notebooks
  and the ballooning family of smartphones and tablets.
- It does not include servers, although I am confident that many ideas generalize
+ It does not include servers, although I am confident that my ideas generalize
  to this class of systems due to the large amount of shared technology.
 \end_layout
 
@@ -2292,6 +2412,16 @@ status collapsed
 
 \begin_layout Plain Layout
 I do not consider reactive systems
+\end_layout
+
+\end_inset
+
+
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+reactive systems
 \end_layout
 
 \end_inset
@@ -2366,8 +2496,9 @@ CPU scheduler.
 \end_layout
 
 \begin_layout Standard
-I believe combining application-specific knowledge on workload and execution
- behavior with system-wide knowledge on urgency and overall load is beneficial.
+I presume that combining application-specific knowledge on workload and
+ execution behavior with system-wide knowledge on urgency and overall load
+ is beneficial.
  Any solution that handles any of these aspects in isolation will be incomplete.
  Instead, applications and the scheduler have to collaborate to integrate
  application-local and global scheduling mechanisms.
@@ -2375,22 +2506,23 @@ I believe combining application-specific knowledge on workload and execution
 
 \begin_layout Standard
 Furthermore, the three non-functional properties in the focus of this thesis
- interrelate: Core placement affects execution speed
+ interrelate: Core placement influences execution speed
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Blagodurov:DINO"
 
 \end_inset
 
- and therefore application progress, which impacts timeliness.
+ and therefore application progress, which affects timeliness.
  When too tight timing requirements are requested for a single core to fulfill,
  parallel execution on multiple cores can help to meet demand, otherwise
  the system runs into overload.
- Unless mitigated, overload will disturb timeliness.
+ Unless mitigated, overload disturbs timeliness.
  The scheduling layer thus needs one mechanism covering all three of the
  non-functional properties.
- Equally, application developers should not be confronted with three different
- programming paradigms, but one wholesale solution.
+ I propose work items as this integrative device.
+ Equally, application developers should not face three different programming
+ paradigms, but one wholesale solution.
 \end_layout
 
 \begin_layout Standard
@@ -2403,8 +2535,8 @@ Integration
 
 \end_inset
 
- along both the properties dimension and the layers dimension is key.
- The thesis goals are summarized in the following Table
+ along the properties dimension and the layers dimension is key.
+ The following Table
 \begin_inset space ~
 \end_inset
 
@@ -2415,7 +2547,7 @@ reference "tab:Overview-Thesis"
 
 \end_inset
 
-:
+ summarizes the thesis goals:
 \end_layout
 
 \begin_layout Standard
@@ -2447,6 +2579,16 @@ status open
 
 \begin_layout Plain Layout
 Timeliness
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+timeliness
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -2464,27 +2606,47 @@ Core Placement
 \begin_inset Text
 
 \begin_layout Plain Layout
-Overload Handling
+Overload
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+overload
+\end_layout
+
+\end_inset
+
+ Handling
 \end_layout
 
 \end_inset
 </cell>
 </row>
-<row>
-<cell alignment="left" valignment="top" leftline="true" usebox="none">
+<row topspace="default" bottomspace="default">
+<cell alignment="left" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 Workload
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+workload
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="left" valignment="top" leftline="true" usebox="none">
+<cell alignment="left" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-derive workload hints to predict execution times
+derive workload metrics to predict execution times
 \end_layout
 
 \end_inset
@@ -2508,8 +2670,8 @@ offer degraded processing options
 \end_inset
 </cell>
 </row>
-<row>
-<cell alignment="left" valignment="top" leftline="true" usebox="none">
+<row bottomspace="default">
+<cell alignment="left" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -2556,12 +2718,22 @@ balance resource and quality impact of load shedding
 \end_inset
 </cell>
 </row>
-<row>
-<cell alignment="left" valignment="top" bottomline="true" leftline="true" usebox="none">
+<row bottomspace="default">
+<cell alignment="left" valignment="top" bottomline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 CPU Scheduler
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+scheduler
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -2594,7 +2766,7 @@ exert back-pressure when anticipating deadline misses
 \end_inset
 </cell>
 </row>
-<row>
+<row topspace="default" bottomspace="default">
 <cell alignment="left" valignment="top" usebox="none">
 \begin_inset Text
 
@@ -2609,6 +2781,16 @@ Enabling Feature
 
 \begin_layout Plain Layout
 Timing Requirements
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+timing requirements
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -2618,6 +2800,16 @@ Timing Requirements
 
 \begin_layout Plain Layout
 Resource Requirements
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+resource requirements
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -2627,12 +2819,22 @@ Resource Requirements
 
 \begin_layout Plain Layout
 Scheduler Look-Ahead
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+look-ahead scheduling
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
 </cell>
 </row>
-<row>
+<row bottomspace="default">
 <cell alignment="left" valignment="top" bottomline="true" usebox="none">
 \begin_inset Text
 
@@ -2827,7 +3029,17 @@ I contribute a task model
  and a scheduler interface that allows applications to express timing and
  resource requirements.
  Other than the majority of related work, I do not employ a periodic task
- model.
+ model
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+periodic task model
+\end_layout
+
+\end_inset
+
+.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Liu:RMS"
@@ -2841,11 +3053,19 @@ key "Liu:RMS"
 \begin_layout Standard
 The scheduler interface as seen by the application developer only asks for
  parameters within the application domain.
- Timing requirements are specified explicitly as deadlines.
+ Deadlines specify timing requirements.
  Resource requirements are specified using 
-\emph on
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+
+\emph off
 workload metrics
-\emph default
+\end_layout
+
+\end_inset
+
 
 \begin_inset Index idx
 status collapsed
@@ -2891,8 +3111,18 @@ I claim that the flexibility of this task model
 \end_layout
 
 \begin_layout Standard
-Look-ahead is mentioned in the literature together with scheduling in the
- areas of constraint satisfaction problems
+Literature mentions look-ahead together with scheduling in the areas of
+ constraint satisfaction problems
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+constraint satisfaction problems
+\end_layout
+
+\end_inset
+
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Schaerf:CSP"
@@ -2915,14 +3145,13 @@ key "Yu:VOD_LookAhead"
 
 .
  For constraint satisfaction problems and factory scheduling, look-ahead
- is applied to the traversal of the solution search space.
+ improves to the traversal of the solution search space.
  Thus, the scheduling does not look ahead along the time axis into the future,
  but along the search tree of the solution space.
  In the on-demand video context, the server tries to batch multiple viewers
  of the same video to save disk requests.
- Look-ahead and buffering is applied on the server to service multiple users
- from the same disk stream, even if they independently pause and resume
- playback.
+ Look-ahead and buffering help the server to satisfy multiple users from
+ the same disk stream, even if they independently pause and resume playback.
 \end_layout
 
 \begin_layout Standard
