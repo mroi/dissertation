@@ -58,8 +58,8 @@
      fit-margin-bottom="0"
      inkscape:window-width="1191"
      inkscape:window-height="743"
-     inkscape:window-x="52"
-     inkscape:window-y="50"
+     inkscape:window-x="128"
+     inkscape:window-y="41"
      inkscape:window-maximized="0">
     <inkscape:grid
        type="xygrid"
@@ -80,7 +80,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -109,63 +109,72 @@
        d="m 127.55906,974.40815 0,-49.6063"
        id="path7102"
        inkscape:connector-curvature="0" />
-    <rect
-       style="fill:#48494b;fill-opacity:1;fill-rule:evenodd;stroke:none"
-       id="rect2985"
-       width="141.73228"
-       height="17.716545"
-       x="0"
-       y="907.08533" />
-    <text
-       xml:space="preserve"
-       style="font-size:18px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light"
-       x="70.866158"
-       y="920.35846"
-       id="text3757"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan3759"
-         x="70.866158"
+    <g
+       id="g3011">
+      <rect
+         y="907.08533"
+         x="0"
+         height="17.716545"
+         width="141.73228"
+         id="rect2985"
+         style="fill:#48494b;fill-opacity:1;fill-rule:evenodd;stroke:none" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3757"
          y="920.35846"
-         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light">Workload</tspan></text>
-    <rect
-       style="fill:#48494b;fill-opacity:1;stroke:none"
-       id="rect3761"
-       width="141.73228"
-       height="17.716553"
-       x="0"
-       y="1034.6444" />
-    <text
-       xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="70.356377"
-       y="1047.5955"
-       id="text3763"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan3765"
-         x="70.356377"
+         x="70.866158"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light"
+         xml:space="preserve"><tspan
+           style="font-size:12px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr;text-anchor:middle;fill:#ffffff;fill-opacity:1;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Bold"
+           y="920.35846"
+           x="70.866158"
+           id="tspan3759"
+           sodipodi:role="line">Workload</tspan></text>
+    </g>
+    <g
+       id="g3021">
+      <rect
+         y="1034.6444"
+         x="0"
+         height="17.716553"
+         width="141.73228"
+         id="rect3761"
+         style="fill:#48494b;fill-opacity:1;stroke:none" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3763"
          y="1047.5955"
-         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light">Scheduler</tspan></text>
-    <rect
-       style="fill:#48494b;fill-opacity:1;stroke:none"
-       id="rect7090"
-       width="141.73228"
-       height="17.716536"
-       x="-1.0813314e-06"
-       y="970.86487" />
-    <text
-       sodipodi:linespacing="125%"
-       id="text7092"
-       y="982.68579"
-       x="71.223564"
-       style="font-size:18px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light"
-       xml:space="preserve"><tspan
-         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light"
-         y="982.68579"
+         x="70.356377"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:12px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr;text-anchor:middle;fill:#ffffff;fill-opacity:1;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Bold"
+           y="1047.5955"
+           x="70.356377"
+           id="tspan3765"
+           sodipodi:role="line">Scheduler</tspan></text>
+    </g>
+    <g
+       id="g3016">
+      <rect
+         y="970.86487"
+         x="-1.0813314e-06"
+         height="17.716536"
+         width="141.73228"
+         id="rect7090"
+         style="fill:#48494b;fill-opacity:1;stroke:none" />
+      <text
+         xml:space="preserve"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light"
          x="71.223564"
-         id="tspan7094"
-         sodipodi:role="line">Application</tspan></text>
+         y="983.18604"
+         id="text7092"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan7094"
+           x="71.223564"
+           y="983.18604"
+           style="font-size:12px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Bold">Application</tspan></text>
+    </g>
     <text
        xml:space="preserve"
        style="font-size:12px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:center;line-height:100%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light"
