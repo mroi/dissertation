@@ -88,7 +88,7 @@ $biw = "as to whether|different than|is due to\
 	|this is|these are|this means that\
 	|in order to|will likely be|some|thing|very|a lot of\
 	|actually|in fact|truly|really\
-	|center on|centers on|centered on|focus on|focuses on|focused on\
+	|center on|centers on|centered on|focus on|focuss?es on|focused on\
 	|concentrate on|concentrates on|concentrated on\
 	|as good or better than|in many cases|been the case that\
 	|certainly|character|nature|factor|clever\
