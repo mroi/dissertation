@@ -4,21 +4,27 @@
 \begin_header
 \textclass tufte-book
 \begin_preamble
-% letter spacing for capitalized text
-\renewcommand{\allcapsspacing}[1]{{\addfontfeature{LetterSpace=6.5}#1}}
-\renewcommand{\smallcapsspacing}[1]{{\addfontfeature{LetterSpace=5.0,Letters=SmallCaps}#1}}
-
-% font setup: because we want to set the math font also, we cannot use LyX’s font options
-\usepackage[MnSymbol]{mathspec}
-\setmainfont[Mapping=tex-text,ItalicFeatures={Contextuals={NoLineInitial,NoLineFinal}}]{Hoefler Text}
-\setsansfont[Mapping=tex-text]{Gill Sans}
-\setmonofont[Scale=0.85]{Menlo Regular}
-\setmathsfont(Digits,Latin)[ItalicFeatures={Contextuals={NoLineInitial,NoLineFinal}},Numbers=Lining]{Hoefler Text}
-%\setmathsfont(Greek){Georgia}
+% simplified title and author for fancy headers, height-correct the dash
+\renewcommand{\plaintitle}{Practical Real\raisebox{-0.45mm}{-}Time with Look\raisebox{-0.45mm}{-}Ahead Scheduling}
+\renewcommand{\plainauthor}{Michael Roitzsch}
 
 % typesetting tweaks
 \clubpenalty=10000
 \widowpenalty=10000
+
+% place all sidenotes as floats to prevent running off of the bottom edge of the page
+%\usepackage{marginfix}
+%\morefloats
+
+% font setup: disable Hoefler swashes, set math font
+\usepackage[MnSymbol]{mathspec}
+\setmainfont[ItalicFeatures={Contextuals={NoLineInitial,NoLineFinal}}]{Hoefler Text}
+\setmathsfont(Digits,Latin)[ItalicFeatures={Contextuals={NoLineInitial,NoLineFinal}},Numbers=Lining]{Hoefler Text}
+%\setmathsfont(Greek){Georgia}
+
+% letter spacing for capitalized text
+\renewcommand{\allcapsspacing}[1]{{\addfontfeature{LetterSpace=6.5}#1}}
+\renewcommand{\smallcapsspacing}[1]{{\addfontfeature{LetterSpace=5.0,Letters=SmallCaps}#1}}
 
 % use all-bullets for itemize and give them the right size and height
 \AtBeginDocument{
@@ -28,7 +34,10 @@
 \def\labelitemiv{\raisebox{0.3mm}{\scriptsize\(\bullet\)}}
 }
 
-% repeat tufte chapter definition because it got garbled by hyperref
+% do not indent the bibliography
+\setlength{\bibhang}{0pt}
+
+% repeat tufte caption definition because it gets garbled by hyperref
 \long\def\@caption#1[#2]#3{\par%
 \addcontentsline{\csname ext@#1\endcsname}{#1}%
 {\protect\numberline{\csname the#1\endcsname}{\ignorespaces #2}}%
@@ -38,14 +47,6 @@
 \@tufte@caption@font\@tufte@caption@justification%
 \noindent\csname fnum@#1\endcsname: \ignorespaces#3\par%
 \endgroup}
-
-% alternative chapter titling with big chapter number on the right
-\titleformat{\chapter}[display]
-{\relax\ifthenelse{\NOT\boolean{@tufte@symmetric}}{\begin{fullwidth}}{}}
-{\hfill\sffamily\color{gray}\fontsize{42}{0}\selectfont\thechapter}
-{0pt}
-{\vskip -32pt\huge\rmfamily\itshape}
-[\ifthenelse{\NOT\boolean{@tufte@symmetric}}{\end{fullwidth}}{}]
 
 % colored page edge when a new chapter starts
 \newcommand{\chapteredge}{
@@ -62,9 +63,13 @@
 \fancyhf{}
 }}
 
-% simplified title and author for fancy headers, height-correct the dash
-\renewcommand{\plaintitle}{Practical Real\raisebox{-0.45mm}{-}Time with Look\raisebox{-0.45mm}{-}Ahead Scheduling}
-\renewcommand{\plainauthor}{Michael Roitzsch}
+% alternative chapter titling with big chapter number on the right
+\titleformat{\chapter}[display]
+{\relax\ifthenelse{\NOT\boolean{@tufte@symmetric}}{\begin{fullwidth}}{}}
+{\hfill\sffamily\color{gray}\fontsize{42}{0}\selectfont\thechapter}
+{0pt}
+{\vskip -32pt\huge\rmfamily\itshape}
+[\ifthenelse{\NOT\boolean{@tufte@symmetric}}{\end{fullwidth}}{}]
 
 % epigraph command
 \newcommand{\epigraph}[2]{
@@ -72,7 +77,7 @@
 \sffamily\large
 \begin{doublespace}
 \noindent\allcaps{#1}\\% epigraph
-\noindent\allcaps{#2}% author
+\color{darkgray}\noindent\allcaps{#2}% author
 \end{doublespace}
 \end{fullwidth}
 }
@@ -101,18 +106,18 @@ End
 \language_package default
 \inputencoding utf8-plain
 \fontencoding global
-\font_roman default
-\font_sans default
-\font_typewriter default
+\font_roman Hoefler Text
+\font_sans Gill Sans
+\font_typewriter Menlo Regular
 \font_default_family default
-\use_non_tex_fonts false
+\use_non_tex_fonts true
 \font_sc false
 \font_osf false
 \font_sf_scale 100
-\font_tt_scale 100
+\font_tt_scale 83
 
 \graphics default
-\default_output_format pdf4
+\default_output_format default
 \output_sync 0
 \bibtex_command default
 \index_command default
@@ -126,9 +131,9 @@ End
 \pdf_bookmarks true
 \pdf_bookmarksnumbered false
 \pdf_bookmarksopen true
-\pdf_bookmarksopenlevel 1
+\pdf_bookmarksopenlevel 2
 \pdf_breaklinks true
-\pdf_pdfborder true
+\pdf_pdfborder false
 \pdf_colorlinks false
 \pdf_backref false
 \pdf_pdfusetitle false
@@ -170,9 +175,24 @@ End
 status open
 
 \begin_layout Itemize
+Using the 
+\family typewriter
+marginfix
+\family default
+ package to place sidenotes as floats does not work.
+ Whenever a 
+\family typewriter
+fullwidth
+\family default
+ environment is anywhere on the page, the sidenotes run off the right edge
+ of the page.
+ Also, their first line no longer aligns with the occurrence in the text,
+ but is a little higher.
+\end_layout
+
+\begin_layout Itemize
 Greek letters in math mode are still typeset in computer modern.
- Enabling Georgia as a replacement (see preamble section in document settings)
- hangs 
+ Enabling Georgia as a replacement hangs 
 \family typewriter
 xelatex
 \family default
@@ -254,23 +274,11 @@ status open
 
 
 \backslash
-epigraph{For I dipt into the future, far as human eye could see,
+epigraph{I love deadlines.
 \backslash
 newline
 \backslash
-noindent saw the vision of the world, and all the wonder that would be.}{Alfred
- Lord Tennyson}
-\end_layout
-
-\end_inset
-
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-This first epigraph feels the most out-of-place of the three.
- Can we find something more software- or technology-related?
+noindent I love the whooshing noise they make as they go by.}{Douglas Adams}
 \end_layout
 
 \end_inset
@@ -442,8 +450,6 @@ noindent
 
 \end_inset
 
-
-\lang ngerman
 Technische Universität Dresden
 \end_layout
 
@@ -531,7 +537,11 @@ status collapsed
 \begin_layout Plain Layout
 
 \lang ngerman
-Doktoringenieur (Dr.-Ing.)
+Doktoringenieur
+\begin_inset space ~
+\end_inset
+
+(Dr.-Ing.)
 \end_layout
 
 \end_inset
@@ -563,6 +573,10 @@ Dipl.-Inf.
 
 , geboren am 15.
  August 1980 in Dresden.
+\begin_inset VSpace defskip
+\end_inset
+
+
 \end_layout
 
 \begin_layout Full Width
@@ -687,6 +701,8 @@ Gutachter:
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang ngerman
 \begin_inset Note Greyedout
 status open
 
@@ -745,6 +761,8 @@ Verteidigung:
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang ngerman
 \begin_inset Note Greyedout
 status open
 
@@ -770,7 +788,9 @@ fehlt
 \end_layout
 
 \begin_layout Full Width
-\begin_inset VSpace defskip
+
+\lang ngerman
+\begin_inset VSpace bigskip
 \end_inset
 
 
@@ -786,8 +806,6 @@ noindent
 
 \end_inset
 
-
-\lang ngerman
 Dresden, 
 \begin_inset Note Greyedout
 status open
@@ -994,14 +1012,14 @@ key "Deshpande:GrowthSoftware"
 
 \end_layout
 
-\begin_layout Section*
+\begin_layout Section
 Application Challenges
 \end_layout
 
 \begin_layout Standard
 Users have grown accustomed to the constant improvement of the technology.
  What started as high-end and expert use cases will become a commodity just
- a few years later and will be expect to work predictably and efficiently.
+ a few years later and will be expected to work predictably and efficiently.
  The present-day iPad
 \begin_inset space ~
 \end_inset
@@ -1032,7 +1050,7 @@ Satisfying these expectations
 \end_inset
 
  is a demanding job for developers.
- Users are no longer satisfied with functionality.
+ Users are no longer satisfied with functionality alone.
  Increasingly, 
 \begin_inset Flex SmallCaps
 status collapsed
@@ -1111,16 +1129,6 @@ real-time
 
 \end_inset
 
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-cite a definition, maybe within the Liu book
-\end_layout
-
-\end_inset
-
 , they tie the completion of software results to wall-clock time.
  Time being a global resource, a system-wide solution is needed.
  However, the majority of commodity systems today offer only weak temporal
@@ -1188,7 +1196,7 @@ key "Zhuravlev:DIO"
 
 \end_inset
 
- and energy efficiency
+ and energy efficiency.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Rangan:ThreadMotion"
@@ -1205,7 +1213,6 @@ a paper on core consolidation to save energy would be better
 
 \end_inset
 
-.
  Both processors and energy are global resources, so they require system-wide
  management.
  Applications have only limited ways to manage these issues locally.
@@ -1273,12 +1280,9 @@ admission
  formal guarantee that the total resource demand will never outgrow the
  available resources.
  On interactive systems, users will not accept rejected application launches.
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-back with reference
-\end_layout
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Apple:UserControl"
 
 \end_inset
 
@@ -1331,7 +1335,7 @@ Modern applications are complex
  the system’s perspective.
 \end_layout
 
-\begin_layout Section*
+\begin_layout Section
 Scheduler Knowledge
 \end_layout
 
@@ -1415,8 +1419,8 @@ Because every device in a system
 
  has a different notion of work and a different policy for ordering work,
  each device has its own dedicated scheduler.
- However, to submit work to a peripheral, applications need to execute code
- on the CPU.
+ However, to submit work to a peripheral device, applications need to execute
+ code on the CPU.
  Running the scheduler for that peripheral also requires the execution of
  code on the CPU.
  So the CPU and its scheduling plays a central role in the system as it
@@ -1460,12 +1464,9 @@ peripheral device scheduling
 \end_inset
 
 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-cite a paper on driver basics?
-\end_layout
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Love:IO_Schedulers"
 
 \end_inset
 
@@ -1499,7 +1500,7 @@ work item
  As part of the driver, the scheduler maintains a queue of work items waiting
  for execution.
  Our write request is added to that queue together with concurrent requests
- arriving from other applications, from other threads of the same application
+ arriving from other applications, from other threads of the same application,
  or even from the same thread of the same application, if the initial write
  executes asynchronously.
  Figure
@@ -1611,15 +1612,6 @@ s the metadata-driven scheduling is the increasing complexity of devices
  The position of our disk write request is a logical block number, with
  only the drive knowing the physical position of the actual sector.
  Devices also increasingly develop internal self-scheduling capabilities:
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-back with reference
-\end_layout
-
-\end_inset
-
  The software scheduler in the driver can send multiple outstanding requests
  to the device and a hardware scheduler in the device will use its more
  detailed knowledge on request execution properties to order the requests
@@ -1638,6 +1630,12 @@ native command queueing
 \end_inset
 
 .
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Intel:NCQ"
+
+\end_inset
+
  But because the device’s scheduling policy is fixed, it still makes sense
  for the software scheduler to pre-order the request according to its own
  policy, using work item metadata derived with a simplified model of the
@@ -1660,6 +1658,14 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
 \begin_inset Graphics
 	filename Figures/CPU_Scheduling.svg
 
@@ -1686,6 +1692,13 @@ CPU Scheduling
 
 \end_layout
 
+\begin_layout Plain Layout
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
 \end_inset
 
 
@@ -1696,7 +1709,7 @@ CPU Scheduling
 status collapsed
 
 \begin_layout Plain Layout
-Turning toward the CPU scheduler
+Turning to the CPU scheduler
 \end_layout
 
 \end_inset
@@ -1738,7 +1751,7 @@ thread
 \begin_inset space \thinspace{}
 \end_inset
 
-whether it blocks after a short burst of code or runs a long computation
+whether it blocks after a short burst of code, or runs a long computation,
  or a periodic task
 \begin_inset space \thinspace{}
 \end_inset
@@ -1747,8 +1760,8 @@ whether it blocks after a short burst of code or runs a long computation
 \begin_inset space \thinspace{}
 \end_inset
 
-is hidden within the application’s code and memory state.
- Figure
+is hidden within the application’s code and memory state as illustrated
+ by Figure
 \begin_inset space ~
 \end_inset
 
@@ -1759,7 +1772,7 @@ reference "mar:CPU-Scheduling"
 
 \end_inset
 
- illustrates this situation.
+.
 \end_layout
 
 \begin_layout Standard
@@ -1795,8 +1808,7 @@ key "Unix:nice"
  is a coarse abstraction of a thread’s behavior, because it only indicates
  the importance of a thread relative to other threads.
  The application developer has to supply the priority without knowledge
- of concurrent load, which gives rise to other problems we will discuss
- in Chapter
+ of concurrent load, which gives rise to other problems we discuss in Chapter
 \begin_inset space ~
 \end_inset
 
@@ -1830,7 +1842,7 @@ key "Liu:RMS"
 
  have the benefit of implicit knowledge about a thread’s upcoming behavior,
  but only for applications fitting into that rigid model.
- More details will again follow in Chapter
+ More details again follow in Chapter
 \begin_inset space ~
 \end_inset
 
@@ -1854,8 +1866,8 @@ In this thesis
 
 \end_inset
 
-, I want to argue that it is beneficial to organize CPU scheduling around
- work items similarly to peripheral schedulers.
+, I want to argue that it is beneficial to organize CPU scheduling using
+ work items similar to peripheral schedulers.
  Those CPU work items represent a bounded piece of code execution and are
  consumed once the CPU executed them.
  They hold metadata such as timing requirements to describe urgency and
@@ -1867,13 +1879,13 @@ In this thesis
  properties portrayed above.
 \end_layout
 
-\begin_layout Section*
+\begin_layout Section
 Driving Insights
 \end_layout
 
 \begin_layout Standard
 The walk-through of the problem area shows that the considered non-functional
- properties timeliness, efficient core placement and quality-aware overload
+ properties timeliness, efficient core placement, and quality-aware overload
  handling are cross-cutting concerns.
  They involve local knowledge from the applications and global policy executed
  by the scheduler.
@@ -2023,9 +2035,8 @@ Applications should expose local knowledge
 
 \end_inset
 
- to the scheduler using work items.
- They encapsulate timing and resource requirements depending on the current
- workload.
+ to the scheduler using work items, which encapsulate timing and resource
+ requirements depending on the current workload.
 \end_layout
 
 \begin_layout Standard
@@ -2195,7 +2206,7 @@ both describe a bounded, self-contained piece of code execution
 
 and how the communication of work items to the scheduler integrates with
  the use of lambdas.
- Big platform vendors such Apple
+ Big platform vendors such as Apple
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Apple:GrandCentralDispatch"
@@ -2220,7 +2231,7 @@ The asynchronous execution of lambdas gives rise to another interesting
  Application code can specify multiple pieces of work and dispatch them
  for later, asynchronous and potentially parallel execution.
  The queues in the lambda runtime therefore contain knowledge about what
- pieces of code that will execute in the future.
+ pieces of code will execute in the future.
  Again, more details on how these runtimes operate follow in Chapter
 \begin_inset space ~
 \end_inset
@@ -2273,23 +2284,8 @@ null
 
 I claim that many applications have knowledge on their future execution
  available, but currently lack a way to expose this information.
- Any operation that
-\begin_inset space \thinspace{}
-\end_inset
-
-—
-\begin_inset space \thinspace{}
-\end_inset
-
-once triggered by hardware, a system event or by user interaction
-\begin_inset space \thinspace{}
-\end_inset
-
-—
-\begin_inset space \thinspace{}
-\end_inset
-
-runs autonomously is fully determined at the moment it is triggered.
+ Any operation that runs autonomously after being triggered by a system
+ event or user interaction is fully determined at the moment it is triggered.
  If a user clicks 
 \begin_inset Quotes eld
 \end_inset
@@ -2339,11 +2335,25 @@ look-ahead scheduling
  post-mortem, reactive control.
 \end_layout
 
-\begin_layout Section*
+\begin_layout Section
 Thesis Goals
 \end_layout
 
 \begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 1
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
 In this dissertation, I target three scheduling-related problems:
 \end_layout
 
@@ -2357,7 +2367,7 @@ noitemsep
 
 \end_inset
 
-timeliness
+timeliness,
 \end_layout
 
 \begin_layout Itemize
@@ -2366,6 +2376,11 @@ efficient core placement, and
 
 \begin_layout Itemize
 quality-aware overload handling.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -2381,8 +2396,8 @@ non-functional properties
 \end_inset
 
 , which applications should offer to their users.
- Therefore, I investigate these problems exclusively in the context of interacti
-ve end-user systems
+ Therefore, I investigate these problems in the context of interactive end-user
+ systems
 \begin_inset Index idx
 status collapsed
 
@@ -2449,11 +2464,67 @@ key "Halbwachs:LUSTRE"
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
+Similarly, I do not consider offline scheduling, where a precomputed schedule
+ is reenacted at runtime.
+ In a dynamic, interactive system, advance knowledge on the executed task
+ set is generally not available.
+ Therefore, I exclusively research online scheduling, where scheduling decisions
+ happen while the system runs.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
 status open
 
 \begin_layout Plain Layout
-introduce soft real-time and exclude hard real-time
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\begin_inset Graphics
+	filename Figures/Deadline_Types.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "mar:Deadline-Types"
+
+\end_inset
+
+Types of Real-Time Deadlines
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset VSpace defskip
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -2462,6 +2533,99 @@ introduce soft real-time and exclude hard real-time
 \end_layout
 
 \begin_layout Standard
+Real-time literature
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Liu:RealTimeSystems"
+
+\end_inset
+
+ distinguishes between systems with hard
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+hard deadline
+\end_layout
+
+\end_inset
+
+, firm
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+firm deadline
+\end_layout
+
+\end_inset
+
+ and soft deadlines
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+soft deadline
+\end_layout
+
+\end_inset
+
+.
+ Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "mar:Deadline-Types"
+
+\end_inset
+
+ shows the delineating characteristics.
+ Hard deadlines must never be missed and the system has to guarantee this
+ invariant with a formal analysis.
+ For firm and soft deadlines, weaker guarantees apply.
+ Deadlines may be missed, but with predictable consequences.
+ Jobs missing a firm deadline are aborted, whereas results arriving after
+ a soft deadline are still useful.
+\end_layout
+
+\begin_layout Standard
+I think an interactive system should not reject the user’s instruction to
+ start an application.
+ Therefore, a task admission
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+admission
+\end_layout
+
+\end_inset
+
+ is not appropriate and consequently, the system cannot handle hard deadlines.
+ Overload situations may occur and my solution provides methods to handle
+ them.
+ It is up to the application to decide on aborting the job or continuing.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 1
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
 \begin_inset Flex NewThought
 status collapsed
 
@@ -2484,7 +2648,7 @@ noitemsep
 
 \end_inset
 
-workload
+workload,
 \end_layout
 
 \begin_layout Itemize
@@ -2493,6 +2657,11 @@ application, and
 
 \begin_layout Itemize
 CPU scheduler.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -2693,17 +2862,7 @@ expose deadlines and execution time estimates ahead of time
 \begin_inset Text
 
 \begin_layout Plain Layout
-expose degree of parallelism
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-cache-miss estimates
-\end_layout
-
-\end_inset
-
-
+deduce parallel speedup and workload metadata
 \end_layout
 
 \end_inset
@@ -2751,7 +2910,7 @@ globally order work items to meet deadlines, detect misses ahead of time
 \begin_inset Text
 
 \begin_layout Plain Layout
-assign work items to cores according to global policy
+non-work-conserving assignment of work items to cores
 \end_layout
 
 \end_inset
@@ -2983,8 +3142,8 @@ Vertical integration across the three layers is necessary, because no layer
 \end_layout
 
 \begin_layout Standard
-A large body of existing research results are available at the nine intersection
-s in my three by three goals matrix.
+A large body of individual research results is available covering the nine
+ intersections of my three by three goals matrix.
  However, in this dissertation I provide a comprehensive, end-to-end solution
  and I demonstrate improvements over the state of the art in each of the
  three property lanes.
@@ -2993,23 +3152,23 @@ s in my three by three goals matrix.
  Each lane is discussed in detail in its own chapter.
 \end_layout
 
-\begin_layout Subsection*
+\begin_layout Section
 Timeliness
 \end_layout
 
 \begin_layout Standard
 Timeliness is the primary property of real-time scheduling.
- A secondary service goal is only considered by the scheduling policy when
- timeliness is not jeopardized.
+ The scheduling policy considers secondary service goals only when timeliness
+ is not jeopardized.
  Time is a global resource and is therefore managed by a system-wide scheduler.
- Imposing a separation of concerns like resource kernels
+ Imposing a separation of concerns as in the resource kernels concept,
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Rajkumar:ResourceKernels"
 
 \end_inset
 
-, applications specify their timing requirements to the scheduler, which
+ applications specify their timing requirements to the scheduler, which
  then exercises global management.
  This functional separation must be accompanied by an integration of knowledge:
  Only the application knows its workload and should expose this knowledge
@@ -3078,13 +3237,13 @@ workload metrics
 
 : parameters from the workload that describe its computational weight.
  Machine-learning is used to automatically derive execution time estimates
- from the metrics.
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-ask Hermann: cite own work here?
-\end_layout
+ from the metrics before the actual execution.
+ The estimated execution time of each work item is therefore known ahead
+ of time.
+ I presented this prediction method on the 27th IEEE Real-Time Systems Symposium.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "roitzsch06:predict"
 
 \end_inset
 
@@ -3105,9 +3264,9 @@ I claim that the flexibility of this task model
  than alternative approaches.
  I validate this claim by demonstrating that the scheduler can predict the
  future execution of applications precise enough to anticipate deadline
- misses ahead-of-time.
- No other scheduling system I am aware of features a comparable look-ahead
- capability.
+ misses before they occur.
+ Outside the implicit clairvoyance of periodic task systems, no other scheduling
+ system I am aware of features a comparable look-ahead capability.
 \end_layout
 
 \begin_layout Standard
@@ -3122,32 +3281,31 @@ constraint satisfaction problems
 
 \end_inset
 
-
+,
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Schaerf:CSP"
 
 \end_inset
 
-, factory scheduling
+ factory scheduling,
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Itoh:ProductionScheduling"
 
 \end_inset
 
- and server management for on-demand video
+ and server management for on-demand video.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Yu:VOD_LookAhead"
 
 \end_inset
 
-.
  For constraint satisfaction problems and factory scheduling, look-ahead
- improves to the traversal of the solution search space.
+ improves the traversal of the solution search space.
  Thus, the scheduling does not look ahead along the time axis into the future,
- but along the search tree of the solution space.
+ but along the search tree into the solution space.
  In the on-demand video context, the server tries to batch multiple viewers
  of the same video to save disk requests.
  Look-ahead and buffering help the server to satisfy multiple users from
@@ -3164,7 +3322,8 @@ I also evaluate the timeliness
 
 \end_inset
 
- delivered by my scheduler honoring the requested timing requirements.
+ delivered by my scheduler due to its compliance with the requested timing
+ requirements.
  I compare with the behavior under conventional fair share scheduling without
  timing constraints.
  This evaluation serves to convince the reader of the scheduler’s basic
@@ -3187,8 +3346,96 @@ reference "chap:Real-Time"
 .
 \end_layout
 
-\begin_layout Subsection*
+\begin_layout Section
 Core Placement
+\end_layout
+
+\begin_layout Standard
+Managing multiple cores adds another dimension to the scheduling problem:
+ Not only does the scheduler order work items along the time axis, but it
+ also has to decide on a placement of the work onto cores.
+\end_layout
+
+\begin_layout Standard
+Serving the timeliness goal, applications structure their execution into
+ work items that bear a timing requirement.
+ To enable parallel execution, applications must also structure their execution
+ into independent pieces that can execute simultaneously.
+ To simplify development, I decouple these two structures by allowing for
+ parallelism within an individual work item.
+ Such task models have been presented before.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Collette:JobParallelism"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For work items with internal parallelism, the scheduler can trade using
+ more cores against using more time on fewer cores.
+ In order to make those decisions, it needs information about the available
+ parallelism and speedup.
+ Placement of work on cores also influences execution times due to contention
+ on shared caches and memory.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Zhuravlev:DIO"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+I contribute a collaboration mechanism
+\end_layout
+
+\end_inset
+
+ that allows applications to propagate the degree of parallelism to the
+ scheduler.
+ Integrating with the lambda programming-style, I tap into the application
+ to automatically deduce available parallelism and to maintain a model of
+ the parallel speedup.
+ For each number of cores a work item can make use of, the scheduler receives
+ an execution time estimate.
+ These alternative resource requirements are obtained ahead of time, allowing
+ look-ahead scheduling.
+\end_layout
+
+\begin_layout Standard
+Parallel speedup can be limited by serial sections in the applied algorithm
+ or by imbalance in the workload partitioning.
+ To demonstrate a typical optimization workflow, I show an example of improving
+ the speedup by balancing workload.
+ I presented this work on the 7th International Conference on Embedded Software.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "roitzsch07:balancing"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+I claim that the rich information
+\end_layout
+
+\end_inset
+
+ provided by applications allows non-work-conserving scheduling disciplines.
 \end_layout
 
 \begin_layout Standard
@@ -3217,22 +3464,6 @@ reference "chap:Parallelism"
 \end_layout
 
 \begin_deeper
-\begin_layout Itemize
-contribution: enhancing API with work packet scaling factor (
-\begin_inset Quotes eld
-\end_inset
-
-packet width
-\begin_inset Quotes erd
-\end_inset
-
-) allows to trade core count against completion time
-\end_layout
-
-\begin_layout Itemize
-placement of parallel work exploits exposed resource requirements
-\end_layout
-
 \begin_layout Itemize
 evaluation: start more cores only when you know it will not fit (energy
  saving policy)
@@ -3381,7 +3612,7 @@ difficult code
 
 \end_deeper
 \begin_layout Itemize
-today: work packets
+today: work items
 \end_layout
 
 \begin_deeper
@@ -3432,7 +3663,7 @@ key "Kulkarni:Galois"
 
 \begin_deeper
 \begin_layout Itemize
-executing some work packets can add new work packets to the set
+executing some work items can add new work items to the set
 \end_layout
 
 \begin_layout Itemize
@@ -3446,7 +3677,7 @@ set down the terminology here:
 \begin_inset Quotes eld
 \end_inset
 
-work packets
+work items
 \begin_inset Quotes erd
 \end_inset
 
@@ -3464,7 +3695,7 @@ work
 \end_deeper
 \end_deeper
 \begin_layout Itemize
-implementations of work packet programming
+implementations of work item programming
 \end_layout
 
 \begin_deeper
@@ -3595,13 +3826,8 @@ describe fundamental video player architecture
 \end_layout
 
 \begin_layout Itemize
-work packets (or groups of them) are natural receivers for metadata by the
+work items (or groups of them) are natural receivers for metadata by the
  developer (deadlines) or automatically by the system (training)
-\end_layout
-
-\begin_layout Itemize
-this thesis: apply concept to real-time, parallel scheduling, adaptivity,
- energy
 \end_layout
 
 \end_deeper
@@ -4503,6 +4729,19 @@ device IO
 propagate deadlines to device queues when jobs issue IO requests
 \end_layout
 
+\begin_deeper
+\begin_layout Itemize
+helps anticipatory schedulers
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Iyer:Anticipatory"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
 \begin_layout Itemize
 GCD fosters asynchronous device access and queue-ahead of upcoming jobs:
  provides the same look-ahead for device IO
@@ -5780,25 +6019,6 @@ status collapsed
 
 \backslash
 backmatter
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-
-\backslash
-setlength{
-\backslash
-labelwidth}{0mm}
-\backslash
-setlength{
-\backslash
-labelsep}{0mm} 
 \end_layout
 
 \end_inset
