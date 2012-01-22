@@ -1,4 +1,8 @@
-all: Thesis-stylight.pdf
+all:
+	echo "choose one of the targets"
+	echo "  style   highlight weak style in the text"
+
+style: Thesis-stylight.pdf
 	open $<
 
 .INTERMEDIATE: Thesis-stylight.tex Thesis.tex
