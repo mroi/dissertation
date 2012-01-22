@@ -12,10 +12,6 @@
 \clubpenalty=10000
 \widowpenalty=10000
 
-% place all sidenotes as floats to prevent running off of the bottom edge of the page
-%\usepackage{marginfix}
-%\morefloats
-
 % font setup: disable Hoefler swashes, set math font
 \usepackage[MnSymbol]{mathspec}
 \setmainfont[ItalicFeatures={Contextuals={NoLineInitial,NoLineFinal}}]{Hoefler Text}
@@ -153,7 +149,7 @@ End
 \shortcut idx
 \color #008000
 \end_index
-\secnumdepth 1
+\secnumdepth 0
 \tocdepth 2
 \paragraph_separation indent
 \paragraph_indentation default
@@ -174,23 +170,7 @@ End
 \begin_inset Note Note
 status open
 
-\begin_layout Itemize
-Using the 
-\family typewriter
-marginfix
-\family default
- package to place sidenotes as floats does not work.
- Whenever a 
-\family typewriter
-fullwidth
-\family default
- environment is anywhere on the page, the sidenotes run off the right edge
- of the page.
- Also, their first line no longer aligns with the occurrence in the text,
- but is a little higher.
-\end_layout
-
-\begin_layout Itemize
+\begin_layout Plain Layout
 Greek letters in math mode are still typeset in computer modern.
  Enabling Georgia as a replacement hangs 
 \family typewriter
@@ -2824,7 +2804,7 @@ derive workload metrics to predict execution times
 \begin_inset Text
 
 \begin_layout Plain Layout
-partition to enable parallel execution
+balanced partitioning to enable parallel execution
 \end_layout
 
 \end_inset
@@ -3243,7 +3223,18 @@ workload metrics
  I presented this prediction method on the 27th IEEE Real-Time Systems Symposium.
 \begin_inset CommandInset citation
 LatexCommand cite
+after "-3\\baselineskip"
 key "roitzsch06:predict"
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+manual offset
+\end_layout
 
 \end_inset
 
@@ -3284,6 +3275,7 @@ constraint satisfaction problems
 ,
 \begin_inset CommandInset citation
 LatexCommand cite
+after "-8\\baselineskip"
 key "Schaerf:CSP"
 
 \end_inset
@@ -3291,6 +3283,7 @@ key "Schaerf:CSP"
  factory scheduling,
 \begin_inset CommandInset citation
 LatexCommand cite
+after "-3\\baselineskip"
 key "Itoh:ProductionScheduling"
 
 \end_inset
@@ -3403,9 +3396,28 @@ I contribute a collaboration mechanism
  scheduler.
  Integrating with the lambda programming-style, I tap into the application
  to automatically deduce available parallelism and to maintain a model of
- the parallel speedup.
+ the parallel speedup
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+parallel speedup
+\end_layout
+
+\end_inset
+
+.
  For each number of cores a work item can make use of, the scheduler receives
  an execution time estimate.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+add figure to illustrate
+\end_layout
+
+\end_inset
+
  These alternative resource requirements are obtained ahead of time, allowing
  look-ahead scheduling.
 \end_layout
@@ -3414,7 +3426,7 @@ I contribute a collaboration mechanism
 Parallel speedup can be limited by serial sections in the applied algorithm
  or by imbalance in the workload partitioning.
  To demonstrate a typical optimization workflow, I show an example of improving
- the speedup by balancing workload.
+ the speedup by balancing the workload.
  I presented this work on the 7th International Conference on Embedded Software.
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -3435,7 +3447,104 @@ I claim that the rich information
 
 \end_inset
 
- provided by applications allows non-work-conserving scheduling disciplines.
+ provided by applications allows non-work-conserving scheduling
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+non-work-conserving scheduling
+\end_layout
+
+\end_inset
+
+ disciplines that reduce core allocation more aggressively than competing
+ approaches.
+ A non-work-conserving scheduler deliberately keeps cores idle even though
+ runnable threads are available.
+ My scheduler knows about the resource requirements of work items, so it
+ can select a core assignment that uses a minimum number of cores while
+ still meeting all timing requirements.
+ The schedulers in commodity operating systems are work-conserving.
+ They lack this knowledge and therefore occupy cores eagerly.
+\end_layout
+
+\begin_layout Standard
+Because parallel speedup is typically sub-linear,
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Amdahl:AmdahlsLaw"
+
+\end_inset
+
+ reducing core allocation reduces the overhead that comes with parallel
+ execution.
+ The lowest overhead would be achieved with single-core execution, which
+ however also yields the worst response time.
+ Timing requirements constrain this optimization problem with a limit on
+ the tolerated response time.
+ Existing real-time research relies on the implicit knowledge of future
+ jobs provided by periodic task models.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Collette:JobParallelism"
+
+\end_inset
+
+ I show how look-ahead scheduling reduces core use compared to the worst-case
+ planning periodic tasks imply.
+\end_layout
+
+\begin_layout Standard
+Non-work-conserving scheduling policies have been researched before to improve
+ response times
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Rosti:NWC_Partitioning"
+
+\end_inset
+
+ or throughput.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Fedorova:SMT_Scheduling"
+
+\end_inset
+
+ Keeping idle cores as spares to cater for future job arrivals reduces overall
+ response times, however future arrivals are merely guessed from past observatio
+ns.
+ Throughput can suffer, when co-scheduled jobs causes thrashing on shared
+ resources such as the last level cache.
+ In such cases, deliberately not using all the available parallelism increases
+ instruction throughput.
+ A similar behavior can be observed with magnetic disks: Interleaving requests
+ from two different applications can cause more disk-head movements and
+ thus lower throughput compared to briefly idling the disk to allow for
+ batching of consecutive requests from the same application.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Iyer:Anticipatory"
+
+\end_inset
+
+ These solutions do not exploit knowledge of timing requirements, resource
+ requirements or the benefit of look-ahead.
+\end_layout
+
+\begin_layout Standard
+The parallel speedup estimation and the non-work-conserving scheduler are
+ presented and discussed in Chapter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:Parallelism"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -3448,28 +3557,6 @@ apply this idea to real-time, parallelism, adaptivity and energy, name key
 \end_layout
 
 \begin_deeper
-\begin_layout Itemize
-parallel scheduling (Chapter
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "chap:Parallelism"
-
-\end_inset
-
-): load-aware placement of work on cores
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-evaluation: start more cores only when you know it will not fit (energy
- saving policy)
-\end_layout
-
-\end_deeper
 \begin_layout Itemize
 adaptivity (Chapter
 \begin_inset space ~
@@ -4085,12 +4172,12 @@ explain video player architecture with buffers and work submission (see
 \end_layout
 
 \begin_layout Itemize
-individual work packets may be too fine-grained
+individual work items may be too fine-grained
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
-model jobs as groups of work packets
+model jobs as groups of work items
 \end_layout
 
 \begin_layout Itemize
@@ -4172,7 +4259,7 @@ system scheduler
 
 \begin_deeper
 \begin_layout Itemize
-work packet programming model not compatible with fixed task priorities
+work item programming model not compatible with fixed task priorities
 \end_layout
 
 \begin_deeper
@@ -4566,7 +4653,7 @@ different world view: illusion of a dedicated slower processor
 
 \begin_deeper
 \begin_layout Itemize
-fluid flow allocation contradicts the work packet style, more amenable to
+fluid flow allocation contradicts the work item style, more amenable to
  threads
 \end_layout
 
@@ -5037,8 +5124,8 @@ Tetris
 \begin_inset Quotes erd
 \end_inset
 
- style scheduling: we want to know the widths and heights of work packets
- to plan placement and order
+ style scheduling: we want to know the widths and heights of work item to
+ plan placement and order
 \end_layout
 
 \begin_deeper
@@ -5058,10 +5145,8 @@ execution time estimates give us the total execution time, but when spread
 \end_layout
 
 \begin_layout Itemize
-how much less (i.e.
- the parallel efficiency) and how much parallelism can be offered (i.e.
- the parallel degree) should be provided by the application or observed
- by the runtime
+application must provide execution time estimate for any number of cores
+ the work item can use
 \end_layout
 
 \end_deeper
@@ -5084,12 +5169,12 @@ key "roitzsch07:balancing"
 
 \begin_layout Itemize
 application: offer parallelism to the system, provide estimates on parallel
- degree and efficiency
+ scalability
 \end_layout
 
 \begin_layout Itemize
-system: place jobs on cores and order in time based on deadlines, execution
- time estimates and parallelism
+system: non-work-conserving placement of jobs on cores and order in time
+ based on deadlines, execution time estimates and parallelism
 \end_layout
 
 \end_deeper
@@ -5124,10 +5209,35 @@ end-to-end evaluation
 
 \begin_deeper
 \begin_layout Itemize
-place work on one core as long as it fits, fire up second core only when
- necessary
+non-work-conserving placement of work items on one core as long as it fits,
+ fire up second core only when necessary
 \end_layout
 
+\begin_layout Itemize
+core count reduced more aggressively compared to:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+greedy commodity schedulers
+\end_layout
+
+\begin_layout Itemize
+heuristics based on the past
+\end_layout
+
+\begin_layout Itemize
+planning based on worst-case execution time and period
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Collette:JobParallelism"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
 \end_deeper
 \begin_layout Itemize
 discuss related work in detail
@@ -5198,11 +5308,28 @@ key "West:CacheUtility"
 \end_layout
 
 \begin_layout Itemize
+L2 cache misses is the primary metric that expresses locality of a work
+ item, because it covers the two major harmful communication paths: memory
+ accesses and coherency traffic
+\end_layout
+
+\begin_layout Itemize
 placement of jobs on cores influences contention on caches, prefetcher and
  DRAM controller
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Zhuravlev:DIO"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+cache thrashing with hyperthreads
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Fedorova:SMT_Scheduling"
 
 \end_inset
 
@@ -5364,7 +5491,7 @@ key "Sanchez:ADM"
 
 \end_inset
 
- allow very fine-grained work packets
+ allow very fine-grained work items
 \end_layout
 
 \begin_deeper
@@ -5373,7 +5500,7 @@ more flexible: small hardware extension to be used by work queue implementation
 \end_layout
 
 \begin_layout Itemize
-allows exposing more parallelism by splitting into smaller work packets
+allows exposing more parallelism by splitting into smaller work items
 \end_layout
 
 \begin_layout Itemize
@@ -5404,7 +5531,7 @@ employs gossiping to establish global system view without a central authority
 \end_layout
 
 \begin_layout Itemize
-ad-hoc solution for my approach: assume that work packets of the same job
+ad-hoc solution for my approach: assume that work items of the same job
  are more likely to talk to each other, place closer together
 \end_layout
 
