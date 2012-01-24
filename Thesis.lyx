@@ -70,7 +70,7 @@
 % epigraph command
 \newcommand{\epigraph}[2]{
 \begin{fullwidth}
-\sffamily\large
+\sffamily\Large
 \begin{doublespace}
 \noindent\allcaps{#1}\\% epigraph
 \color{darkgray}\noindent\allcaps{#2}% author
@@ -3224,7 +3224,7 @@ workload metrics
 \begin_inset CommandInset citation
 LatexCommand cite
 after "-3\\baselineskip"
-key "roitzsch06:predict"
+key "Roitzsch:Predict"
 
 \end_inset
 
@@ -3303,6 +3303,31 @@ key "Yu:VOD_LookAhead"
  of the same video to save disk requests.
  Look-ahead and buffering help the server to satisfy multiple users from
  the same disk stream, even if they independently pause and resume playback.
+ Patterson
+\begin_inset space ~
+\end_inset
+
+et
+\begin_inset space ~
+\end_inset
+
+al.
+\begin_inset space ~
+\end_inset
+
+investigated the submission of future jobs to a peripheral scheduler to
+ improve prefetching for IO
+\begin_inset space ~
+\end_inset
+
+devices.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Patterson:InformedPrefetching"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -3430,7 +3455,18 @@ Parallel speedup can be limited by serial sections in the applied algorithm
  I presented this work on the 7th International Conference on Embedded Software.
 \begin_inset CommandInset citation
 LatexCommand cite
-key "roitzsch07:balancing"
+after "-1\\baselineskip"
+key "Roitzsch:Balancing"
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+manual offset
+\end_layout
 
 \end_inset
 
@@ -4224,7 +4260,7 @@ workload: analyze dependency between data and execution time – execution
  time metrics for video
 \begin_inset CommandInset citation
 LatexCommand cite
-key "roitzsch06:predict"
+key "Roitzsch:Predict"
 
 \end_inset
 
@@ -4332,7 +4368,18 @@ key "Short:EDFTaskManagement"
 
 \end_inset
 
- and extensive studies for multicores
+ and multicores
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lelli:Scalable_EDF"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+extensive scalability studies for multicores
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Brandenburg:GlobalEDF"
@@ -4440,6 +4487,18 @@ microkernel paradigm
 
 \begin_layout Itemize
 used in practice: QNX in the BlackBerry PlayBook
+\end_layout
+
+\begin_layout Itemize
+view shared with Nemesis
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Leslie:Nemesis"
+
+\end_inset
+
+: fixed priorities require full analysis of the system to determine the
+ priorities
 \end_layout
 
 \end_deeper
@@ -4643,6 +4702,17 @@ overload handling instead of admission
 \end_layout
 
 \begin_layout Itemize
+basic idea similar to Nemesis
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Leslie:Nemesis"
+
+\end_inset
+
+: free developer from determining resource requirements
+\end_layout
+
+\begin_layout Itemize
 two layer approach: dedicated controller per task like HDE
 \end_layout
 
@@ -4659,7 +4729,7 @@ fluid flow allocation contradicts the work item style, more amenable to
 
 \end_deeper
 \begin_layout Itemize
-dynamic bandwidth adaptation to workflow as an afterthought
+dynamic bandwidth adaptation to workload as an afterthought
 \end_layout
 
 \begin_deeper
@@ -4829,6 +4899,17 @@ key "Iyer:Anticipatory"
 \end_layout
 
 \end_deeper
+\begin_layout Itemize
+propagate future jobs to devices for prefetching
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Patterson:InformedPrefetching"
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Itemize
 GCD fosters asynchronous device access and queue-ahead of upcoming jobs:
  provides the same look-ahead for device IO
@@ -5160,7 +5241,7 @@ workload: make amenable for data-parallel processing like intrinsic load-balanci
 ng
 \begin_inset CommandInset citation
 LatexCommand cite
-key "roitzsch07:balancing"
+key "Roitzsch:Balancing"
 
 \end_inset
 
@@ -5301,6 +5382,13 @@ performance counters often used for runtime monitoring, like online cache
 \begin_inset CommandInset citation
 LatexCommand cite
 key "West:CacheUtility"
+
+\end_inset
+
+ and detection of sharing patterns
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Tam:SharingAwareScheduling"
 
 \end_inset
 
@@ -5680,7 +5768,7 @@ system: distribute computing resource cutbacks in a quality-fair fashion
 describe fallback decoding path for video
 \begin_inset CommandInset citation
 LatexCommand cite
-key "roitzsch08:videoquality"
+key "Roitzsch:VideoQuality"
 
 \end_inset
 
@@ -5735,7 +5823,7 @@ could also use time-utility functions to optimize
 use of percentage of missed deadlines as quality parameter inspired by QRMS
 \begin_inset CommandInset citation
 LatexCommand cite
-key "hamann07:qrms"
+key "Hamann:QRMS"
 
 \end_inset
 
@@ -5933,6 +6021,17 @@ only energy efficiency (doing the same with less energy) and maybe adaptivity
 \begin_deeper
 \begin_layout Itemize
 energy saving by batching is already enabled by look-ahead deadline-knowledge
+\end_layout
+
+\begin_layout Itemize
+batch disk IO with deferrable requests
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Weissel:Coop_IO"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Itemize
