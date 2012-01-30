@@ -1419,8 +1419,7 @@ key "Rajkumar:ResourceKernels"
 \begin_layout Standard
 Nevertheless, taking a closer look at peripheral schedulers does help to
  reveal an important disadvantage of CPU scheduling: Schedulers for peripheral
- devices have a deeper insight into the work items they are supposed to
- order.
+ devices have a deeper insight into the jobs they are supposed to order.
 \end_layout
 
 \begin_layout Standard
@@ -1453,31 +1452,11 @@ key "Love:IO_Schedulers"
  The story starts with an application asking for the service of a device.
  Let us use a write request to persistent storage as an example.
  The application collects the data it wants to make durable and submits
- a 
-\begin_inset Flex SmallCaps
-status collapsed
-
-\begin_layout Plain Layout
-work item
-\end_layout
-
-\end_inset
-
-
-\begin_inset Index idx
-status collapsed
-
-\begin_layout Plain Layout
-work item
-\end_layout
-
-\end_inset
-
- toward the device using an API or system call.
+ a job toward the device using an API or system call.
  A write request to a file would now traverse various layers of file system
  and buffer caching code in the operating system, but would finally arrive
  at the device driver as a write request to the magnetic disk.
- As part of the driver, the scheduler maintains a queue of work items waiting
+ As part of the driver, the scheduler maintains a work queue of jobs waiting
  for execution.
  Our write request is added to that queue together with concurrent requests
  arriving from other applications, from other threads of the same application,
@@ -1536,18 +1515,17 @@ Peripheral Device Scheduling
 \end_layout
 
 \begin_layout Standard
-The scheduler now orders the work items and sends them off to the device
- for execution.
+The scheduler now orders the jobs and sends them off to the device for execution.
  The scheduling algorithm performs that ordering with a service goal in
  mind, for example to maximize device throughput.
- Every work item carries metadata for the request.
+ Every job carries metadata for the request.
  In the case of our disk write request, that metadata contains the size
  of the request and its location on disk.
 \end_layout
 
 \begin_layout Standard
-When ordering the work items, the scheduler can inspect the metadata to
- decide which order best supports its service goal.
+When ordering jobs, the scheduler can inspect the metadata to decide which
+ order best supports its service goal.
  The disk scheduler in the example can use the on-disk location to execute
  a shortest access time first
 \begin_inset Index idx
@@ -1568,7 +1546,17 @@ key "Jacobson:SATF"
 
  to improve drive throughput.
  Peripheral device schedulers enjoy the advantage that the outstanding requests
- are self-contained work items.
+ are self-describing jobs
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+self-describing job
+\end_layout
+
+\end_inset
+
+.
  Inspecting them reveals all information the peripheral will use to execute
  them.
  This is natural, because to program the device, the driver must have all
@@ -1618,8 +1606,7 @@ key "Intel:NCQ"
 
  But because the device’s scheduling policy is fixed, it still makes sense
  for the software scheduler to pre-order the request according to its own
- policy, using work item metadata derived with a simplified model of the
- device.
+ policy, using job metadata derived with a simplified model of the device.
  A disk scheduler may have a notion of request urgency and inter-application
  fairness that the hardware scheduler would not know about.
 \begin_inset CommandInset citation
@@ -1704,8 +1691,8 @@ CPU scheduling
 
 \end_inset
 
-, we notice an important difference: It does not deal with work items in
- a queue of outstanding requests.
+, we notice an important difference: It does not deal with self-describing
+ jobs in a queue of outstanding work.
  Instead, it maintains a ready queue of runnable threads
 \begin_inset Index idx
 status collapsed
@@ -1717,10 +1704,9 @@ thread
 \end_inset
 
 .
- Other than a work item, a thread is not consumed after it executed, but
- is automatically inserted into the ready queue again until terminated by
- the application.
- Other than a work item, a thread is not a self-contained aggregate of payload
+ Other than a job, a thread is not consumed after it executed, but is automatica
+lly inserted into the ready queue again until terminated by the application.
+ Other than a job, a thread is not a self-describing aggregate of payload
  and metadata, but rather an opaque handle to an execution context within
  the application’s address space.
  The actual behavior that unfolds if the thread is executed
@@ -1847,12 +1833,12 @@ In this thesis
 \end_inset
 
 , I want to argue that it is beneficial to organize CPU scheduling using
- work items similar to peripheral schedulers.
- Those CPU work items represent a bounded piece of code execution and are
- consumed once the CPU executed them.
- They hold metadata such as timing requirements to describe urgency and
- resource requirements to describe the execution time needed.
- If the CPU scheduler receives work items ahead-of-time, before they execute,
+ self-describing jobs similar to peripheral schedulers.
+ Those CPU jobs represent a bounded piece of code execution and are consumed
+ once the CPU executed them.
+ They hold metadata such as timing requirements to indicate urgency and
+ resource requirements to indicate the execution time needed.
+ If the CPU scheduler receives jobs ahead-of-time, before they execute,
  it can build up a limited look into the applications’ future and detect
  overload situations early.
  I show how such a scheduling regime improves the non-functional application
@@ -2001,8 +1987,8 @@ ware reaction.
 What information is relayed along those paths and what the interfaces look
  like remains to be discussed.
  But as motivated in the section on scheduler knowledge above, the scheduler
- should operate on self-contained work items instead of threads which hide
- their execution behavior deep in the application state.
+ should operate on self-contained jobs instead of threads which hide their
+ execution behavior deep in the application state.
 \end_layout
 
 \begin_layout Standard
@@ -2015,8 +2001,8 @@ Applications should expose local knowledge
 
 \end_inset
 
- to the scheduler using work items, which encapsulate timing and resource
- requirements depending on the current workload.
+ to the scheduler using self-describing jobs that encapsulate timing and
+ resource requirements depending on the current workload.
 \end_layout
 
 \begin_layout Standard
@@ -2099,12 +2085,11 @@ deadlines
 
 \end_inset
 
- to describe the timing requirements of a work item.
+ to describe the timing requirements of a job.
  Parameters requiring knowledge outside the application scope should be
  avoided.
- Estimated execution times of work items for example are specific to the
- underlying hardware platform, so developers should not need to provide
- those.
+ Estimated execution times of jobs are specific to the underlying hardware
+ platform, so developers should not need to provide those.
 \end_layout
 
 \begin_layout Standard
@@ -2168,7 +2153,7 @@ reference "chap:Anatomy"
 \end_inset
 
 .
- I will illustrate how lambdas and work items can cooperate
+ I will illustrate how lambdas and jobs can cooperate
 \begin_inset space \thinspace{}
 \end_inset
 
@@ -2184,8 +2169,8 @@ both describe a bounded, self-contained piece of code execution
 \begin_inset space \thinspace{}
 \end_inset
 
-and how the communication of work items to the scheduler integrates with
- the use of lambdas.
+and how the communication of jobs to the scheduler integrates with the use
+ of lambdas.
  Big platform vendors such as Apple
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -2669,7 +2654,7 @@ key "Blagodurov:DINO"
  Unless mitigated, overload disturbs timeliness.
  The scheduling layer thus needs one mechanism covering all three of the
  non-functional properties.
- I propose work items as this integrative device.
+ I propose self-describing jobs as this integrative device.
  Equally, application developers should not face three different programming
  paradigms, but one wholesale solution.
 \end_layout
@@ -2881,7 +2866,7 @@ scheduler
 \begin_inset Text
 
 \begin_layout Plain Layout
-globally order work items to meet deadlines, detect misses ahead of time
+globally order jobs to meet deadlines, detect misses ahead of time
 \end_layout
 
 \end_inset
@@ -2890,7 +2875,7 @@ globally order work items to meet deadlines, detect misses ahead of time
 \begin_inset Text
 
 \begin_layout Plain Layout
-non-work-conserving assignment of work items to cores
+non-work-conserving assignment of jobs to cores
 \end_layout
 
 \end_inset
@@ -3218,8 +3203,7 @@ workload metrics
 : parameters from the workload that describe its computational weight.
  Machine-learning is used to automatically derive execution time estimates
  from the metrics before the actual execution.
- The estimated execution time of each work item is therefore known ahead
- of time.
+ The estimated execution time of each job is therefore known ahead of time.
  I presented this prediction method on the 27th IEEE Real-Time Systems Symposium.
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -3370,17 +3354,17 @@ Core Placement
 
 \begin_layout Standard
 Managing multiple cores adds another dimension to the scheduling problem:
- Not only does the scheduler order work items along the time axis, but it
- also has to decide on a placement of the work onto cores.
+ Not only does the scheduler order jobs along the time axis, but it also
+ has to decide on a placement of the work onto cores.
 \end_layout
 
 \begin_layout Standard
 Serving the timeliness goal, applications structure their execution into
- work items that bear a timing requirement.
+ jobs that bear a timing requirement.
  To enable parallel execution, applications must also structure their execution
  into independent pieces that can execute simultaneously.
  To simplify development, I decouple these two structures by allowing for
- parallelism within an individual work item.
+ parallelism within an individual job.
  Such task models have been presented before.
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -3392,8 +3376,8 @@ key "Collette:JobParallelism"
 \end_layout
 
 \begin_layout Standard
-For work items with internal parallelism, the scheduler can trade using
- more cores against using more time on fewer cores.
+For jobs with internal parallelism, the scheduler can trade using more cores
+ against using more time on fewer cores.
  In order to make those decisions, it needs information about the available
  parallelism and speedup.
  Placement of work on cores also influences execution times due to contention
@@ -3432,7 +3416,7 @@ parallel speedup
 \end_inset
 
 .
- For each number of cores a work item can make use of, the scheduler receives
+ For each number of cores a job can make use of, the scheduler receives
  an execution time estimate.
 \begin_inset Note Note
 status open
@@ -3497,9 +3481,9 @@ non-work-conserving scheduling
  approaches.
  A non-work-conserving scheduler deliberately keeps cores idle even though
  runnable threads are available.
- My scheduler knows about the resource requirements of work items, so it
- can select a core assignment that uses a minimum number of cores while
- still meeting all timing requirements.
+ My scheduler knows about the resource requirements of jobs, so it can select
+ a core assignment that uses a minimum number of cores while still meeting
+ all timing requirements.
  The schedulers in commodity operating systems are work-conserving.
  They lack this knowledge and therefore occupy cores eagerly.
 \end_layout
@@ -3735,7 +3719,7 @@ difficult code
 
 \end_deeper
 \begin_layout Itemize
-today: work items
+today: lambdas
 \end_layout
 
 \begin_deeper
@@ -3786,7 +3770,7 @@ key "Kulkarni:Galois"
 
 \begin_deeper
 \begin_layout Itemize
-executing some work items can add new work items to the set
+executing some job can add new jobs to the set
 \end_layout
 
 \begin_layout Itemize
@@ -3796,29 +3780,23 @@ useful to implement irregular algorithms (processing on graph-like data
 
 \end_deeper
 \begin_layout Itemize
-set down the terminology here: 
-\begin_inset Quotes eld
-\end_inset
+set down the terminology here:
+\end_layout
 
-work items
-\begin_inset Quotes erd
-\end_inset
+\begin_deeper
+\begin_layout Description
+job: work item of code+metadata, unit of scheduling
+\end_layout
 
- or just 
-\begin_inset Quotes eld
-\end_inset
-
-work
-\begin_inset Quotes erd
-\end_inset
-
- to denote those items of code+state
+\begin_layout Description
+lambda: independently executable piece of code, unit of parallelism
 \end_layout
 
 \end_deeper
 \end_deeper
+\end_deeper
 \begin_layout Itemize
-implementations of work item programming
+implementations of lambda programming
 \end_layout
 
 \begin_deeper
@@ -3949,8 +3927,8 @@ describe fundamental video player architecture
 \end_layout
 
 \begin_layout Itemize
-work items (or groups of them) are natural receivers for metadata by the
- developer (deadlines) or automatically by the system (training)
+lambdas (or groups of them) are natural receivers for metadata by the developer
+ (deadlines) or automatically by the system (training)
 \end_layout
 
 \end_deeper
@@ -4097,7 +4075,15 @@ scheduler distributes CPU evenly across applications according to a fairness
 \end_layout
 
 \begin_layout Itemize
-Android: all Dalvik threads use SCHED_OTHER
+users and applications do not want a fair share, so it's the wrong abstraction
+\end_layout
+
+\begin_layout Itemize
+but it's the right abstraction for performance isolation
+\end_layout
+
+\begin_layout Itemize
+pervasive: on Android all Dalvik threads use SCHED_OTHER
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Maia:AndroidRT"
@@ -4113,7 +4099,7 @@ applications treated equally, disregarding their timing requirements because
 \end_layout
 
 \begin_layout Itemize
-for video: heavy calculation constricts video
+for video: concurrent heavy calculation may squeeze out video
 \end_layout
 
 \begin_layout Itemize
@@ -4208,12 +4194,12 @@ explain video player architecture with buffers and work submission (see
 \end_layout
 
 \begin_layout Itemize
-individual work items may be too fine-grained
+individual lambdas may be too fine-grained
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
-model jobs as groups of work items
+model jobs as groups of lambdas
 \end_layout
 
 \begin_layout Itemize
@@ -4230,7 +4216,7 @@ must stay within application domain
 \end_layout
 
 \begin_layout Itemize
-hints are needed to predict execution times
+metrics are needed to predict execution times
 \end_layout
 
 \end_deeper
@@ -4269,7 +4255,7 @@ key "Roitzsch:Predict"
 
 \begin_layout Itemize
 application: offer look into the future, derive execution time prediction
- from hints, attach deadlines to jobs, propagate knowledge down to system
+ from metrics, attach deadlines to jobs, propagate knowledge down to system
  level
 \end_layout
 
@@ -4295,7 +4281,7 @@ system scheduler
 
 \begin_deeper
 \begin_layout Itemize
-work item programming model not compatible with fixed task priorities
+job programming model not compatible with fixed task priorities
 \end_layout
 
 \begin_deeper
@@ -4352,6 +4338,18 @@ however: unbounded deadline misses under overload
 \end_layout
 
 \end_deeper
+\begin_layout Itemize
+G-EDF not optimal with respect to feasibility, but optimal deadline-based
+ algorithms are known
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Levin:DP-Fair"
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Itemize
 use infinite deadline for best effort background activity
 \end_layout
@@ -4723,8 +4721,7 @@ different world view: illusion of a dedicated slower processor
 
 \begin_deeper
 \begin_layout Itemize
-fluid flow allocation contradicts the work item style, more amenable to
- threads
+fluid flow allocation contradicts the job style, more amenable to threads
 \end_layout
 
 \end_deeper
@@ -4735,7 +4732,7 @@ dynamic bandwidth adaptation to workload as an afterthought
 \begin_deeper
 \begin_layout Itemize
 black-box control vs.
- insightful cooperation using hints
+ insightful cooperation using metrics
 \end_layout
 
 \begin_layout Itemize
@@ -4876,6 +4873,47 @@ propagates application's task descriptions down to the kernel, but without
  look-ahead
 \end_layout
 
+\end_deeper
+\begin_layout Itemize
+virtual time approaches
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+CFS in Linux is similar
+\end_layout
+
+\begin_layout Itemize
+research approaches start out as fair sharing and add twists
+\end_layout
+
+\begin_layout Itemize
+BVT
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Duda:BVT"
+
+\end_inset
+
+ adds a warp to express dispatch priority
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+many task parameters (CPU share, warp time, warp time limit, warp time requireme
+nt) require global knowledge, not inherent to application
+\end_layout
+
+\begin_layout Itemize
+warp time is a priority, just expressed as a time (paper says so in 6.1.3)
+\end_layout
+
+\begin_layout Itemize
+runs without admission, but compares to EDF with worst-case admission, counting
+ admission rejects as misses
+\end_layout
+
+\end_deeper
 \end_deeper
 \begin_layout Itemize
 device IO
@@ -5205,8 +5243,8 @@ Tetris
 \begin_inset Quotes erd
 \end_inset
 
- style scheduling: we want to know the widths and heights of work item to
- plan placement and order
+ style scheduling: we want to know the widths and heights of jobs to plan
+ placement and order
 \end_layout
 
 \begin_deeper
@@ -5216,7 +5254,7 @@ prerequisite to implementing placement policies is sufficient information
 \end_layout
 
 \begin_layout Itemize
-using asynchronous blocks for parallelism and deadlines and hints attached
+using asynchronous blocks for parallelism and deadlines and metrics attached
  to block groups for real-time, both are decoupled
 \end_layout
 
@@ -5227,7 +5265,7 @@ execution time estimates give us the total execution time, but when spread
 
 \begin_layout Itemize
 application must provide execution time estimate for any number of cores
- the work item can use
+ the job can use
 \end_layout
 
 \end_deeper
@@ -5290,8 +5328,8 @@ end-to-end evaluation
 
 \begin_deeper
 \begin_layout Itemize
-non-work-conserving placement of work items on one core as long as it fits,
- fire up second core only when necessary
+non-work-conserving placement of jobs on one core as long as it fits, fire
+ up second core only when necessary
 \end_layout
 
 \begin_layout Itemize
@@ -5396,9 +5434,9 @@ key "Tam:SharingAwareScheduling"
 \end_layout
 
 \begin_layout Itemize
-L2 cache misses is the primary metric that expresses locality of a work
- item, because it covers the two major harmful communication paths: memory
- accesses and coherency traffic
+L2 cache misses is the primary metric that expresses locality of a job,
+ because it covers the two major harmful communication paths: memory accesses
+ and coherency traffic
 \end_layout
 
 \begin_layout Itemize
@@ -5579,7 +5617,7 @@ key "Sanchez:ADM"
 
 \end_inset
 
- allow very fine-grained work items
+ allow very fine-grained lambdas
 \end_layout
 
 \begin_deeper
@@ -5588,7 +5626,7 @@ more flexible: small hardware extension to be used by work queue implementation
 \end_layout
 
 \begin_layout Itemize
-allows exposing more parallelism by splitting into smaller work items
+allows exposing more parallelism by splitting into smaller lambdas
 \end_layout
 
 \begin_layout Itemize
@@ -5619,7 +5657,7 @@ employs gossiping to establish global system view without a central authority
 \end_layout
 
 \begin_layout Itemize
-ad-hoc solution for my approach: assume that work items of the same job
+ad-hoc solution for my approach: assume that lambdas within the same job
  are more likely to talk to each other, place closer together
 \end_layout
 
