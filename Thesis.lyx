@@ -16,7 +16,12 @@
 \usepackage[MnSymbol]{mathspec}
 \setmainfont[ItalicFeatures={Contextuals={NoLineInitial,NoLineFinal}}]{Hoefler Text}
 \setmathsfont(Digits,Latin)[ItalicFeatures={Contextuals={NoLineInitial,NoLineFinal}},Numbers=Lining]{Hoefler Text}
-%\setmathsfont(Greek){Georgia}
+\setmathsfont(Greek){Georgia}
+% restore mathspec's activation of " at document beginning, someone messes with it
+\begingroup
+\catcode`\"=\active
+\AtBeginDocument{\let"=\eu@active@quote}
+\endgroup
 
 % letter spacing for capitalized text
 \renewcommand{\allcapsspacing}[1]{{\addfontfeature{LetterSpace=6.5}#1}}
@@ -165,24 +170,6 @@ End
 \end_header
 
 \begin_body
-
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Greek letters in math mode are still typeset in computer modern.
- Enabling Georgia as a replacement hangs 
-\family typewriter
-xelatex
-\family default
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
 
 \begin_layout Standard
 \begin_inset ERT
