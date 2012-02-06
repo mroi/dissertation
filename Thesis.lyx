@@ -1314,7 +1314,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Figures/Interaction_Application_Scheduler.svg
+	filename Figures/1 Introduction/Interaction Application Scheduler.svg
 
 \end_inset
 
@@ -1327,7 +1327,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "mar:Interaction"
+name "mar:1-Interaction"
 
 \end_inset
 
@@ -1352,7 +1352,7 @@ As illustrated by Figure
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "mar:Interaction"
+reference "mar:1-Interaction"
 
 \end_inset
 
@@ -1456,7 +1456,7 @@ key "Love:IO_Schedulers"
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "mar:Device-Scheduling"
+reference "mar:1-Device-Scheduling"
 
 \end_inset
 
@@ -1471,7 +1471,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Figures/Peripheral_Scheduling.svg
+	filename Figures/1 Introduction/Peripheral Scheduling.svg
 
 \end_inset
 
@@ -1484,7 +1484,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "mar:Device-Scheduling"
+name "mar:1-Device-Scheduling"
 
 \end_inset
 
@@ -1621,7 +1621,7 @@ status open
 \begin_layout Plain Layout
 \noindent
 \begin_inset Graphics
-	filename Figures/CPU_Scheduling.svg
+	filename Figures/1 Introduction/CPU Scheduling.svg
 
 \end_inset
 
@@ -1634,7 +1634,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "mar:CPU-Scheduling"
+name "mar:1-CPU-Scheduling"
 
 \end_inset
 
@@ -1721,7 +1721,7 @@ is hidden within the application’s code and memory state as illustrated
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "mar:CPU-Scheduling"
+reference "mar:1-CPU-Scheduling"
 
 \end_inset
 
@@ -1768,7 +1768,7 @@ key "Unix:nice"
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "chap:Real-Time"
+reference "chap:3-Real-Time"
 
 \end_inset
 
@@ -1802,7 +1802,7 @@ key "Liu:RMS"
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "chap:Real-Time"
+reference "chap:3-Real-Time"
 
 \end_inset
 
@@ -1881,7 +1881,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Figures/Verically_Integrated_Solution.svg
+	filename Figures/1 Introduction/Verically Integrated Solution.svg
 
 \end_inset
 
@@ -1894,7 +1894,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "mar:Vertically-Integrated-Solution"
+name "mar:1-Vertically-Integrated-Solution"
 
 \end_inset
 
@@ -1940,7 +1940,7 @@ Refining the previous concept sketch from Figure
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "mar:Interaction"
+reference "mar:1-Interaction"
 
 \end_inset
 
@@ -1951,7 +1951,7 @@ reference "mar:Interaction"
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "mar:Vertically-Integrated-Solution"
+reference "mar:1-Vertically-Integrated-Solution"
 
 \end_inset
 
@@ -2135,7 +2135,7 @@ operations.
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "chap:Anatomy"
+reference "chap:2-Anatomy"
 
 \end_inset
 
@@ -2191,7 +2191,7 @@ The asynchronous execution of lambdas gives rise to another interesting
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "chap:Anatomy"
+reference "chap:2-Anatomy"
 
 \end_inset
 
@@ -2440,7 +2440,7 @@ status open
 \begin_layout Plain Layout
 \noindent
 \begin_inset Graphics
-	filename Figures/Deadline_Types.svg
+	filename Figures/1 Introduction/Deadline Types.svg
 
 \end_inset
 
@@ -2460,7 +2460,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "mar:Deadline-Types"
+name "mar:1-Deadline-Types"
 
 \end_inset
 
@@ -2530,7 +2530,7 @@ soft deadline
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "mar:Deadline-Types"
+reference "mar:1-Deadline-Types"
 
 \end_inset
 
@@ -2664,7 +2664,7 @@ Integration
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "tab:Overview-Thesis"
+reference "tab:1-Overview-Thesis"
 
 \end_inset
 
@@ -2966,7 +2966,7 @@ Chapter
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "chap:Real-Time"
+reference "chap:3-Real-Time"
 
 \end_inset
 
@@ -2977,7 +2977,7 @@ reference "chap:Real-Time"
 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "chap:Real-Time"
+reference "chap:3-Real-Time"
 
 \end_inset
 
@@ -2997,7 +2997,7 @@ Chapter
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "chap:Parallelism"
+reference "chap:4-Parallelism"
 
 \end_inset
 
@@ -3008,7 +3008,7 @@ reference "chap:Parallelism"
 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "chap:Parallelism"
+reference "chap:4-Parallelism"
 
 \end_inset
 
@@ -3028,7 +3028,7 @@ Chapter
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "chap:Adaptivity"
+reference "chap:5-Adaptivity"
 
 \end_inset
 
@@ -3039,7 +3039,7 @@ reference "chap:Adaptivity"
 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "chap:Adaptivity"
+reference "chap:5-Adaptivity"
 
 \end_inset
 
@@ -3069,7 +3069,7 @@ reference "chap:Adaptivity"
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "tab:Overview-Thesis"
+name "tab:1-Overview-Thesis"
 
 \end_inset
 
@@ -3213,6 +3213,15 @@ manual offset
 \end_layout
 
 \begin_layout Standard
+I demonstrate with code examples that this task model is easy to program
+ against.
+ I believe it is easier than reservation-based interfaces for which the
+ developer needs to specify a desired CPU allocation.
+ However, a formal usability analysis of the programming interface is not
+ part of this thesis.
+\end_layout
+
+\begin_layout Standard
 \begin_inset Flex NewThought
 status collapsed
 
@@ -3328,7 +3337,7 @@ The real-time task model and scheduler are described and evaluated in Chapter
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "chap:Real-Time"
+reference "chap:3-Real-Time"
 
 \end_inset
 
@@ -3547,7 +3556,7 @@ The parallel speedup estimation and the non-work-conserving scheduler are
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "chap:Parallelism"
+reference "chap:4-Parallelism"
 
 \end_inset
 
@@ -3572,7 +3581,7 @@ adaptivity (Chapter
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "chap:Adaptivity"
+reference "chap:5-Adaptivity"
 
 \end_inset
 
@@ -3651,7 +3660,7 @@ other application to validate claims more comprehensively
 \begin_layout Chapter
 \begin_inset CommandInset label
 LatexCommand label
-name "chap:Anatomy"
+name "chap:2-Anatomy"
 
 \end_inset
 
@@ -3913,6 +3922,32 @@ limited view into the future as a common trait for modern applications (this
 describe fundamental video player architecture
 \end_layout
 
+\begin_deeper
+\begin_layout Itemize
+FFplay sets up a pipeline of three threads with very different characteristics
+\end_layout
+
+\begin_layout Itemize
+input thread: blocks in IO, little CPU work
+\end_layout
+
+\begin_layout Itemize
+decoder thread: high CPU throughput, highly dynamic
+\end_layout
+
+\begin_layout Itemize
+output thread: very short, like a control task
+\end_layout
+
+\begin_layout Itemize
+implementation is event-driven with thread-interdependencies
+\end_layout
+
+\begin_layout Itemize
+spine: main thread runs event dispatch loop as is common in all GUI toolkits
+\end_layout
+
+\end_deeper
 \begin_layout Itemize
 lambdas (or groups of them) are natural receivers for metadata by the developer
  (deadlines) or automatically by the system (training)
@@ -3927,7 +3962,7 @@ lambdas (or groups of them) are natural receivers for metadata by the developer
 \begin_layout Chapter
 \begin_inset CommandInset label
 LatexCommand label
-name "chap:Real-Time"
+name "chap:3-Real-Time"
 
 \end_inset
 
@@ -4140,7 +4175,7 @@ execution time is workload-dependent, deadlines are application-specific:
 \end_layout
 
 \begin_layout Itemize
-scheduling must distribute all loads across all compute resources: global
+scheduling must distribute loads so it meets all timing requirements: global
  view needed
 \end_layout
 
@@ -4186,7 +4221,7 @@ individual lambdas may be too fine-grained
 
 \begin_deeper
 \begin_layout Itemize
-model jobs as groups of lambdas
+model jobs as lambdas or groups thereof
 \end_layout
 
 \begin_layout Itemize
@@ -4208,7 +4243,7 @@ metrics are needed to predict execution times
 
 \end_deeper
 \begin_layout Itemize
-use this knowledge to provide insightful clairvoyance
+use this knowledge to provide insightful look-ahead
 \end_layout
 
 \begin_layout Itemize
@@ -4261,6 +4296,18 @@ evaluate accuracy of execution time prediction against worst-case allocation
  of a periodic task
 \end_layout
 
+\begin_layout Itemize
+sensitivity analysis for all the 
+\begin_inset Quotes eld
+\end_inset
+
+magic
+\begin_inset Quotes erd
+\end_inset
+
+ parameters of the estimator
+\end_layout
+
 \end_deeper
 \begin_layout Itemize
 system scheduler
@@ -4290,123 +4337,144 @@ the urgency of one job remains the same over its lifetime
 \end_layout
 
 \begin_layout Itemize
-we need dynamic task priorities, but have fixed job priorities, so G-EDF
- is a natural choice
+we need dynamic task priorities, but have fixed job priorities, so EDF is
+ a good start
 \end_layout
 
 \end_deeper
 \begin_layout Itemize
-G-EDF is optimal for soft real-time
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Devi:GEDFTardiness"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-useful bounded tardiness characteristics: allows unrealistic deadlines,
- like 0 for low latency 
-\begin_inset Quotes eld
-\end_inset
-
-right now
-\begin_inset Quotes erd
-\end_inset
-
- work
+our execution times are only estimates
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
-however: unbounded deadline misses under overload
+design for underestimation and late jobs
+\end_layout
+
+\begin_layout Itemize
+late jobs should not interfere with honest jobs
+\end_layout
+
+\begin_layout Itemize
+without overload, we want EDF-behavior even when all execution times are
+ wrong (for example all 0)
 \end_layout
 
 \end_deeper
 \begin_layout Itemize
-G-EDF not optimal with respect to feasibility, but optimal deadline-based
- algorithms are known
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Levin:DP-Fair"
+in real applications, jobs may block
+\end_layout
 
-\end_inset
-
-
+\begin_deeper
+\begin_layout Itemize
+blocking occurs when waiting for another resource
 \end_layout
 
 \begin_layout Itemize
-use infinite deadline for best effort background activity
+we do not consider IO here, but only dependencies among different parts
+ of the application
 \end_layout
 
 \begin_layout Itemize
-break ties in round-robin fashion
+video: producer-consumer scenario
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+scheduler design
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+dispatch according to EDF among the not-late jobs
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+without overload, there will be no late jobs
 \end_layout
 
 \begin_layout Itemize
-efficient EDF implementation strategies are known for single cores
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Short:EDFTaskManagement"
-
-\end_inset
-
- and multicores
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Lelli:Scalable_EDF"
-
-\end_inset
-
-
+gives us EDF-behavior when everyone behaves
 \end_layout
 
 \begin_layout Itemize
-extensive scalability studies for multicores
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Brandenburg:GlobalEDF"
+execution times not needed, so they can be arbitrarily wrong
+\end_layout
 
-\end_inset
+\end_deeper
+\begin_layout Itemize
+round-robin all late jobs and the next job in EDF order when there is slack
+\end_layout
 
+\begin_deeper
+\begin_layout Itemize
+jobs that need more time can continue, but the next job in EDF order can
+ also start work
+\end_layout
 
+\end_deeper
+\begin_layout Itemize
+run next job in EDF order exclusively when deadlines would otherwise be
+ missed down the road
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+uses estimated execution times to calculate deadline misses
 \end_layout
 
 \begin_layout Itemize
-G-EDF scales for today's core counts, in the future we may want to consider
- clustered scheduling
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Calandrino:ClusteredEDF"
+makes sure that late jobs do not interfere with the timeliness of honest
+ jobs
+\end_layout
 
-\end_inset
+\end_deeper
+\begin_layout Itemize
+create a virtual LRT schedule using the estimated execution times
+\end_layout
 
-
+\begin_deeper
+\begin_layout Itemize
+solves the blocking problem: when starting job at latest possible instant
+ and it still blocks, there's nothing else we can do
 \end_layout
 
 \begin_layout Itemize
-ongoing discussion on trading schedulability and locality using partitioning,
- clustering
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Bastoni:EmpiricalComparison"
+LRT is optimal
+\end_layout
 
-\end_inset
+\end_deeper
+\end_deeper
+\begin_layout Itemize
+this scheduling behavior can be simulated in userland by setting thread
+ priorities
+\end_layout
 
- and semi-partitioning
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Bastoni:SemiPartitioned"
-
-\end_inset
-
- (some tasks allowed to migrate)
+\begin_deeper
+\begin_layout Itemize
+experimenting with close interaction of application and scheduler is easier
+ in userland
 \end_layout
 
 \begin_layout Itemize
-evaluate my EDF scheduler overhead
+separating schedule look-ahead and actual dispatching would be a good implementa
+tion strategy anyway
+\end_layout
+
+\begin_layout Itemize
+only downside: overhead is an upper bound, might be smaller with an in-kernel
+ implementation
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+background jobs can use infinite deadline, no extra best-effort scheduling-band
+ needed
+\end_layout
+
+\begin_layout Itemize
+evaluate scheduler overhead
 \end_layout
 
 \end_deeper
@@ -4416,7 +4484,20 @@ end-to-end evaluation
 
 \begin_deeper
 \begin_layout Itemize
+illustrate that the scheduler works as intended
+\end_layout
+
+\begin_layout Itemize
 timeliness against a fair share scheduler
+\end_layout
+
+\begin_layout Itemize
+timeliness against CBS-style reservation
+\end_layout
+
+\begin_layout Itemize
+system can predict deadline misses, even though it does not have implicit
+ clairvoyance from periods
 \end_layout
 
 \end_deeper
@@ -4428,6 +4509,38 @@ discuss related work in detail
 \begin_layout Itemize
 explore the spectrum introduced above, compare approaches to describe timing
  and resource requirements
+\end_layout
+
+\begin_layout Itemize
+fixed-priority approaches: strongest guarantees possible, minimal implementation
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+expose scheduler implementation to userland, other task models would be
+ implemented on top
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+microkernel bottom-up paradigm
+\end_layout
+
+\begin_layout Itemize
+used in practice: QNX in the BlackBerry PlayBook
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+view shared with Nemesis
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Leslie:Nemesis"
+
+\end_inset
+
+: fixed priorities require full analysis of the system to determine the
+ priorities
 \end_layout
 
 \begin_layout Itemize
@@ -4453,37 +4566,6 @@ higher utilization, but still using period for timing requirements
 
 \begin_layout Itemize
 QRMS runs on top of fixed priority scheduling
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-fixed priority systems
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-expose scheduler implementation to userland, other task models would be
- implemented on top
-\end_layout
-
-\begin_layout Itemize
-microkernel paradigm
-\end_layout
-
-\begin_layout Itemize
-used in practice: QNX in the BlackBerry PlayBook
-\end_layout
-
-\begin_layout Itemize
-view shared with Nemesis
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Leslie:Nemesis"
-
-\end_inset
-
-: fixed priorities require full analysis of the system to determine the
- priorities
 \end_layout
 
 \end_deeper
@@ -4516,43 +4598,7 @@ no look-ahead
 \end_layout
 
 \end_deeper
-\begin_layout Itemize
-time-constrained threads
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-periodic thread with an average and maximum execution time
-\end_layout
-
-\begin_layout Itemize
-accessible for non-root processes
-\end_layout
-
-\begin_layout Itemize
-vague demotion policy to prevent denial of service
-\end_layout
-
-\begin_layout Itemize
-execution time provided directly
-\end_layout
-
 \end_deeper
-\begin_layout Itemize
-task models that express other properties: gravitational task model
-\end_layout
-
-\begin_layout Itemize
-two-level scheduling
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Shin:Compositional"
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Itemize
 resource kernels
 \begin_inset CommandInset citation
@@ -4561,7 +4607,7 @@ key "Rajkumar:ResourceKernels"
 
 \end_inset
 
- separate concerns: applications specify, scheduler manages time
+ separate concerns top-down: applications specify, scheduler manages time
 \end_layout
 
 \begin_deeper
@@ -4579,6 +4625,42 @@ decouple different resources with buffering
 \end_layout
 
 \end_deeper
+\begin_layout Itemize
+Nemesis
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Leslie:Nemesis"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+criticism of virtual processors (fair sharing): performance of each virtual
+ processor depends on load on other virtual processors
+\end_layout
+
+\begin_layout Itemize
+both fixed priorities and virtual processors require global knowledge to
+ their predict behavior
+\end_layout
+
+\begin_layout Itemize
+basic idea: free developer from determining resource requirements
+\end_layout
+
+\begin_layout Itemize
+use feedback control
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+reservation approaches: focus on isolation
+\end_layout
+
+\begin_deeper
 \begin_layout Itemize
 integration of hard real-time, soft real-time and best effort: RBED
 \begin_inset CommandInset citation
@@ -4651,6 +4733,14 @@ provides temporal isolation: protect hard real-time tasks from the messy
 \end_layout
 
 \begin_layout Itemize
+different world view: illusion of a dedicated slower processor
+\end_layout
+
+\begin_layout Itemize
+fluid flow allocation contradicts the job style, more amenable to threads
+\end_layout
+
+\begin_layout Itemize
 server manages the deadlines (assignment, postponing), not the application
 \end_layout
 
@@ -4681,42 +4771,18 @@ similarities: no worst-case planning, because it is wasteful; no focus on
  preventing every single deadline violation
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
 overload handling instead of admission
-\end_layout
-
-\begin_layout Itemize
-basic idea similar to Nemesis
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Leslie:Nemesis"
-
-\end_inset
-
-: free developer from determining resource requirements
 \end_layout
 
 \begin_layout Itemize
 two layer approach: dedicated controller per task like HDE
 \end_layout
 
-\end_deeper
-\begin_layout Itemize
-different world view: illusion of a dedicated slower processor
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-fluid flow allocation contradicts the job style, more amenable to threads
-\end_layout
-
-\end_deeper
 \begin_layout Itemize
 dynamic bandwidth adaptation to workload as an afterthought
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
 black-box control vs.
  insightful cooperation using metrics
@@ -4727,20 +4793,19 @@ my predictor can be used in a reservation-based system
 \end_layout
 
 \begin_layout Itemize
-still: post-mortem adaptation vs.
- look-ahead
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
 finishing work until the deadline matters, abstracting from the application's
  work pattern using reservations makes this harder to accomplish and requires
  more complexity in control layer
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
-slack reclaiming added
+CBS covers the real temporal behavior of the application, now we try to
+ recreate that in the control layer
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+slack reclaiming added to CBS
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Palopoli:FeedbackReclaiming"
@@ -4750,10 +4815,63 @@ key "Palopoli:FeedbackReclaiming"
 
 \end_layout
 
+\begin_deeper
+\begin_layout Itemize
+results in AQuoSA
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Palopoli:AQuoSA"
+
+\end_inset
+
+ system
+\end_layout
+
 \end_deeper
 \begin_layout Itemize
-gratuitously applying control theory might cover up the real interactions
- of components and tries to recreate them in another layer
+AIRS
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Kato:AIRS"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+CBS-based reservations combined with EDF-WM multicore scheduler
+\end_layout
+
+\begin_layout Itemize
+reservation extends CBS to reclaim slack
+\end_layout
+
+\begin_layout Itemize
+no evaluation against freely migrating schedulers such as CFS
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Darwin time-constrained threads
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+periodic thread with an average and maximum execution time
+\end_layout
+
+\begin_layout Itemize
+accessible for non-root processes
+\end_layout
+
+\begin_layout Itemize
+vague demotion policy to prevent denial of service
+\end_layout
+
+\begin_layout Itemize
+execution time provided directly
 \end_layout
 
 \end_deeper
@@ -4798,6 +4916,12 @@ study in this paper: choosing the wrong scheduling period causes deadline
 \end_layout
 
 \end_deeper
+\end_deeper
+\begin_layout Itemize
+whole-system approaches: lightweight specification
+\end_layout
+
+\begin_deeper
 \begin_layout Itemize
 Redline
 \begin_inset CommandInset citation
@@ -4861,11 +4985,24 @@ propagates application's task descriptions down to the kernel, but without
 \end_layout
 
 \end_deeper
+\end_deeper
 \begin_layout Itemize
-virtual time approaches
+fair processor sharing: minimal interface
 \end_layout
 
 \begin_deeper
+\begin_layout Itemize
+good average application behavior when developers do nothing
+\end_layout
+
+\begin_layout Itemize
+no interface to expose anything
+\end_layout
+
+\begin_layout Itemize
+mostly virtual time approaches
+\end_layout
+
 \begin_layout Itemize
 CFS in Linux is similar
 \end_layout
@@ -4902,6 +5039,21 @@ runs without admission, but compares to EDF with worst-case admission, counting
 
 \end_deeper
 \end_deeper
+\begin_layout Itemize
+task models that express other properties: gravitational task model
+\end_layout
+
+\begin_layout Itemize
+two-level scheduling
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Shin:Compositional"
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Itemize
 device IO
 \end_layout
@@ -4997,7 +5149,7 @@ ubiquitous priorities, MPEG execution model hard, load-shedding (forward
 \begin_layout Chapter
 \begin_inset CommandInset label
 LatexCommand label
-name "chap:Parallelism"
+name "chap:4-Parallelism"
 
 \end_inset
 
@@ -5308,6 +5460,95 @@ avoid context-switch, so no upcall interface, but info-page-style shared
 \end_layout
 
 \end_deeper
+\end_deeper
+\begin_layout Itemize
+system scheduler
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+G-EDF is optimal for soft real-time
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Devi:GEDFTardiness"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+G-EDF not optimal with respect to feasibility, but optimal deadline-based
+ algorithms are known
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Levin:DP-Fair"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+efficient EDF implementation strategies are known for single cores
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Short:EDFTaskManagement"
+
+\end_inset
+
+ and multicores
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lelli:Scalable_EDF"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+extensive scalability studies for multicores
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Brandenburg:GlobalEDF"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+G-EDF scales for today's core counts, in the future we may want to consider
+ clustered scheduling
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Calandrino:ClusteredEDF"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+ongoing discussion on trading schedulability and locality using partitioning,
+ clustering
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Bastoni:EmpiricalComparison"
+
+\end_inset
+
+ and semi-partitioning
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Bastoni:SemiPartitioned"
+
+\end_inset
+
+ (some tasks allowed to migrate)
+\end_layout
+
 \end_deeper
 \begin_layout Itemize
 end-to-end evaluation
@@ -5658,7 +5899,7 @@ ad-hoc solution for my approach: assume that lambdas within the same job
 \begin_layout Chapter
 \begin_inset CommandInset label
 LatexCommand label
-name "chap:Adaptivity"
+name "chap:5-Adaptivity"
 
 \end_inset
 
