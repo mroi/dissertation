@@ -5,10 +5,10 @@ VEUSZ = $(wildcard *.vsz)
 all:: $(VEUSZ:.vsz=.pdf)
 
 %.pdf: %.vsz
-	veusz --export="$(PWD)/$@" "$(PWD)/$<"
+	veusz --export="$(realpath $@)" "$(realpath $<)"
 
 clean::
 	rm -f *.pdf
 
 all clean::
-	for i in * ; do ! test -d "$$i" || PWD="$(PWD)/$$i" $(MAKE) -C "$$i" $@ ; done
+	@for i in * ; do ! test -d "$$i" || $(MAKE) -C "$$i" $@ ; done
