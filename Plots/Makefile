@@ -11,4 +11,4 @@ clean::
 	rm -f *.pdf
 
 all clean::
-	for i in * ; do ! test -d "$$i" || $(MAKE) -C "$$i" $@ ; done
+	for i in * ; do ! test -d "$$i" || PWD="$(PWD)/$$i" $(MAKE) -C "$$i" $@ ; done
