@@ -2431,13 +2431,6 @@ sideways false
 status open
 
 \begin_layout Plain Layout
-\begin_inset VSpace defskip
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
 \noindent
 \begin_inset Graphics
 	filename Figures/1 Introduction/Deadline Types.svg
@@ -3194,18 +3187,7 @@ workload metrics
  I presented this prediction method on the 27th IEEE Real-Time Systems Symposium.
 \begin_inset CommandInset citation
 LatexCommand cite
-after "-3\\baselineskip"
 key "Roitzsch:Predict"
-
-\end_inset
-
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-manual offset
-\end_layout
 
 \end_inset
 
@@ -3255,7 +3237,6 @@ constraint satisfaction problems
 ,
 \begin_inset CommandInset citation
 LatexCommand cite
-after "-8\\baselineskip"
 key "Schaerf:CSP"
 
 \end_inset
@@ -3263,7 +3244,6 @@ key "Schaerf:CSP"
  factory scheduling,
 \begin_inset CommandInset citation
 LatexCommand cite
-after "-3\\baselineskip"
 key "Itoh:ProductionScheduling"
 
 \end_inset
@@ -3380,7 +3360,64 @@ For jobs with internal parallelism, the scheduler can trade using more cores
  on shared caches and memory.
 \begin_inset CommandInset citation
 LatexCommand cite
+after "-1\\baselineskip"
 key "Zhuravlev:DIO"
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+manual offset
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\begin_inset Graphics
+	filename Plots/1 Introduction/Parallel_Execution_Alternatives.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "mar:1-Parallel-Execution-Alternatives"
+
+\end_inset
+
+Parallel Execution Alternatives
+\end_layout
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -3413,16 +3450,18 @@ parallel speedup
 
 .
  For each number of cores a job can make use of, the scheduler receives
- an execution time estimate.
-\begin_inset Note Note
-status open
+ an execution time estimate as illustrated in Figure
+\begin_inset space ~
+\end_inset
 
-\begin_layout Plain Layout
-add figure to illustrate
-\end_layout
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "mar:1-Parallel-Execution-Alternatives"
 
 \end_inset
 
+.
  These alternative resource requirements are obtained ahead of time, allowing
  look-ahead scheduling.
 \end_layout
@@ -3435,18 +3474,7 @@ Parallel speedup can be limited by serial sections in the applied algorithm
  I presented this work on the 7th International Conference on Embedded Software.
 \begin_inset CommandInset citation
 LatexCommand cite
-after "-1\\baselineskip"
 key "Roitzsch:Balancing"
-
-\end_inset
-
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-manual offset
-\end_layout
 
 \end_inset
 
