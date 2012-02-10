@@ -9,8 +9,11 @@
 \renewcommand{\plainauthor}{Michael Roitzsch}
 
 % typesetting tweaks
-\clubpenalty=10000
-\widowpenalty=10000
+\clubpenalty=9999
+\widowpenalty=9999
+\relpenalty=9999
+\binoppenalty=9999
+\hyphenation{Atlas}
 
 % font setup: disable Hoefler swashes, set math font
 \usepackage[MnSymbol]{mathspec}
@@ -3092,6 +3095,56 @@ A large body of individual research results is available covering the nine
  However, in this dissertation I provide a comprehensive, end-to-end solution
  and I demonstrate improvements over the state of the art in each of the
  three property lanes.
+ The scheduling system I present is dubbed 
+\noun on
+Atlas
+\noun default
+, the Auto-Training Look-Ahead Scheduler.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Like its namesake the greek titan who supports the celestial globe 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+mbox{
+\end_layout
+
+\end_inset
+
+(
+\begin_inset CommandInset href
+LatexCommand href
+name "cf. Wikipedia"
+target "http://en.wikipedia.org/wiki/Atlas_(mythology)"
+
+\end_inset
+
+)
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+, we hope the 
+\noun on
+Atlas
+\noun default
+ system can support many applications.
+\end_layout
+
+\end_inset
+
  I will now give an overview of the work within each property lane and summarize
  the key contributions.
  Each lane is discussed in detail in its own chapter.
@@ -3155,8 +3208,12 @@ key "Liu:RMS"
 \end_layout
 
 \begin_layout Standard
-The scheduler interface as seen by the application developer only asks for
- parameters within the application domain.
+The 
+\noun on
+Atlas
+\noun default
+ scheduler interface as seen by the application developer only asks for
+ parameters from the application domain.
  Deadlines specify timing requirements.
  Resource requirements are specified using 
 \begin_inset Flex SmallCaps
@@ -3181,7 +3238,11 @@ workload metrics
 \end_inset
 
 : parameters from the workload that describe its computational weight.
- Machine-learning is used to automatically derive execution time estimates
+ 
+\noun on
+Atlas
+\noun default
+ uses machine-learning to automatically derive execution time estimates
  from the metrics before the actual execution.
  The estimated execution time of each job is therefore known ahead of time.
  I presented this prediction method on the 27th IEEE Real-Time Systems Symposium.
@@ -3215,9 +3276,12 @@ I claim that the flexibility of this task model
 
  allows to inform the scheduler more accurately of application behavior
  than alternative approaches.
- I validate this claim by demonstrating that the scheduler can predict the
- future execution of applications precise enough to anticipate deadline
- misses before they occur.
+ I validate this claim by demonstrating that 
+\noun on
+Atlas
+\noun default
+ can predict the future execution of applications precise enough to anticipate
+ deadline misses before they occur.
  Outside the implicit clairvoyance of periodic task systems, no other scheduling
  system I am aware of features a comparable look-ahead capability.
 \end_layout
@@ -3300,8 +3364,11 @@ I also evaluate the timeliness
 
 \end_inset
 
- delivered by my scheduler due to its compliance with the requested timing
- requirements.
+ delivered by 
+\noun on
+Atlas
+\noun default
+ due to its compliance with the requested timing requirements.
  I compare with the behavior under conventional fair share scheduling without
  timing constraints.
  This evaluation serves to convince the reader of the scheduler’s basic
@@ -3344,24 +3411,8 @@ Serving the timeliness goal, applications structure their execution into
  Such task models have been presented before.
 \begin_inset CommandInset citation
 LatexCommand cite
+after "-2\\baselineskip"
 key "Collette:JobParallelism"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-For jobs with internal parallelism, the scheduler can trade using more cores
- against using more time on fewer cores.
- In order to make those decisions, it needs information about the available
- parallelism and speedup.
- Placement of work on cores also influences execution times due to contention
- on shared caches and memory.
-\begin_inset CommandInset citation
-LatexCommand cite
-after "-1\\baselineskip"
-key "Zhuravlev:DIO"
 
 \end_inset
 
@@ -3372,6 +3423,26 @@ status open
 \begin_layout Plain Layout
 manual offset
 \end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For jobs with internal parallelism, 
+\noun on
+Atlas
+\noun default
+ can trade using more cores against using more time on fewer cores.
+ In order to make those decisions, it needs information about the available
+ parallelism and speedup.
+ Placement of work on cores also influences execution times due to contention
+ on shared caches and memory.
+\begin_inset CommandInset citation
+LatexCommand cite
+after "-3\\baselineskip"
+key "Zhuravlev:DIO"
 
 \end_inset
 
@@ -3448,8 +3519,7 @@ parallel speedup
 
 \end_inset
 
-.
- For each number of cores a job can make use of, the scheduler receives
+: For each number of cores a job can make use of, the scheduler receives
  an execution time estimate as illustrated in Figure
 \begin_inset space ~
 \end_inset
@@ -3505,9 +3575,13 @@ non-work-conserving scheduling
  approaches.
  A non-work-conserving scheduler deliberately keeps cores idle even though
  runnable threads are available.
- My scheduler knows about the resource requirements of jobs, so it can select
- a core assignment that uses a minimum number of cores while still meeting
- all timing requirements.
+ 
+\noun on
+Atlas
+\noun default
+ knows about the resource requirements of jobs, so it can select a core
+ assignment that uses a minimum number of cores while still meeting all
+ timing requirements.
  The schedulers in commodity operating systems are work-conserving.
  They lack this knowledge and therefore occupy cores eagerly.
 \end_layout
@@ -3591,6 +3665,122 @@ reference "chap:4-Parallelism"
 .
 \end_layout
 
+\begin_layout Section
+Overload Handling
+\end_layout
+
+\begin_layout Standard
+
+\noun on
+Atlas
+\noun default
+ does not enforce an admission process.
+ I think rejecting application launches or new subtasks within an application
+ would be too surprising for both the user and the developer.
+ Consequently, the system can experience overload situations.
+ Lacking an admission that can analytically prevent overloads, 
+\noun on
+Atlas
+\noun default
+ instead needs to offer mechanisms that handle overload gracefully.
+\end_layout
+
+\begin_layout Standard
+Overload can occur for two reasons: First, an application can lie about
+ its CPU demand.
+ It announces timing and resource requirements that the scheduler can meet
+ with idle computing capacity.
+ However, at runtime, the application’s jobs run longer than reported.
+ The scheduler handles such situations by ensuring that lying applications
+ never degrade the service of honest applications.
+\end_layout
+
+\begin_layout Standard
+The second overload condition is more interesting: Applications specify
+ their demands correctly, but collectively ask for more CPU resources than
+ available.
+ In such a situation, service degradation is unavoidable.
+ The best the system can do is control the overload to maximize the quality
+ delivered to the user.
+ Quality is a workload-specific measure and applications may apply custom
+ strategies to adapt to overload.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Wuest:QoS_Video"
+
+\end_inset
+
+ Interaction between scheduler and applications is therefore needed.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+I contribute quality-weighted back-pressure
+\end_layout
+
+\end_inset
+
+ as a mechanism to communicate overload mitigation from the scheduler to
+ applications.
+ When the scheduler detects an overload situation, it forcibly reduces the
+ CPU time allocated to each application so that the overload is resolved.
+ These cutbacks are apportioned according to a quality-weighted policy:
+ Applications tell the scheduler how much reduction they can tolerate to
+ maintain a minimal acceptable quality.
+ This quality threshold is similar to probabilistic real-time task models
+ such as QRMS.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Hamann:QRMS"
+
+\end_inset
+
+ The scheduler combines this elasticity with the CPU load caused by the
+ application to distribute the cutbacks.
+ I will evaluate how a fully quality-based policy compares to a fully fairness-b
+ased policy.
+\end_layout
+
+\begin_layout Standard
+The remaining CPU time assigned to each application is reported back to
+ encourage adaptation.
+ Developers can implement custom degradation strategies like load-shedding
+ or approximation that take an application-specific notion of quality into
+ account.
+ I published a quality-aware adaptation technique for video playback in
+ the Journal of Visual Communication and Image Representation.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Roitzsch:VideoQuality"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+I claim that look-ahead improves quality
+\end_layout
+
+\end_inset
+
+ when mitigating overload.
+ Because of its look-ahead characteristic, 
+\noun on
+Atlas
+\noun default
+ can detect overload before it occurs.
+ When resource cutbacks are announced to applications ahead of time, they
+ have more options 
+\end_layout
+
 \begin_layout Standard
 \begin_inset Note Greyedout
 status open
@@ -3622,25 +3812,9 @@ contribution: look-ahead scheduling can mitigate overload before it occurs
 \end_layout
 
 \begin_layout Itemize
-adaptivity exploits look-ahead
+claim: exploiting look-ahead allows quality-preserving degradation
 \end_layout
 
-\begin_deeper
-\begin_layout Itemize
-solving constraint satisfaction problems, scheduling means directing the
- traversal of the search space
-\end_layout
-
-\begin_layout Itemize
-scheduling of production machines in factories
-\end_layout
-
-\begin_layout Itemize
-video on demand: buffering and stream jumping to save server disk-access
- when users pause videos
-\end_layout
-
-\end_deeper
 \begin_layout Itemize
 evaluation: fallback path for video decoding with application-specific quality
  measure
@@ -4191,6 +4365,11 @@ express resource requirements, but without asking for execution times, which
 replace full clairvoyance with limited look-ahead
 \end_layout
 
+\begin_layout Itemize
+instead of fairness and isolation first, put timeliness first and deal with
+ fairness only when overloaded
+\end_layout
+
 \end_deeper
 \begin_layout Itemize
 deriving architecture from requirements
@@ -4502,6 +4681,10 @@ background jobs can use infinite deadline, no extra best-effort scheduling-band
 \end_layout
 
 \begin_layout Itemize
+deadline inheritance on blocking is left for others to analyze
+\end_layout
+
+\begin_layout Itemize
 evaluate scheduler overhead
 \end_layout
 
@@ -4650,37 +4833,6 @@ otherwise very close to periodic tasks
 
 \begin_layout Itemize
 decouple different resources with buffering
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-Nemesis
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Leslie:Nemesis"
-
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-criticism of virtual processors (fair sharing): performance of each virtual
- processor depends on load on other virtual processors
-\end_layout
-
-\begin_layout Itemize
-both fixed priorities and virtual processors require global knowledge to
- their predict behavior
-\end_layout
-
-\begin_layout Itemize
-basic idea: free developer from determining resource requirements
-\end_layout
-
-\begin_layout Itemize
-use feedback control
 \end_layout
 
 \end_deeper
@@ -5020,25 +5172,55 @@ fair processor sharing: minimal interface
 
 \begin_deeper
 \begin_layout Itemize
+historical context: fairness between users time-sharing system
+\end_layout
+
+\begin_layout Itemize
 good average application behavior when developers do nothing
 \end_layout
 
 \begin_layout Itemize
-no interface to expose anything
+starts with no interface to expose anything
 \end_layout
 
 \begin_layout Itemize
-mostly virtual time approaches
-\end_layout
+virtual time approaches, like CFS
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Molnar:CFS"
 
-\begin_layout Itemize
-CFS in Linux is similar
+\end_inset
+
+ in Linux
 \end_layout
 
 \begin_layout Itemize
 research approaches start out as fair sharing and add twists
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Bavier:VirtualTime"
+
+\end_inset
+
+
 \end_layout
 
+\begin_layout Itemize
+while coming from the other end, it overlaps with reservation approaches
+ in the spectrum:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+sharing based on cycle rates with slack reclaiming similar to CBS work
+\end_layout
+
+\begin_layout Itemize
+timing guarantees for virtual-time based algorithms are possible by showing
+ equivalence to EDF scheduling
+\end_layout
+
+\end_deeper
 \begin_layout Itemize
 BVT
 \begin_inset CommandInset citation
@@ -5053,16 +5235,70 @@ key "Duda:BVT"
 \begin_deeper
 \begin_layout Itemize
 many task parameters (CPU share, warp time, warp time limit, warp time requireme
-nt) require global knowledge, not inherent to application
+nt) require global knowledge, some dimensionless, not inherent to application
 \end_layout
 
 \begin_layout Itemize
-warp time is a priority, just expressed as a time (paper says so in 6.1.3)
+warp time is a priority, admission control needed to control the assignment
+ of warp parameters
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+BERT
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+binary overload mitigation: important tasks unboundedly steal from unimportant
+ tasks
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Nemesis
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Leslie:Nemesis"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+criticism of virtual processors (fair sharing): performance of each virtual
+ processor depends on load on other virtual processors
 \end_layout
 
 \begin_layout Itemize
-runs without admission, but compares to EDF with worst-case admission, counting
- admission rejects as misses
+both fixed priorities and virtual processors require global knowledge to
+ predict their behavior
+\end_layout
+
+\begin_layout Itemize
+basic idea: free developer from determining resource requirements
+\end_layout
+
+\begin_layout Itemize
+use feedback control
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+like reservations, virtual time put isolation first and application’s timing
+ requirements second
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+my approach: put applications first, consider fairness only on overload
+\end_layout
+
+\begin_layout Itemize
+without global coordination, applications should specify timing requirements
+ directly, not as relative importance using weights or shares
 \end_layout
 
 \end_deeper
@@ -5951,6 +6187,12 @@ no admission
  the deadlines
 \end_layout
 
+\begin_deeper
+\begin_layout Itemize
+but only when overloaded: timeliness first, fairness only when overloaded
+\end_layout
+
+\end_deeper
 \begin_layout Itemize
 load shedding is an old concept
 \begin_inset CommandInset citation
@@ -6112,6 +6354,11 @@ assumption: linear quality drop from meeting all deadlines down to that
 could also use time-utility functions to optimize
 \end_layout
 
+\begin_layout Itemize
+could also include heuristics like less degradation for the frontmost applicatio
+n
+\end_layout
+
 \end_deeper
 \begin_layout Itemize
 use of percentage of missed deadlines as quality parameter inspired by QRMS
@@ -6130,6 +6377,11 @@ end-to-end evaluation
 \end_layout
 
 \begin_deeper
+\begin_layout Itemize
+compare reduction policy in scheduler: quality-based vs.
+ fairness-based
+\end_layout
+
 \begin_layout Itemize
 compare to ad-hoc adaptation using a low water-mark in the video player
  queue
