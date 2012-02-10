@@ -1,5 +1,5 @@
 # Veusz exported stylesheet (version 1.14)
-# Saved at 2012-02-07T09:47:29.288062
+# Saved at 2012-02-10T12:18:17.370144
 
 Set('StyleSheet/Line/width', '0.5pt')
 Set('StyleSheet/Line/color', 'black')
@@ -28,7 +28,7 @@ SetToReference('StyleSheet/axis/Line/width', '/StyleSheet/Line/width')
 Set('StyleSheet/axis/Line/style', 'solid')
 Set('StyleSheet/axis/Line/transparency', 0)
 Set('StyleSheet/axis/Line/hide', False)
-SetToReference('StyleSheet/axis/Label/font', '/StyleSheet/Font/font')
+Set('StyleSheet/axis/Label/font', u'Gill Sans')
 SetToReference('StyleSheet/axis/Label/size', '/StyleSheet/Font/size')
 SetToReference('StyleSheet/axis/Label/color', '/StyleSheet/Font/color')
 Set('StyleSheet/axis/Label/italic', False)
