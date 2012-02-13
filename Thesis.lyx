@@ -3359,7 +3359,7 @@ Atlas
 \end_layout
 
 \begin_layout Standard
-The real-time task model and scheduler are described and evaluated in Chapter
+I describe and evaluate the real-time task model and scheduler in Chapter
 \begin_inset space ~
 \end_inset
 
@@ -3625,7 +3625,7 @@ ns.
  resources such as the last level cache.
  In such cases, deliberately not using all the available parallelism increases
  instruction throughput.
- A similar behavior can be observed with magnetic disks: Interleaving requests
+ We can observe similar behavior with magnetic disks: Interleaving requests
  from two different applications can cause more disk-head movements and
  thus lower throughput compared to briefly idling the disk to allow for
  batching of consecutive requests from the same application.
@@ -3640,8 +3640,8 @@ key "Iyer:Anticipatory"
 \end_layout
 
 \begin_layout Standard
-The parallel speedup estimation and the non-work-conserving scheduler are
- presented and discussed in Chapter
+I present and discuss the parallel speedup estimation and the non-work-conservin
+g scheduler in Chapter
 \begin_inset space ~
 \end_inset
 
@@ -3666,7 +3666,7 @@ Atlas
 \noun default
  does not enforce an admission process.
  I think rejecting application launches or new subtasks within an application
- would be too surprising for both the user and the developer.
+ would be too surprising for the user and the developer.
  Consequently, the system can experience overload situations.
  Lacking an admission that can analytically prevent overloads, 
 \noun on
@@ -3919,23 +3919,21 @@ Atlas
  Applications receive announcements of resource cutbacks ahead of time,
  including the time when the future deadline miss is anticipated and how
  much CPU capacity remains.
- Any pending job until the critical deadline can be degraded to satisfy
- the reduction in CPU time.
+ The applications can then degrade any pending job before the critical deadline
+ to satisfy the reduction in CPU time.
  The resulting choice allows trimming jobs with a favorable ratio between
  resource savings and quality impact.
- Additionally, the adaptation technique can be chosen by each application
- independently.
+ Additionally, each application can choose the most suitable adaptation
+ technique independently.
 \end_layout
 
 \begin_layout Standard
 I validate the claim by comparing overload management with and without look-ahea
 d.
- I also evaluate the flexibility of quality-weighted back-pressure by implementi
-ng different degradation strategies.
-\end_layout
-
-\begin_layout Standard
-Overload management and adaptation are explained and analyzed in Chapter
+ The flexibility of quality-weighted back-pressure is evaluated with implementat
+ions of different degradation strategies.
+ I explain and analyze these overload management and adaptation techniques
+ in Chapter
 \begin_inset space ~
 \end_inset
 
@@ -3956,7 +3954,7 @@ Demo Application
 \begin_layout Standard
 The primary example workload in this thesis is video playback.
  I chose video because I think it is representative for a number of real-time
- loads, since it covers many interesting properties:
+ loads, since it covers interesting properties:
 \end_layout
 
 \begin_layout Itemize
@@ -3975,7 +3973,7 @@ frames/s cinematic content to 30
 \begin_inset space \thinspace{}
 \end_inset
 
-frames/s for NTSC television causes timing errors below 20
+frames/s for NTSC television causes timing errors smaller than 20
 \begin_inset space \thinspace{}
 \end_inset
 
@@ -4028,7 +4026,7 @@ show CDF of Sintel-4k frame decoding times
 
 \begin_layout Itemize
 The CPU load is highly dynamic.
- It exhibits both short-term and long-term variation.
+ It exhibits short-term and long-term variation.
 \begin_inset Note Note
 status open
 
@@ -4052,8 +4050,7 @@ Atlas’
 \end_layout
 
 \begin_layout Itemize
-When overloaded, a video player can adapt in various ways, conventionally
- by dropping frames.
+When overloaded, a video player conventionally adapts by dropping frames.
  However, more sophisticated degradation options like low-quality decoding
  fallbacks are also available and can improve quality per invested CPU cycles.
 \end_layout
@@ -4101,9 +4098,9 @@ By showing that
 \noun on
 Atlas
 \noun default
- can support video playback in all the above aspects I hope to convince
- the reader that it also handles other applications with a subset of the
- stated properties.
+ can support video playback in all these aspects I hope to convince the
+ reader that it also handles other applications with a subset of the stated
+ properties.
  Figure
 \begin_inset space ~
 \end_inset
@@ -4115,7 +4112,7 @@ reference "mar:1-Typical-Properties"
 
 \end_inset
 
- condenses typical behavior of some desktop real-time tasks.
+ condenses typical behavior of selected desktop real-time tasks.
  Although video is used as the running example throughout this thesis, I
  complement it with other experiments to substantiate the evaluation.
 \end_layout
