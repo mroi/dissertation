@@ -5,7 +5,7 @@ VEUSZ = $(wildcard *.vsz)
 all:: $(VEUSZ:.vsz=.pdf)
 
 %.pdf: %.vsz
-	veusz --export="$(realpath $@)" "$(realpath $<)"
+	veusz --export="$(dir $(realpath $<))/$@" "$(realpath $<)"
 
 clean::
 	rm -f *.pdf
