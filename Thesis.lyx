@@ -1347,10 +1347,6 @@ Interaction between Application and Scheduler
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
 As illustrated by Figure
 \begin_inset space ~
 \end_inset
@@ -1504,10 +1500,6 @@ Peripheral Device Scheduling
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
 The scheduler now orders the jobs and sends them off to the device for execution.
  The scheduling algorithm performs that ordering with a service goal in
  mind, for example to maximize device throughput.
@@ -2339,9 +2331,14 @@ quality-aware overload handling.
 \end_inset
 
 
+\begin_inset VSpace defskip
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
+\noindent
 I chose these problems because I believe they constitute important non-functiona
 l properties
 \begin_inset Index idx
@@ -2480,10 +2477,6 @@ Types of Real-Time Deadlines
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
 Real-time literature
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -2613,9 +2606,14 @@ CPU scheduler.
 \end_inset
 
 
+\begin_inset VSpace defskip
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
+\noindent
 I presume that combining application-specific knowledge on workload and
  execution behavior with system-wide knowledge on urgency and overall load
  is beneficial.
@@ -3086,6 +3084,7 @@ Overview of the Solution Developed in this Thesis
 \end_layout
 
 \begin_layout Standard
+\noindent
 Vertical integration across the three layers is necessary, because no layer
  alone has enough knowledge to provide the desired non-functional properties.
  Horizontal integration across the properties is necessary to curb complexity
@@ -4060,6 +4059,44 @@ When overloaded, a video player can adapt in various ways, conventionally
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Figures/1 Introduction/Real-Time Applications.svg
+
+\end_inset
+
+
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "mar:1-Typical-Properties"
+
+\end_inset
+
+Typical Properties of Selected Real-Time Applications
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
 By showing that 
 \noun on
 Atlas
@@ -4067,17 +4104,20 @@ Atlas
  can support video playback in all the above aspects I hope to convince
  the reader that it also handles other applications with a subset of the
  stated properties.
-\begin_inset Note Note
-status open
+ Figure
+\begin_inset space ~
+\end_inset
 
-\begin_layout Plain Layout
-figure listing sample applications and how they are subsets
-\end_layout
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "mar:1-Typical-Properties"
 
 \end_inset
 
+ condenses typical behavior of some desktop real-time tasks.
  Although video is used as the running example throughout this thesis, I
- complement it with other workloads to substantiate the evaluation.
+ complement it with other experiments to substantiate the evaluation.
 \end_layout
 
 \begin_layout Standard
