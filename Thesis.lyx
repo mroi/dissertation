@@ -1320,7 +1320,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Figures/1 Introduction/Interaction Application Scheduler.svg
+	filename Figures/1-Introduction/Interaction_Application_Scheduler.svg
 
 \end_inset
 
@@ -1473,7 +1473,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Figures/1 Introduction/Peripheral Scheduling.svg
+	filename Figures/1-Introduction/Peripheral_Scheduling.svg
 
 \end_inset
 
@@ -1619,7 +1619,7 @@ status open
 \begin_layout Plain Layout
 \noindent
 \begin_inset Graphics
-	filename Figures/1 Introduction/CPU Scheduling.svg
+	filename Figures/1-Introduction/CPU_Scheduling.svg
 
 \end_inset
 
@@ -1879,7 +1879,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Figures/1 Introduction/Verically Integrated Solution.svg
+	filename Figures/1-Introduction/Verically_Integrated_Solution.svg
 
 \end_inset
 
@@ -2436,7 +2436,7 @@ status open
 \begin_layout Plain Layout
 \noindent
 \begin_inset Graphics
-	filename Figures/1 Introduction/Deadline Types.svg
+	filename Figures/1-Introduction/Deadline_Types.svg
 
 \end_inset
 
@@ -3447,7 +3447,7 @@ status open
 \begin_layout Plain Layout
 \noindent
 \begin_inset Graphics
-	filename Plots/1 Introduction/Parallel_Execution_Alternatives.pdf
+	filename Plots/1-Introduction/Parallel_Execution_Alternatives.pdf
 
 \end_inset
 
@@ -4066,7 +4066,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Figures/1 Introduction/Real-Time Applications.svg
+	filename Figures/1-Introduction/Real-Time_Applications.svg
 
 \end_inset
 
