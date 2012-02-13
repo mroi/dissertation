@@ -1,6 +1,6 @@
 all:
-	echo "choose one of the targets"
-	echo "  style   highlight weak style in the text"
+	@echo "choose one of the targets"
+	@echo "  style   highlight weak style in the text"
 
 style: Thesis-stylight.pdf
 	open $<
@@ -8,10 +8,10 @@ style: Thesis-stylight.pdf
 .INTERMEDIATE: Thesis-stylight.tex Thesis.tex
 
 Thesis-stylight.pdf: Thesis-stylight.tex
-	ln -sf ../Figures ./
+	ln -sf ../Figures ../Plots ./
 	xelatex $<
-	-for fig in Figures/* ; do test -e "$${fig%.pdf}.svg" && rm "$$fig" ; done
-	rm Figures
+	svn st Figures Plots | cut -c9- | while read file ; do rm "$$file" ; done
+	rm Figures Plots
 	rm $(basename $@).{aux,idx,lof,log,lot,out,toc}
 
 Thesis-stylight.tex: Thesis.tex
