@@ -182,33 +182,17 @@ status collapsed
 
 
 \backslash
-frontmatter
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-
-\backslash
 thispagestyle{empty}
 \end_layout
 
 \end_inset
 
 
-\begin_inset ERT
+\begin_inset Flex AllCaps
 status collapsed
 
 \begin_layout Plain Layout
-
-
-\backslash
-null
+Outer Front Cover Placeholder
 \end_layout
 
 \end_inset
@@ -308,6 +292,22 @@ epigraph{Oh dear! Oh dear! I shall be too late!}{The White Rabbit}
 
 \begin_layout Standard
 \begin_inset Newpage cleardoublepage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+frontmatter
+\end_layout
+
 \end_inset
 
 
@@ -3953,39 +3953,152 @@ Demo Application
 
 \begin_layout Standard
 The primary example workload in this thesis is video playback.
+ I chose video because I think it is representative for a number of real-time
+ loads, since it covers many interesting properties:
 \end_layout
 
-\begin_layout Standard
-\begin_inset Note Greyedout
+\begin_layout Itemize
+Video playback is subject to deadlines that derive naturally from the frame
+ rate specification or the presentation timestamps in the video stream.
+ Timing requirements are tight, because even small delays
+\begin_inset Foot
 status open
 
-\begin_layout Itemize
-introduce video as the primary demo application
-\end_layout
+\begin_layout Plain Layout
+The telecine conversion of 24
+\begin_inset space \thinspace{}
+\end_inset
 
-\begin_deeper
-\begin_layout Itemize
-good sample workload, because it covers many properties: intrinsic deadlines,
- high throughput, parallel, potentially adaptive
-\end_layout
+frames/s cinematic content to 30
+\begin_inset space \thinspace{}
+\end_inset
 
-\begin_layout Itemize
-also: used in mobile scenarios, subject to energy savings
-\end_layout
+frames/s for NTSC television causes timing errors below 20
+\begin_inset space \thinspace{}
+\end_inset
 
-\begin_layout Itemize
-this architecture also covers applications with just a subset of the properties
-\end_layout
-
-\begin_layout Itemize
-video as running example, complemented with other tests to substantiate
- the results
-\end_layout
-
-\end_deeper
+ms, which are visible to some viewers as jerky motion, especially in scenes
+ with slow and steady camera movement.
+ This error is called telecine judder (cf.
+\begin_inset space ~
 \end_inset
 
 
+\begin_inset CommandInset href
+LatexCommand href
+name "Wikipedia"
+target "http://en.wikipedia.org/w/index.php?title=Telecine&oldid=475341309#Telecine_judder"
+
+\end_inset
+
+).
+\end_layout
+
+\end_inset
+
+ in the frame display will be visible to the user.
+\end_layout
+
+\begin_layout Itemize
+Although decoding and displaying video frames are repetitive tasks, they
+ do not adhere to the classical periodic task model where the deadline of
+ one job coincides with the release of the next job.
+ Due to buffering in the video player, the jobs’ scheduling windows between
+ release and deadline can overlap.
+\end_layout
+
+\begin_layout Itemize
+Video playback can be CPU intensive, especially with high resolutions and
+ modern coding schemes.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+show CDF of Sintel-4k frame decoding times
+\end_layout
+
+\end_inset
+
+ The resulting high utilization is challenging for schedulers because it
+ increases the likelihood that misdirection of CPU time leads to deadline
+ misses.
+\end_layout
+
+\begin_layout Itemize
+The CPU load is highly dynamic.
+ It exhibits both short-term and long-term variation.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+show overall and zoomed plots of Sintel-4k decoding times
+\end_layout
+
+\end_inset
+
+ The execution times of jobs are therefore difficult to predict and worst-case
+ estimates would prohibitively over-allocate resources.
+\end_layout
+
+\begin_layout Itemize
+Video decoding can be parallelized to make use of multiple CPU cores.
+ I need this property to evaluate 
+\noun on
+Atlas’
+\noun default
+ benefits for core placement.
+\end_layout
+
+\begin_layout Itemize
+When overloaded, a video player can adapt in various ways, conventionally
+ by dropping frames.
+ However, more sophisticated degradation options like low-quality decoding
+ fallbacks are also available and can improve quality per invested CPU cycles.
+\end_layout
+
+\begin_layout Standard
+By showing that 
+\noun on
+Atlas
+\noun default
+ can support video playback in all the above aspects I hope to convince
+ the reader that it also handles other applications with a subset of the
+ stated properties.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+figure listing sample applications and how they are subsets
+\end_layout
+
+\end_inset
+
+ Although video is used as the running example throughout this thesis, I
+ complement it with other workloads to substantiate the evaluation.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+Before we dive into the details
+\end_layout
+
+\end_inset
+
+ of the timeliness, core placement and overload handling aspects of 
+\noun on
+Atlas, 
+\noun default
+the next chapter gives an overview of the emerging programming model for
+ modern desktop applications.
+ Aligning my task model with this programming paradigm helps simplifying
+ the use of 
+\noun on
+Atlas
+\noun default
+ for developers.
 \end_layout
 
 \begin_layout Chapter
