@@ -3104,39 +3104,19 @@ Atlas
 status open
 
 \begin_layout Plain Layout
-Like its namesake the greek titan who supports the celestial globe 
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-
-\backslash
-mbox{
-\end_layout
-
+Like its namesake the greek titan who supports the celestial globe (cf.
+\begin_inset space ~
 \end_inset
 
-(
+
 \begin_inset CommandInset href
 LatexCommand href
-name "cf. Wikipedia"
+name "Wikipedia"
 target "http://en.wikipedia.org/wiki/Atlas_(mythology)"
 
 \end_inset
 
-)
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\end_inset
-
-, we hope the 
+), we hope the 
 \noun on
 Atlas
 \noun default
@@ -3613,8 +3593,16 @@ key "Collette:JobParallelism"
 \end_layout
 
 \begin_layout Standard
-Non-work-conserving scheduling policies have been researched before to improve
- response times
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+Non-work-conserving scheduling policies
+\end_layout
+
+\end_inset
+
+ have been researched before to improve response times
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Rosti:NWC_Partitioning"
@@ -3706,7 +3694,7 @@ The second overload condition is more interesting: Applications specify
  strategies to adapt to overload.
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Wuest:QoS_Video"
+key "Isovic:QoS_Video"
 
 \end_inset
 
@@ -3723,42 +3711,191 @@ I contribute quality-weighted back-pressure
 
 \end_inset
 
+
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+back-pressure
+\end_layout
+
+\end_inset
+
  as a mechanism to communicate overload mitigation from the scheduler to
  applications.
  When the scheduler detects an overload situation, it forcibly reduces the
  CPU time allocated to each application so that the overload is resolved.
- These cutbacks are apportioned according to a quality-weighted policy:
- Applications tell the scheduler how much reduction they can tolerate to
+ These cutbacks are apportioned according to a quality-weighted policy
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+quality-weighted policy
+\end_layout
+
+\end_inset
+
+: Applications tell the scheduler how much reduction they can tolerate to
  maintain a minimal acceptable quality.
- This quality threshold is similar to probabilistic real-time task models
+ This quality threshold is resembles probabilistic real-time task models
  such as QRMS.
 \begin_inset CommandInset citation
 LatexCommand cite
+after "-6\\baselineskip"
 key "Hamann:QRMS"
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+manual offset and a page flush
+\end_layout
 
 \end_inset
 
  The scheduler combines this elasticity with the CPU load caused by the
  application to distribute the cutbacks.
- I will evaluate how a fully quality-based policy compares to a fully fairness-b
-ased policy.
+ I will evaluate how a fully quality-fair policy compares to a fully resource-fa
+ir policy.
 \end_layout
 
 \begin_layout Standard
 The remaining CPU time assigned to each application is reported back to
- encourage adaptation.
+ encourage adaptation
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+adaptation
+\end_layout
+
+\end_inset
+
+.
  Developers can implement custom degradation strategies like load-shedding
- or approximation that take an application-specific notion of quality into
- account.
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+load-shedding
+\end_layout
+
+\end_inset
+
+ or imprecise computation
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+imprecise computation
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+after "-4\\baselineskip"
+key "Lin:Imprecise"
+
+\end_inset
+
+ that take an application-specific notion of quality into account.
  I published a quality-aware adaptation technique for video playback in
  the Journal of Visual Communication and Image Representation.
 \begin_inset CommandInset citation
 LatexCommand cite
+after "-2\\baselineskip"
 key "Roitzsch:VideoQuality"
 
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+Global management and local adaptation
+\end_layout
+
+\end_inset
+
+ to react to overload have been researched independently.
+ Scheduler systems such as AQuoSA
+\begin_inset CommandInset citation
+LatexCommand cite
+after "-1\\baselineskip"
+key "Palopoli:AQuoSA"
+
+\end_inset
+
+ or Cooperative Polling
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Krasic:CoopPoll"
+
+\end_inset
+
+ manage overload situations by distributing CPU capacity according to an
+ inter-application fairness policy.
+ AQuoSA applies resource fairness, while Cooperative Polling uses application
+ knowledge to establish quality fairness.
+ Intra-application adaptation has been investigated for tasks like video
+ playback
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Wuest:QoS_Video"
+
+\end_inset
+
+ or network servers.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Welsh:SEDA"
+
+\end_inset
+
+
+\begin_inset Newpage clearpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Priority-Progress Adaptation
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Krasic:PriorityProgress"
+
+\end_inset
+
+ by Krasic
+\begin_inset space ~
+\end_inset
+
+et
+\begin_inset space ~
+\end_inset
+
+al.
+ is the only work I am aware of that combines global overload management
+ with per-application adaptation.
+ It does so by exposing a quality measure for each individual job, allowing
+ the scheduler to globally order jobs by quality.
+ The adaptation strategy to shed low-priority jobs on overload is therefore
+ dictated by the scheduling method.
+\end_layout
+
+\begin_layout Standard
+None of the presented research results exploit look-ahead to steer adaptation
+ decisions.
 \end_layout
 
 \begin_layout Standard
@@ -3777,22 +3914,26 @@ I claim that look-ahead improves quality
 Atlas
 \noun default
  can detect overload before it occurs.
- When resource cutbacks are announced to applications ahead of time, they
- have more options 
+ Applications receive announcements of resource cutbacks ahead of time,
+ including the time when the future deadline miss is anticipated and how
+ much CPU capacity remains.
+ Any pending job until the critical deadline can be degraded to satisfy
+ the reduction in CPU time.
+ The resulting choice allows trimming jobs with a favorable ratio between
+ resource savings and quality impact.
+ Additionally, the adaptation technique can be chosen by each application
+ independently.
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Greyedout
-status open
-
-\begin_layout Itemize
-apply this idea to real-time, parallelism, adaptivity and energy, name key
- contributions in each
+I validate the claim by comparing overload management with and without look-ahea
+d.
+ I also evaluate the flexibility of quality-weighted back-pressure by implementi
+ng different degradation strategies.
 \end_layout
 
-\begin_deeper
-\begin_layout Itemize
-adaptivity (Chapter
+\begin_layout Standard
+Overload management and adaptation are explained and analyzed in Chapter
 \begin_inset space ~
 \end_inset
 
@@ -3803,25 +3944,21 @@ reference "chap:5-Adaptivity"
 
 \end_inset
 
-): exposing alternative execution paths for graceful handling of overload
+.
 \end_layout
 
-\begin_deeper
-\begin_layout Itemize
-contribution: look-ahead scheduling can mitigate overload before it occurs
+\begin_layout Section
+Demo Application
 \end_layout
 
-\begin_layout Itemize
-claim: exploiting look-ahead allows quality-preserving degradation
+\begin_layout Standard
+The primary example workload in this thesis is video playback.
 \end_layout
 
-\begin_layout Itemize
-evaluation: fallback path for video decoding with application-specific quality
- measure
-\end_layout
+\begin_layout Standard
+\begin_inset Note Greyedout
+status open
 
-\end_deeper
-\end_deeper
 \begin_layout Itemize
 introduce video as the primary demo application
 \end_layout
@@ -3841,16 +3978,8 @@ this architecture also covers applications with just a subset of the properties
 \end_layout
 
 \begin_layout Itemize
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-other application to validate claims more comprehensively
-\end_layout
-
-\end_inset
-
-
+video as running example, complemented with other tests to substantiate
+ the results
 \end_layout
 
 \end_deeper
@@ -6270,6 +6399,20 @@ video is one example
 \end_layout
 
 \begin_layout Itemize
+however, quality per invested CPU time is varying: with resource-fairness,
+ quality would be varying
+\end_layout
+
+\begin_layout Itemize
+application knowledge needed, however applications can lie to unfairly degrade
+ others
+\end_layout
+
+\begin_layout Itemize
+combine resource-fairness and quality-fairness
+\end_layout
+
+\begin_layout Itemize
 this also applies to resources other than CPU time, like network bandwidth
  for streaming
 \end_layout
@@ -6297,28 +6440,6 @@ application: under given resource constraints, find a quality-optimal path
 
 \begin_layout Itemize
 system: distribute computing resource cutbacks in a quality-fair fashion
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-describe fallback decoding path for video
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Roitzsch:VideoQuality"
-
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-decoding time estimate already given, quality estimate needed
-\end_layout
-
-\begin_layout Itemize
-greedy solution for (constrained) bin-packing: order jobs by quality/resource
- ratio
 \end_layout
 
 \end_deeper
@@ -6373,6 +6494,28 @@ key "Hamann:QRMS"
 
 \end_deeper
 \begin_layout Itemize
+describe fallback decoding path for video
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Roitzsch:VideoQuality"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+decoding time estimate already given, quality estimate needed
+\end_layout
+
+\begin_layout Itemize
+greedy solution for (constrained) bin-packing: order jobs by quality/resource
+ ratio
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
 end-to-end evaluation
 \end_layout
 
@@ -6399,16 +6542,31 @@ discuss related work
 
 \begin_deeper
 \begin_layout Itemize
-load-shedding queues in network servers
+task models that allow for deadline misses
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+(m,k)-firm tasks
+\end_layout
+
+\begin_layout Itemize
+imprecise computation
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Welsh:SEDA"
+key "Lin:Imprecise"
 
 \end_inset
 
 
 \end_layout
 
+\end_deeper
+\begin_layout Itemize
+scheduling systems that control overload
+\end_layout
+
+\begin_deeper
 \begin_layout Itemize
 overload handling with adaptive reservations
 \begin_inset CommandInset citation
@@ -6421,6 +6579,18 @@ key "Abeni:AdaptiveReservations"
 \end_layout
 
 \begin_layout Itemize
+virtual time for progress fairness
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Krasic:CoopPoll"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
 resource kernels
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -6429,6 +6599,33 @@ key "Rajkumar:ResourceKernels"
 \end_inset
 
 : user-level QoS expected to be more useful than stacked schedulers
+\end_layout
+
+\begin_layout Itemize
+application-specific adaptation
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+load-shedding queues in network servers
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Welsh:SEDA"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+reducing video quality
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Isovic:QoS_Video,Wuest:QoS_Video"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Itemize
@@ -6441,10 +6638,11 @@ SVC
 \end_layout
 
 \begin_layout Itemize
-adaptive streaming protocols: application propagates backpressure even to
- the server
+adaptive streaming protocols: application propagates back-pressure even
+ to the server
 \end_layout
 
+\end_deeper
 \end_deeper
 \begin_layout Itemize
 prioritize work and skip the low priorities when congested
@@ -6472,17 +6670,6 @@ unclear how much of the fairness benefits stem from the priority sorting
 \end_layout
 
 \end_deeper
-\begin_layout Itemize
-virtual time for progress fairness
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Krasic:CoopPoll"
-
-\end_inset
-
-
-\end_layout
-
 \end_deeper
 \end_inset
 
