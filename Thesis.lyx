@@ -85,6 +85,9 @@
 \end{doublespace}
 \end{fullwidth}
 }
+
+% darker gray for LyX'es notes
+\definecolor{note_fontcolor}{rgb}{0.5, 0.5, 0.5}
 \end_preamble
 \options a4paper
 \use_default_options true
