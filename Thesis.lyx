@@ -403,10 +403,22 @@ noindent
 \end_inset
 
 Advisor: Prof.
- Dr.
- rer.
- nat.
- Hermann Härtig
+\begin_inset space ~
+\end_inset
+
+Dr.
+\begin_inset space ~
+\end_inset
+
+rer.
+\begin_inset space ~
+\end_inset
+
+nat.
+\begin_inset space ~
+\end_inset
+
+Hermann Härtig
 \begin_inset Newline newline
 \end_inset
 
@@ -531,7 +543,24 @@ Technischen Universität Dresden, Fakultät Informatik
 
 \end_inset
 
-, eingereicht von 
+, eingereicht von
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent 
+\end_layout
+
+\end_inset
+
+
 \begin_inset Flex AllCaps
 status collapsed
 
@@ -539,13 +568,23 @@ status collapsed
 
 \lang ngerman
 Dipl.-Inf.
- Michael Roitzsch
+\begin_inset space ~
+\end_inset
+
+Michael
+\begin_inset space ~
+\end_inset
+
+Roitzsch
 \end_layout
 
 \end_inset
 
 , geboren am 15.
- August 1980 in Dresden.
+\begin_inset space ~
+\end_inset
+
+August 1980 in Dresden.
 \begin_inset VSpace defskip
 \end_inset
 
@@ -579,10 +618,22 @@ Betreuender Hochschullehrer:
 
 \lang ngerman
 Prof.
- Dr.
- rer.
- nat.
- Hermann Härtig,
+\begin_inset space ~
+\end_inset
+
+Dr.
+\begin_inset space ~
+\end_inset
+
+rer.
+\begin_inset space ~
+\end_inset
+
+nat.
+\begin_inset space ~
+\end_inset
+
+Hermann Härtig,
 \end_layout
 
 \end_inset
@@ -629,8 +680,14 @@ Fachreferent:
 
 \lang ngerman
 Prof.
- Dr.
- Christof Fetzer,
+\begin_inset space ~
+\end_inset
+
+Dr.
+\begin_inset space ~
+\end_inset
+
+Christof Fetzer,
 \end_layout
 
 \end_inset
@@ -712,7 +769,10 @@ Statusvortrag:
 
 \lang ngerman
 12.
- Dezember 2011
+\begin_inset space ~
+\end_inset
+
+Dezember 2011
 \end_layout
 
 \end_inset
@@ -816,7 +876,10 @@ status open
 
 \begin_layout Plain Layout
 OS group, Prof.
- Härtig, fellow researchers, friends, parents
+\begin_inset space ~
+\end_inset
+
+Härtig, fellow researchers, friends, parents
 \end_layout
 
 \end_inset
@@ -3753,7 +3816,7 @@ key "Hamann:QRMS"
 status open
 
 \begin_layout Plain Layout
-manual offset and a page flush
+manual offset and page flush
 \end_layout
 
 \end_inset
@@ -3887,7 +3950,10 @@ et
 \end_inset
 
 al.
- is the only work I am aware of that combines global overload management
+\begin_inset space \space{}
+\end_inset
+
+is the only work I am aware of that combines global overload management
  with per-application adaptation.
  It does so by exposing a quality measure for each individual job, allowing
  the scheduler to globally order jobs by quality.
@@ -4152,6 +4218,95 @@ Anatomy of a Modern Desktop Application
 \end_layout
 
 \begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+Three major paradigm shifts
+\end_layout
+
+\end_inset
+
+ changed the way desktop software is written, with the last of these transitions
+ still in progress.
+ Historically, all applications started out single-threaded.
+ The traditional Unix design only knew about processes, which implicitly
+ hosted only a single activity.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "OpenGroup:SingleThread"
+
+\end_inset
+
+ There was no notion of multiple threads per address space.
+ The resulting applications had no internal parallelism, which simplified
+ their development and freed libraries from the worries of reentrant calls.
+\end_layout
+
+\begin_layout Standard
+However, this model made the programmers’ lives easier at the price of user
+ irritation: When an application synchronously performed an IO-operation,
+ for example reading a large file from disk or waiting for data from the
+ network, its only thread was stuck in a blocking system call.
+ Consequently, the thread was now unavailable for user interactions.
+ The application appeared dead for a while.
+ The visual cue for such a blocked application were redraw artifacts that
+ tailed other windows dragged over it.
+ They appeared like in Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "mar:2-Blocked-Window-Redraws"
+
+\end_inset
+
+ because the blocked application also no longer performed updates of its
+ window.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Figures/2-Anatomy/Blocked_Redraw.svg
+	display false
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "mar:2-Blocked-Window-Redraws"
+
+\end_inset
+
+Blocked Window Redraws
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \begin_inset Note Greyedout
 status open
 
@@ -4160,20 +4315,6 @@ major changes in application structure
 \end_layout
 
 \begin_deeper
-\begin_layout Itemize
-single-threaded
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-UI blocks on every user-triggered activity
-\end_layout
-
-\begin_layout Itemize
-unresponsive, not parallel, but simple code
-\end_layout
-
-\end_deeper
 \begin_layout Itemize
 multithreaded
 \end_layout
@@ -4190,11 +4331,18 @@ threading is necessary, but not sufficient for concurrency: we saw that
 \end_layout
 
 \begin_layout Itemize
-explicit thread management with hard-coded or guessed thread count
+hyperthreading was the first exposure of commodity machines to real concurrency,
+ many programs broke (reference?)
 \end_layout
 
 \begin_layout Itemize
-difficult code
+explicit thread management with hard-coded or guessed thread count, difficult
+ code
+\end_layout
+
+\begin_layout Itemize
+next step: demote threads by hiding them in a runtime, expose asynchronous
+ work items
 \end_layout
 
 \end_deeper
@@ -4203,24 +4351,6 @@ today: lambdas
 \end_layout
 
 \begin_deeper
-\begin_layout Itemize
-the UI thread (main thread) does no real work (see microkernel paradigm),
- it merely dispatches (spine-analogy) to keep background workers busy
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-similar to immediate/system reservations in resource kernels
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Rajkumar:ResourceKernels"
-
-\end_inset
-
-
-\end_layout
-
-\end_deeper
 \begin_layout Itemize
 similar to networks moving from switched circuits to packet routing
 \end_layout
@@ -4238,41 +4368,19 @@ key "MacResearch:AboardGrandCentral"
 \end_layout
 
 \begin_layout Itemize
-work set model
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Kulkarni:Galois"
-
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-executing some job can add new jobs to the set
+show very simple example
 \end_layout
 
 \begin_layout Itemize
-useful to implement irregular algorithms (processing on graph-like data
- structures with pointers, opposite: dense array)
+lambdas/closures/blocks/tasks/activities as useful abstraction for declaring
+ a piece of work inline: code looks serial, logical locality
 \end_layout
 
-\end_deeper
 \begin_layout Itemize
-set down the terminology here:
+segue: show implementations to demonstrate that this is an old concept now
+ gaining traction in practice
 \end_layout
 
-\begin_deeper
-\begin_layout Description
-job: work item of code+metadata, unit of scheduling
-\end_layout
-
-\begin_layout Description
-lambda: independently executable piece of code, unit of parallelism
-\end_layout
-
-\end_deeper
 \end_deeper
 \end_deeper
 \begin_layout Itemize
@@ -4280,11 +4388,6 @@ implementations of lambda programming
 \end_layout
 
 \begin_deeper
-\begin_layout Itemize
-lambdas/closures/blocks/tasks/activities as useful abstraction for declaring
- a piece of work inline: code looks serial, logical locality
-\end_layout
-
 \begin_layout Itemize
 Microsoft: 
 \begin_inset Formula $\lambda$
@@ -4392,6 +4495,56 @@ zing loops: automatic thread assignment, guided self-scheduling to reduce
 \end_deeper
 \end_deeper
 \begin_layout Itemize
+how it feels
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+focus on GCD, explain primitives, illustrate with little sequence diagrams
+\end_layout
+
+\begin_layout Itemize
+work set model
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Kulkarni:Galois"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+executing some job can add new jobs to the set
+\end_layout
+
+\begin_layout Itemize
+useful to implement irregular algorithms (processing on graph-like data
+ structures with pointers, opposite: dense array)
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+the UI thread (main thread) does no real work (see microkernel paradigm),
+ it merely dispatches (spine-analogy) to keep background workers busy
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+similar to immediate/system reservations in resource kernels
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Rajkumar:ResourceKernels"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Itemize
 result of this architecture: most work is done asynchronously and is announced
  by the before execution
 \end_layout
@@ -4402,6 +4555,26 @@ limited view into the future as a common trait for modern applications (this
  is a key point here)
 \end_layout
 
+\begin_layout Itemize
+lambdas (or groups of them) are natural receivers for metadata by the developer
+ (deadlines) or automatically by the system (training)
+\end_layout
+
+\begin_layout Itemize
+set down the terminology here:
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+job: work item of code+metadata, unit of scheduling
+\end_layout
+
+\begin_layout Description
+lambda: independently executable piece of code, unit of parallelism
+\end_layout
+
+\end_deeper
+\end_deeper
 \begin_layout Itemize
 describe fundamental video player architecture
 \end_layout
@@ -4433,8 +4606,36 @@ spine: main thread runs event dispatch loop as is common in all GUI toolkits
 
 \end_deeper
 \begin_layout Itemize
-lambdas (or groups of them) are natural receivers for metadata by the developer
- (deadlines) or automatically by the system (training)
+describe adaptation to GCD
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+minimal GCD-runtime implemented, because I want to control threading
+\end_layout
+
+\begin_layout Itemize
+this manifests the integration between application and scheduler I envision
+\end_layout
+
+\begin_layout Itemize
+changes to FFplay are small
+\end_layout
+
+\begin_layout Itemize
+applications change anyway (mobile software, parallel architectures, heterogenei
+ty, scale-out)
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Sutter:ParallelJungle"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+leaning my paradigm toward those changes reduces developer effort
 \end_layout
 
 \end_deeper
@@ -5943,6 +6144,37 @@ using asynchronous blocks for parallelism and deadlines and metrics attached
  to block groups for real-time, both are decoupled
 \end_layout
 
+\begin_deeper
+\begin_layout Itemize
+decoupling makes sense if you consider the trend to massive parallelism
+ (see GPUs)
+\end_layout
+
+\begin_layout Itemize
+no interest in the finishing time for a particular lambda, but in the overall
+ makespan (paper: 
+\begin_inset Quotes eld
+\end_inset
+
+makespan computation for GPU threads
+\begin_inset Quotes erd
+\end_inset
+
+ in submission to ECRTS)
+\end_layout
+
+\begin_layout Itemize
+on GPUs, the individual lambdas may be dispatched by hardware
+\begin_inset CommandInset citation
+LatexCommand cite
+key "NVIDIA_Fermi"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
 \begin_layout Itemize
 execution time estimates give us the total execution time, but when spread
  across cores, it might take less wall-clock time to finish
@@ -6695,6 +6927,16 @@ discuss related work
 
 \begin_deeper
 \begin_layout Itemize
+other fairness-policies can be integrated into my system as well
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+relative or absolute shares for temporal isolation, like CBS
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
 task models that allow for deadline misses
 \end_layout
 
@@ -6924,7 +7166,19 @@ key "Weissel:Coop_IO"
 batch network requests to power up radio less often
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Roy:Cinder"
+key "Roy:Cinder,Lagar-Cavilla:TrafficBackfilling"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+in the large: use predictions of renewable energy supply to schedule batch
+ jobs in datacenters
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Aksanli:EnergyPrediction"
 
 \end_inset
 
@@ -7106,6 +7360,17 @@ trivial examples (disable backup on low battery) are rather obvious and
 
 \begin_layout Itemize
 use energy instead of CPU time as a cost metric in adaptation decisions
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+other ends that were left open in this thesis
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+a thread-less systems architecture (kernel interface), jobs as first class
+ citizens in the system
 \end_layout
 
 \end_deeper
