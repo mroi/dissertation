@@ -4026,7 +4026,17 @@ Demo Application
 \end_layout
 
 \begin_layout Standard
-The primary example workload in this thesis is video playback.
+The primary example workload in this thesis is video playback
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+video playback
+\end_layout
+
+\end_inset
+
+.
  I chose video because I think it is representative for a number of real-time
  loads, since it covers interesting properties:
 \end_layout
@@ -4387,9 +4397,19 @@ Three major paradigm shifts
 
  changed the way desktop software is written, with the last of these transitions
  still in progress.
- Historically, all applications started out single-threaded.
- The traditional Unix design only knew about processes, which implicitly
- hosted only a single activity.
+ Historically, all applications started out single-threaded
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+single-threaded
+\end_layout
+
+\end_inset
+
+.
+ The traditional Unix design only knows about processes, which implicitly
+ host only a single activity.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "OpenGroup:SingleThread"
@@ -4398,19 +4418,19 @@ key "OpenGroup:SingleThread"
 
  There was no notion of multiple threads per address space.
  The resulting applications had no internal parallelism, which simplified
- their development and freed libraries from the worries of reentrant calls.
+ programming and freed libraries from the worries of reentrant calls.
 \end_layout
 
 \begin_layout Standard
-However, this model made the programmers’ lives easier at the price of user
- irritation: When an application synchronously performed an IO-operation,
+However, this model made the developers’ lives easier at the price of user
+ irritation: When an application synchronously performs an IO-operation,
  for example reading a large file from disk or waiting for data from the
- network, its only thread was stuck in a blocking system call.
- Consequently, the thread was now unavailable for user interactions.
- The application appeared dead for a while.
- The visual cue for such a blocked application were redraw artifacts that
- tailed other windows dragged over it.
- They appeared like in Figure
+ network, its only thread is stuck in a blocking system call.
+ Consequently, the thread is now unavailable for user interactions.
+ The application appears dead for a while.
+ The visual cue for such a mishap are redraw artifacts that tail other windows
+ as they are dragged over the blocked application.
+ They appear like in Figure
 \begin_inset space ~
 \end_inset
 
@@ -4421,7 +4441,7 @@ reference "2-mar:Blocked-Window-Redraws"
 
 \end_inset
 
- because the blocked application also no longer performed updates of its
+ because the blocked application also no longer performs updates of its
  window.
 \end_layout
 
@@ -4465,6 +4485,136 @@ Blocked Window Redraws
 \end_layout
 
 \begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+Recognizing the importance of responsiveness,
+\end_layout
+
+\end_inset
+
+ developers started to migrate long-running or blocking work off the main
+ user interface thread.
+ The two ways to achieve this goal were asynchronous interfaces
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+asynchronous interfaces
+\end_layout
+
+\end_inset
+
+ and the use of multiple threads.
+ Both have their share of problems.
+ Asynchronous interfaces split the logical code flow into two parts: The
+ setup of context and arguments precedes the asynchronous invocation.
+ Results are interpreted once the asynchronous operation finishes.
+ Often, this second part is executed callback-style by the framework managing
+ the asynchronous processing, which riddles the code with additional functions
+ just for callback purposes.
+ This effect is dubbed callback-soup
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+callback-soup
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "SantAnna:ProblemEvents"
+
+\end_inset
+
+ and complicates code understanding.
+ Furthermore, because the callback executes in a separate function, the
+ context of local variables is different from when the asynchronous processing
+ started, a problem known as stack ripping
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+stack ripping
+\end_layout
+
+\end_inset
+
+.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Adya:StackRipping"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+On the other hand, it is also difficult for programmers to orchestrate multiple
+ threads correctly.
+ Threads do not suffer from stack ripping, because threads individually
+ follow a single control flow.
+ However, when using many of them, their interleaving becomes increasingly
+ complex to manage.
+ Programmers unknowingly make wrong assumptions on the execution order of
+ code on different threads.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lu:ConcurrencyBugs"
+
+\end_inset
+
+ As long as mainstream computers featured only a single CPU core, those
+ assumptions used to hold.
+ But when Intel’s Hyper-Threading marked the first exposure of commodity
+ machines to hardware concurrency, many multithreaded programs suddenly
+ broke.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+A new approach to concurrency is needed.
+\end_layout
+
+\end_inset
+
+ The current shift in parallel programming leads us away from threads and
+ closer to the ideas behind asynchronous invocation, but without inheriting
+ their historical callback-soup and stack ripping downsides.
+ Today’s developers are discouraged from using threads directly, but should
+ instead use new programming language constructs that allow them to enclose
+ a piece of code and dispatch it for asynchronous invocation.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+ass a catch example here to compare async callbacks, threads and GCD
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Threads are still being used behind the scenes to run those code pieces,
+ but the programmer does not deal with them.
+\end_layout
+
+\begin_layout Standard
+because they are difficult to manage and leads to hard-coded assignment
+ of work to threads that may not be optimal on the end-user’s machine.
+\end_layout
+
+\begin_layout Standard
 \begin_inset Note Greyedout
 status open
 
@@ -4478,21 +4628,6 @@ multithreaded
 \end_layout
 
 \begin_deeper
-\begin_layout Itemize
-focus on responsiveness, do long-running work asynchronously off the UI
- thread
-\end_layout
-
-\begin_layout Itemize
-threading is necessary, but not sufficient for concurrency: we saw that
- when moving to multicores
-\end_layout
-
-\begin_layout Itemize
-hyperthreading was the first exposure of commodity machines to real concurrency,
- many programs broke (reference?)
-\end_layout
-
 \begin_layout Itemize
 explicit thread management with hard-coded or guessed thread count, difficult
  code
@@ -4511,18 +4646,6 @@ today: lambdas
 \begin_deeper
 \begin_layout Itemize
 similar to networks moving from switched circuits to packet routing
-\end_layout
-
-\begin_layout Itemize
-started out as event-based programming which initiated in concurrency for
- network servers
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Krohn:Events,Welsh:SEDA"
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Itemize
@@ -4559,6 +4682,18 @@ implementations of lambda programming
 
 \begin_deeper
 \begin_layout Itemize
+started out as event-based programming which initiated in concurrency for
+ network servers
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Krohn:Events,Welsh:SEDA"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
 Microsoft: 
 \begin_inset Formula $\lambda$
 \end_inset
@@ -4586,21 +4721,6 @@ closures solve the first two, work queues the other two
 \begin_layout Itemize
 keep pending packets, automatic thread assignment and pooling, system-wide
  thread balancing
-\end_layout
-
-\begin_layout Itemize
-thread count becomes controllable
-\end_layout
-
-\begin_layout Itemize
-goal: have the number of active threads match the number of (logical) cores
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Anderson:SchedulerActivations"
-
-\end_inset
-
-
 \end_layout
 
 \end_deeper
@@ -5164,7 +5284,7 @@ magic
 
 \begin_layout Plain Layout
 \begin_inset Float table
-wide false
+wide true
 sideways false
 status open
 
@@ -6215,22 +6335,57 @@ key "LeSueur:DVFS"
 
 \end_deeper
 \begin_layout Itemize
-work queues that are drained asynchronously support this well
+lambda-programming removes threads from application development, now remove/demo
+te them in kernel interface
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
-queues just offer parallelism, dispatching is separate, system can decide
+similar ideas explored earlier: scheduler activations
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Anderson:SchedulerActivations"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+threads can be co-scheduled on one core, they hide spatial properties from
+ the application
+\end_layout
+
+\begin_layout Itemize
+applications often work around this by creating more threads than there
+ are processors to make sure all hardware parallelism is exploited
+\end_layout
+
+\begin_layout Itemize
+idea: assign cores to applications, not virtual sections of a core's time
+ (i.e.
+ threads)
+\end_layout
+
+\begin_layout Itemize
+still need kernel-level execution contexts, which you may still call threads
+\end_layout
+
+\begin_layout Itemize
+work queues offer parallelism, dispatching is separate, system can decide
  placement; threads blend this in one concept
 \end_layout
 
 \begin_layout Itemize
-number of threads becomes controllable instead of being fixed in the application
+parallelism becomes controllable instead of being fixed in the application
  code
 \end_layout
 
+\end_deeper
 \begin_layout Itemize
-work queues used within applications and also down to the kernel
+work queues can also be used to manage placement for other interfaces, like
+ the systemcall interface to the kernel
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Soares:FlexSC"
@@ -6556,6 +6711,12 @@ key "Collette:JobParallelism"
 \end_layout
 
 \end_deeper
+\begin_layout Itemize
+the number of kernel traps and process migrations could be lower in my system,
+ because I assign cores exclusively (i.e.
+ no time-slicing) for a while
+\end_layout
+
 \end_deeper
 \begin_layout Itemize
 discuss related work in detail
@@ -6563,9 +6724,27 @@ discuss related work in detail
 
 \begin_deeper
 \begin_layout Itemize
-schedule in space instead of in time
+schedule in space instead of in time, demote threads
 \end_layout
 
+\begin_deeper
+\begin_layout Itemize
+kernel threads are the wrong abstraction
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Anderson:SchedulerActivations"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+communication of available parallelism from application to scheduler allows
+ global core arbitration
+\end_layout
+
+\end_deeper
 \begin_layout Itemize
 OS design for systems with 1000+ cores focus on space sharing instead of
  time sharing
