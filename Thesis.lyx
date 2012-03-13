@@ -169,6 +169,7 @@ End
 \papercolumns 1
 \papersides 2
 \paperpagestyle default
+\listings_params "basicstyle={\ttfamily\small},language=C,numberstyle={\ttfamily\small\color{gray}},tabsize=2"
 \tracking_changes false
 \output_changes false
 \html_math_output 0
@@ -2136,7 +2137,7 @@ I hope developers can provide parameters from within the application domain
 status collapsed
 
 \begin_layout Plain Layout
-deadlines
+deadline
 \end_layout
 
 \end_inset
@@ -3346,7 +3347,7 @@ Literature mentions look-ahead together with scheduling in the areas of
 status collapsed
 
 \begin_layout Plain Layout
-constraint satisfaction problems
+constraint satisfaction problem
 \end_layout
 
 \end_inset
@@ -4501,7 +4502,7 @@ Recognizing the importance of responsiveness,
 status collapsed
 
 \begin_layout Plain Layout
-asynchronous interfaces
+asynchronous interface
 \end_layout
 
 \end_inset
@@ -4527,7 +4528,18 @@ callback-soup
 
 \begin_inset CommandInset citation
 LatexCommand cite
+after "-2\\baselineskip"
 key "SantAnna:ProblemEvents"
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+manual offset
+\end_layout
 
 \end_inset
 
@@ -4547,6 +4559,7 @@ stack ripping
 .
 \begin_inset CommandInset citation
 LatexCommand cite
+after "-2\\baselineskip"
 key "Adya:StackRipping"
 
 \end_inset
@@ -4565,6 +4578,7 @@ On the other hand, it is also difficult for programmers to orchestrate multiple
  code on different threads.
 \begin_inset CommandInset citation
 LatexCommand cite
+after "-3\\baselineskip"
 key "Lu:ConcurrencyBugs"
 
 \end_inset
@@ -4586,17 +4600,420 @@ A new approach to concurrency is needed.
 
 \end_inset
 
- The current shift in parallel programming leads us away from threads and
- closer to the ideas behind asynchronous invocation, but without inheriting
- their historical callback-soup and stack ripping downsides.
+ The current shift in parallel programming
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Sutter:LambdasEverywhere"
+
+\end_inset
+
+ leads us away from threads and closer to the ideas behind asynchronous
+ invocation, but without inheriting their historical callback-soup and stack
+ ripping downsides.
  Today’s developers are discouraged from using threads directly, but should
- instead use new programming language constructs that allow them to enclose
+ instead use new programming language constructs that allow them to envelop
  a piece of code and dispatch it for asynchronous invocation.
-\begin_inset Note Note
+ Although terminology changes with programming language and environment,
+ I will call the resulting style 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+asynchronous lambdas
+\end_layout
+
+\end_inset
+
+
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+asynchronous lambda
+\end_layout
+
+\end_inset
+
+.
+ The following Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "2-fig:Mouse-Processing-Styles"
+
+\end_inset
+
+ shows how a user interaction that results in a long-running computation
+ is written in the styles mentioned:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide true
+sideways false
 status open
 
 \begin_layout Plain Layout
-ass a catch example here to compare async callbacks, threads and GCD
+
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="22text%" special="@{}>{\centering}p{101pt}">
+<column alignment="center" valignment="top" width="110pt">
+<column alignment="center" valignment="top" width="102pt">
+<column alignment="center" valignment="top" width="107pt">
+<row>
+<cell alignment="center" valignment="top" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+void mouseClick(event)
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+	view = event.target;
+\end_layout
+
+\begin_layout Plain Layout
+
+	result = longWork();
+\end_layout
+
+\begin_layout Plain Layout
+
+	view.update(result);
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+void mouseClick(event)
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+	view = event.target;
+\end_layout
+
+\begin_layout Plain Layout
+
+	context = { view };
+\end_layout
+
+\begin_layout Plain Layout
+
+	longWorkAsync(cb,
+\end_layout
+
+\begin_layout Plain Layout
+
+		context);
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+/* callback */
+\end_layout
+
+\begin_layout Plain Layout
+
+void cb(result, context)
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+	view = context[0];
+\end_layout
+
+\begin_layout Plain Layout
+
+	view.update(result);
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+void mouseClick(event)
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+	view = event.target;
+\end_layout
+
+\begin_layout Plain Layout
+
+	context = { view };
+\end_layout
+
+\begin_layout Plain Layout
+
+	thread_start(work,
+\end_layout
+
+\begin_layout Plain Layout
+
+		context);
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+/* worker thread */
+\end_layout
+
+\begin_layout Plain Layout
+
+void work(context)
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+	view = context[0];
+\end_layout
+
+\begin_layout Plain Layout
+
+	result = longWork();
+\end_layout
+
+\begin_layout Plain Layout
+
+	view.update(result);
+\end_layout
+
+\begin_layout Plain Layout
+
+	thread_exit();
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+void mouseClick(event)
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+	view = event.target;
+\end_layout
+
+\begin_layout Plain Layout
+
+	dispatch_async(^{
+\end_layout
+
+\begin_layout Plain Layout
+
+		result = longWork();
+\end_layout
+
+\begin_layout Plain Layout
+
+		view.update(result);
+\end_layout
+
+\begin_layout Plain Layout
+
+	});
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Serial Version
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Asynchronous with Callback
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Multiple Threads
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Asynchronous Lambda
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\begin_inset VSpace 20pt
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "2-fig:Mouse-Processing-Styles"
+
+\end_inset
+
+Pseudocode Examples for Long-Running Mouse Click Processing
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -4605,13 +5022,45 @@ ass a catch example here to compare async callbacks, threads and GCD
 \end_layout
 
 \begin_layout Standard
-Threads are still being used behind the scenes to run those code pieces,
- but the programmer does not deal with them.
+\noindent
+You can see that the lambda version on the very right involves asynchronous
+ invocation, but without using a callback or manually managing separate
+ threads.
+ In fact, using lambdas, the code regains a lot of the simplicity of the
+ serial version, which is the main reason why this programming style is
+ so attractive.
 \end_layout
 
 \begin_layout Standard
-because they are difficult to manage and leads to hard-coded assignment
- of work to threads that may not be optimal on the end-user’s machine.
+Threads are still being used behind the scenes to implement the asynchronous
+ execution, but the programmer does not need to bother.
+ This avoids explicit thread management which often leads to an inflexible
+ hard-coded assignment of work to threads that may not be optimal on the
+ end-user’s machine.
+ Instead, the number of active threads can now be managed by the underlying
+ framework, taking into account the number of cores and the concurrent load
+ on the machine.
+ I will explore this control potential when I discuss core placement in
+ Section
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "4-chap:Parallelism"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Lambdas All Around
+\end_layout
+
+\begin_layout Standard
+
 \end_layout
 
 \begin_layout Standard
@@ -4623,22 +5072,6 @@ major changes in application structure
 \end_layout
 
 \begin_deeper
-\begin_layout Itemize
-multithreaded
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-explicit thread management with hard-coded or guessed thread count, difficult
- code
-\end_layout
-
-\begin_layout Itemize
-next step: demote threads by hiding them in a runtime, expose asynchronous
- work items
-\end_layout
-
-\end_deeper
 \begin_layout Itemize
 today: lambdas
 \end_layout
@@ -4658,10 +5091,6 @@ key "MacResearch:AboardGrandCentral"
 \end_inset
 
 
-\end_layout
-
-\begin_layout Itemize
-show very simple example
 \end_layout
 
 \begin_layout Itemize
