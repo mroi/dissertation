@@ -2,9 +2,9 @@ GIMP Palette
 Name: Dissertation
 Columns: 3
 #
-  0   0   0	Black
-255 255 255	White
- 72  73  75	Dark Gray
-128 135 133	Light Gray
- 93 127 187	Dark Steel Blue
-161 170 187	Light Steel Blue
+  0   0   0	Black (#000000)
+255 255 255	White (#FFFFFF)
+ 72  73  75	Dark Gray (#48494B)
+128 135 133	Light Gray (#808785)
+ 93 127 187	Dark Steel Blue (#5D7FBB)
+161 170 187	Light Steel Blue (#A1AABB)

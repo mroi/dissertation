@@ -88,13 +88,16 @@
 }
 
 % darker gray for LyX'es notes
-\definecolor{note_fontcolor}{rgb}{0.5, 0.5, 0.5}
+\definecolor{note_fontcolor}{HTML}{808785}
+\definecolor{gray}{HTML}{808785}
+\definecolor{darkgray}{HTML}{48494B}
 \end_preamble
 \options a4paper
 \use_default_options true
 \begin_modules
 fixltx2e
 enumitem
+logicalmkup
 \end_modules
 \maintain_unincluded_children false
 \begin_local_layout
@@ -4646,8 +4649,8 @@ reference "2-fig:Mouse-Processing-Styles"
 
 \end_inset
 
- shows how a user interaction that results in a long-running computation
- is written in the styles mentioned:
+ shows how a user interaction triggering a long-running computation is written
+ in the styles mentioned:
 \end_layout
 
 \begin_layout Standard
@@ -4741,12 +4744,12 @@ void mouseClick(event)
 
 \begin_layout Plain Layout
 
-	longWorkAsync(cb,
+	async(longWork,
 \end_layout
 
 \begin_layout Plain Layout
 
-		context);
+		cb, context);
 \end_layout
 
 \begin_layout Plain Layout
@@ -5021,6 +5024,62 @@ Pseudocode Examples for Long-Running Mouse Click Processing
 
 \end_layout
 
+\begin_layout Description
+The
+\begin_inset space \space{}
+\end_inset
+
+Serial
+\begin_inset space \space{}
+\end_inset
+
+Version is the shortest of the four and the easiest to read, because it
+ describes the logical order of processing steps without any distraction
+ by language clutter: First, the user interface element 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+view
+\end_layout
+
+\end_inset
+
+ is fetched by evaluating where the user clicked.
+ The long computation follows and its result is used to update the representatio
+n on screen.
+\end_layout
+
+\begin_layout Description
+The
+\begin_inset space \space{}
+\end_inset
+
+Callback
+\begin_inset space \space{}
+\end_inset
+
+Version illustrates the stack ripping problem: What used to be a single
+ control flow representing a single conceptual job is now broken across
+ two functions.
+ All local state from the first function that is needed in the second function
+ must be delivered explicitly.
+ After registering 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+longWork
+\end_layout
+
+\end_inset
+
+ for execution, control returns to the runtime, which invokes the callback
+ as the result is available.
+ The callback function and the context act as a continuation to complete
+ the job.
+\end_layout
+
 \begin_layout Standard
 \noindent
 You can see that the lambda version on the very right involves asynchronous
@@ -5057,10 +5116,6 @@ reference "4-chap:Parallelism"
 
 \begin_layout Section
 Lambdas All Around
-\end_layout
-
-\begin_layout Standard
-
 \end_layout
 
 \begin_layout Standard
@@ -5150,6 +5205,11 @@ closures solve the first two, work queues the other two
 \begin_layout Itemize
 keep pending packets, automatic thread assignment and pooling, system-wide
  thread balancing
+\end_layout
+
+\begin_layout Itemize
+serial queues allow explicit task ordering and allow the developer to reason
+ about it
 \end_layout
 
 \end_deeper

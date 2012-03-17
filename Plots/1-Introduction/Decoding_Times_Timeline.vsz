@@ -1,5 +1,5 @@
 # Veusz saved document (version 1.14)
-# Saved at 2012-03-13T13:49:03.701108
+# Saved at 2012-03-17T10:24:38.686849
 
 AddImportPath(u'/Users/Michael/Documents/Forschung/Dissertation/Plots/1-Introduction')
 ImportFile(u'Decoding_Times.log', u'time', linked=True, ignoretext=True)
@@ -78,7 +78,7 @@ To('xy1')
 Set('xData', u'frame')
 Set('yData', u'time')
 Set('markerSize', u'0.5pt')
-Set('PlotLine/transparency', 75)
+Set('PlotLine/color', u'#808785')
 To('..')
 To('..')
 To('..')

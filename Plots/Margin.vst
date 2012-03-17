@@ -1,5 +1,5 @@
 # Veusz exported stylesheet (version 1.14)
-# Saved at 2012-03-03T16:24:57.170296
+# Saved at 2012-03-17T10:22:24.497150
 
 Set('StyleSheet/Line/width', '0.5pt')
 Set('StyleSheet/Line/color', 'black')
@@ -684,7 +684,7 @@ Set('StyleSheet/xy/ErrorBarLine/hide', False)
 Set('StyleSheet/xy/ErrorBarLine/endsize', 1.0)
 Set('StyleSheet/xy/ErrorBarLine/hideHorz', False)
 Set('StyleSheet/xy/ErrorBarLine/hideVert', False)
-Set('StyleSheet/xy/FillBelow/color', 'grey')
+Set('StyleSheet/xy/FillBelow/color', u'#808785')
 Set('StyleSheet/xy/FillBelow/style', 'solid')
 Set('StyleSheet/xy/FillBelow/transparency', 0)
 Set('StyleSheet/xy/FillBelow/hide', True)
