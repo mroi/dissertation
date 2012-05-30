@@ -222,10 +222,10 @@ FUNCTION {bbl.edby}
 { "edited by" }
 
 FUNCTION {bbl.edition}
-{ "edition" }
+{ "Edition" }
 
 FUNCTION {bbl.volume}
-{ "volume" }
+{ "Volume" }
 
 FUNCTION {bbl.of}
 { "of" }
@@ -246,16 +246,16 @@ FUNCTION {bbl.page}
 { "p." }
 
 FUNCTION {bbl.chapter}
-{ "chapter" }
+{ "Chapter" }
 
 FUNCTION {bbl.techrep}
-{ "Technical Report" }
+{ "Technical {R}eport" }
 
 FUNCTION {bbl.mthesis}
-{ "Master's thesis" }
+{ "Master's {T}hesis" }
 
 FUNCTION {bbl.phdthesis}
-{ "Ph.D. thesis" }
+{ "Ph.D. {T}hesis" }
 
 MACRO {jan} {"January"}
 
