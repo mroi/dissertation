@@ -16,7 +16,7 @@
 \hyphenation{Atlas}
 
 % font setup: disable Hoefler swashes, set math fonts
-\usepackage[MnSymbol]{mathspec}
+\usepackage{mathspec}
 \setmainfont[ItalicFeatures={Contextuals={NoLineInitial,NoLineFinal}}]{Hoefler Text}
 \setmathrm{Hoefler Text}
 \setmathsfont(Digits,Latin)[ItalicFeatures={Contextuals={NoLineInitial,NoLineFinal}},Numbers={Lining,Proportional}]{Hoefler Text}
@@ -87,7 +87,7 @@
 \end{fullwidth}
 }
 
-% darker gray for LyX'es notes
+% use my own palette of gray tones
 \definecolor{note_fontcolor}{HTML}{808785}
 \definecolor{gray}{HTML}{808785}
 \definecolor{darkgray}{HTML}{48494B}
@@ -128,7 +128,7 @@ End
 \font_tt_scale 83
 
 \graphics default
-\default_output_format default
+\default_output_format pdf4
 \output_sync 0
 \bibtex_command default
 \index_command default
@@ -150,10 +150,10 @@ End
 \pdf_pdfusetitle false
 \papersize default
 \use_geometry true
-\use_amsmath 1
-\use_esint 1
-\use_mhchem 1
-\use_mathdots 1
+\use_amsmath 0
+\use_esint 0
+\use_mhchem 0
+\use_mathdots 0
 \cite_engine basic
 \use_bibtopic false
 \use_indices false
@@ -4373,8 +4373,14 @@ Atlas,
 \noun default
 the next chapter gives an overview of the emerging use of lambdas as the
  programming model for parallel desktop applications.
- Aligning my task model with this paradigm helps simplifying the use of
- 
+ The intimate vertical integration proposed by 
+\noun on
+Atlas
+\noun default
+ requires developer endorsement, so taking a closer look at programming
+ innovation is valuable.
+ Aligning my task model with a future-proof paradigm helps simplifying the
+ use of 
 \noun on
 Atlas
 \noun default
@@ -4432,7 +4438,7 @@ However, this model made the developers’ lives easier at the price of user
  irritation: When an application synchronously performs an IO-operation,
  for example reading a large file from disk or waiting for data from the
  network, its only thread is stuck in a blocking system call.
- Consequently, the thread is now unavailable for user interactions.
+ Consequently, that thread is now unavailable for user interactions.
  The application appears dead for a while.
  The visual cue for such a mishap are redraw artifacts that tail other windows
  as they are dragged over the blocked application.
@@ -4447,8 +4453,8 @@ reference "2-mar:Blocked-Window-Redraws"
 
 \end_inset
 
- because the blocked application also no longer performs updates of its
- window.
+ because the blocked application no longer performs updates of its window
+ content.
 \end_layout
 
 \begin_layout Standard
@@ -4533,18 +4539,7 @@ callback-soup
 
 \begin_inset CommandInset citation
 LatexCommand cite
-after "-2\\baselineskip"
 key "SantAnna:ProblemEvents"
-
-\end_inset
-
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-manual offset
-\end_layout
 
 \end_inset
 
@@ -4564,7 +4559,6 @@ stack ripping
 .
 \begin_inset CommandInset citation
 LatexCommand cite
-after "-2\\baselineskip"
 key "Adya:StackRipping"
 
 \end_inset
@@ -4576,20 +4570,19 @@ key "Adya:StackRipping"
 On the other hand, it is also difficult for programmers to orchestrate multiple
  threads correctly.
  Threads do not suffer from stack ripping, because threads individually
- follow a single control flow.
+ follow a single control flow with a dedicated stack.
  However, when using many of them, their interleaving becomes increasingly
  complex to manage.
  Programmers unknowingly make wrong assumptions on the execution order of
  code on different threads.
 \begin_inset CommandInset citation
 LatexCommand cite
-after "-3\\baselineskip"
 key "Lu:ConcurrencyBugs"
 
 \end_inset
 
- As long as mainstream computers featured only a single CPU core, those
- assumptions used to hold.
+ As mainstream computers featured only a single CPU core, those assumptions
+ used to hold.
  But when Intel’s Hyper-Threading marked the first exposure of commodity
  machines to hardware concurrency, many multithreaded programs suddenly
  broke.
@@ -4618,8 +4611,31 @@ key "Sutter:LambdasEverywhere"
  Today’s developers are discouraged from using threads directly, but should
  instead use new programming language constructs that allow them to envelop
  a piece of code and dispatch it for asynchronous invocation.
- Although terminology changes with programming language and environment,
- I will call the resulting style 
+\end_layout
+
+\begin_layout Standard
+The name for this paradigm changes with the chosen programming language
+ and runtime environment.
+ The term task-based programming
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+task-based programming
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "MSDN:TaskBasedProgramming"
+
+\end_inset
+
+ has been coined, but also covers traditional callback-style models.
+ Given that the term “task” is hopelessly overloaded already, I will avoid
+ it and call the programming style 
 \begin_inset Flex SmallCaps
 status collapsed
 
@@ -4639,8 +4655,11 @@ asynchronous lambda
 
 \end_inset
 
-.
- The following Figure
+ instead.
+\end_layout
+
+\begin_layout Standard
+The following Figure
 \begin_inset space ~
 \end_inset
 
@@ -4918,7 +4937,7 @@ void mouseClick(event)
 
 \begin_layout Plain Layout
 
-	dispatch_async(^{
+	async(^{
 \end_layout
 
 \begin_layout Plain Layout
@@ -5034,7 +5053,7 @@ Serial
 \end_inset
 
 Version is the shortest of the four and the easiest to read, because it
- describes the logical order of processing steps without any distraction
+ describes the logical order of processing steps without much distraction
  by language clutter: First, the user interface element 
 \begin_inset Flex Code
 status collapsed
@@ -5059,7 +5078,7 @@ Callback
 \begin_inset space \space{}
 \end_inset
 
-Version illustrates the stack ripping problem: What used to be a single
+Version illustrates the stack ripping problem: What used to be a continuous
  control flow representing a single conceptual job is now broken across
  two functions.
  All local state from the first function that is needed in the second function
@@ -5080,24 +5099,105 @@ longWork
  the job.
 \end_layout
 
-\begin_layout Standard
-\noindent
-You can see that the lambda version on the very right involves asynchronous
- invocation, but without using a callback or manually managing separate
- threads.
+\begin_layout Description
+Multiple
+\begin_inset space \space{}
+\end_inset
+
+Threads similarly require manual passing of contextual state between the
+ invoker and the worker thread.
+ Processing is again split across two functions.
+ A new problem introduced in this version is to update the view from a second
+ thread.
+ Many user interface frameworks limit updates to the main thread to avoid
+ dealing with concurrent invocation.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Apple:ThreadSafety,Qt:ThreadingBasics"
+
+\end_inset
+
+ Such a limitation further complicates the use of multiple threads.
+\end_layout
+
+\begin_layout Description
+The
+\begin_inset space \space{}
+\end_inset
+
+Lambda
+\begin_inset space \space{}
+\end_inset
+
+Version on the very right invokes a block of code asynchronously, but without
+ using a callback or manually managing separate threads.
  In fact, using lambdas, the code regains a lot of the simplicity of the
  serial version, which is the main reason why this programming style is
  so attractive.
+ The pseudo-code lambda in the figure uses the block syntax from Apple’s
+ Grand
+\begin_inset space ~
+\end_inset
+
+Central
+\begin_inset space ~
+\end_inset
+
+Dispatch (GCD) system
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Apple:GrandCentralDispatch"
+
+\end_inset
+
+, where a caret
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+^
+\end_layout
+
+\end_inset
+
+ marks the lambda code.
+ The notation has not been simplified for the example, this is actually
+ all typing the programmer has to do.
+ The 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+view
+\end_layout
+
+\end_inset
+
+ variable, which was assigned outside the lambda, is transparently available
+ inside the lambda without any manual state transfer.
+ If libraries impose concurrency limitations, GCD allows for seamless dispatchin
+g of work back to the main thread.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Apple:MainThread"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 Threads are still being used behind the scenes to implement the asynchronous
- execution, but the programmer does not need to bother.
+ execution of lambdas, but the programmer does not need to bother.
  This avoids explicit thread management which often leads to an inflexible
  hard-coded assignment of work to threads that may not be optimal on the
  end-user’s machine.
  Instead, the number of active threads can now be managed by the underlying
- framework, taking into account the number of cores and the concurrent load
+ framework, taking into account the number of cores and the current load
  on the machine.
  I will explore this control potential when I discuss core placement in
  Section
@@ -5119,26 +5219,91 @@ Lambdas Far and Wide
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Greyedout
+Asynchronous lambdas combine a programming pattern based on asynchronous
+ invocation and a lambda programming language feature to deliver a unique
+ combination of properties.
+\end_layout
+
+\begin_layout Description
+Asynchronous
+\begin_inset space \space{}
+\end_inset
+
+invocation originates from event-based programming
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+event-based programming
+\end_layout
+
+\end_inset
+
+.
+\begin_inset CommandInset citation
+LatexCommand cite
+after "-2\\baselineskip"
+key "Krohn:Events"
+
+\end_inset
+
+
+\begin_inset Note Note
 status open
 
-\begin_layout Itemize
-major changes in application structure
+\begin_layout Plain Layout
+manual offset
 \end_layout
 
-\begin_deeper
-\begin_layout Itemize
-today: lambdas
+\end_inset
+
+ High-thoughput network servers experience scalability bottlenecks when
+ assigning each incoming request to a dedicated thread.
+ Performance improves when organizing the server such that pieces of work
+ are collected in queues and executed asynchronously.
+\begin_inset CommandInset citation
+LatexCommand cite
+after "-2\\baselineskip"
+key "Welsh:SEDA"
+
+\end_inset
+
+ Queuing work instead of explicitly spawning a thread allows the runtime
+ layer to control the number of threads, employing strategies like thread
+ pooling or system-wide thread balancing.
 \end_layout
 
-\begin_deeper
-\begin_layout Itemize
-similar to networks moving from switched circuits to packet routing
+\begin_layout Description
+Lambdas automatically transfer state by capturing variables from the enclosing
+ scope.
+ This relieves the programmer from manually collecting contextual data.
+ Lambdas also preserve the logical locality of the code, because they are
+ written inline and not as separate functions.
+ The code looks like a serial flow of instructions and is easier to read
+ than code written for threaded or callback parallelism.
 \end_layout
 
-\begin_layout Itemize
-analogy: packet-switching in the phone network, railway trains on a track
- network
+\begin_layout Standard
+The compiler and runtime combine the lambda’s code block and the necessary
+ state to an object that can be passed as an argument to a functions, making
+ this language feature a natural fit for the pattern of asynchronous invocation.
+ Herb Sutter believes lambdas are “the
+\begin_inset space ~
+\end_inset
+
+holy
+\begin_inset space ~
+\end_inset
+
+grail” for developing a library of parallel programming patterns.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Sutter:C++AMP_Keynote"
+
+\end_inset
+
+ An illustrative analogy to the use of asynchronous lambdas instead of threads
+ is the shift from circuit-switched networks to packet routing.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "MacResearch:AboardGrandCentral"
@@ -5148,50 +5313,775 @@ key "MacResearch:AboardGrandCentral"
 
 \end_layout
 
-\begin_layout Itemize
-lambdas/closures/blocks/tasks/activities as useful abstraction for declaring
- a piece of work inline: code looks serial, logical locality
+\begin_layout Standard
+\noindent
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+Existing implementations
+\end_layout
+
+\end_inset
+
+ of asynchronous lambdas cover all or a significant subset of the four aspects
+ of the programming paradigm:
 \end_layout
 
 \begin_layout Itemize
-segue: show implementations to demonstrate that this is an old concept now
- gaining traction in practice
+\begin_inset Argument
+status collapsed
+
+\begin_layout Plain Layout
+noitemsep
 \end_layout
 
-\end_deeper
-\end_deeper
+\end_inset
+
+logical coherence of the code,
+\end_layout
+
+\begin_layout Itemize
+automatic state capturing,
+\end_layout
+
+\begin_layout Itemize
+asynchronous execution, and
+\end_layout
+
+\begin_layout Itemize
+automatic thread management.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+To show that this concept is now gaining traction, the following Table
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "2-tab:Asynchronous-Lambdas"
+
+\end_inset
+
+ presents a brief overview of current complete and partial implementations,
+ including the term they use to name their lambda equivalent, for which
+ the different solutions are unfortunately not in agreement:
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\begin_inset Tabular
+<lyxtabular version="3" rows="9" columns="6">
+<features booktabs="true" tabularvalignment="middle">
+<column alignment="left" valignment="top" width="0pt">
+<column alignment="left" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0pt">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Implementation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Term
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" rotate="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Logical Coherence
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rotate="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+State Capture
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rotate="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Asynch.
+ Execution
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" rotate="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Thread Management
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Apple Grand Central Dispatch
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+Apple Grand Central Dispatch
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Block
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\checkmark$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\checkmark$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\checkmark$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\checkmark$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Microsoft Parallel Patterns Library
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+Microsoft Parallel Patterns Library
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Lambda
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\checkmark$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\checkmark$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\checkmark$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\checkmark$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathrm{X10}$
+\end_inset
+
+
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathrm{X10}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Activity
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\checkmark$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\checkmark$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\checkmark$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\checkmark$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+C++
+\begin_inset Formula $11$
+\end_inset
+
+
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+C++
+\begin_inset Formula $11$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Lambda
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\checkmark$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\checkmark$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\checkmark$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Google Go
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Goroutine
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\checkmark$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\checkmark$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\checkmark$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+OpenMP
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\checkmark$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\checkmark$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\checkmark$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Qt Signals and Slots
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Event
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\checkmark$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+TaskC
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Task
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\checkmark$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\checkmark$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "2-tab:Asynchronous-Lambdas"
+
+\end_inset
+
+Complete or Partial Implementations of Asynchronous Lambdas
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Greyedout
+status open
+
 \begin_layout Itemize
 implementations of lambda programming
 \end_layout
 
 \begin_deeper
-\begin_layout Itemize
-started out as event-based programming which initiated in concurrency for
- network servers
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Krohn:Events,Welsh:SEDA"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-Microsoft: 
-\begin_inset Formula $\lambda$
-\end_inset
-
--functions turn out to be the holy-grail feature
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Sutter:C++AMP_Keynote"
-
-\end_inset
-
- for developing the parallel patterns library as a library
-\end_layout
-
 \begin_layout Itemize
 four aspects: logical coherence, automatic state capture, asynchronous invocatio
 n, automatic thread management
@@ -5201,18 +6091,6 @@ n, automatic thread management
 closures solve the first two, work queues the other two
 \end_layout
 
-\begin_deeper
-\begin_layout Itemize
-keep pending packets, automatic thread assignment and pooling, system-wide
- thread balancing
-\end_layout
-
-\begin_layout Itemize
-serial queues allow explicit task ordering and allow the developer to reason
- about it
-\end_layout
-
-\end_deeper
 \begin_layout Itemize
 do a table with checkmarks comparing different implementations of the paradigm
 \end_layout
@@ -5283,6 +6161,28 @@ how it feels
 focus on GCD, explain primitives, illustrate with little sequence diagrams
 \end_layout
 
+\begin_deeper
+\begin_layout Itemize
+railway trains on a track network
+\begin_inset CommandInset citation
+LatexCommand cite
+key "MacResearch:AboardGrandCentral"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+synchronization is part of the same concept
+\end_layout
+
+\begin_layout Itemize
+serial queues allow explicit task ordering and allow the developer to reason
+ about it
+\end_layout
+
+\end_deeper
 \begin_layout Itemize
 work set model
 \begin_inset CommandInset citation
@@ -6255,8 +7155,7 @@ dynamic bandwidth adaptation to workload as an afterthought
 \end_layout
 
 \begin_layout Itemize
-black-box control vs.
- insightful cooperation using metrics
+both control and Atlas assume that extrapolation from past behavior works
 \end_layout
 
 \begin_layout Itemize
@@ -8117,6 +9016,13 @@ key "Nightingale:Helios"
 \end_inset
 
 ) treated as compute resources like CPU, not as a peripheral
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Kato:GPUManagement"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Itemize
