@@ -1401,13 +1401,25 @@ ahead of time
 so those applications can prepare before the resource shortage arrives.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Full Width
+\begin_inset Flex Emph
+status collapsed
+
+\begin_layout Plain Layout
 These three non-functional aspects all benefit from the aggregation of local
  application knowledge to implement a global system-wide policy.
- In this thesis, I will show how communicating application’s timing requirements
- helps overall timeliness, how knowledge on resource requirements improves
+ My mission is to show that a little added developer effort can be augmented
+ by a newly designed runtime and lead to closer cooperation with the scheduler,
+ enhancing application behavior with respect to non-functional properties.
+ In this thesis, I will prove how communicating application’s timing requirement
+s helps overall timeliness, how knowledge on resource requirements improves
  core placement and how ahead-of-time overload notification improves quality
  when adapting.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1415,16 +1427,16 @@ These three non-functional aspects all benefit from the aggregation of local
 status collapsed
 
 \begin_layout Plain Layout
-Modern applications are complex
+Developing a modern application
 \end_layout
 
 \end_inset
 
- because they offer intricate features or have to handle new failure cases
- by connecting with the cloud, but such functionality aspects are not the
- topic of this thesis.
- To face non-functional properties, developers need to build on top of a
- foundation that helps them deliver without much development overhead.
+ alread is a complex undertaking, because users expect intricate features
+ and applications have to handle new failure cases by connecting with the
+ cloud.
+ To face non-functional properties on top of that, developers need to rely
+ on a foundation that helps them deliver without much development overhead.
  Systems research can and should help here.
  Libraries can mediate between the application’s view and the system interface.
  I will now motivate my work from the system’s perspective and show that
@@ -4040,7 +4052,7 @@ video playback
 
 .
  I chose video because I think it is representative for a number of real-time
- and throughput applications, since it combines interesting properties:
+ and throughput applications, because it combines interesting properties:
 \end_layout
 
 \begin_layout Standard
@@ -4398,6 +4410,33 @@ Anatomy of a Modern Desktop Application
 \end_layout
 
 \begin_layout Standard
+For 
+\begin_inset Flex Noun
+status collapsed
+
+\begin_layout Plain Layout
+Atlas
+\end_layout
+
+\end_inset
+
+, I envision a tight integration of application, runtime libraries and the
+ CPU scheduler.
+ The following pages explain the programming style of modern desktop application
+s and motivate, how 
+\begin_inset Flex Noun
+status collapsed
+
+\begin_layout Plain Layout
+Atlas
+\end_layout
+
+\end_inset
+
+ can be fitted for this style and what benefits the combination affords.
+\end_layout
+
+\begin_layout Standard
 \begin_inset Flex NewThought
 status collapsed
 
@@ -4407,8 +4446,8 @@ Three major paradigm shifts
 
 \end_inset
 
- changed the way desktop software is written, with the last of these transitions
- still in progress.
+ changed the way desktop software is written, with the latest of these transitio
+ns still in progress.
  Historically, all applications started out single-threaded
 \begin_inset Index idx
 status collapsed
@@ -4420,7 +4459,7 @@ single-threaded
 \end_inset
 
 .
- The traditional Unix design only knows about processes, which implicitly
+ The traditional Unix design only knows about processes that implicitly
  host only a single activity.
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -4508,7 +4547,7 @@ Recognizing the importance of responsiveness,
 
  developers started to migrate long-running or blocking work off the main
  user interface thread.
- The two ways to achieve this goal were asynchronous interfaces
+ Two mechanisms to support this change were asynchronous interfaces
 \begin_inset Index idx
 status collapsed
 
@@ -4523,10 +4562,9 @@ asynchronous interface
  Asynchronous interfaces split the logical code flow into two parts: The
  setup of context and arguments precedes the asynchronous invocation.
  Results are interpreted once the asynchronous operation finishes.
- Often, this second part is executed callback-style by the framework managing
- the asynchronous processing, which riddles the code with additional functions
- just for callback purposes.
- This effect is dubbed callback-soup
+ Often, a callback by the underlying framework executes this second part,
+ which riddles the code with additional functions just for callback purposes.
+ This callback-soup
 \begin_inset Index idx
 status collapsed
 
@@ -4543,7 +4581,7 @@ key "SantAnna:ProblemEvents"
 
 \end_inset
 
- and complicates code understanding.
+ complicates code understanding.
  Furthermore, because the callback executes in a separate function, the
  context of local variables is different from when the asynchronous processing
  started, a problem known as stack ripping
@@ -4569,10 +4607,10 @@ key "Adya:StackRipping"
 \begin_layout Standard
 On the other hand, it is also difficult for programmers to orchestrate multiple
  threads correctly.
- Threads do not suffer from stack ripping, because threads individually
- follow a single control flow with a dedicated stack.
- However, when using many of them, their interleaving becomes increasingly
- complex to manage.
+ Threads do not suffer from stack ripping, because they individually follow
+ a single control flow with a dedicated stack.
+ However, as the number of concurrent threads increases, their interleaving
+ becomes increasingly complex to manage.
  Programmers unknowingly make wrong assumptions on the execution order of
  code on different threads.
 \begin_inset CommandInset citation
@@ -4670,8 +4708,9 @@ reference "2-fig:Mouse-Processing-Styles"
 
 \end_inset
 
- shows how a user interaction triggering a long-running computation is written
- in the styles mentioned:
+ shows four pseudocode verions of a long-running computation triggered by
+ user interaction, from the historical serial version to the modern lambda-style
+:
 \end_layout
 
 \begin_layout Standard
@@ -5065,8 +5104,8 @@ view
 \end_inset
 
  is fetched by evaluating where the user clicked.
- The long computation follows and its result is used to update the representatio
-n on screen.
+ The long computation follows and its result updates the representation
+ on screen.
 \end_layout
 
 \begin_layout Description
@@ -5081,8 +5120,8 @@ Callback
 Version illustrates the stack ripping problem: What used to be a continuous
  control flow representing a single conceptual job is now broken across
  two functions.
- All local state from the first function that is needed in the second function
- must be delivered explicitly.
+ The programmer must explicitly deliver local state from the first function,
+ if the second function needs access to it.
  After registering 
 \begin_inset Flex Code
 status collapsed
@@ -5107,8 +5146,8 @@ Multiple
 Threads similarly require manual passing of contextual state between the
  invoker and the worker thread.
  Processing is again split across two functions.
- A new problem introduced in this version is to update the view from a second
- thread.
+ A new problem introduced in this version is the updating of the view from
+ a background thread.
  Many user interface frameworks limit updates to the main thread to avoid
  dealing with concurrent invocation.
 \begin_inset CommandInset citation
@@ -5165,8 +5204,8 @@ status collapsed
 \end_inset
 
  marks the lambda code.
- The notation has not been simplified for the example, this is actually
- all typing the programmer has to do.
+ The notation is not simplified, the example shows all typing the programmer
+ has to do.
  The 
 \begin_inset Flex Code
 status collapsed
@@ -5191,14 +5230,13 @@ key "Apple:MainThread"
 \end_layout
 
 \begin_layout Standard
-Threads are still being used behind the scenes to implement the asynchronous
- execution of lambdas, but the programmer does not need to bother.
+Threads are still used behind the scenes to implement the asynchronous execution
+ of lambdas, but the programmer does not need to bother.
  This avoids explicit thread management which often leads to an inflexible
  hard-coded assignment of work to threads that may not be optimal on the
  end-user’s machine.
- Instead, the number of active threads can now be managed by the underlying
- framework, taking into account the number of cores and the current load
- on the machine.
+ Instead, the runtime environment can manage the number of active threads,
+ taking into account the number of cores and the current load on the machine.
  I will explore this control potential when I discuss core placement in
  Section
 \begin_inset space ~
@@ -5220,8 +5258,8 @@ Lambdas Far and Wide
 
 \begin_layout Standard
 Asynchronous lambdas combine a programming pattern based on asynchronous
- invocation and a lambda programming language feature to deliver a unique
- combination of properties.
+ invocation and a lambda language feature to deliver a unique combination
+ of properties.
 \end_layout
 
 \begin_layout Description
@@ -5259,8 +5297,8 @@ manual offset
 
  High-thoughput network servers experience scalability bottlenecks when
  assigning each incoming request to a dedicated thread.
- Performance improves when organizing the server such that pieces of work
- are collected in queues and executed asynchronously.
+ Performance improves when organizing the server such that queues collect
+ pieces of work and execute them asynchronously.
 \begin_inset CommandInset citation
 LatexCommand cite
 after "-2\\baselineskip"
@@ -5270,22 +5308,22 @@ key "Welsh:SEDA"
 
  Queuing work instead of explicitly spawning a thread allows the runtime
  layer to control the number of threads, employing strategies like thread
- pooling or system-wide thread balancing.
+ pooling or system-wide load balancing.
 \end_layout
 
 \begin_layout Description
 Lambdas automatically transfer state by capturing variables from the enclosing
  scope.
  This relieves the programmer from manually collecting contextual data.
- Lambdas also preserve the logical locality of the code, because they are
- written inline and not as separate functions.
+ Lambdas also preserve the logical locality of the code, because they appear
+ inline and not as separate functions.
  The code looks like a serial flow of instructions and is easier to read
  than code written for threaded or callback parallelism.
 \end_layout
 
 \begin_layout Standard
 The compiler and runtime combine the lambda’s code block and the necessary
- state to an object that can be passed as an argument to a functions, making
+ state to an object that can be passed as an argument to functions, making
  this language feature a natural fit for the pattern of asynchronous invocation.
  Herb Sutter believes lambdas are “the
 \begin_inset space ~
@@ -5393,9 +5431,9 @@ reference "2-tab:Asynchronous-Lambdas"
 
 \end_inset
 
- presents a brief overview of current complete and partial implementations,
- including the term they use to name their lambda equivalent, for which
- the different solutions are unfortunately not in agreement:
+ presents a selection of popular complete and partial implementations, including
+ their name for the unit of code execution, for which the different solutions
+ are unfortunately not in agreement:
 \begin_inset Float table
 wide false
 sideways false
@@ -5404,7 +5442,7 @@ status open
 \begin_layout Plain Layout
 \noindent
 \begin_inset Tabular
-<lyxtabular version="3" rows="9" columns="6">
+<lyxtabular version="3" rows="11" columns="6">
 <features booktabs="true" tabularvalignment="middle">
 <column alignment="left" valignment="top" width="0pt">
 <column alignment="left" valignment="top" width="0">
@@ -5479,7 +5517,7 @@ Apple Grand Central Dispatch
 status collapsed
 
 \begin_layout Plain Layout
-Apple Grand Central Dispatch
+Grand Central Dispatch
 \end_layout
 
 \end_inset
@@ -5557,7 +5595,7 @@ Microsoft Parallel Patterns Library
 status collapsed
 
 \begin_layout Plain Layout
-Microsoft Parallel Patterns Library
+Parallel Patterns Library
 \end_layout
 
 \end_inset
@@ -5714,89 +5752,6 @@ Activity
 \begin_inset Text
 
 \begin_layout Plain Layout
-C++
-\begin_inset Formula $11$
-\end_inset
-
-
-\begin_inset Index idx
-status collapsed
-
-\begin_layout Plain Layout
-C++
-\begin_inset Formula $11$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Lambda
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $\checkmark$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $\checkmark$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $\checkmark$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
 Google Go
 \end_layout
 
@@ -5862,6 +5817,187 @@ Goroutine
 \begin_inset Text
 
 \begin_layout Plain Layout
+Intel Threading Building Blocks
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+Threading Building Blocks
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Task
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\checkmark$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\checkmark$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\checkmark$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+C
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+raisebox{0.3mm}{++}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $11$
+\end_inset
+
+
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+C
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+raisebox{0.3mm}{++}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $11$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ (no additional libraries)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Lambda
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\checkmark$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\checkmark$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 OpenMP
 \end_layout
 
@@ -5871,7 +6007,7 @@ OpenMP
 \begin_inset Text
 
 \begin_layout Plain Layout
--
+Iteration
 \end_layout
 
 \end_inset
@@ -5892,9 +6028,6 @@ OpenMP
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $\checkmark$
-\end_inset
-
 
 \end_layout
 
@@ -5927,7 +6060,7 @@ OpenMP
 \begin_inset Text
 
 \begin_layout Plain Layout
-Qt Signals and Slots
+Galois
 \end_layout
 
 \end_inset
@@ -5936,7 +6069,19 @@ Qt Signals and Slots
 \begin_inset Text
 
 \begin_layout Plain Layout
-Event
+Iteration
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\checkmark$
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -5971,18 +6116,9 @@ Event
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -5991,7 +6127,7 @@ TaskC
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -6000,6 +6136,68 @@ Task
 
 \end_inset
 </cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\checkmark$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\checkmark$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Qt Signals and Slots
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Event
+\end_layout
+
+\end_inset
+</cell>
 <cell alignment="center" valignment="top" bottomline="true" usebox="none">
 \begin_inset Text
 
@@ -6034,9 +6232,6 @@ Task
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $\checkmark$
-\end_inset
-
 
 \end_layout
 
@@ -6074,6 +6269,148 @@ Complete or Partial Implementations of Asynchronous Lambdas
 \end_layout
 
 \begin_layout Standard
+\noindent
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Two complete solutions are available from commercial operating system vendors:
+ Microsoft offers the Parallel Patterns Library,
+\begin_inset CommandInset citation
+LatexCommand cite
+key "MSDN:C++PPL"
+
+\end_inset
+
+ a library on top of standard C
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+raisebox{0.3mm}{++}
+\end_layout
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+lambdas, and Apple is pushing for Grand Central Dispatch,
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Apple:GrandCentralDispatch"
+
+\end_inset
+
+ a combined C
+\begin_inset space ~
+\end_inset
+
+language extension and work queue library.
+ IBM developed 
+\begin_inset Formula $\mathrm{X10}$
+\end_inset
+
+, a new language for parallel programming,
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Charles:X10"
+
+\end_inset
+
+ which also offers a full implementation of asynchronous lambdas.
+ In addition, 
+\begin_inset Formula $\mathrm{X10}$
+\end_inset
+
+ also introduces a 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+places
+\end_layout
+
+\end_inset
+
+
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+places
+\end_layout
+
+\end_inset
+
+ concept to represent locality in a partitioned address space.
+\end_layout
+
+\begin_layout Standard
+Goroutines in Google’s Go language
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Google_Go"
+
+\end_inset
+
+ are functions that are executed asynchronously, with the Go runtime managing
+ threads automatically.
+ Go’s asynchronous lambda scorecard remains incomplete because its closures
+ are anonymous inline functions that do not capture state.
+\end_layout
+
+\begin_layout Standard
+C
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+raisebox{0.3mm}{++}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $11$
+\end_inset
+
+ offers lambdas as part of the language,
+\begin_inset CommandInset citation
+LatexCommand cite
+key "C++11"
+
+\end_inset
+
+ but thread management for parallel execution needs to be added by an additional
+ library like Intel’s Threading Building Blocks.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Intel_TBB"
+
+\end_inset
+
+ Its primitives are tailored for parallelizing iterative and pipelined work,
+ not for general asynchronous execution.
+\end_layout
+
+\begin_layout Standard
+OpenMP employs an even more restrictive model of concurrency.
+\end_layout
+
+\begin_layout Standard
 \begin_inset Note Greyedout
 status open
 
@@ -6083,38 +6420,10 @@ implementations of lambda programming
 
 \begin_deeper
 \begin_layout Itemize
-four aspects: logical coherence, automatic state capture, asynchronous invocatio
-n, automatic thread management
-\end_layout
-
-\begin_layout Itemize
-closures solve the first two, work queues the other two
-\end_layout
-
-\begin_layout Itemize
 do a table with checkmarks comparing different implementations of the paradigm
 \end_layout
 
 \begin_deeper
-\begin_layout Itemize
-Apple GCD, Microsoft PPL
-\begin_inset CommandInset citation
-LatexCommand cite
-key "MSDN:C++PPL"
-
-\end_inset
-
-, X10
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Charles:X10"
-
-\end_inset
-
- (which also dismisses the shared memory/cache coherence assumption): all
- four
-\end_layout
-
 \begin_layout Itemize
 cross-thread signal-slot-connections in Qt
 \begin_inset CommandInset citation
@@ -6125,11 +6434,6 @@ key "Qt:SignalsSlotsThreads"
 
 : asynchronous method calls, no automatic thread management, no automatic
  state-capturing
-\end_layout
-
-\begin_layout Itemize
-Go-routines in Google Go: asynchronous method calls, automatic thread management
-, no automatic state-capturing
 \end_layout
 
 \begin_layout Itemize
@@ -6148,6 +6452,17 @@ key "Arnold:TaskC"
 OpenMP for regular algorithms like iterating over dense arrays, mostly paralleli
 zing loops: automatic thread assignment, guided self-scheduling to reduce
  dispatching overhead, synchronous
+\end_layout
+
+\begin_layout Itemize
+Galois
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Kulkarni:Galois"
+
+\end_inset
+
+: optimistic set iterator
 \end_layout
 
 \end_deeper
@@ -6173,35 +6488,53 @@ key "MacResearch:AboardGrandCentral"
 
 \end_layout
 
-\begin_layout Itemize
-synchronization is part of the same concept
-\end_layout
-
-\begin_layout Itemize
-serial queues allow explicit task ordering and allow the developer to reason
- about it
-\end_layout
-
 \end_deeper
 \begin_layout Itemize
-work set model
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Kulkarni:Galois"
-
-\end_inset
-
-
+work queues
 \end_layout
 
 \begin_deeper
+\begin_layout Itemize
+necessary for data-dependent parallelism: build-up parallelism at runtime,
+ because it is unknown statically
+\end_layout
+
 \begin_layout Itemize
 executing some job can add new jobs to the set
 \end_layout
 
 \begin_layout Itemize
 useful to implement irregular algorithms (processing on graph-like data
- structures with pointers, opposite: dense array)
+ structures with pointers, opposite: arrays, dense matrices)
+\end_layout
+
+\begin_layout Itemize
+SPMD-to-MPMD-generalization of Galois optimistic set iterators
+\end_layout
+
+\begin_layout Itemize
+principles for constructing runtimes have been explored a while back
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Blumofe:Cilk"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+express all latent parallelism
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+developer expresses what can run in parallel
+\end_layout
+
+\begin_layout Itemize
+runtime decides whether to translate it to actual parallelism
 \end_layout
 
 \end_deeper
@@ -6220,6 +6553,30 @@ key "Rajkumar:ResourceKernels"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Itemize
+master and worker threads in OpenMP or Galois
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+synchronization is orthogonal to parallelism
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+can be provided by mutual exclusion (pessimistic, see GCD) or transactional
+ memory (optimistic, see Galois, rollback)
+\end_layout
+
+\begin_layout Itemize
+interface to synchronisation is part of the same concept: serial queues
+ allow explicit task ordering and allow the developer to reason about it
+\end_layout
+
+\begin_layout Itemize
+odered iterators in Galois
 \end_layout
 
 \end_deeper
@@ -6660,6 +7017,10 @@ explain online execution time training in detail
 \end_layout
 
 \begin_deeper
+\begin_layout Itemize
+linear auto-regressive predictor
+\end_layout
+
 \begin_layout Itemize
 evaluate accuracy of execution time prediction against worst-case allocation
  of a periodic task
@@ -7509,6 +7870,11 @@ key "Shin:Compositional"
 \end_layout
 
 \begin_layout Itemize
+application-specific predictors can be used instead of the default auto-regressi
+ve predictor
+\end_layout
+
+\begin_layout Itemize
 device IO
 \end_layout
 
@@ -7730,6 +8096,22 @@ multiplex as long as hardware is expensive, statically assign once hardware
 \end_deeper
 \begin_layout Itemize
 specialize cores dynamically to execute kernel services
+\end_layout
+
+\begin_layout Itemize
+placement becomes all the more relevant when cores differentiate: specialized
+ instruction sets, distance/latency gaps
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Sutter:ParallelJungle"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+need to choreograph heterogeneous accelerators
 \end_layout
 
 \begin_layout Itemize
@@ -8287,8 +8669,8 @@ key "Merkel:EnergyModel"
 
 \end_deeper
 \begin_layout Itemize
-the execution order of blocks within a job is relevant for speed and cache
- working set size
+execution order of blocks within a job is relevant for speed and cache working
+ set size
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Chen:ConstructiveCacheSharing"
@@ -8299,6 +8681,17 @@ key "Chen:ConstructiveCacheSharing"
 \end_layout
 
 \begin_deeper
+\begin_layout Itemize
+chunking, placement and ordering influence speedup for confluent algorithms
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Kulkarni:GaloisScheduling"
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Itemize
 use a lightweight specification language to describe beneficial scheduling
  policies
@@ -9120,6 +9513,17 @@ special-purpose devices offer more choice for job placement and change energy
  as possible
 \end_layout
 
+\begin_deeper
+\begin_layout Itemize
+from FPGAs over DSP/SoCs to GPGPU and GPCPU: design spectrum for compute
+ ressources plus interconnects
+\end_layout
+
+\begin_layout Itemize
+placement decisions in space and time still relevant
+\end_layout
+
+\end_deeper
 \begin_layout Itemize
 choosing between race-to-halt and slowdown depends on workload and platform
 \begin_inset CommandInset citation
@@ -9205,6 +9609,17 @@ key "Merkel:EnergyModel"
 energy counter in Intel Sandy Bridge CPUs
 \end_layout
 
+\begin_layout Itemize
+more complex energy predictors available
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lewis:CAP"
+
+\end_inset
+
+
+\end_layout
+
 \end_deeper
 \end_deeper
 \begin_layout Itemize
@@ -9241,6 +9656,16 @@ other ends that were left open in this thesis
 \begin_layout Itemize
 a thread-less systems architecture (kernel interface), jobs as first class
  citizens in the system
+\end_layout
+
+\begin_layout Itemize
+fault tolerance: recovery options may differ in required time and provided
+ service quality, deadlines helpful
+\end_layout
+
+\begin_layout Itemize
+unreliable computing: reliability requirements can be attached to lambdas,
+ placement on reliable or unreliable core
 \end_layout
 
 \end_deeper
