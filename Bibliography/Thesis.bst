@@ -557,7 +557,7 @@ FUNCTION {format.date}
   month "month" bibinfo.check duplicate$ empty$
     'skip$
     {
-      " " * swap$
+      "~" * swap$
     }
   if$
   *
@@ -611,14 +611,10 @@ FUNCTION {format.number.series}
 }
 
 FUNCTION {format.edition}
-{ edition duplicate$ empty$ 'skip$
-    {
-      output.state mid.sentence =
-        { "l" }
-        { "t" }
-      if$ change.case$
-      "edition" bibinfo.check
-      " " * bbl.edition *
+{ edition empty$
+    { "" }
+    { bbl.edition edition tie.or.space.prefix
+      "edition" bibinfo.check * *
     }
   if$
 }
