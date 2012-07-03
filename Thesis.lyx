@@ -1432,7 +1432,7 @@ Developing a modern application
 
 \end_inset
 
- alread is a complex undertaking, because users expect intricate features
+ already is a complex undertaking, because users expect intricate features
  and applications have to handle new failure cases by connecting with the
  cloud.
  To face non-functional properties on top of that, developers need to rely
@@ -4708,9 +4708,9 @@ reference "2-fig:Mouse-Processing-Styles"
 
 \end_inset
 
- shows four pseudocode verions of a long-running computation triggered by
- user interaction, from the historical serial version to the modern lambda-style
-:
+ shows four pseudocode versions of a long-running computation triggered
+ by user interaction, from the historical serial version to the modern lambda-st
+yle:
 \end_layout
 
 \begin_layout Standard
@@ -5295,7 +5295,7 @@ manual offset
 
 \end_inset
 
- High-thoughput network servers experience scalability bottlenecks when
+ High-throughput network servers experience scalability bottlenecks when
  assigning each incoming request to a dedicated thread.
  Performance improves when organizing the server such that queues collect
  pieces of work and execute them asynchronously.
@@ -5491,7 +5491,7 @@ State Capture
 \begin_inset Text
 
 \begin_layout Plain Layout
-Asynch.
+Async.
  Execution
 \end_layout
 
@@ -5668,18 +5668,12 @@ Lambda
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $\mathrm{X10}$
-\end_inset
-
-
+Google Go
 \begin_inset Index idx
 status collapsed
 
 \begin_layout Plain Layout
-\begin_inset Formula $\mathrm{X10}$
-\end_inset
-
-
+Go
 \end_layout
 
 \end_inset
@@ -5693,7 +5687,7 @@ status collapsed
 \begin_inset Text
 
 \begin_layout Plain Layout
-Activity
+Goroutine
 \end_layout
 
 \end_inset
@@ -5752,7 +5746,23 @@ Activity
 \begin_inset Text
 
 \begin_layout Plain Layout
-Google Go
+\begin_inset Formula $\mathrm{X10}$
+\end_inset
+
+
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathrm{X10}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -5761,7 +5771,7 @@ Google Go
 \begin_inset Text
 
 \begin_layout Plain Layout
-Goroutine
+Activity
 \end_layout
 
 \end_inset
@@ -5782,6 +5792,9 @@ Goroutine
 \begin_inset Text
 
 \begin_layout Plain Layout
+\begin_inset Formula $\checkmark$
+\end_inset
+
 
 \end_layout
 
@@ -5999,6 +6012,16 @@ Lambda
 
 \begin_layout Plain Layout
 OpenMP
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+OpenMP
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -6061,6 +6084,16 @@ Iteration
 
 \begin_layout Plain Layout
 Galois
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+Galois
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -6122,7 +6155,17 @@ Iteration
 \begin_inset Text
 
 \begin_layout Plain Layout
-TaskC
+CoreManager
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+CoreManager
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -6184,7 +6227,17 @@ Task
 \begin_inset Text
 
 \begin_layout Plain Layout
-Qt Signals and Slots
+Qt
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+Qt
+\end_layout
+
+\end_inset
+
+ Signals and Slots
 \end_layout
 
 \end_inset
@@ -6232,6 +6285,9 @@ Event
 \begin_inset Text
 
 \begin_layout Plain Layout
+\begin_inset Formula $\checkmark$
+\end_inset
+
 
 \end_layout
 
@@ -6315,18 +6371,80 @@ key "Apple:GrandCentralDispatch"
 \end_inset
 
 language extension and work queue library.
- IBM developed 
+ Both offer fully featured lambdas that can be dispatched for asynchronous
+ execution with transparent thread management by the underlying framework.
+ The asynchronous lambda example shown in Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "2-fig:Mouse-Processing-Styles"
+
+\end_inset
+
+ used a syntax close to GCD.
+\end_layout
+
+\begin_layout Standard
+Goroutines in Google’s Go language
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Google_Go"
+
+\end_inset
+
+ are functions that execute asynchronously, with the Go runtime managing
+ threads automatically.
+ Using anonymous inline functions, developers can write Goroutine code in
+ place, without branching off to a separate function.
+ Like C
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+raisebox{0.3mm}{++}
+\end_layout
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+lambdas, Go closures can access variables from the surrounding context and
+ capture them by value or by reference.
+\end_layout
+
+\begin_layout Standard
+IBM developed 
 \begin_inset Formula $\mathrm{X10}$
 \end_inset
 
 , a new language for parallel programming,
 \begin_inset CommandInset citation
 LatexCommand cite
+after "-2\\baselineskip"
 key "Charles:X10"
 
 \end_inset
 
- which also offers a full implementation of asynchronous lambdas.
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+manual offset
+\end_layout
+
+\end_inset
+
+ which also offers a full implementation of asynchronous lambdas, which
+ the authors call activities.
  In addition, 
 \begin_inset Formula $\mathrm{X10}$
 \end_inset
@@ -6353,20 +6471,6 @@ places
 \end_inset
 
  concept to represent locality in a partitioned address space.
-\end_layout
-
-\begin_layout Standard
-Goroutines in Google’s Go language
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Google_Go"
-
-\end_inset
-
- are functions that are executed asynchronously, with the Go runtime managing
- threads automatically.
- Go’s asynchronous lambda scorecard remains incomplete because its closures
- are anonymous inline functions that do not capture state.
 \end_layout
 
 \begin_layout Standard
@@ -6407,66 +6511,199 @@ key "Intel_TBB"
 \end_layout
 
 \begin_layout Standard
-OpenMP employs an even more restrictive model of concurrency.
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Figures/2-Anatomy/Fork_Join.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "2-mar:OpenMP-Fork-Join"
+
+\end_inset
+
+OpenMP Fork-Join-Model
+\end_layout
+
+\end_inset
+
+
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Greyedout
-status open
-
-\begin_layout Itemize
-implementations of lambda programming
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-do a table with checkmarks comparing different implementations of the paradigm
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-cross-thread signal-slot-connections in Qt
+OpenMP
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Qt:SignalsSlotsThreads"
+key "OpenMP"
 
 \end_inset
 
-: asynchronous method calls, no automatic thread management, no automatic
- state-capturing
-\end_layout
+ employs an even stricter model of fork-join-concurrency.
+ The programmer marks parallel sections in otherwise serial code.
+ Figure
+\begin_inset space ~
+\end_inset
 
-\begin_layout Itemize
-TaskC model for Core Manager
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Arnold:TaskC"
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "2-mar:OpenMP-Fork-Join"
 
 \end_inset
 
-: asynchronous task spawning but not nested, automatic placement decision,
- manual statue capture because its not shared memory
+ shows how the master thread fans out into a number of worker threads to
+ execute parallel work.
+ The focus is on parallelizing loops, with an automatic assignment of iterations
+ to threads.
 \end_layout
 
-\begin_layout Itemize
-OpenMP for regular algorithms like iterating over dense arrays, mostly paralleli
-zing loops: automatic thread assignment, guided self-scheduling to reduce
- dispatching overhead, synchronous
-\end_layout
-
-\begin_layout Itemize
-Galois
+\begin_layout Standard
+Like OpenMP, the Galois research runtime parallelizes iterative work.
+ However, it extends the traditional parallel loop to a dynamic set iterator,
+ where executing one iteration can add new iterations to a work set.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Kulkarni:Galois"
 
 \end_inset
 
-: optimistic set iterator
+ While parallel loops suffice to implement array processing or dense matrix
+ operations, the generalization to set iterators helps with irregular algorithms
+ like traversing graphs or other pointer-based data structures.
+ For the latter class of algorithms, parallelism is data-dependent and builds
+ up at runtime.
+ Dividing the iteration space among threads can therefore not be done at
+ the beginning of the iteration, but must be done dynamically while the
+ iterator progresses.
+ The resulting irregular parallelism is illustrated in Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "2-mar:Galois-Set-Iterator"
+
+\end_inset
+
+.
 \end_layout
 
-\end_deeper
-\end_deeper
+\begin_layout Standard
+Even hardware is trending towards asynchronous programming models.
+ CoreManager
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Arnold:CoreManager"
+
+\end_inset
+
+ is a scheduler that dispatches tasks to processing elements on a heterogeneous
+ multiprocessor.
+ The Tomahawk
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+Tomahawk
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Limberg:Tomahawk"
+
+\end_inset
+
+ research chip is based on a hardware implementation of the CoreManager
+ concept.
+ The allocation of processing elements is transparent to the programmer
+ and the main application processor continues executing while the task is
+ running asynchronously on the processing element.
+ Although input and output data of a task must be marked explicitly, the
+ memory content is automatically transferred by a memory controller.
+\end_layout
+
+\begin_layout Standard
+Among the application frameworks popular on Linux, the Qt library provides
+ a mechanism called Signals and Slots to flexibly dispatch function invocation.
+ This mechanism works across threads
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Qt:SignalsSlotsThreads"
+
+\end_inset
+
+ and allows for asynchronous execution of work in the background.
+ Automatic thread management is available by way of a thread pool facility.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Figures/2-Anatomy/Set_Iterator.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "2-mar:Galois-Set-Iterator"
+
+\end_inset
+
+Galois Set Iterator
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Greyedout
+status open
+
 \begin_layout Itemize
 how it feels
 \end_layout
@@ -6494,20 +6731,6 @@ work queues
 \end_layout
 
 \begin_deeper
-\begin_layout Itemize
-necessary for data-dependent parallelism: build-up parallelism at runtime,
- because it is unknown statically
-\end_layout
-
-\begin_layout Itemize
-executing some job can add new jobs to the set
-\end_layout
-
-\begin_layout Itemize
-useful to implement irregular algorithms (processing on graph-like data
- structures with pointers, opposite: arrays, dense matrices)
-\end_layout
-
 \begin_layout Itemize
 SPMD-to-MPMD-generalization of Galois optimistic set iterators
 \end_layout
@@ -6571,12 +6794,12 @@ can be provided by mutual exclusion (pessimistic, see GCD) or transactional
 \end_layout
 
 \begin_layout Itemize
-interface to synchronisation is part of the same concept: serial queues
+interface to synchronization is part of the same concept: serial queues
  allow explicit task ordering and allow the developer to reason about it
 \end_layout
 
 \begin_layout Itemize
-odered iterators in Galois
+ordered iterators in Galois
 \end_layout
 
 \end_deeper
@@ -7206,14 +7429,14 @@ LRT is optimal
 \end_deeper
 \end_deeper
 \begin_layout Itemize
-this scheduling behavior can be simulated in userland by setting thread
+this scheduling behavior can be simulated in user-land by setting thread
  priorities
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
 experimenting with close interaction of application and scheduler is easier
- in userland
+ in user-land
 \end_layout
 
 \begin_layout Itemize
@@ -7280,7 +7503,7 @@ fixed-priority approaches: strongest guarantees possible, minimal implementation
 
 \begin_deeper
 \begin_layout Itemize
-expose scheduler implementation to userland, other task models would be
+expose scheduler implementation to user-land, other task models would be
  implemented on top
 \end_layout
 
