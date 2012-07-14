@@ -6373,18 +6373,6 @@ key "Apple:GrandCentralDispatch"
 language extension and work queue library.
  Both offer fully featured lambdas that can be dispatched for asynchronous
  execution with transparent thread management by the underlying framework.
- The asynchronous lambda example shown in Figure
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand vref
-reference "2-fig:Mouse-Processing-Styles"
-
-\end_inset
-
- used a syntax close to GCD.
 \end_layout
 
 \begin_layout Standard
@@ -6428,7 +6416,7 @@ IBM developed
 , a new language for parallel programming,
 \begin_inset CommandInset citation
 LatexCommand cite
-after "-2\\baselineskip"
+after "-1\\baselineskip"
 key "Charles:X10"
 
 \end_inset
@@ -6612,7 +6600,8 @@ reference "2-mar:Galois-Set-Iterator"
 \end_layout
 
 \begin_layout Standard
-Even hardware is trending towards asynchronous programming models.
+Even hardware is trending towards asynchronous programming models, forecasting
+ the relevance for future heterogeneous manycore chips.
  CoreManager
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -6641,9 +6630,9 @@ key "Limberg:Tomahawk"
 
  research chip is based on a hardware implementation of the CoreManager
  concept.
- The allocation of processing elements is transparent to the programmer
- and the main application processor continues executing while the task is
- running asynchronously on the processing element.
+ Allocation of processing elements is transparent to the programmer and
+ the main application processor continues executing while a task is running
+ asynchronously on a processing element.
  Although input and output data of a task must be marked explicitly, the
  memory content is automatically transferred by a memory controller.
 \end_layout
@@ -6698,6 +6687,10 @@ Galois Set Iterator
 \end_inset
 
 
+\end_layout
+
+\begin_layout Section
+The Lambda Style
 \end_layout
 
 \begin_layout Standard
@@ -6779,7 +6772,14 @@ key "Rajkumar:ResourceKernels"
 \end_layout
 
 \begin_layout Itemize
-master and worker threads in OpenMP or Galois
+master and worker threads in OpenMP or Galois or (in the large) Piccolo
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Power:Piccolo"
+
+\end_inset
+
+
 \end_layout
 
 \end_deeper
@@ -6806,7 +6806,7 @@ ordered iterators in Galois
 \end_deeper
 \begin_layout Itemize
 result of this architecture: most work is done asynchronously and is announced
- by the before execution
+ before execution
 \end_layout
 
 \begin_deeper
@@ -7315,7 +7315,7 @@ we could restrict the programmer to allow for more implicit scheduler knowledge
 \end_layout
 
 \begin_layout Itemize
-the urgency of one job remains the same over its lifetime
+assumption: the urgency of one job remains the same over its lifetime
 \end_layout
 
 \begin_layout Itemize
@@ -7392,7 +7392,11 @@ round-robin all late jobs and the next job in EDF order when there is slack
 \begin_deeper
 \begin_layout Itemize
 jobs that need more time can continue, but the next job in EDF order can
- also start work
+ also start to work early
+\end_layout
+
+\begin_layout Itemize
+accounts for underestimated execution time
 \end_layout
 
 \end_deeper
@@ -7427,6 +7431,44 @@ LRT is optimal
 \end_layout
 
 \end_deeper
+\end_deeper
+\begin_layout Itemize
+summary: scheduler contract
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+when the system is not overloaded, all behaving jobs meet their deadline
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Quotes eld
+\end_inset
+
+not overloaded
+\begin_inset Quotes erd
+\end_inset
+
+: the set of all reported deadlines and execution times allow a feasible
+ schedule, which EDF will find (optimal)
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Quotes eld
+\end_inset
+
+behaving job
+\begin_inset Quotes erd
+\end_inset
+
+: the job does not run for longer than its estimated execution time and
+ only blocks when its laxity is greater 0
+\end_layout
+
+\begin_layout Itemize
+can we prove this?
+\end_layout
+
 \end_deeper
 \begin_layout Itemize
 this scheduling behavior can be simulated in user-land by setting thread
@@ -8334,7 +8376,8 @@ key "Sutter:ParallelJungle"
 \end_layout
 
 \begin_layout Itemize
-need to choreograph heterogeneous accelerators
+need to choreograph heterogeneous accelerators or dynamically fuse cores
+ (Core Fusion)
 \end_layout
 
 \begin_layout Itemize
@@ -8549,6 +8592,11 @@ application must provide execution time estimate for any number of cores
  the job can use
 \end_layout
 
+\begin_layout Itemize
+the actual placement onto cores is a policy and should be orthogonal to
+ the placement mechanism described above
+\end_layout
+
 \end_deeper
 \begin_layout Itemize
 end-to-end solution
@@ -8573,8 +8621,8 @@ application: offer parallelism to the system, provide estimates on parallel
 \end_layout
 
 \begin_layout Itemize
-system: non-work-conserving placement of jobs on cores and order in time
- based on deadlines, execution time estimates and parallelism
+system: policy-based placement of jobs on cores and order in time based
+ on deadlines, execution time estimates and parallelism
 \end_layout
 
 \end_deeper
@@ -8604,102 +8652,13 @@ avoid context-switch, so no upcall interface, but info-page-style shared
 \end_deeper
 \end_deeper
 \begin_layout Itemize
-system scheduler
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-G-EDF is optimal for soft real-time
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Devi:GEDFTardiness"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-G-EDF not optimal with respect to feasibility, but optimal deadline-based
- algorithms are known
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Levin:DP-Fair"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-efficient EDF implementation strategies are known for single cores
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Short:EDFTaskManagement"
-
-\end_inset
-
- and multicores
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Lelli:Scalable_EDF"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-extensive scalability studies for multicores
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Brandenburg:GlobalEDF"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-G-EDF scales for today's core counts, in the future we may want to consider
- clustered scheduling
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Calandrino:ClusteredEDF"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-ongoing discussion on trading schedulability and locality using partitioning,
- clustering
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Bastoni:EmpiricalComparison"
-
-\end_inset
-
- and semi-partitioning
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Bastoni:SemiPartitioned"
-
-\end_inset
-
- (some tasks allowed to migrate)
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
 end-to-end evaluation
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
-non-work-conserving placement of jobs on one core as long as it fits, fire
- up second core only when necessary
+example policy: non-work-conserving placement of jobs on one core as long
+ as it fits, fire up second core only when necessary
 \end_layout
 
 \begin_layout Itemize
@@ -8888,6 +8847,107 @@ key "Merkel:EnergyModel"
 \end_inset
 
 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+real-time analysis can yield placement strategies with guaranteed timing
+ properties
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+so far for more limited models of parallelism like fork-join
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lakshmanan:ParallelRealTimeTasks"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+G-EDF is optimal for soft real-time
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Devi:GEDFTardiness"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+G-EDF not optimal with respect to feasibility, but optimal deadline-based
+ algorithms are known
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Levin:DP-Fair"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+efficient EDF implementation strategies are known for single cores
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Short:EDFTaskManagement"
+
+\end_inset
+
+ and multicores
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lelli:Scalable_EDF"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+extensive scalability studies for multicores
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Brandenburg:GlobalEDF"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+G-EDF scales for today's core counts, in the future we may want to consider
+ clustered scheduling
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Calandrino:ClusteredEDF"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+ongoing discussion on trading schedulability and locality using partitioning,
+ clustering
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Bastoni:EmpiricalComparison"
+
+\end_inset
+
+ and semi-partitioning
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Bastoni:SemiPartitioned"
+
+\end_inset
+
+ (some tasks allowed to migrate)
 \end_layout
 
 \end_deeper
