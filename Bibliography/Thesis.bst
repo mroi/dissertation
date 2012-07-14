@@ -561,7 +561,6 @@ FUNCTION {format.date}
     }
   if$
   *
-  extra.label *
   before.all 'output.state :=
   ", " swap$ *
 }
