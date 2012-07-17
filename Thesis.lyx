@@ -3199,7 +3199,7 @@ Atlas
 status open
 
 \begin_layout Plain Layout
-Like its namesake, the greek titan who supports the celestial globe (cf.
+Like its namesake, the Greek titan who supports the celestial globe (cf.
 \begin_inset space ~
 \end_inset
 
@@ -6453,7 +6453,7 @@ places
 status collapsed
 
 \begin_layout Plain Layout
-places
+place
 \end_layout
 
 \end_inset
@@ -6682,6 +6682,10 @@ Galois Set Iterator
 \end_inset
 
 
+\begin_inset VSpace defskip
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -6694,6 +6698,680 @@ The Lambda Style
 \end_layout
 
 \begin_layout Standard
+Throughout this thesis, I shall use the Grand Central Dispatch (GCD) implementat
+ion of asynchronous lambdas to illustrate examples and to demonstrate the
+ 
+\noun on
+Atlas
+\noun default
+ scheduling concepts.
+ The two reasons are as follows:
+\end_layout
+
+\begin_layout Standard
+First, GCD is a mature and fully-featured implementation of asynchronous
+ lambdas that enjoys the backing of a major company.
+ It is actively used by developers writing applications for Apple’s OS
+\begin_inset space ~
+\end_inset
+
+X and iOS platforms.
+ GCD is becoming an essential technology on both platforms, with older APIs
+ being rewritten to use it and newer APIs relying on it exclusively.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Apple:AVFoundation"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Second, unlike Microsoft’s Parallel Patterns Library or Intel’s Threading
+ Building Blocks, GCD does not require C
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+raisebox{0.3mm}{++}
+\end_layout
+
+\end_inset
+
+ and can therefore be applied to existing C-code.
+ GCD consists of a C language extension called blocks
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+block
+\end_layout
+
+\end_inset
+
+ and the libdispatch
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+libdispatch
+\end_layout
+
+\end_inset
+
+ runtime library.
+ The clang
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+clang
+\end_layout
+
+\end_inset
+
+ compiler
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+
+\emph on
+\begin_inset CommandInset href
+LatexCommand href
+name "clang: a C language family frontend for LLVM"
+target "http://clang.llvm.org/"
+
+\end_inset
+
+.
+
+\emph default
+ The LLVM Compiler Infrastructure.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+href{http://clang.llvm.org/}{
+\backslash
+nolinkurl{clang.llvm.org}}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ implements the blocks extension and libdispatch is available from Apple.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+
+\emph on
+\begin_inset CommandInset href
+LatexCommand href
+name "libdispatch"
+target "http://libdispatch.macosforge.org/"
+
+\end_inset
+
+.
+
+\emph default
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+href{http://libdispatch.macosforge.org/}{
+\backslash
+nolinkurl{libdispatch.macosforge.org}}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ Both are open-source licensed and have been ported to Linux, turning GCD
+ into a suitable research platform with complete source code available.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+The two basic primitives of GCD
+\end_layout
+
+\end_inset
+
+ are blocks and dispatch queues
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+dispatch queue
+\end_layout
+
+\end_inset
+
+.
+ Blocks implement the lambda part of asynchronous lambdas.
+ They turn a piece of executable code into a language object, but other
+ than a function they are written inline and automatically capture surrounding
+ variables as needed within the block.
+ The example in Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "2-fig:GCD-Blocks-Capture"
+
+\end_inset
+
+ demonstrates both properties:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset VSpace -3mm
+\end_inset
+
+
+\lang english
+
+\begin_inset listings
+lstparams "numbers=left"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#include <stdio.h>
+\end_layout
+
+\begin_layout Plain Layout
+
+int main(void) {
+\end_layout
+
+\begin_layout Plain Layout
+
+	int multiplier = 7;
+\end_layout
+
+\begin_layout Plain Layout
+
+	void (^multiplication)() = ^{
+\end_layout
+
+\begin_layout Plain Layout
+
+		int result = 6 * multiplier;
+\end_layout
+
+\begin_layout Plain Layout
+
+		printf("%d", result);
+\end_layout
+
+\begin_layout Plain Layout
+
+	};
+\end_layout
+
+\begin_layout Plain Layout
+
+	multiplier++;
+\end_layout
+
+\begin_layout Plain Layout
+
+	multiplication();
+\end_layout
+
+\begin_layout Plain Layout
+
+	// prints 42
+\end_layout
+
+\begin_layout Plain Layout
+
+	return 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "2-fig:GCD-Blocks-Capture"
+
+\end_inset
+
+GCD Blocks Capture State
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+In lines four to seven, a block is defined
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Refer to Apple’s documentation 
+\emph on
+
+\begin_inset CommandInset href
+LatexCommand href
+name "Blocks Programming Topics"
+target "https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/Blocks/Blocks.pdf"
+
+\end_inset
+
+
+\emph default
+ for an in-depth explanation of the blocks syntax.
+\end_layout
+
+\end_inset
+
+ and assigned to the local variable 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+multiplication
+\end_layout
+
+\end_inset
+
+.
+ The block multiplies a variable by six and prints the result.
+ The 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+multiplier
+\end_layout
+
+\end_inset
+
+ variable is not part of the block’s local scope, but is imported from the
+ surrounding scope.
+ The value of this variable is captured at definition time of the block.
+ When the block is finally executed in line nine, it still uses that captured
+ value, even though the multiplier has been changed in line eight.
+ The result printed in line nine is therefore 42.
+\end_layout
+
+\begin_layout Standard
+Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "2-fig:Anonymous-GCD-Block"
+
+\end_inset
+
+ shows that blocks can also be passed to functions as arguments and they
+ can be defined anonymously right in the function call, omitting the assignment
+ to a local block variable:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset VSpace -3mm
+\end_inset
+
+
+\lang english
+
+\begin_inset listings
+lstparams "numbers=left"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#include <stdio.h>
+\end_layout
+
+\begin_layout Plain Layout
+
+static void run(void (^block)()) {
+\end_layout
+
+\begin_layout Plain Layout
+
+	block();
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+int main(void) {
+\end_layout
+
+\begin_layout Plain Layout
+
+	int multiplier = 7;
+\end_layout
+
+\begin_layout Plain Layout
+
+	run(^{
+\end_layout
+
+\begin_layout Plain Layout
+
+		int result = 6 * multiplier;
+\end_layout
+
+\begin_layout Plain Layout
+
+		printf("%d", result);
+\end_layout
+
+\begin_layout Plain Layout
+
+	});
+\end_layout
+
+\begin_layout Plain Layout
+
+	// prints 42
+\end_layout
+
+\begin_layout Plain Layout
+
+	return 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "2-fig:Anonymous-GCD-Block"
+
+\end_inset
+
+Anonymous GCD Block Passed to Function
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Again, when the block is defined in lines seven to ten, it captures the
+ variable 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+multiplier
+\end_layout
+
+\end_inset
+
+ from the surrounding scope.
+ The block is passed as an argument to the 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+run()
+\end_layout
+
+\end_inset
+
+ function, which invokes it in line three, where it prints 42 as the result.
+ In this example, the block is executed immediately, but 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+run()
+\end_layout
+
+\end_inset
+
+ is also free to store the block for later invocation, in which case the
+ original 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+multiplier
+\end_layout
+
+\end_inset
+
+ variable may already be destroyed, leaving only the captured copy in the
+ block.
+\end_layout
+
+\begin_layout Standard
+Here, libdispatch enters the stage.
+ It implements dispatch queues to which a programmer can asynchronously
+ submit work items in the form of blocks.
+ Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "2-fig:Asynchronous-Execution-libdispatch"
+
+\end_inset
+
+ rewrites our running example using libdispatch functions:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset VSpace -3mm
+\end_inset
+
+
+\lang english
+
+\begin_inset listings
+lstparams "numbers=left"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#include <dispatch/dispatch.h>
+\end_layout
+
+\begin_layout Plain Layout
+
+#include <stdio.h>
+\end_layout
+
+\begin_layout Plain Layout
+
+int main(void) {
+\end_layout
+
+\begin_layout Plain Layout
+
+	dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
+\end_layout
+
+\begin_layout Plain Layout
+
+	int multiplier = 7;
+\end_layout
+
+\begin_layout Plain Layout
+
+	dispatch_async(queue, ^{
+\end_layout
+
+\begin_layout Plain Layout
+
+		int result = 6 * multiplier;
+\end_layout
+
+\begin_layout Plain Layout
+
+		printf("%d", result);
+\end_layout
+
+\begin_layout Plain Layout
+
+	});
+\end_layout
+
+\begin_layout Plain Layout
+
+	// prints 42
+\end_layout
+
+\begin_layout Plain Layout
+
+	dispatch_barrier_sync(queue, ^{});
+\end_layout
+
+\begin_layout Plain Layout
+
+	return 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "2-fig:Asynchronous-Execution-libdispatch"
+
+\end_inset
+
+Asynchronous Execution with libdispatch
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The block is passed in line six to a libdispatch function, which enqueues
+ it for asynchronous execution.
+ A worker thread is automatically spawned behind the scenes to process the
+ blocks from the queue.
+ Line eleven waits for the background thread to finish before the program
+ exits.
+\end_layout
+
+\begin_layout Standard
 \begin_inset Note Greyedout
 status open
 
@@ -6703,22 +7381,9 @@ how it feels
 
 \begin_deeper
 \begin_layout Itemize
-focus on GCD, explain primitives, illustrate with little sequence diagrams
+explain GCD primitives, illustrate with little sequence diagrams
 \end_layout
 
-\begin_deeper
-\begin_layout Itemize
-railway trains on a track network
-\begin_inset CommandInset citation
-LatexCommand cite
-key "MacResearch:AboardGrandCentral"
-
-\end_inset
-
-
-\end_layout
-
-\end_deeper
 \begin_layout Itemize
 work queues
 \end_layout
@@ -6798,6 +7463,13 @@ interface to synchronization is part of the same concept: serial queues
  allow explicit task ordering and allow the developer to reason about it
 \end_layout
 
+\begin_deeper
+\begin_layout Plain Layout
+Dispatch queues come in one of two flavors: serial and parallel queues.
+ A serial queue guarantees …
+\end_layout
+
+\end_deeper
 \begin_layout Itemize
 ordered iterators in Galois
 \end_layout
