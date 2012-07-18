@@ -6899,12 +6899,9 @@ sideways false
 status open
 
 \begin_layout Plain Layout
-
 \begin_inset VSpace -3mm
 \end_inset
 
-
-\lang english
 
 \begin_inset listings
 lstparams "numbers=left"
@@ -7077,12 +7074,9 @@ sideways false
 status open
 
 \begin_layout Plain Layout
-
 \begin_inset VSpace -3mm
 \end_inset
 
-
-\lang english
 
 \begin_inset listings
 lstparams "numbers=left"
@@ -7247,7 +7241,7 @@ reference "2-fig:Asynchronous-Execution-libdispatch"
 
 \end_inset
 
- rewrites our running example using libdispatch functions:
+ restate our running example using libdispatch functions:
 \end_layout
 
 \begin_layout Standard
@@ -7257,12 +7251,9 @@ sideways false
 status open
 
 \begin_layout Plain Layout
-
 \begin_inset VSpace -3mm
 \end_inset
 
-
-\lang english
 
 \begin_inset listings
 lstparams "numbers=left"
@@ -7363,12 +7354,89 @@ Asynchronous Execution with libdispatch
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Figures/2-Anatomy/GCD_Async.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "2-mar:GCD-Asynchronous-Dispatch"
+
+\end_inset
+
+GCD Asynchronous Dispatch
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
 The block is passed in line six to a libdispatch function, which enqueues
  it for asynchronous execution.
- A worker thread is automatically spawned behind the scenes to process the
- blocks from the queue.
- Line eleven waits for the background thread to finish before the program
- exits.
+ Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "2-mar:GCD-Asynchronous-Dispatch"
+
+\end_inset
+
+ pictures the libdispatch runtime automatically spawning a worker thread
+ behind the scenes to process the block from the queue.
+ Line eleven waits for background work to finish before the program exits.
+ Of course the main thread could perform other duties before waiting, resulting
+ in two-way parallel execution.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+GCD can parallelize loops
+\end_layout
+
+\end_inset
+
+ by dispatching all iterations at once with the 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+dispatch_apply()
+\end_layout
+
+\end_inset
+
+ convenience function.
+ The dispatch queue will suddenly contain a number of blocks, so the runtime
+ library starts multiple threads to process iterations concurrently, leading
+ to an OpenMP-style fork-join parallelism.
 \end_layout
 
 \begin_layout Standard
@@ -7380,10 +7448,6 @@ how it feels
 \end_layout
 
 \begin_deeper
-\begin_layout Itemize
-explain GCD primitives, illustrate with little sequence diagrams
-\end_layout
-
 \begin_layout Itemize
 work queues
 \end_layout
@@ -7540,6 +7604,12 @@ lambda: independently executable piece of code, unit of parallelism
 
 \end_deeper
 \end_deeper
+\begin_layout Itemize
+blocks: expose application structure to compiler, libdispatch: … to runtime
+ for local management of parallelism, me: … to scheduler for global management
+ of timeliness, placement and overload
+\end_layout
+
 \begin_layout Itemize
 describe fundamental video player architecture
 \end_layout
@@ -8138,21 +8208,32 @@ behaving job
 \end_layout
 
 \begin_layout Itemize
-can we prove this?
+can we prove this? can we show sustainability?
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Baruah:Sustainability"
+
+\end_inset
+
+
 \end_layout
 
 \end_deeper
+\begin_layout Plain Layout
+\begin_inset Note Note
+status open
+
 \begin_layout Itemize
 this scheduling behavior can be simulated in user-land by setting thread
  priorities
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
 experimenting with close interaction of application and scheduler is easier
  in user-land
 \end_layout
 
+\begin_deeper
 \begin_layout Itemize
 separating schedule look-ahead and actual dispatching would be a good implementa
 tion strategy anyway
@@ -8164,6 +8245,11 @@ only downside: overhead is an upper bound, might be smaller with an in-kernel
 \end_layout
 
 \end_deeper
+\end_inset
+
+
+\end_layout
+
 \begin_layout Itemize
 background jobs can use infinite deadline, no extra best-effort scheduling-band
  needed
@@ -9362,6 +9448,17 @@ key "Collette:JobParallelism"
 the number of kernel traps and process migrations could be lower in my system,
  because I assign cores exclusively (i.e.
  no time-slicing) for a while
+\end_layout
+
+\begin_layout Itemize
+discuss sustainability?
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Baker:MultiprocessorSustainability"
+
+\end_inset
+
+
 \end_layout
 
 \end_deeper
