@@ -1440,8 +1440,8 @@ Developing a modern application
  Systems research can and should help here.
  Libraries can mediate between the application’s view and the system interface.
  I will now motivate my work from the system’s perspective and show that
- the cross-cutting nature of non-functional properties actually requires
- the participation of the lower system levels.
+ the cross-cutting nature of non-functional properties calls for participation
+ of the lower system levels.
 \end_layout
 
 \begin_layout Section
@@ -4323,8 +4323,8 @@ reference "1-mar:Typical-Properties"
 \end_inset
 
  condenses typical behavior of selected desktop real-time tasks.
- Although video is used as the running example throughout this thesis, I
- complement it with other experiments to substantiate the evaluation.
+ Although video is the running example throughout this thesis, I complement
+ it with other experiments to substantiate the evaluation.
 \end_layout
 
 \begin_layout Standard
@@ -4411,29 +4411,19 @@ Anatomy of a Modern Desktop Application
 
 \begin_layout Standard
 For 
-\begin_inset Flex Noun
-status collapsed
-
-\begin_layout Plain Layout
+\noun on
 Atlas
-\end_layout
-
-\end_inset
-
+\noun default
 , I envision a tight integration of application, runtime libraries and the
  CPU scheduler.
  The following pages explain the programming style of modern desktop application
 s and motivate, how 
-\begin_inset Flex Noun
-status collapsed
-
-\begin_layout Plain Layout
+\noun on
 Atlas
-\end_layout
-
-\end_inset
-
+\noun default
  can be fitted for this style and what benefits the combination affords.
+ Apart from guiding ideas framed in the context of real-world programming,
+ I do not claim a distinct scientific contribution.
 \end_layout
 
 \begin_layout Standard
@@ -4560,8 +4550,8 @@ asynchronous interface
  and the use of multiple threads.
  Both have their share of problems.
  Asynchronous interfaces split the logical code flow into two parts: The
- setup of context and arguments precedes the asynchronous invocation.
- Results are interpreted once the asynchronous operation finishes.
+ setup of context and arguments prepares the asynchronous invocation.
+ Results come in as the asynchronous operation finishes.
  Often, a callback by the underlying framework executes this second part,
  which riddles the code with additional functions just for callback purposes.
  This callback-soup
@@ -6463,8 +6453,7 @@ key "Charles:X10"
 
 \end_inset
 
- which also offers a full implementation of asynchronous lambdas, which
- the authors call activities.
+ which also offers a full implementation of asynchronous lambdas.
  In addition, 
 \begin_inset Formula $\mathrm{X10}$
 \end_inset
@@ -6491,6 +6480,11 @@ place
 \end_inset
 
  concept to represent locality in a partitioned address space.
+ Places host activities, which is the 
+\begin_inset Formula $\mathrm{X10}$
+\end_inset
+
+ name for lambdas.
 \end_layout
 
 \begin_layout Standard
@@ -6579,10 +6573,10 @@ key "Kulkarni:Galois"
  like traversing graphs or other pointer-based data structures.
  For the latter class of algorithms, parallelism is data-dependent and builds
  up at runtime.
- Dividing the iteration space among threads can therefore not be done at
- the beginning of the iteration, but must be done dynamically while the
- iterator progresses.
- The resulting irregular parallelism is illustrated in Figure
+ The iteration space can therefore not be divided among threads at the beginning
+ of the iteration, but must be assigned dynamically while the iterator progresse
+s.
+ Figure
 \begin_inset space ~
 \end_inset
 
@@ -6593,7 +6587,7 @@ reference "2-mar:Galois-Set-Iterator"
 
 \end_inset
 
-.
+ illustrates the resulting irregular parallelism.
 \end_layout
 
 \begin_layout Standard
@@ -6771,8 +6765,8 @@ First, GCD is a mature and fully-featured implementation of asynchronous
 \end_inset
 
 X and iOS platforms.
- GCD is becoming an essential technology on both platforms, with older APIs
- being rewritten to use it and newer APIs relying on it exclusively.
+ GCD is becoming an essential technology on these platforms, with older
+ APIs being rewritten to use it and newer APIs relying on it exclusively.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Apple:AVFoundation"
@@ -6797,7 +6791,7 @@ raisebox{0.3mm}{++}
 
 \end_inset
 
- and can therefore be applied to existing C-code.
+ and is therefore compatible with existing C-code.
  GCD consists of a C language extension called blocks
 \begin_inset Index idx
 status collapsed
@@ -6944,7 +6938,7 @@ reference "2-fig:GCD-Blocks-Capture"
 
 \end_inset
 
- demonstrates both properties:
+ demonstrates these properties:
 \begin_inset Newpage newpage
 \end_inset
 
@@ -7550,15 +7544,15 @@ The programming paradigm
 \end_layout
 
 \begin_layout Standard
-The mechanics of such generic parallel runtimes and their work queue management
- strategies have been explored by research early
+Academia has explored the mechanics of such generic parallel runtimes and
+ their work queue management strategies early.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Blumofe:Cilk"
 
 \end_inset
 
- and are now appearing as mature industrial solutions.
+ Now, these system appear as mature industrial solutions.
 \end_layout
 
 \begin_layout Standard
@@ -7652,14 +7646,14 @@ key "Power:Piccolo"
 
 \end_inset
 
-, where the equivalent to the main thread is called the master process.
+, where the equivalent to the main thread is the master process.
  It orchestrates workers running on separate machines by dispatching compute
  kernels to them.
 \end_layout
 
 \begin_layout Standard
-The main thread and other legacy threads need to be considered when I discuss
- real-time reservations.
+I revisit the main thread and other manually managed legacy threads when
+ I discuss real-time reservations.
 \end_layout
 
 \begin_layout Standard
@@ -7674,11 +7668,10 @@ Synchronization
 
  is orthogonal to, but necessary for controlling parallelism.
  Conceptually, synchronization solves race conditions pessimistically using
- mutual exclusion or optimistically using transactions or any hybrid solution
- in between.
+ mutual exclusion or optimistically using transactions.
  With the exception of Galois, which uses optimistic concurrency and rollback,
  the asynchronous lambda implementations discussed here employ pessimistic
- synchronization.
+ synchronization with locks or semaphores.
 \end_layout
 
 \begin_layout Standard
@@ -7691,8 +7684,8 @@ key "Apple:SerialQueue"
 \end_inset
 
  Dispatch queues come in one of two flavors: serial and parallel queues.
- Blocks submitted to a serial queue are processed one after the other, never
- running two of them at the same time.
+ Blocks submitted to a serial queue execute one after the other, never running
+ two of them at the same time.
  This guarantee not only implies protection for critical sections, it also
  allows developers to reason about the order of block execution.
  Locks lack the latter property, which is a significant source of concurrency
@@ -7715,8 +7708,8 @@ If developers follow the rules and ensure responsiveness by keeping all
  non-trivial work off the main thread, the bulk of execution will be funneled
  through dispatch queues.
  Especially for autonomous computing tasks, where the user triggers a long-runni
-ng operation with a single mouse click, the queues can be filled with substantia
-l amounts of work.
+ng operation with a single mouse click, the queues can fill with substantial
+ amounts of work.
  At the time of the click, no further input from the user or the environment
  influences the result of the computation, so only the application’s code
  and data determine the following execution.
@@ -7732,11 +7725,11 @@ Media playback is the prime example for such an operation that is one-shot
  predetermined and known to the application.
  This also holds true for interactive applications such as games, albeit
  with a much smaller time horizon.
- If an application is driven by low-latency reactions to user input, the
- dispatch queues will only contain short bursts of work.
+ In an application, which primarily reacts to user input with short latency,
+ the dispatch queues will only contain short bursts of work.
  The application can still foresee and report to the scheduler what it is
- going to do, but the time horizon is reduced compared to media playback
- use cases.
+ going to do, but the time horizon shortens compared to media playback use
+ cases.
 \end_layout
 
 \begin_layout Standard
@@ -7854,8 +7847,9 @@ lambda
 
  designates a combined portion of code and captured variable state that
  is submitted to a dispatch queue.
- The GCD implementation is called block, but I use the term lambda synonymously.
- Blocks are managed by the runtime library within the application.
+ Block is the name for the GCD implementation, but I use the term lambda
+ synonymously.
+ The runtime library manages blocks within the application.
  By executing independent blocks on different threads, blocks become the
  unit of parallelism.
 \end_layout
@@ -7873,7 +7867,7 @@ job
 
  denotes a work item described by metadata like a deadline or an execution
  time requirement.
- Jobs are exposed by the application and are managed globally by the scheduler.
+ The application exposes jobs and the scheduler manages them globally.
  The term is similar in meaning to the one from the real-time field, although
  the latter is typically defined in the context of a task model.
  A formal definition of my task model follows in the next chapter.
@@ -7917,24 +7911,103 @@ To the best of my knowledge,
 
  the combination and mutual benefits of asynchronous lambdas and real-time
  jobs have not been explored yet.
- 
+ A different example of marrying real-time and programming concepts was
+ the Comquad project, which introduced timing contracts
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Haertig:COMQUAD"
+
+\end_inset
+
+ into component-based development.
+\end_layout
+
+\begin_layout Standard
+I propose to exploit the code’s block structure to attach real-time metadata
+ and expose jobs to the scheduler for global management.
+ As illustrated in Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "2-mar:Cooperation-Blocks-Jobs"
+
+\end_inset
+
+, the scheduler allocates CPU time for each job.
+ The application fills those reservations with life by running the associated
+ block code.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset VSpace 5cm
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "2-mar:Cooperation-Blocks-Jobs"
+
+\end_inset
+
+Cooperation between Blocks and Jobs
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Inside a Video Player
 \end_layout
 
 \begin_layout Standard
 \begin_inset Note Greyedout
 status open
 
-\begin_layout Itemize
-to the best of my knowledge, the combination of asynchronous lambdas and
- real-time has not been explored before
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-attaching metadata and exposing to scheduler
-\end_layout
-
-\end_deeper
 \begin_layout Itemize
 describe fundamental video player architecture
 \end_layout
@@ -8773,6 +8846,18 @@ no look-ahead
 
 \end_deeper
 \end_deeper
+\begin_layout Itemize
+event streams
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Albers:EventStreams"
+
+\end_inset
+
+ allow periodic jobs with jitter and sporadic jobs, but still targets strong
+ analysis rather than easy programming
+\end_layout
+
 \begin_layout Itemize
 resource kernels
 \begin_inset CommandInset citation
