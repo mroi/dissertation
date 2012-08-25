@@ -6745,9 +6745,8 @@ The Lambda Style
 \end_layout
 
 \begin_layout Standard
-Throughout this thesis, I shall use the Grand Central Dispatch (GCD) implementat
-ion of asynchronous lambdas to illustrate examples and to demonstrate the
- 
+Throughout this thesis, I use the Grand Central Dispatch (GCD) implementation
+ of asynchronous lambdas to illustrate examples and to demonstrate the 
 \noun on
 Atlas
 \noun default
@@ -7552,7 +7551,16 @@ key "Blumofe:Cilk"
 
 \end_inset
 
- Now, these system appear as mature industrial solutions.
+ Now, these systems appear as mature industrial solutions.
+ Early research suggests that lambda-like programming models are also a
+ good fit for future extremely parallel hardware.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Knauerhase:ExtremeParallelism"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -9967,7 +9975,6 @@ communication of available parallelism from application to scheduler allows
  global core arbitration
 \end_layout
 
-\end_deeper
 \begin_layout Itemize
 OS design for systems with 1000+ cores focus on space sharing instead of
  time sharing
@@ -9980,7 +9987,6 @@ key "Wentzlaff:fos"
 
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
 even stronger separation between cores: explicit communication instead of
  cache coherent shared memory
@@ -10095,6 +10101,28 @@ key "Merkel:EnergyModel"
 \end_inset
 
 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+with NUMA or discontiguous memory, data needs to travel when making placement
+ decisions for code to run
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+out of scope for me, but an important future problem
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Knauerhase:ExtremeParallelism"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+fledgling industry solutions: dispatch_data, C++AMP array_view
 \end_layout
 
 \end_deeper
@@ -10855,6 +10883,13 @@ timeliness: increased importance of responsiveness for touch UIs, tighter
 
 \begin_layout Itemize
 placement: heterogeneous manycores
+\begin_inset CommandInset citation
+LatexCommand cite
+key "DeVuyst:HeterogeneousISA"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Itemize
@@ -11088,6 +11123,17 @@ from FPGAs over DSP/SoCs to GPGPU and GPCPU: design spectrum for compute
 
 \begin_layout Itemize
 placement decisions in space and time still relevant
+\end_layout
+
+\begin_layout Itemize
+use lambda-like programming model to expose knowledge to runtime
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Knauerhase:ExtremeParallelism"
+
+\end_inset
+
+
 \end_layout
 
 \end_deeper
