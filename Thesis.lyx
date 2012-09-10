@@ -7621,7 +7621,7 @@ main thread
 
 does not rely on blocks or queues to run.
  In graphical user interface frameworks, this thread is responsible for
- communicating with the user by updating the UI and waiting for input.
+ communicating with the user by updating the display and waiting for input.
  It is not supposed to block because this will render the application unresponsi
 ve.
  Therefore, all non-trivial work should be dispatched to a work queue for
@@ -8003,6 +8003,13 @@ Cooperation between Blocks and Jobs
 
 \end_layout
 
+\begin_layout Plain Layout
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
 \end_inset
 
 
@@ -8013,49 +8020,354 @@ Inside a Video Player
 \end_layout
 
 \begin_layout Standard
+Studying FFplay
+\begin_inset space \thinspace{}
+\end_inset
+
+—
+\begin_inset space \thinspace{}
+\end_inset
+
+a simple yet fully featured video player
+\begin_inset space \thinspace{}
+\end_inset
+
+—
+\begin_inset space \thinspace{}
+\end_inset
+
+allows us to substantiate the abstract insights discussed above.
+ FFplay
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+FFplay
+\end_layout
+
+\end_inset
+
+ is a command line video player, which is part of the FFmpeg
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+FFmpeg
+\end_layout
+
+\end_inset
+
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+
+\emph on
+\begin_inset CommandInset href
+LatexCommand href
+name "FFmpeg"
+target "http://ffmpeg.org"
+
+\end_inset
+
+
+\emph default
+ is a media processing library with comprehensive support for decoding all
+ major video formats.
+\end_layout
+
+\end_inset
+
+ project and based on SDL
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+
+\emph on
+\begin_inset CommandInset href
+LatexCommand href
+name "Simple DirectMedia Layer"
+target "http://www.libsdl.org"
+
+\end_inset
+
+
+\emph default
+ is a library for portable access to audio, video and input devices.
+\end_layout
+
+\end_inset
+
+ for graphical output and sound.
+ I use version 
+\begin_inset Formula $0.11.1$
+\end_inset
+
+ of FFmpeg,
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Git commit 
+\emph on
+
+\begin_inset CommandInset href
+LatexCommand href
+name "39fe8033"
+target "http://git.videolan.org/?p=ffmpeg.git;a=commit;h=39fe8033bbf94cac7935d749849fdf67ba8fc16a"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ which was released in June
+\begin_inset space ~
+\end_inset
+
+2012.
+ All experiments are conducted on Ubuntu
+\begin_inset space ~
+\end_inset
+
+Linux version 
+\begin_inset Formula $12.04.1$
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+LTS.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+FFplay is designed
+\end_layout
+
+\end_inset
+
+ according to the traditional multithreading paradigm.
+ At the beginning of playback, it initializes a pipeline with three stages.
+ A dedicated thread services each stage in a loop, as illustrated in Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "2-fig:FFplay-Multithreaded-Player"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement t
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset VSpace -3mm
+\end_inset
+
+
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset VSpace 4cm
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "2-fig:FFplay-Multithreaded-Player"
+
+\end_inset
+
+FFplay Multithreaded Video Player Design
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+The
+\begin_inset space \space{}
+\end_inset
+
+input
+\begin_inset space \space{}
+\end_inset
+
+stage reads the video file from disk, parses the stream and splits it into
+ packets of compressed data, with one packet holding the data for one resulting
+ frame of video.
+ This stage is I/O-bound and requires little CPU time.
+ It is also not particularly time-critical.
+ When the input stage becomes delayed, buffering within the player ensures
+ that the following stages can continue working.
+\end_layout
+
+\begin_layout Description
+The
+\begin_inset space \space{}
+\end_inset
+
+decoding
+\begin_inset space \space{}
+\end_inset
+
+stage receives individual packets of compressed video data and decodes them
+ to obtain the finished frames.
+ This process is compute intensive, especially with high resolution video
+ streams.
+ The computing time needed to decode one frame is dynamic and changes as
+ the video progresses.
+ A buffer to the final stage can compensate timing fluctuations, but when
+ high CPU throughput is needed, catching up after a delay is difficult.
+\end_layout
+
+\begin_layout Description
+The
+\begin_inset space \space{}
+\end_inset
+
+output
+\begin_inset space \space{}
+\end_inset
+
+stage triggers the display of decoded video frames at their proper presentation
+ time.
+ This stage interacts with physical reality, because it determines when
+ the user sees which frame.
+ Therefore, this stage has the most strict timing requirements of the three,
+ but does not require much CPU time.
+ To ensure portability, the SDL documentation discourages calling graphics
+ functions from background threads.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "SDL:MultipleThreads"
+
+\end_inset
+
+ Therefore, execution of the output stage is split between the dedicated
+ per-stage thread and the main thread.
+\end_layout
+
+\begin_layout Standard
+Two more threads deal with audio and subtitle decoding, but are ignored
+ here because they do not add interesting new properties to the mix.
+ The main thread runs the event handling loop responsible for reacting to
+ user input and executing display updates.
+ It forms the spine of the application by allowing the user to control the
+ player pipeline and to see the result.
+ To always remain responsive, this thread never executes a long-running
+ or blocking operation.
+ This design is prototypical for a well-behaving graphical user interface
+ application.
+\end_layout
+
+\begin_layout Standard
+Data travels through queues, which help to even out the varying execution
+ time of decoding video frames and mitigate temporary interruptions in the
+ threads’ operation.
+ The queues connect the stages and allow the threads to synchronize: The
+ input stage requires a free slot on the video queue and fills it with data
+ it reads from the video file.
+ The decoding stage consumes one packet from the video queue and fills an
+ empty slot on the picture queue with a finished frame.
+ The output stage waits until the next frame needs to be displayed and then
+ removes it from the picture queue.
+ Unlike the other stages, the output stage therefore self-suspends
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+self-suspension
+\end_layout
+
+\end_inset
+
+ by sleeping.
+ When both queues are full while the output stage is momentarily suspended,
+ the preceding two stages will also block, because they do not find a free
+ slot on their outgoing queues.
+ The queues represent a dependency between the threads.
+\end_layout
+
+\begin_layout Standard
+Table
+\begin_inset space ~
+\end_inset
+
+ confirms the different characteristics of the three threads involved in
+ executing the stages.
+ A textual summary of the threads’ properties is followed by an evaluation
+ of FFplay running on a 
+\begin_inset Formula $2.4\,\mathrm{GHz}$
+\end_inset
+
+ Intel Core
+\begin_inset space ~
+\end_inset
+
+i5.
+\end_layout
+
+\begin_layout Standard
 \begin_inset Note Greyedout
 status open
 
-\begin_layout Itemize
-describe fundamental video player architecture
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-FFplay sets up a pipeline of three threads with very different characteristics
-\end_layout
-
-\begin_layout Itemize
-input thread: blocks in IO, little CPU work
-\end_layout
-
-\begin_layout Itemize
-decoder thread: high CPU throughput, highly dynamic
-\end_layout
-
-\begin_layout Itemize
-output thread: very short, like a control task
-\end_layout
-
-\begin_layout Itemize
-implementation is event-driven with thread-interdependencies
-\end_layout
-
-\begin_layout Itemize
-spine: main thread runs event dispatch loop as is common in all GUI toolkits
-\end_layout
-
-\end_deeper
 \begin_layout Itemize
 describe adaptation to GCD
 \end_layout
 
 \begin_deeper
-\begin_layout Itemize
-tell about experimentation environment (Ubuntu 12.04 LTS, ffmpeg version)
- here?
-\end_layout
-
 \begin_layout Itemize
 minimal GCD-runtime implemented, because I want to control threading
 \end_layout
