@@ -1527,12 +1527,35 @@ every device in a computer system
 \end_inset
 
  has a different notion of work: sending and receiving network packets,
- reading and writing storage requests or the execution of OpenGL shader
+ reading and writing storage requests or the execution of graphics shader
  code.
  Consequently, every devices follows a different policy for ordering its
  work and thus needs its own dedicated scheduler.
- However, this thesis focuses exclusively on scheduling the CPU cores of
- a computer system.
+ However, this thesis focuses exclusively on scheduling the CPU
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Central Processing Unit: the assembly of general purpose processors executing
+ the operating system and application code (cf.
+ 
+\emph on
+
+\begin_inset CommandInset href
+LatexCommand href
+name "Wikipedia"
+target "http://en.wikipedia.org/w/index.php?title=Central_processing_unit&oldid=511660312"
+
+\end_inset
+
+
+\emph default
+)
+\end_layout
+
+\end_inset
+
+ cores of a computer system.
  The CPU plays a central role in the system as it is the gateway for the
  scheduling of all other devices.
 \begin_inset CommandInset citation
@@ -2323,16 +2346,8 @@ I claim that many applications have knowledge on their future execution
  available, but currently lack a way to expose this information.
  Any operation that runs autonomously after being triggered by a system
  event or user interaction is fully determined at the moment it is triggered.
- If a user clicks 
-\begin_inset Quotes eld
-\end_inset
-
-play
-\begin_inset Quotes erd
-\end_inset
-
- to watch a video, the application knows that it will now be fetching, decoding
- and displaying video frames.
+ If a user clicks “play” to watch a video, the application knows that it
+ will now be fetching, decoding and displaying video frames.
 \end_layout
 
 \begin_layout Standard
@@ -7946,7 +7961,7 @@ reference "2-mar:Cooperation-Blocks-Jobs"
 
 , the scheduler allocates CPU time for each job.
  The application fills those reservations with life by running the associated
- block code.
+ code blocks.
 \end_layout
 
 \begin_layout Standard
@@ -7956,29 +7971,12 @@ sideways false
 status open
 
 \begin_layout Plain Layout
-\begin_inset Box Boxed
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\begin_inset space \hfill{}
+\begin_inset VSpace defskip
 \end_inset
 
 
-\begin_inset VSpace 5cm
-\end_inset
-
-
-\end_layout
+\begin_inset Graphics
+	filename Figures/2-Anatomy/Cooperation_Blocks_Jobs.svg
 
 \end_inset
 
@@ -8313,9 +8311,9 @@ Two more threads deal with audio and subtitle decoding, but are ignored
 \end_layout
 
 \begin_layout Standard
-Data travels through queues, which help to even out the varying execution
- time of decoding video frames and mitigate temporary interruptions in the
- threads’ operation.
+Data travels through queues, which help even out the varying execution time
+ of decoding video frames and mitigate temporary interruptions in the threads’
+ operation.
  The queues connect the stages and allow the threads to synchronize: The
  input stage requires a free slot on the video queue and fills it with data
  it reads from the video file.
@@ -8341,14 +8339,301 @@ self-suspension
 \end_layout
 
 \begin_layout Standard
-Table
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset VSpace 5cm
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "2-mar:Job-Terminology"
+
+\end_inset
+
+Terminology for the Course of Events Concerning a Job
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+Each iteration of a stage represents a real-time job,
+\end_layout
+
+\end_inset
+
+ for which we can calculate property measures.
+ Figure
 \begin_inset space ~
 \end_inset
 
- confirms the different characteristics of the three threads involved in
- executing the stages.
- A textual summary of the threads’ properties is followed by an evaluation
- of FFplay running on a 
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "2-mar:Job-Terminology"
+
+\end_inset
+
+ illustrates the necessary terminology.
+ An individual iteration of a stage starts by consuming an item from its
+ incoming queue.
+ This item is provided by the previous stage and has been inserted into
+ the queue earlier.
+ We call this insertion point the 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+submission time
+\end_layout
+
+\end_inset
+
+
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+submission time
+\end_layout
+
+\end_inset
+
+ for this job.
+ When the item has made it to the front of the queue, the beginning of the
+ stage iteration marks the 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+start
+\end_layout
+
+\end_inset
+
+ of the job.
+ As the respective iteration ends, the job 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+completes
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+While the submission, start and completion times are names for important
+ points in the actual code execution, a job’s 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+deadline
+\end_layout
+
+\end_inset
+
+
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+deadline
+\end_layout
+
+\end_inset
+
+ is a non-functional target property: The job should complete before its
+ deadline.
+ For FFplay, the deadline is given by the time when the frame that is to
+ result from the current data item must be ready for display.
+ In addition to the deadline, classical real-time terminology
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Liu:RealTimeSystems"
+
+\end_inset
+
+ also uses the terms arrival or release time.
+ I avoid them because they convey a slightly different meaning, which I
+ will discuss in the next chapter.
+\end_layout
+
+\begin_layout Standard
+After defining important events during the life of a job, we also assign
+ names to interesting time intervals: The time between submission and start
+ of a job is called 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+look-ahead time
+\end_layout
+
+\end_inset
+
+
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+look-ahead time
+\end_layout
+
+\end_inset
+
+, the time between start and completion is the job’s 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+makespan
+\end_layout
+
+\end_inset
+
+
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+makespan
+\end_layout
+
+\end_inset
+
+.
+ Preemption or blocking may occur during the makespan, resulting in an 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+execution time
+\end_layout
+
+\end_inset
+
+
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+execution time
+\end_layout
+
+\end_inset
+
+ less than the duration.
+ The interval between start and deadline is the 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+scheduling window
+\end_layout
+
+\end_inset
+
+
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+scheduling window
+\end_layout
+
+\end_inset
+
+ and the difference between the scheduling window and the execution time
+ is named 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+slack time
+\end_layout
+
+\end_inset
+
+
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+slack time
+\end_layout
+
+\end_inset
+
+.
+ The latter two definitions are in line with common real-time terminology.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+To confirm the different characteristics
+\end_layout
+
+\end_inset
+
+ of the three threads involved in executing the stages, Table
+\begin_inset space ~
+\end_inset
+
+ contains a textual summary of the threads’ properties, followed by an evaluatio
+n of FFplay running on a 
 \begin_inset Formula $2.4\,\mathrm{GHz}$
 \end_inset
 
@@ -8357,6 +8642,28 @@ Table
 \end_inset
 
 i5.
+ The Sintel-
+\begin_inset Formula $4\mathrm{k}$
+\end_inset
+
+ video with a resolution of 
+\begin_inset Formula $4096\!\!\times\!\!1744\,\mathrm{pixel}$
+\end_inset
+
+ was played.
+ The CPU load column shows the share of CPU time spent in the respective
+ stage.
+ Because FFplay idles for some portion of time, the loads do not sum up
+ to 
+\begin_inset Formula $100\%$
+\end_inset
+
+.
+ The standard deviation of the execution time helps judge the variability
+ of the stage, while the average slack time indicates how time critical
+ the stage is.
+ A lower value signifies more critical work, because any delay greater than
+ the slack time will lead to a deadline miss.
 \end_layout
 
 \begin_layout Standard
@@ -11197,7 +11504,7 @@ timeliness: increased importance of responsiveness for touch UIs, tighter
 placement: heterogeneous manycores
 \begin_inset CommandInset citation
 LatexCommand cite
-key "DeVuyst:HeterogeneousISA"
+key "DeVuyst:HeterogeneousISA,Chen:SchedulingHeterogeneous"
 
 \end_inset
 
