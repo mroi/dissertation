@@ -8128,7 +8128,7 @@ target "http://git.videolan.org/?p=ffmpeg.git;a=commit;h=39fe8033bbf94cac7935d74
 \end_inset
 
 2012.
- All experiments are conducted on Ubuntu
+ I conducted all experiments on Ubuntu
 \begin_inset space ~
 \end_inset
 
@@ -8141,6 +8141,30 @@ Linux version
 \end_inset
 
 LTS.
+ Reproducing the experiments is fully automated and all source code and
+ scripts are available in a public Subversion repository.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+url{https://os.inf.tu-dresden.de/~mroi/svn/video/branches/Dissertation/}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -8172,39 +8196,21 @@ reference "2-fig:FFplay-Multithreaded-Player"
 \begin_layout Standard
 \begin_inset Float figure
 placement t
-wide false
+wide true
 sideways false
 status open
 
 \begin_layout Plain Layout
-\begin_inset VSpace -3mm
-\end_inset
+\begin_inset Graphics
+	filename Figures/2-Anatomy/FFplay_Design.svg
 
-
-\begin_inset Box Boxed
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\begin_inset space \hfill{}
-\end_inset
-
-
-\begin_inset VSpace 4cm
 \end_inset
 
 
 \end_layout
 
+\begin_layout Plain Layout
+\begin_inset VSpace defskip
 \end_inset
 
 
@@ -8302,8 +8308,8 @@ Two more threads deal with audio and subtitle decoding, but are ignored
  here because they do not add interesting new properties to the mix.
  The main thread runs the event handling loop responsible for reacting to
  user input and executing display updates.
- It forms the spine of the application by allowing the user to control the
- player pipeline and to see the result.
+ It forms the backbone of the application by giving the user control of
+ the player and coordinating the pipeline to achieve the desired result.
  To always remain responsive, this thread never executes a long-running
  or blocking operation.
  This design is prototypical for a well-behaving graphical user interface
@@ -8316,11 +8322,11 @@ Data travels through queues, which help even out the varying execution time
  operation.
  The queues connect the stages and allow the threads to synchronize: The
  input stage requires a free slot on the video queue and fills it with data
- it reads from the video file.
+ it has read from the video file.
  The decoding stage consumes one packet from the video queue and fills an
  empty slot on the picture queue with a finished frame.
- The output stage waits until the next frame needs to be displayed and then
- removes it from the picture queue.
+ The output stage removes a frame from the picture queue and waits until
+ it needs to be displayed.
  Unlike the other stages, the output stage therefore self-suspends
 \begin_inset Index idx
 status collapsed
@@ -8345,29 +8351,8 @@ sideways false
 status open
 
 \begin_layout Plain Layout
-\begin_inset Box Boxed
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\begin_inset space \hfill{}
-\end_inset
-
-
-\begin_inset VSpace 5cm
-\end_inset
-
-
-\end_layout
+\begin_inset Graphics
+	filename Figures/2-Anatomy/Terminology.svg
 
 \end_inset
 
@@ -8446,12 +8431,12 @@ submission time
 
  for this job.
  When the item has made it to the front of the queue, the beginning of the
- stage iteration marks the 
+ iteration marks the 
 \begin_inset Flex SmallCaps
 status collapsed
 
 \begin_layout Plain Layout
-start
+release time
 \end_layout
 
 \end_inset
@@ -8471,7 +8456,32 @@ completes
 \end_layout
 
 \begin_layout Standard
-While the submission, start and completion times are names for important
+Classical real-time terminology
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Liu:RealTimeSystems"
+
+\end_inset
+
+ uses a slightly different meaning for the term release time.
+ Here, it is a specific point in the flow of the running code.
+ The CPU reaching the next iteration marks the release of the job.
+ Thus, the release instant is a result of previous scheduling decisions.
+ In the real-time sense, the release time is part of a formal task model
+ and is an input to the scheduler rather than an output.
+\end_layout
+
+\begin_layout Standard
+Additionally, real-time literature often uses the terms arrival time and
+ release time synonymously.
+ But originating from queueing theory, arrival time can intuitively be associate
+d with the submission instant, because this is the time when the job arrives
+ at the queue.
+ To prevent confusion, I avoid the term arrival time altogether.
+\end_layout
+
+\begin_layout Standard
+While the submission, release and completion times are names for important
  points in the actual code execution, a job’s 
 \begin_inset Flex SmallCaps
 status collapsed
@@ -8494,23 +8504,13 @@ deadline
 
  is a non-functional target property: The job should complete before its
  deadline.
- For FFplay, the deadline is given by the time when the frame that is to
+ For FFplay, the deadline is given by the time when the frame that will
  result from the current data item must be ready for display.
- In addition to the deadline, classical real-time terminology
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Liu:RealTimeSystems"
-
-\end_inset
-
- also uses the terms arrival or release time.
- I avoid them because they convey a slightly different meaning, which I
- will discuss in the next chapter.
 \end_layout
 
 \begin_layout Standard
 After defining important events during the life of a job, we also assign
- names to interesting time intervals: The time between submission and start
+ names to interesting time intervals: The time between submission and release
  of a job is called 
 \begin_inset Flex SmallCaps
 status collapsed
@@ -8531,7 +8531,7 @@ look-ahead time
 
 \end_inset
 
-, the time between start and completion is the job’s 
+, the time between release and completion is the job’s 
 \begin_inset Flex SmallCaps
 status collapsed
 
@@ -8573,7 +8573,7 @@ execution time
 \end_inset
 
  less than the duration.
- The interval between start and deadline is the 
+ The interval between release and deadline is the 
 \begin_inset Flex SmallCaps
 status collapsed
 
@@ -8615,7 +8615,8 @@ slack time
 \end_inset
 
 .
- The latter two definitions are in line with common real-time terminology.
+ Except for the look-ahead term, these definitions are in line with common
+ real-time terminology.
 \end_layout
 
 \begin_layout Standard
@@ -8647,7 +8648,7 @@ i5.
 \end_inset
 
  video with a resolution of 
-\begin_inset Formula $4096\!\!\times\!\!1744\,\mathrm{pixel}$
+\begin_inset Formula $4096\!\!\times\!\!1744\,\mathrm{pixels}$
 \end_inset
 
  was played.
