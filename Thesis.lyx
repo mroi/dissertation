@@ -3562,7 +3562,7 @@ status open
 \begin_layout Plain Layout
 \noindent
 \begin_inset Graphics
-	filename Plots/1-Introduction/Parallel_Execution_Alternatives.pdf
+	filename Data/1-Introduction/Parallel_Execution_Alternatives.pdf
 
 \end_inset
 
@@ -4078,7 +4078,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Plots/1-Introduction/Decoding_Times_Histogram.pdf
+	filename Data/1-Introduction/Decoding_Times_Histogram.pdf
 
 \end_inset
 
@@ -4277,7 +4277,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Plots/1-Introduction/Decoding_Times_Timeline.pdf
+	filename Data/1-Introduction/Decoding_Times_Timeline.pdf
 
 \end_inset
 
