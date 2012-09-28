@@ -8251,7 +8251,7 @@ input
 stage reads the video file from disk, parses the stream and splits it into
  packets of compressed data, with one packet holding the data for one resulting
  frame of video.
- This stage is I/O-bound and requires little CPU time.
+ This stage is input-bound and requires little CPU time.
  It is also not particularly time-critical.
  When the input stage becomes delayed, buffering within the player ensures
  that the following stages can continue working.
@@ -8262,7 +8262,7 @@ The
 \begin_inset space \space{}
 \end_inset
 
-decoding
+decoder
 \begin_inset space \space{}
 \end_inset
 
@@ -8323,7 +8323,7 @@ Data travels through queues, which help even out the varying execution time
  The queues connect the stages and allow the threads to synchronize: The
  input stage requires a free slot on the video queue and fills it with data
  it has read from the video file.
- The decoding stage consumes one packet from the video queue and fills an
+ The decoder stage consumes one packet from the video queue and fills an
  empty slot on the picture queue with a finished frame.
  The output stage removes a frame from the picture queue and waits until
  it needs to be displayed.
@@ -8633,6 +8633,13 @@ To confirm the different characteristics
 \begin_inset space ~
 \end_inset
 
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "2-tab:Characteristics-of-FFplay"
+
+\end_inset
+
  contains a textual summary of the threads’ properties, followed by an evaluatio
 n of FFplay running on a 
 \begin_inset Formula $2.4\,\mathrm{GHz}$
@@ -8660,11 +8667,167 @@ i5.
 \end_inset
 
 .
- The standard deviation of the execution time helps judge the variability
- of the stage, while the average slack time indicates how time critical
- the stage is.
+ The interquartile range
+\begin_inset space \thinspace{}
+\end_inset
+
+—
+\begin_inset space \thinspace{}
+\end_inset
+
+the difference between the 
+\begin_inset Formula $25\%$
+\end_inset
+
+ and the 
+\begin_inset Formula $75\%$
+\end_inset
+
+ quantile
+\begin_inset space \thinspace{}
+\end_inset
+
+—
+\begin_inset space \thinspace{}
+\end_inset
+
+of the execution time helps judge the variability of the stage, while the
+ average slack time indicates how time critical the stage is.
  A lower value signifies more critical work, because any delay greater than
  the slack time will lead to a deadline miss.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="1" columns="5">
+<features booktabs="true" tabularvalignment="middle">
+<column alignment="right" valignment="top" width="0pt">
+<column alignment="left" valignment="top" width="0">
+<column alignment="right" valignment="top" width="0">
+<column alignment="right" valignment="top" width="0">
+<column alignment="right" valignment="top" width="0">
+<row>
+<cell alignment="right" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Stage
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Summary
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Load
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+IQR
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Slack
+\begin_inset CommandInset include
+LatexCommand input
+filename "Data/2-Anatomy/Characteristics.tex"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "2-tab:Characteristics-of-FFplay"
+
+\end_inset
+
+Characteristics of FFplay Stages
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The results emphasize the different properties of the three stages: Input
+ exhibits the lowest CPU load because it merely shuttles data from disk
+ to the queue.
+ Decoding is compute-intensive and the execution time is varying considerably,
+ as indicated by the interquartile range.
+ The output stage experiences the lowest slack time, making it the most
+ time critical part.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+These differences in behavior
+\end_layout
+
+\end_inset
+
+ and the interdependencies between the stages are only incidentally exposed
+ to the CPU scheduler.
+ All the scheduler sees are a bunch of threads that occasionally sleep,
+ followed by smaller or larger bursts of CPU activity.
+ No notion of one thread waiting for the work of another and no knowledge
+ of timing requirements progresses down to the scheduler.
+\end_layout
+
+\begin_layout Standard
+Fortunately, processing pipelines such as FFplay’s video engine lend themselves
+ well to asynchronous lambdas programming style.
+ Instead of 
 \end_layout
 
 \begin_layout Standard

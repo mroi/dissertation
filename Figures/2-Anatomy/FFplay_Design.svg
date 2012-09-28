@@ -40,10 +40,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.4436435"
-     inkscape:cx="304.52168"
+     inkscape:cx="288.15268"
      inkscape:cy="13.742688"
      inkscape:document-units="px"
-     inkscape:current-layer="g3037"
+     inkscape:current-layer="svg2"
      showgrid="true"
      units="cm"
      fit-margin-top="0"
@@ -74,7 +74,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -244,7 +244,7 @@
          y="953.14832"
          x="7.0866141"
          id="tspan3120"
-         sodipodi:role="line">Decoding Stage</tspan></text>
+         sodipodi:role="line">Decoder Stage</tspan></text>
     <text
        sodipodi:linespacing="125%"
        id="text3122"
