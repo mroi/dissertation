@@ -39,6 +39,8 @@
 \def\labelitemiv{\raisebox{0.3mm}{\scriptsize\(\bullet\)}}
 }
 
+% top-align floats on float pages
+\setlength\@fptop{0pt}
 % do not indent the bibliography
 \setlength{\bibhang}{0pt}
 
@@ -4892,7 +4894,7 @@ void mouseClick(event)
 
 \begin_layout Plain Layout
 
-	thread_start(work,
+	thread_create(work,
 \end_layout
 
 \begin_layout Plain Layout
@@ -7874,7 +7876,17 @@ lambda
  synonymously.
  The runtime library manages blocks within the application.
  By executing independent blocks on different threads, blocks become the
- unit of parallelism.
+ 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+unit of parallelism.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Description
@@ -7894,7 +7906,17 @@ job
  The term is similar in meaning to the one from the real-time field, although
  the latter is typically defined in the context of a task model.
  A formal definition of my task model follows in the next chapter.
- Jobs constitute the unit of scheduling.
+ Jobs constitute the 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+unit of scheduling.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -8147,14 +8169,12 @@ LTS.
 status open
 
 \begin_layout Plain Layout
-\begin_inset ERT
+\begin_inset Flex URL
 status collapsed
 
 \begin_layout Plain Layout
 
-
-\backslash
-url{https://os.inf.tu-dresden.de/~mroi/svn/video/branches/Dissertation/}
+https://os.inf.tu-dresden.de/~mroi/svn/video/branches/Dissertation/
 \end_layout
 
 \end_inset
@@ -8771,6 +8791,17 @@ filename "Data/2-Anatomy/Characteristics.tex"
 \end_inset
 
 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+switch to Sintel if numbers are equally convincing, use a Full-HD video
+ otherwise
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Plain Layout
@@ -8818,59 +8849,561 @@ These differences in behavior
 
  and the interdependencies between the stages are only incidentally exposed
  to the CPU scheduler.
- All the scheduler sees are a bunch of threads that occasionally sleep,
+ The preceding measurement of thread characteristics require modifications
+ to FFplay.
+ Intimate knowledge about its inner workings is needed to place custom taps
+ in the player, which record the necessary job data.
+ The scheduler only sees a bunch of threads that occasionally sleep or block,
  followed by smaller or larger bursts of CPU activity.
- No notion of one thread waiting for the work of another and no knowledge
- of timing requirements progresses down to the scheduler.
+ No notion of individual stage iterations, no dependency information of
+ a thread waiting for the work of another, and no knowledge of timing requiremen
+ts progresses down to the scheduler.
 \end_layout
 
 \begin_layout Standard
-Fortunately, processing pipelines such as FFplay’s video engine lend themselves
- well to asynchronous lambdas programming style.
- Instead of 
+A key concept of 
+\noun on
+Atlas
+\noun default
+ is the explicit handover of such data to the scheduler.
+ However, the solution should not be specific to video players in general
+ or FFplay in particular.
+ Instead, I modify FFplay to organize its work using the asynchronous lambdas
+ programming style outlined earlier in this chapter.
+ The integration between application and scheduler can then be implemented
+ generically in the runtime library managing the asynchronous execution
+ of the lambdas.
+ All applications built on asynchronous lambdas can then benefit from 
+\noun on
+Atlas
+\noun default
+ with little extra burden to the developer.
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Greyedout
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+Processing pipelines
+\end_layout
+
+\end_inset
+
+ such as FFplay’s engine lend themselves well to the queue-based dispatching
+ of work in the asynchronous lambdas style.
+ Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "2-fig:Changing-FFplay"
+
+\end_inset
+
+ outlines how I adapted FFplay’s loop-based implementations of the player
+ stages to block-based execution using Grand Central Dispatch.
+ FFplay’s core is implemented in one file called 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+mbox{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+ffplay.c
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+ and about 
+\begin_inset Formula $10\%$
+\end_inset
+
+ of its source code lines needed changing to adapt the programming style.
+ The tens of thousands of source lines from FFmpeg libraries which FFplay
+ uses for video decoding remain unchanged, making this a small change overall.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide true
+sideways false
 status open
 
-\begin_layout Itemize
-describe adaptation to GCD
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="32col%" special="@{}>{\centering}p{0.32\columnwidth}">
+<column alignment="center" valignment="top" width="35col%">
+<row>
+<cell alignment="center" valignment="top" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+void input_stage() {
 \end_layout
 
-\begin_deeper
-\begin_layout Itemize
-minimal GCD-runtime implemented, because I want to control threading
+\begin_layout Plain Layout
+
+	initialize_input();
 \end_layout
 
-\begin_layout Itemize
-this manifests the integration between application and scheduler I envision
+\begin_layout Plain Layout
+
+	while (1} {
 \end_layout
 
-\begin_layout Itemize
-changes to FFplay are small
+\begin_layout Plain Layout
+
+		pkt = read_input();
 \end_layout
 
-\begin_layout Itemize
-applications change anyway (mobile software, parallel architectures, heterogenei
-ty, scale-out)
+\begin_layout Plain Layout
+
+		enqueue(video_queue, pkt);
+\end_layout
+
+\begin_layout Plain Layout
+
+	}
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+void decoder_stage() {
+\end_layout
+
+\begin_layout Plain Layout
+
+	initialize_decoder();
+\end_layout
+
+\begin_layout Plain Layout
+
+	while (1) {
+\end_layout
+
+\begin_layout Plain Layout
+
+		pkt = dequeue(video_queue);
+\end_layout
+
+\begin_layout Plain Layout
+
+		frame = decode(pkt);
+\end_layout
+
+\begin_layout Plain Layout
+
+		enqueue(pict_queue, frame);
+\end_layout
+
+\begin_layout Plain Layout
+
+	}
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+void output_stage() {
+\end_layout
+
+\begin_layout Plain Layout
+
+	initialize_output();
+\end_layout
+
+\begin_layout Plain Layout
+
+	while (1) {
+\end_layout
+
+\begin_layout Plain Layout
+
+		frame = dequeue(pict_queue);
+\end_layout
+
+\begin_layout Plain Layout
+
+		time = display_time(frame);
+\end_layout
+
+\begin_layout Plain Layout
+
+		wait_until(time);
+\end_layout
+
+\begin_layout Plain Layout
+
+		display(frame);
+\end_layout
+
+\begin_layout Plain Layout
+
+	}
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+void start_playback() {
+\end_layout
+
+\begin_layout Plain Layout
+
+	thread_create(input_stage);
+\end_layout
+
+\begin_layout Plain Layout
+
+	thread_create(decoder_stage);
+\end_layout
+
+\begin_layout Plain Layout
+
+	thread_create(output_stage);
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+dispatch_block_t input_stage = ^{
+\end_layout
+
+\begin_layout Plain Layout
+
+	pkt = read_input();
+\end_layout
+
+\begin_layout Plain Layout
+
+	enqueue(video_queue, pkt);
+\end_layout
+
+\begin_layout Plain Layout
+
+	dispatch_async(decoder_stage);
+\end_layout
+
+\begin_layout Plain Layout
+
+	dispatch_async(input_stage);
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+dispatch_block_t decoder_stage = ^{
+\end_layout
+
+\begin_layout Plain Layout
+
+	pkt = dequeue(video_queue);
+\end_layout
+
+\begin_layout Plain Layout
+
+	frame = decode(pkt);
+\end_layout
+
+\begin_layout Plain Layout
+
+	enqueue(pict_queue, frame);
+\end_layout
+
+\begin_layout Plain Layout
+
+	dispatch_async(output_stage);
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+dispatch_block_t output_stage = ^{
+\end_layout
+
+\begin_layout Plain Layout
+
+	frame = dequeue(pict_queue);
+\end_layout
+
+\begin_layout Plain Layout
+
+	time = display_time(frame);
+\end_layout
+
+\begin_layout Plain Layout
+
+	wait_until(time);
+\end_layout
+
+\begin_layout Plain Layout
+
+	display(frame);
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+void start_playback()
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+	initialize_input();
+\end_layout
+
+\begin_layout Plain Layout
+
+	initialize_decoder();
+\end_layout
+
+\begin_layout Plain Layout
+
+	initialize_output();
+\end_layout
+
+\begin_layout Plain Layout
+
+	dispatch_async(input_stage);
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+loop-based implementation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+block-based implementation
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset VSpace 20pt
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "2-fig:Changing-FFplay"
+
+\end_inset
+
+Changing FFplay to Asynchronous Lambdas
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+Developers are naturally reluctant
+\end_layout
+
+\end_inset
+
+ to rewriting applications and would rather spend their time adding new
+ features.
+ However, in today’s world of scaling down to mobile devices on one end
+ and scaling out to massive parallelism and the cloud on the other, applications
+ are already under constant pressure to evolve.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Sutter:ParallelJungle"
 
 \end_inset
 
-
+ This chapter has motivated the move to asynchronous lambdas as a recent
+ trend, because they simplify development of parallel and responsive code.
+ If 
+\noun on
+Atlas
+\noun default
+ can simplify development of real-time code using the same programming model,
+ developer time will be spent more effectively.
 \end_layout
 
-\begin_layout Itemize
-leaning my paradigm toward those changes reduces developer effort
-\end_layout
-
-\end_deeper
-\end_inset
-
-
+\begin_layout Standard
+The next chapter explains the real-time task model and how the interaction
+ between blocks in the application and jobs in the scheduler is orchestrated.
+ Given the information exposed by the application to the asynchronous lambda
+ runtime, the next chapter details how the scheduler is informed and what
+ properties regarding application timing requirements we can expect in return.
 \end_layout
 
 \begin_layout Chapter
@@ -8924,6 +9457,12 @@ input: gesture tracking (kinect), speech recognition
 all desktops do that, yet almost no desktop software uses real-time programming
 \end_layout
 
+\begin_deeper
+\begin_layout Itemize
+can we get a reference to the priority-boosting trick Apple uses on iOS?
+\end_layout
+
+\end_deeper
 \begin_layout Itemize
 deadlines for UI code driven by usability requirements: 10/100/1000
 \begin_inset space \thinspace{}
@@ -9341,7 +9880,7 @@ accounts for underestimated execution time
 \end_layout
 
 \begin_layout Itemize
-reuses CFS with a portion taken away for the EDF layer
+reuses CFS
 \end_layout
 
 \end_deeper
@@ -9382,8 +9921,7 @@ legacy support
 
 \begin_deeper
 \begin_layout Itemize
-scheduler layers bracket CFS, so any threads not using the system still
- work
+reuses CFS, so any threads not using the system still work
 \end_layout
 
 \begin_layout Itemize
@@ -9448,37 +9986,6 @@ key "Baruah:Sustainability"
 \end_layout
 
 \end_deeper
-\begin_layout Plain Layout
-\begin_inset Note Note
-status open
-
-\begin_layout Itemize
-this scheduling behavior can be simulated in user-land by setting thread
- priorities
-\end_layout
-
-\begin_layout Itemize
-experimenting with close interaction of application and scheduler is easier
- in user-land
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-separating schedule look-ahead and actual dispatching would be a good implementa
-tion strategy anyway
-\end_layout
-
-\begin_layout Itemize
-only downside: overhead is an upper bound, might be smaller with an in-kernel
- implementation
-\end_layout
-
-\end_deeper
-\end_inset
-
-
-\end_layout
-
 \begin_layout Itemize
 background jobs can use infinite deadline to get out of the way, no extra
  low priority scheduling-band or nice levels needed
@@ -9502,19 +10009,44 @@ end-to-end evaluation
 illustrate that the scheduler works as intended
 \end_layout
 
+\begin_deeper
+\begin_layout Itemize
+synthetic tasks submitting random real-time jobs with no execution times;
+ will get EDF release
+\end_layout
+
+\begin_layout Itemize
+submitting execution times defends against a CPU hogger
+\end_layout
+
+\begin_layout Itemize
+real-time task may fail into a while-1-loop
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+use complex video player to evaluate real application
+\end_layout
+
+\begin_deeper
 \begin_layout Itemize
 timeliness against a fair share scheduler
 \end_layout
 
 \begin_layout Itemize
-timeliness against CBS-style reservation
+timeliness against CBS-style reservation?
 \end_layout
 
 \begin_layout Itemize
-system can predict deadline misses, even though it does not have implicit
- clairvoyance from periods
+no support for IO, only blocking for other CPU jobs works as intended
 \end_layout
 
+\begin_layout Itemize
+compare overall deadlines with keep-the-queue-filled-deadlines for input
+ stage
+\end_layout
+
+\end_deeper
 \begin_layout Itemize
 evaluate an interactive application (UI updates, game?) with short horizon
 \end_layout
@@ -9538,6 +10070,11 @@ this may not work for games or camera-based gesture tracking
 \end_layout
 
 \end_deeper
+\begin_layout Itemize
+system can predict deadline misses, even though it does not have implicit
+ clairvoyance from periods
+\end_layout
+
 \end_deeper
 \begin_layout Itemize
 discuss related work in detail
