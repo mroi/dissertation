@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:opf="http://www.idpf.org/2007/opf"
+	xmlns="http://www.idpf.org/2007/opf"
+	version="2.0"
+	unique-identifier="bundle-id">
+	<metadata>
+		<dc:language xsi:type="dcterms:RFC3066">en-US</dc:language>
+		<dc:title>Practical Real-Time with Look-Ahead Scheduling</dc:title>
+		<dc:creator>Michael Roitzsch</dc:creator>
+		<dc:subject>Dissertation</dc:subject>
+		<dc:contributor>Prof. Dr. rer. nat. Hermann Härtig</dc:contributor>
+		<dc:identifier id="bundle-id">de.tu-dresden.inf.os.mroi.phd-thesis</dc:identifier>
+	</metadata>
+	<manifest>
+		<item id="ncx" href="Thesis.ncx" media-type="application/x-dtbncx+xml" />
+		<item id="content" href="Thesis.xhtml" media-type="application/xhtml+xml" />
+	</manifest>
+	<spine toc="ncx">
+		<itemref idref="content" />
+	</spine>
+</package>
