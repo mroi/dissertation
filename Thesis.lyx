@@ -4653,7 +4653,7 @@ key "Sutter:LambdasEverywhere"
  leads us away from threads and closer to the ideas behind asynchronous
  invocation, but without inheriting their historical callback-soup and stack
  ripping downsides.
- Today’s developers are discouraged from using threads directly, but should
+ Today, developers are discouraged from using threads directly, but should
  instead use new programming language constructs that allow them to envelop
  a piece of code and dispatch it for asynchronous invocation.
 \end_layout
@@ -6536,8 +6536,8 @@ key "Milewski:C++Async"
 
 \end_inset
 
- and needs to be added by an additional library like Intel’s Threading Building
- Blocks.
+ and needs to be supplied by an additional library like Intel’s Threading
+ Building Blocks.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Intel_TBB"
@@ -6590,7 +6590,7 @@ key "Kulkarni:Galois"
  like traversing graphs or other pointer-based data structures.
  For the latter class of algorithms, parallelism is data-dependent and builds
  up at runtime.
- The iteration space can therefore not be divided among threads at the beginning
+ The iteration space can therefore not be split among threads at the beginning
  of the iteration, but must be assigned dynamically while the iterator progresse
 s.
  Figure
@@ -7770,7 +7770,7 @@ reference "3-chap:Real-Time"
 ,
 \emph default
  I demonstrate the benefits of reporting future application behavior to
- the scheduler early: deadline misses can be anticipated before they occur.
+ the scheduler early: it can anticipate deadline misses before they occur.
  I also evaluate the different time horizons of applications.
  Here, I want to emphasize that such ahead-of-time knowledge and introspection
  capabilities are a natural consequence of the programming style of modern
@@ -7790,8 +7790,8 @@ Blocks expose static program structure to the compiler to enable automatic
  state capturing.
  Dispatch queues expose dynamic program structure to the runtime library
  to enable automatic thread management.
- Asynchronous execution by definition causes future computation to be announced
- before it begins.
+ Asynchronous execution by definition announces future computation before
+ it begins.
  As shown above, the asynchronous lambda style is gaining traction, thus,
  modern applications increasingly have knowledge about their future execution
  behavior at hand.
@@ -7819,11 +7819,11 @@ Blocks package execution
  recognize and act upon.
  Individual block instances can be amended with metadata, either manually
  by the developer or automatically by the system through machine learning.
- Timeliness requirements in the form of deadlines and resource requirements
- in the form of execution times can be conveyed this way, as I show in the
- next chapter.
+ As I show in the next chapter, metadata can convey timing requirements
+ in the form of deadlines and resource requirements in the form of execution
+ times.
  When queueing such augmented blocks and exposing the resulting structure,
- applications can be regarded as a precedence graph of real-time jobs.
+ applications form a precedence graph of real-time jobs.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Liu:RealTimeSystems"
@@ -7834,8 +7834,8 @@ key "Liu:RealTimeSystems"
 \end_layout
 
 \begin_layout Standard
-If single blocks are too small to warrant the overhead of metadata handling,
- the scope can be widened to groups of blocks.
+Aggregating multiple blocks helps, when a single block is too small to warrant
+ the overhead of metadata handling.
  GCD already features dispatch groups, which collect multiple blocks and
  track their joint completion.
  To delineate these notions, I use the following terminology:
@@ -8145,7 +8145,7 @@ target "http://git.videolan.org/?p=ffmpeg.git;a=commit;h=39fe8033bbf94cac7935d74
 
 \end_inset
 
- which was released in June
+ released in June
 \begin_inset space ~
 \end_inset
 
@@ -8319,7 +8319,7 @@ key "SDL:MultipleThreads"
 
 \end_inset
 
- Therefore, execution of the output stage is split between the dedicated
+ Therefore, execution of the output stage alternates between the dedicated
  per-stage thread and the main thread.
 \end_layout
 
@@ -8358,8 +8358,8 @@ self-suspension
 \end_inset
 
  by sleeping.
- When both queues are full while the output stage is momentarily suspended,
- the preceding two stages will also block, because they do not find a free
+ When the output stage is momentarily suspended and the queues fill up,
+ the preceding stages will eventually block, when they do not find a free
  slot on their outgoing queues.
  The queues represent a dependency between the threads.
 \end_layout
@@ -8427,8 +8427,8 @@ reference "2-mar:Job-Terminology"
  illustrates the necessary terminology.
  An individual iteration of a stage starts by consuming an item from its
  incoming queue.
- This item is provided by the previous stage and has been inserted into
- the queue earlier.
+ This item originates from the previous stage, which inserted it into the
+ queue earlier.
  We call this insertion point the 
 \begin_inset Flex SmallCaps
 status collapsed
@@ -8462,7 +8462,7 @@ release time
 \end_inset
 
  of the job.
- As the respective iteration ends, the job 
+ When the iteration ends, the job 
 \begin_inset Flex SmallCaps
 status collapsed
 
@@ -8494,9 +8494,8 @@ key "Liu:RealTimeSystems"
 \begin_layout Standard
 Additionally, real-time literature often uses the terms arrival time and
  release time synonymously.
- But originating from queueing theory, arrival time can intuitively be associate
-d with the submission instant, because this is the time when the job arrives
- at the queue.
+ But originating from queueing theory, arrival time intuitively refers to
+ the submission instant, because at this time the job arrives at the queue.
  To prevent confusion, I avoid the term arrival time altogether.
 \end_layout
 
@@ -8524,14 +8523,15 @@ deadline
 
  is a non-functional target property: The job should complete before its
  deadline.
- For FFplay, the deadline is given by the time when the frame that will
- result from the current data item must be ready for display.
+ For FFplay, each data item ultimately results in a frame.
+ The time when that frame must be ready for display marks the deadline of
+ that data item.
 \end_layout
 
 \begin_layout Standard
 After defining important events during the life of a job, we also assign
  names to interesting time intervals: The time between submission and release
- of a job is called 
+ of a job is the 
 \begin_inset Flex SmallCaps
 status collapsed
 
@@ -8614,7 +8614,7 @@ scheduling window
 \end_inset
 
  and the difference between the scheduling window and the execution time
- is named 
+ is 
 \begin_inset Flex SmallCaps
 status collapsed
 
@@ -8679,8 +8679,7 @@ i5.
 \end_inset
 
  was played.
- The CPU load column shows the share of CPU time spent in the respective
- stage.
+ The CPU load column shows the share of CPU time spent in that stage.
  Because FFplay idles for some portion of time, the loads do not sum up
  to 
 \begin_inset Formula $100\%$
@@ -8851,10 +8850,10 @@ These differences in behavior
  to the CPU scheduler.
  The preceding measurement of thread characteristics require modifications
  to FFplay.
- Intimate knowledge about its inner workings is needed to place custom taps
- in the player, which record the necessary job data.
- The scheduler only sees a bunch of threads that occasionally sleep or block,
- followed by smaller or larger bursts of CPU activity.
+ Intimate knowledge about its inner workings guided the placement of custom
+ taps in the player, which record the necessary job data.
+ The scheduler otherwise only sees a bunch of threads that occasionally
+ sleep or block, followed by smaller or larger bursts of CPU activity.
  No notion of individual stage iterations, no dependency information of
  a thread waiting for the work of another, and no knowledge of timing requiremen
 ts progresses down to the scheduler.
@@ -8905,7 +8904,7 @@ reference "2-fig:Changing-FFplay"
 
  outlines how I adapted FFplay’s loop-based implementations of the player
  stages to block-based execution using Grand Central Dispatch.
- FFplay’s core is implemented in one file called 
+ FFplay’s core resides in a single file called 
 \begin_inset ERT
 status collapsed
 
@@ -9390,20 +9389,21 @@ key "Sutter:ParallelJungle"
 
  This chapter has motivated the move to asynchronous lambdas as a recent
  trend, because they simplify development of parallel and responsive code.
- If 
-\noun on
-Atlas
-\noun default
- can simplify development of real-time code using the same programming model,
- developer time will be spent more effectively.
 \end_layout
 
 \begin_layout Standard
-The next chapter explains the real-time task model and how the interaction
+
+\noun on
+Atlas
+\noun default
+ strives to simplify development of real-time code using the same programming
+ model.
+ To that end, it exploits the program structure exposed by lambdas to provide
+ information to the scheduler.
+ The next chapter explains the real-time task model and how the interaction
  between blocks in the application and jobs in the scheduler is orchestrated.
- Given the information exposed by the application to the asynchronous lambda
- runtime, the next chapter details how the scheduler is informed and what
- properties regarding application timing requirements we can expect in return.
+ The scheduler interface expects assistance from applications, but delivers
+ non-functional timeliness properties in return.
 \end_layout
 
 \begin_layout Chapter
