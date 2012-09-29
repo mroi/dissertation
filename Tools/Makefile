@@ -8,10 +8,10 @@ style: Thesis-stylight.pdf
 .INTERMEDIATE: Thesis-stylight.tex Thesis.tex
 
 Thesis-stylight.pdf: Thesis-stylight.tex
-	ln -sf ../Figures ../Plots ./
+	ln -sf ../Data ../Figures ./
 	xelatex $<
-	svn st Figures Plots | cut -c9- | while read file ; do rm "$$file" ; done
-	rm Figures Plots
+	svn st Data Figures | cut -c9- | while read file ; do rm "$$file" ; done
+	rm Data Figures
 	rm $(basename $@).{aux,idx,lof,log,lot,out,toc}
 
 Thesis-stylight.tex: Thesis.tex
