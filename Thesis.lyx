@@ -140,7 +140,7 @@ End
 \pdf_title "Practical Real-Time with Look-Ahead Scheduling"
 \pdf_author "Michael Roitzsch"
 \pdf_subject "Dissertation"
-\pdf_keywords "Real-Time, Multicore, Work Queues, Look-Ahead, Clairvoyance"
+\pdf_keywords "Real-Time, Look-Ahead, Multicore, Work Queues, Asynchronous Lambdas"
 \pdf_bookmarks true
 \pdf_bookmarksnumbered false
 \pdf_bookmarksopen true
@@ -336,7 +336,18 @@ status collapsed
 
 
 \backslash
-raisebox{0.8mm}{-}
+raisebox{0.8mm}{
+\end_layout
+
+\end_inset
+
+-
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
 \end_layout
 
 \end_inset
@@ -366,7 +377,18 @@ status collapsed
 
 
 \backslash
-raisebox{0.8mm}{-}
+raisebox{0.8mm}{
+\end_layout
+
+\end_inset
+
+-
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
 \end_layout
 
 \end_inset
@@ -5885,7 +5907,18 @@ status collapsed
 
 
 \backslash
-raisebox{0.3mm}{++}
+raisebox{0.3mm}{
+\end_layout
+
+\end_inset
+
+++
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
 \end_layout
 
 \end_inset
@@ -5907,7 +5940,18 @@ status collapsed
 
 
 \backslash
-raisebox{0.3mm}{++}
+raisebox{0.3mm}{
+\end_layout
+
+\end_inset
+
+++
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
 \end_layout
 
 \end_inset
@@ -6400,7 +6444,18 @@ status collapsed
 
 
 \backslash
-raisebox{0.3mm}{++}
+raisebox{0.3mm}{
+\end_layout
+
+\end_inset
+
+++
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
 \end_layout
 
 \end_inset
@@ -6445,7 +6500,18 @@ status collapsed
 
 
 \backslash
-raisebox{0.3mm}{++}
+raisebox{0.3mm}{
+\end_layout
+
+\end_inset
+
+++
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
 \end_layout
 
 \end_inset
@@ -6513,7 +6579,18 @@ status collapsed
 
 
 \backslash
-raisebox{0.3mm}{++}
+raisebox{0.3mm}{
+\end_layout
+
+\end_inset
+
+++
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
 \end_layout
 
 \end_inset
@@ -6802,7 +6879,18 @@ status collapsed
 
 
 \backslash
-raisebox{0.3mm}{++}
+raisebox{0.3mm}{
+\end_layout
+
+\end_inset
+
+++
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
 \end_layout
 
 \end_inset
@@ -9421,7 +9509,18 @@ status collapsed
 
 
 \backslash
-raisebox{-0.45mm}{-}
+raisebox{-0.45mm}{
+\end_layout
+
+\end_inset
+
+-
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
 \end_layout
 
 \end_inset
