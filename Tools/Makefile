@@ -1,11 +1,14 @@
 all:
 	@echo "choose one of the targets"
 	@echo "  style   highlight weak style in the text"
+	@echo "  epub    compile an epub version"
 
 style: Thesis-stylight.pdf
 	open $<
 
-.INTERMEDIATE: Thesis-stylight.tex Thesis.tex
+epub: Thesis.epub
+
+.INTERMEDIATE: Thesis-stylight.tex Thesis.tex epub/Thesis.ncx epub/Thesis.xhtml
 
 Thesis-stylight.pdf: Thesis-stylight.tex
 	ln -sf ../Data ../Figures ./
@@ -21,5 +24,23 @@ Thesis.tex: ../Thesis.lyx
 	lyx --export xetex $<
 	mv ../$@ ./
 
+Thesis.epub: epub/Thesis.ncx epub/Thesis.xhtml
+	rm -f $@
+	cd $(<D) ; zip -0 ../$@ mimetype
+	cd $(<D) ; zip ../$@ META-INF/container.xml Thesis.*
+
+epub/Thesis.ncx: epub/Thesis.xhtml epub/template.ncx
+	cp epub/template.ncx $@
+	sed -En "/'tocentry'/{s_^<.*'lyxtoc-([0-9])'[^']*'([^']*)'[^>]*>([^<]*)<.*\$$_\1 \2 \3_;p;}" $< | \
+		sed 1d | cat -n | sed -E 's/[[:space:]]*([0-9]*)[[:space:]]*([0-9]*)[[:space:]]*(.*)/\2 \1 \3/' | \
+		sed -E '2,$$s_^0 _0 </navPoint>_;s_^1 (.*)$$_1 \1</navPoint>_;s_^[0-9] __;s_([0-9]+) _<navPoint playOrder="\1" id="thesis-\1">_;s_(#[^ ]*) _<content src="Thesis.xhtml\1" />_;s_/>([^<]*)_/><navLabel><text>\1</text></navLabel>_' >> $@
+	echo '</navPoint></navMap></ncx>' >> $@
+
+epub/Thesis.xhtml: ../Thesis.lyx
+	lyx --export xhtml $<
+	sed 's_</head>_<link rel="stylesheet" type="text/css" href="Thesis.css" /></head>_' < ../$(@F) > $@
+	rm ../$(@F)
+
 clean:
 	rm -f Thesis-stylight.pdf
+	rm -f Thesis.epub
