@@ -4575,7 +4575,7 @@ Recognizing the importance of responsiveness,
 \end_inset
 
  developers started to migrate long-running or blocking work off the main
- user interface thread.
+ thread.
  Two mechanisms to support this change were asynchronous interfaces
 \begin_inset Index idx
 status collapsed
@@ -5267,7 +5267,7 @@ Threads are still used behind the scenes to implement the asynchronous execution
  Instead, the runtime environment can manage the number of active threads,
  taking into account the number of cores and the current load on the machine.
  I will explore this control potential when I discuss core placement in
- Section
+ Chapter
 \begin_inset space ~
 \end_inset
 
@@ -6857,7 +6857,7 @@ First, GCD is a mature and fully-featured implementation of asynchronous
 \begin_inset space ~
 \end_inset
 
-X and iOS platforms.
+X and iOS.
  GCD is becoming an essential technology on these platforms, with older
  APIs being rewritten to use it and newer APIs relying on it exclusively.
 \begin_inset CommandInset citation
@@ -7657,8 +7657,8 @@ key "Blumofe:Cilk"
 \end_inset
 
  Now, these systems appear as mature industrial solutions.
- Early research suggests that lambda-like programming models are also a
- good fit for future extremely parallel hardware.
+ Preliminary research today suggests that lambda-like programming models
+ are also a good fit for future extremely parallel hardware.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Knauerhase:ExtremeParallelism"
@@ -8549,6 +8549,16 @@ release time
 
 \end_inset
 
+
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+release time
+\end_layout
+
+\end_inset
+
  of the job.
  When the iteration ends, the job 
 \begin_inset Flex SmallCaps
@@ -8580,8 +8590,17 @@ key "Liu:RealTimeSystems"
 \end_layout
 
 \begin_layout Standard
-Additionally, real-time literature often uses the terms arrival time and
- release time synonymously.
+Additionally, real-time literature often uses the terms arrival time
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+arrival time
+\end_layout
+
+\end_inset
+
+ and release time synonymously.
  But originating from queueing theory, arrival time intuitively refers to
  the submission instant, because at this time the job arrives at the queue.
  To prevent confusion, I avoid the term arrival time altogether.
@@ -9484,7 +9503,7 @@ key "Sutter:ParallelJungle"
 \noun on
 Atlas
 \noun default
- strives to simplify development of real-time code using the same programming
+ strives to simplify development of real-time code by using the same programming
  model.
  To that end, it exploits the program structure exposed by lambdas to provide
  information to the scheduler.
