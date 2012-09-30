@@ -1,5 +1,5 @@
 body {
-	font-family:Georgia, Palatino, Times New Roman;
+	font-family:Palatino, Georgia, Times New Roman;
 	orphans:2;
 	widows:2;
 }
@@ -93,7 +93,7 @@ div.standard + div.standard {
 	text-indent:1em;
 }
 div.standard + div.standard span.flex_newthought {
-	margin-left:-2em;
+	text-indent:-1em;
 }
 span.flex_newthought {
 	display:inline-block;
@@ -114,7 +114,7 @@ a.tocarrow, a.tocarrow:visited {
 	color:#808785;
 }
 dl.description dt {
-	display:inline-block;
+	display:inline;
 	float:left;
 	font-style:italic;
 	font-weight:normal;
