@@ -1044,7 +1044,7 @@ The evolution of computing
  mobile world, the capabilities of systems and thus the possibilities for
  users increased steadily.
  This sea change thrives on the exponential improvement of the underlying
- transistor technology as predicted by Moore’s Law
+ transistor technology as predicted by Moore’s Law:
 \begin_inset Index idx
 status collapsed
 
@@ -1054,7 +1054,7 @@ Moore’s Law
 
 \end_inset
 
-: The number of transistors that can be integrated cost efficiently doubles
+ The number of transistors that can be integrated cost efficiently doubles
  approximately every two years.
 \begin_inset Foot
 status open
@@ -1181,7 +1181,7 @@ nts within applications with system-wide decision-making.
 \end_layout
 
 \begin_layout Description
-Timeliness
+Timeliness:
 \begin_inset Index idx
 status collapsed
 
@@ -1191,7 +1191,7 @@ timeliness
 
 \end_inset
 
-: User interface responsiveness and the smoothness of multimedia operations
+ User interface responsiveness and the smoothness of multimedia operations
  require that applications’ 
 \begin_inset Flex SmallCaps
 status collapsed
@@ -1220,7 +1220,7 @@ key "Sasinowski:ARTIFACT"
 \end_inset
 
  Such requirements arise when computers interface with the real world.
- Subsumed under the term real-time
+ Subsumed under the term real-time,
 \begin_inset Index idx
 status collapsed
 
@@ -1230,7 +1230,7 @@ real-time
 
 \end_inset
 
-, they tie the completion of software results to wall-clock time.
+ they tie the completion of software results to wall-clock time.
  Time being a global resource, a system-wide solution is needed.
  However, the majority of commodity systems today offer only weak temporal
  guarantees and predictability to applications, so developers have to work
@@ -1241,7 +1241,7 @@ real-time
 status open
 
 \begin_layout Plain Layout
-A notable exception is the BlackBerry PlayBook
+A notable exception is the BlackBerry PlayBook,
 \begin_inset Index idx
 status collapsed
 
@@ -1251,7 +1251,7 @@ BlackBerry PlayBook
 
 \end_inset
 
-, a general-purpose tablet computer which runs the real-time capable QNX
+ a general-purpose tablet computer which runs the real-time capable QNX
 \begin_inset Index idx
 status collapsed
 
@@ -1545,7 +1545,7 @@ Interaction between Application and Scheduler
 status collapsed
 
 \begin_layout Plain Layout
-every device in a computer system
+Every device in a computer system
 \end_layout
 
 \end_inset
@@ -1718,7 +1718,7 @@ key "Jacobson:SATF"
 
  to improve drive throughput.
  Peripheral device schedulers enjoy the advantage that the outstanding requests
- are self-describing jobs
+ are self-describing jobs.
 \begin_inset Index idx
 status collapsed
 
@@ -1728,7 +1728,6 @@ self-describing job
 
 \end_inset
 
-.
  Inspecting them reveals all information the peripheral will use to execute
  them.
  This is natural, because to program the device, the driver must have all
@@ -1810,7 +1809,7 @@ CPU scheduling
 
  does not share this benefit: It does not deal with self-describing jobs
  in a queue of outstanding work.
- Instead, it maintains a ready queue of runnable threads
+ Instead, it maintains a ready queue of runnable threads.
 \begin_inset Index idx
 status collapsed
 
@@ -1820,7 +1819,6 @@ thread
 
 \end_inset
 
-.
  Other than a job, a thread is not consumed after it executed, but is automatica
 lly inserted into the ready queue again until terminated by the application.
  Other than a job, a thread is not a self-describing aggregate of payload
@@ -1870,7 +1868,7 @@ priority
 
 \end_inset
 
- or the Unix nice levels
+ or the Unix nice levels.
 \begin_inset Index idx
 status collapsed
 
@@ -1880,7 +1878,6 @@ nice level
 
 \end_inset
 
-.
  This single numeric value
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -1976,7 +1973,7 @@ The walk-through of the problem area shows that the considered non-functional
  They involve local knowledge from the applications and global policy executed
  by the scheduler.
  Furthermore, many applications act as an execution environment tailored
- to a specific workload
+ to a specific workload:
 \begin_inset Index idx
 status collapsed
 
@@ -1986,7 +1983,7 @@ workload
 
 \end_inset
 
-: a text editor manipulates documents, a photo album manages photos, a video
+ a text editor manipulates documents, a photo album manages photos, a video
  player renders continuous media.
  Those applications’ behavior dynamically depends on the workload they handle.
  This workload is what users care about after all.
@@ -2213,7 +2210,7 @@ deadline
 
 \begin_layout Standard
 An emerging trend in the development of parallel software is the use of
- lambdas
+ lambdas,
 \begin_inset Index idx
 status collapsed
 
@@ -2230,7 +2227,7 @@ key "Sutter:LambdasEverywhere"
 
 \end_inset
 
-, depending on the programming language also called closures
+ depending on the programming language also called closures
 \begin_inset Index idx
 status collapsed
 
@@ -2240,7 +2237,7 @@ closure
 
 \end_inset
 
- or blocks
+ or blocks.
 \begin_inset Index idx
 status collapsed
 
@@ -2250,7 +2247,6 @@ block
 
 \end_inset
 
-.
  They are used to structure code into pieces that can be executed asynchronously
 , which keeps applications responsive in the presence of long-running background
  computation or IO
@@ -2392,7 +2388,7 @@ look-ahead
 \emph on
  
 \emph default
-scheduling
+scheduling:
 \end_layout
 
 \end_inset
@@ -2407,7 +2403,7 @@ look-ahead scheduling
 
 \end_inset
 
-: It can make ahead-of-time, anticipating decisions rather than exercising
+ It can make ahead-of-time, anticipating decisions rather than exercising
  post-mortem, reactive control.
 \end_layout
 
@@ -2466,7 +2462,7 @@ quality-aware overload handling.
 \begin_layout Standard
 \noindent
 I chose these problems because I believe they constitute important non-functiona
-l properties
+l properties,
 \begin_inset Index idx
 status collapsed
 
@@ -2476,9 +2472,9 @@ non-functional properties
 
 \end_inset
 
-, which applications should offer to their users.
+ which applications should offer to their users.
  Therefore, I investigate these problems in the context of interactive end-user
- systems
+ systems,
 \begin_inset Index idx
 status collapsed
 
@@ -2488,7 +2484,7 @@ interactive systems
 
 \end_inset
 
-, running a commodity operating system
+ running a commodity operating system
 \begin_inset CommandInset citation
 LatexCommand cite
 key "StatCounter:OSMarketShare"
@@ -2610,7 +2606,7 @@ key "Liu:RealTimeSystems"
 
 \end_inset
 
- distinguishes between systems with hard
+ distinguishes between systems with hard,
 \begin_inset Index idx
 status collapsed
 
@@ -2620,7 +2616,7 @@ hard deadline
 
 \end_inset
 
-, firm
+ firm
 \begin_inset Index idx
 status collapsed
 
@@ -2630,7 +2626,7 @@ firm deadline
 
 \end_inset
 
- and soft deadlines
+ and soft deadlines.
 \begin_inset Index idx
 status collapsed
 
@@ -2640,7 +2636,6 @@ soft deadline
 
 \end_inset
 
-.
  Figure
 \begin_inset space ~
 \end_inset
@@ -3315,7 +3310,7 @@ I contribute a scheduler interface
  and an accompanying task model that allow applications to express timing
  and resource requirements.
  Other than the majority of related work, I do not employ a periodic task
- model
+ model.
 \begin_inset Index idx
 status collapsed
 
@@ -3325,7 +3320,7 @@ periodic task model
 
 \end_inset
 
-.
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Liu:RMS"
@@ -3352,6 +3347,8 @@ status collapsed
 
 \emph off
 workload metrics
+\emph default
+:
 \end_layout
 
 \end_inset
@@ -3366,7 +3363,7 @@ workload metrics
 
 \end_inset
 
-: parameters from the workload that describe its computational weight.
+ parameters from the workload that describe its computational weight.
  
 \noun on
 Atlas
@@ -3421,7 +3418,7 @@ Atlas
 
 \begin_layout Standard
 Literature mentions look-ahead together with scheduling in the areas of
- constraint satisfaction problems
+ constraint satisfaction problems,
 \begin_inset Index idx
 status collapsed
 
@@ -3431,7 +3428,7 @@ constraint satisfaction problem
 
 \end_inset
 
-,
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Schaerf:CSP"
@@ -3630,7 +3627,7 @@ I contribute a collaboration mechanism
  scheduler.
  Integrating with the lambda programming-style, I tap into the application
  to automatically deduce available parallelism and to maintain a model of
- the parallel speedup
+ the parallel speedup:
 \begin_inset Index idx
 status collapsed
 
@@ -3640,7 +3637,7 @@ parallel speedup
 
 \end_inset
 
-: For each number of cores a job can make use of, the scheduler receives
+ For each number of cores a job can make use of, the scheduler receives
  an execution time estimate as illustrated in Figure
 \begin_inset space ~
 \end_inset
@@ -3869,7 +3866,7 @@ back-pressure
  applications.
  When the scheduler detects an overload situation, it forcibly reduces the
  CPU time allocated to each application so that the overload is resolved.
- These cutbacks are apportioned according to a quality-weighted policy
+ These cutbacks are apportioned according to a quality-weighted policy:
 \begin_inset Index idx
 status collapsed
 
@@ -3879,7 +3876,7 @@ quality-weighted policy
 
 \end_inset
 
-: Applications tell the scheduler how much reduction they can tolerate to
+ Applications tell the scheduler how much reduction they can tolerate to
  maintain a minimal acceptable quality.
  This quality threshold is resembles probabilistic real-time task models
  such as QRMS.
@@ -3897,7 +3894,7 @@ ir policy.
 
 \begin_layout Standard
 The remaining CPU time assigned to each application is reported back to
- encourage adaptation
+ encourage adaptation.
 \begin_inset Index idx
 status collapsed
 
@@ -3907,7 +3904,6 @@ adaptation
 
 \end_inset
 
-.
  Developers can implement custom degradation strategies like load-shedding
 \begin_inset Index idx
 status collapsed
@@ -4079,7 +4075,7 @@ Demo Application
 \end_layout
 
 \begin_layout Standard
-The primary example workload in this thesis is video playback
+The primary example workload in this thesis is video playback.
 \begin_inset Index idx
 status collapsed
 
@@ -4089,7 +4085,6 @@ video playback
 
 \end_inset
 
-.
  I chose video because I think it is representative for a number of real-time
  and throughput applications, because it combines interesting properties:
 \end_layout
@@ -4477,7 +4472,7 @@ Three major paradigm shifts
 
  changed the way desktop software is written, with the latest of these transitio
 ns still in progress.
- Historically, all applications started out single-threaded
+ Historically, all applications started out single-threaded.
 \begin_inset Index idx
 status collapsed
 
@@ -4487,7 +4482,6 @@ single-threaded
 
 \end_inset
 
-.
  The traditional Unix design only knows about processes that implicitly
  host only a single activity.
 \begin_inset CommandInset citation
@@ -4613,7 +4607,7 @@ key "SantAnna:ProblemEvents"
  complicates code understanding.
  Furthermore, because the callback executes in a separate function, the
  context of local variables is different from when the asynchronous processing
- started, a problem known as stack ripping
+ started, a problem known as stack ripping.
 \begin_inset Index idx
 status collapsed
 
@@ -4623,7 +4617,7 @@ stack ripping
 
 \end_inset
 
-.
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Adya:StackRipping"
@@ -5296,7 +5290,7 @@ Asynchronous
 \begin_inset space \space{}
 \end_inset
 
-invocation originates from event-based programming
+invocation originates from event-based programming.
 \begin_inset Index idx
 status collapsed
 
@@ -5306,7 +5300,7 @@ event-based programming
 
 \end_inset
 
-.
+
 \begin_inset CommandInset citation
 LatexCommand cite
 after "-2\\baselineskip"
@@ -7016,7 +7010,7 @@ The two basic primitives of GCD
 
 \end_inset
 
- are blocks and dispatch queues
+ are blocks and dispatch queues.
 \begin_inset Index idx
 status collapsed
 
@@ -7026,7 +7020,6 @@ dispatch queue
 
 \end_inset
 
-.
  Blocks implement the lambda part of asynchronous lambdas.
  They turn a piece of executable code into a language object, but other
  than a function they are written inline and automatically capture surrounding
@@ -8565,12 +8558,12 @@ release time
 status collapsed
 
 \begin_layout Plain Layout
-completes
+completes.
 \end_layout
 
 \end_inset
 
-.
+
 \end_layout
 
 \begin_layout Standard
@@ -8643,7 +8636,7 @@ After defining important events during the life of a job, we also assign
 status collapsed
 
 \begin_layout Plain Layout
-look-ahead time
+look-ahead time,
 \end_layout
 
 \end_inset
@@ -8658,12 +8651,12 @@ look-ahead time
 
 \end_inset
 
-, the time between release and completion is the job’s 
+ the time between release and completion is the job’s 
 \begin_inset Flex SmallCaps
 status collapsed
 
 \begin_layout Plain Layout
-makespan
+makespan.
 \end_layout
 
 \end_inset
@@ -8678,7 +8671,6 @@ makespan
 
 \end_inset
 
-.
  Preemption or blocking may occur during the makespan, resulting in an 
 \begin_inset Flex SmallCaps
 status collapsed
@@ -8726,7 +8718,7 @@ scheduling window
 status collapsed
 
 \begin_layout Plain Layout
-slack time
+slack time.
 \end_layout
 
 \end_inset
@@ -8741,7 +8733,6 @@ slack time
 
 \end_inset
 
-.
  Except for the look-ahead term, these definitions are in line with common
  real-time terminology.
 \end_layout
@@ -8900,9 +8891,14 @@ filename "Data/2-Anatomy/Characteristics.tex"
 \begin_inset Note Note
 status open
 
-\begin_layout Plain Layout
+\begin_layout Itemize
 switch to Sintel if numbers are equally convincing, use a Full-HD video
  otherwise
+\end_layout
+
+\begin_layout Itemize
+convert from TeX-include to LyX-include so that it works in XHTML output
+ for ePub
 \end_layout
 
 \end_inset

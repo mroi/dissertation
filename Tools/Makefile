@@ -27,10 +27,14 @@ Thesis.tex: ../Thesis.lyx
 Thesis.epub: epub/Thesis.ncx epub/Thesis.xhtml
 	rm -f $@
 	cd $(<D) ; zip -0 ../$@ mimetype
-	cd $(<D) ; zip ../$@ META-INF/container.xml Thesis.*
+	cd $(<D) ; zip ../$@ META-INF/container.xml $(basename $@).*
 
 epub/Thesis.ncx: epub/Thesis.xhtml epub/template.ncx
 	cp epub/template.ncx $@
+	# incredibly ugly and brittle extraction of TOC info from XHTML
+	# first line extracts nesting level, label and title
+	# second line removes the acknowledgment, adds line numbers and resorts columns
+	# third line reformats to navPoint and navLabel tags
 	sed -En "/'tocentry'/{s_^<.*'lyxtoc-([0-9])'[^']*'([^']*)'[^>]*>([^<]*)<.*\$$_\1 \2 \3_;p;}" $< | \
 		sed 1d | cat -n | sed -E 's/[[:space:]]*([0-9]*)[[:space:]]*([0-9]*)[[:space:]]*(.*)/\2 \1 \3/' | \
 		sed -E '2,$$s_^0 _0 </navPoint>_;s_^1 (.*)$$_1 \1</navPoint>_;s_^[0-9] __;s_([0-9]+) _<navPoint playOrder="\1" id="thesis-\1">_;s_(#[^ ]*) _<content src="Thesis.xhtml\1" />_;s_/>([^<]*)_/><navLabel><text>\1</text></navLabel>_' >> $@
@@ -38,7 +42,10 @@ epub/Thesis.ncx: epub/Thesis.xhtml epub/template.ncx
 
 epub/Thesis.xhtml: ../Thesis.lyx
 	lyx --export xhtml $<
-	sed 's_</head>_<link rel="stylesheet" type="text/css" href="Thesis.css" /></head>_' < ../$(@F) > $@
+	sed "s_</head>_<link rel='stylesheet' type='text/css' href='Thesis.css' /></head>_; \
+		s_href='#\([A-Z]\)_href='#LyXCite-\1_g;s_\[_ [_g;s_, -[0-9]*\\\\baselineskip__g; \
+		s_\\\\raisebox{.*}{\(.*\)}_\1_g;s_\\\\noindent__g; \
+		s_MarginFigure_Margin Figure_g;s_Table of Contents_Contents_" < ../$(@F) > $@
 	rm ../$(@F)
 
 clean:

@@ -1,0 +1,148 @@
+body {
+	font-family:Georgia, Palatino, Times New Roman;
+	orphans:2;
+	widows:2;
+}
+.standard, .description, .full_width, .itemize, .plain_layout {
+	line-height:140%;
+	font-size:95%;
+}
+.author, .title, .verleger {
+	font-family:Gill Sans, Helvetica, Arial;
+	text-transform:uppercase;
+}
+div.author {
+	color:#48494B;
+	text-align:left;
+	letter-spacing:1pt;
+}
+h1.title {
+	color:#48494B;
+	font-weight:normal;
+	font-size:200%;
+	text-align:left;
+	letter-spacing:2pt;
+}
+.toc-figure, .lyxtoc-1, .lyxtoc-figure, .toc + .lyxtoc-0 {
+	display:none;
+}
+h1.chapter_, div.toc, div.tochead, div.chapter {
+	page-break-before:always;
+	clear:both;
+	font-style:italic;
+	font-weight:normal;
+	font-size:xx-large;
+	margin-top:4ex;
+	margin-bottom:2ex;
+	border:0px;
+	padding:0px;
+}
+div.lyxtoc-0, div.section {
+	clear:both;
+	font-style:italic;
+	font-weight:normal;
+	font-size:x-large;
+	margin-top:2ex;
+	margin-bottom:1ex;
+}
+div.description_label {
+	font-style:italic;
+	font-weight:normal;
+}
+div.float, div.float-caption {
+	page-break-inside:avoid;
+	border:0px;
+	text-align:left;
+}
+div.float-caption {
+	font-size:small;
+	padding:0px;
+	margin-top:1ex;
+	margin-left:0px;
+	margin-right:0px;
+	margin-bottom:0px;
+}
+div.float-marginfigure, div.float-table {
+	margin-top:2ex;
+	margin-bottom:2ex;
+}
+div.float-marginfigure {
+	clear:both;
+	float:right;
+	width:300px;
+	margin-left:2em;
+	margin-right:0px;
+}
+div.foot {
+	display:none;
+}
+div.Frameless {
+	margin:0px;
+}
+div.full_width {
+	margin-top:1ex;
+	margin-bottom:2ex;
+}
+div.index {
+	display:none;
+}
+div.standard {
+	margin-bottom:0px;
+}
+div.standard + div.standard {
+	text-indent:1em;
+}
+div.standard + div.standard span.flex_newthought {
+	margin-left:-2em;
+}
+span.flex_newthought {
+	display:inline-block;
+	font-variant:normal;
+	text-transform:uppercase;
+	letter-spacing:1pt;
+	margin-top:2ex;
+}
+span.flex_allcaps {
+	text-transform:uppercase;
+	letter-spacing:1pt;
+}
+span.flex_smallcaps {
+	font-variant:normal;
+	font-style:italic;
+}
+a.tocarrow, a.tocarrow:visited {
+	color:#808785;
+}
+dl.description dt {
+	display:inline-block;
+	float:left;
+	font-style:italic;
+	font-weight:normal;
+	margin-right:1ex;
+}
+dd, li {
+	margin-bottom:1ex;
+}
+math {
+	text-indent:0px;
+}
+math mstyle[mathvariant=normal] mi {
+	font-style:normal;
+}
+table {
+	border-top:1px solid black;
+	border-bottom:1px solid black;
+	border-left:0px;
+	border-right:0px;
+	margin-top:2ex;
+	margin-bottom:2ex;
+}
+td {
+	border:0px;
+}
+ul.itemize {
+	page-break-inside:avoid;
+	margin-left:0px;
+	padding-left:2em;
+	text-indent:0px;
+}
