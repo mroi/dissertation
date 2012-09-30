@@ -43,8 +43,9 @@ epub/Thesis.ncx: epub/Thesis.xhtml epub/template.ncx
 epub/Thesis.xhtml: ../Thesis.lyx
 	lyx --export xhtml $<
 	sed "s_</head>_<link rel='stylesheet' type='text/css' href='Thesis.css' /></head>_; \
-		s_href='#\([A-Z]\)_href='#LyXCite-\1_g;s_\[_ [_g;s_, -[0-9]*\\\\baselineskip__g; \
-		s_\\\\raisebox{.*}{\(.*\)}_\1_g;s_\\\\noindent__g; \
+		/<a [^>]*>$$/{N;s_\n__;};s_\[_ [_g; \
+		s_href='#\([A-Z]\)_href='#LyXCite-\1_g; \
+		s_, -[0-9]*\\\\baselineskip__g;s_\\\\raisebox{.*}{\(.*\)}_\1_g;s_\\\\noindent__g; \
 		s_MarginFigure_Margin Figure_g;s_Table of Contents_Contents_" < ../$(@F) > $@
 	rm ../$(@F)
 
