@@ -44,6 +44,9 @@
 % do not indent the bibliography
 \setlength{\bibhang}{0pt}
 
+% QR-code generator used for some URLs
+\usepackage{pst-barcode}
+
 % repeat tufte caption definition because it gets garbled by hyperref
 \long\def\@caption#1[#2]#3{\par%
 \addcontentsline{\csname ext@#1\endcsname}{#1}%
@@ -2249,11 +2252,7 @@ block
 
  They are used to structure code into pieces that can be executed asynchronously
 , which keeps applications responsive in the presence of long-running background
- computation or IO
-\begin_inset space ~
-\end_inset
-
-operations.
+ computation or blocking operations.
  Because asynchronously executed code runs concurrently with other code,
  lambdas are also a tool to express parallelism.
  A more in-depth discussion of this programming style follows in Chapter
@@ -3470,11 +3469,7 @@ al.
 \end_inset
 
 investigated the submission of future jobs to a peripheral scheduler to
- improve prefetching for IO
-\begin_inset space ~
-\end_inset
-
-devices.
+ improve prefetching for input devices.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Patterson:InformedPrefetching"
@@ -4455,9 +4450,10 @@ s and motivate, how
 \noun on
 Atlas
 \noun default
- can be fitted for this style and what benefits the combination affords.
+ complements this style and what benefits the combination offers.
  Apart from guiding ideas framed in the context of real-world programming,
- I do not claim a distinct scientific contribution.
+ I do not claim a distinct scientific contribution, but rather give an understan
+ding of my target applications and explain basic terminology.
 \end_layout
 
 \begin_layout Standard
@@ -4497,9 +4493,9 @@ key "OpenGroup:SingleThread"
 
 \begin_layout Standard
 However, this model made the developers’ lives easier at the price of user
- irritation: When an application synchronously performs an IO-operation,
- for example reading a large file from disk or waiting for data from the
- network, its only thread is stuck in a blocking system call.
+ irritation: When an application synchronously performs an input or output
+ operation, for example reading a large file from disk or waiting for data
+ from the network, its only thread is stuck in a blocking system call.
  Consequently, that thread is now unavailable for user interactions.
  The application appears dead for a while.
  The visual cue for such a mishap are redraw artifacts that tail other windows
@@ -4635,7 +4631,7 @@ On the other hand, it is also difficult for programmers to orchestrate multiple
  However, as the number of concurrent threads increases, their interleaving
  becomes increasingly complex to manage.
  Programmers unknowingly make wrong assumptions on the execution order of
- code on different threads.
+ code in different threads.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Lu:ConcurrencyBugs"
@@ -4644,9 +4640,8 @@ key "Lu:ConcurrencyBugs"
 
  As mainstream computers featured only a single CPU core, those assumptions
  used to hold.
- But when Intel’s Hyper-Threading marked the first exposure of commodity
- machines to hardware concurrency, many multithreaded programs suddenly
- broke.
+ But when multiple CPU cores made their way into commodity machines, many
+ multithreaded programs suddenly broke.
 \end_layout
 
 \begin_layout Standard
@@ -4670,8 +4665,18 @@ key "Sutter:LambdasEverywhere"
  invocation, but without inheriting their historical callback-soup and stack
  ripping downsides.
  Today, developers are discouraged from using threads directly, but should
- instead use new programming language constructs that allow them to envelop
- a piece of code and dispatch it for asynchronous invocation.
+ instead use new programming language constructs called lambdas, closures,
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+closure
+\end_layout
+
+\end_inset
+
+ or blocks that allow them to envelop a piece of code and dispatch it for
+ asynchronous invocation.
 \end_layout
 
 \begin_layout Standard
@@ -4720,20 +4725,35 @@ asynchronous lambda
 \end_layout
 
 \begin_layout Standard
-The following Figure
+Figure
 \begin_inset space ~
 \end_inset
 
 
 \begin_inset CommandInset ref
-LatexCommand ref
+LatexCommand vref
 reference "2-fig:Mouse-Processing-Styles"
 
 \end_inset
 
- shows four pseudocode versions of a long-running computation triggered
- by user interaction, from the historical serial version to the modern lambda-st
-yle:
+ shows four pseudocode versions
+\begin_inset space \thinspace{}
+\end_inset
+
+—
+\begin_inset space \thinspace{}
+\end_inset
+
+from the historical serial version to the modern lambda-style
+\begin_inset space \thinspace{}
+\end_inset
+
+—
+\begin_inset space \thinspace{}
+\end_inset
+
+of a user-initiated long-running computation, which updates the user interface
+ when finished:
 \end_layout
 
 \begin_layout Standard
@@ -5157,8 +5177,14 @@ longWork
 
  for execution, control returns to the runtime, which invokes the callback
  as the result is available.
- The callback function and the context act as a continuation to complete
- the job.
+ The callback function and the context act as a continuation
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Reynolds:Continuation"
+
+\end_inset
+
+ to complete the job.
 \end_layout
 
 \begin_layout Description
@@ -5205,14 +5231,14 @@ Central
 \begin_inset space ~
 \end_inset
 
-Dispatch (GCD) system
+Dispatch (GCD) system,
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Apple:GrandCentralDispatch"
 
 \end_inset
 
-, where a caret
+ where a caret
 \begin_inset space ~
 \end_inset
 
@@ -5303,18 +5329,7 @@ event-based programming
 
 \begin_inset CommandInset citation
 LatexCommand cite
-after "-2\\baselineskip"
 key "Krohn:Events"
-
-\end_inset
-
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-manual offset
-\end_layout
 
 \end_inset
 
@@ -5324,14 +5339,13 @@ manual offset
  pieces of work and execute them asynchronously.
 \begin_inset CommandInset citation
 LatexCommand cite
-after "-2\\baselineskip"
 key "Welsh:SEDA"
 
 \end_inset
 
  Queuing work instead of explicitly spawning a thread allows the runtime
  layer to control the number of threads, employing strategies like thread
- pooling or system-wide load balancing.
+ pooling.
 \end_layout
 
 \begin_layout Description
@@ -5348,30 +5362,30 @@ Lambdas automatically transfer state by capturing variables from the enclosing
 The compiler and runtime combine the lambda’s code block and the necessary
  state to an object that can be passed as an argument to functions, making
  this language feature a natural fit for the pattern of asynchronous invocation.
- Herb Sutter believes lambdas are “the
+ Herb Sutter believes lambdas are “The
 \begin_inset space ~
 \end_inset
 
-holy
+Holy
 \begin_inset space ~
 \end_inset
 
-grail” for developing a library of parallel programming patterns.
+Grail” for developing a library of parallel programming patterns.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Sutter:C++AMP_Keynote"
 
 \end_inset
 
- An illustrative analogy to the use of asynchronous lambdas instead of threads
- is the shift from circuit-switched networks to packet routing.
+ Academia has explored the mechanics of such generic parallel runtimes and
+ their work queue management strategies early.
 \begin_inset CommandInset citation
 LatexCommand cite
-key "MacResearch:AboardGrandCentral"
+key "Blumofe:Cilk"
 
 \end_inset
 
-
+ Now, these systems appear as mature industrial solutions.
 \end_layout
 
 \begin_layout Standard
@@ -6243,17 +6257,17 @@ Iteration
 \begin_inset Text
 
 \begin_layout Plain Layout
-CoreManager
+Qt
 \begin_inset Index idx
 status collapsed
 
 \begin_layout Plain Layout
-CoreManager
+Qt
 \end_layout
 
 \end_inset
 
-
+ Signals and Slots
 \end_layout
 
 \end_inset
@@ -6262,7 +6276,7 @@ CoreManager
 \begin_inset Text
 
 \begin_layout Plain Layout
-Task
+Event
 \end_layout
 
 \end_inset
@@ -6315,17 +6329,17 @@ Task
 \begin_inset Text
 
 \begin_layout Plain Layout
-Qt
+CoreManager
 \begin_inset Index idx
 status collapsed
 
 \begin_layout Plain Layout
-Qt
+CoreManager
 \end_layout
 
 \end_inset
 
- Signals and Slots
+
 \end_layout
 
 \end_inset
@@ -6334,7 +6348,7 @@ Qt
 \begin_inset Text
 
 \begin_layout Plain Layout
-Event
+Task
 \end_layout
 
 \end_inset
@@ -6627,15 +6641,16 @@ key "OpenMP"
 
 \end_inset
 
- employs an even stricter model of fork-join-concurrency.
- The programmer marks parallel sections in otherwise serial code.
+ employs a model of strict fork-join-concurrency.
+ The programmer marks intermittent parallel sections in otherwise serial
+ code.
  Figure
 \begin_inset space ~
 \end_inset
 
 
 \begin_inset CommandInset ref
-LatexCommand ref
+LatexCommand vref
 reference "2-mar:OpenMP-Fork-Join"
 
 \end_inset
@@ -6670,7 +6685,7 @@ s.
 
 
 \begin_inset CommandInset ref
-LatexCommand vref
+LatexCommand ref
 reference "2-mar:Galois-Set-Iterator"
 
 \end_inset
@@ -6718,25 +6733,31 @@ OpenMP Fork-Join-Model
 \end_inset
 
 
-\begin_inset Newpage newpage
-\end_inset
-
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-manual page break
 \end_layout
 
+\begin_layout Standard
+Among the application frameworks popular on Linux, the Qt library provides
+ a mechanism called Signals and Slots to flexibly dispatch function invocation.
+ This mechanism works across threads
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Qt:SignalsSlotsThreads"
+
 \end_inset
 
-
+ and allows for asynchronous execution of work in the background.
+ Automatic thread management is available by way of a thread pool facility.
 \end_layout
 
 \begin_layout Standard
 Even hardware is trending towards asynchronous programming models, forecasting
  the relevance for future heterogeneous manycore chips.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Knauerhase:ExtremeParallelism"
+
+\end_inset
+
  CoreManager
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -6770,20 +6791,6 @@ key "Limberg:Tomahawk"
  asynchronously on a processing element.
  Although input and output data of a task must be marked explicitly, the
  memory content is automatically transferred by a memory controller.
-\end_layout
-
-\begin_layout Standard
-Among the application frameworks popular on Linux, the Qt library provides
- a mechanism called Signals and Slots to flexibly dispatch function invocation.
- This mechanism works across threads
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Qt:SignalsSlotsThreads"
-
-\end_inset
-
- and allows for asynchronous execution of work in the background.
- Automatic thread management is available by way of a thread pool facility.
 \end_layout
 
 \begin_layout Standard
@@ -6839,8 +6846,8 @@ Throughout this thesis, I use the Grand Central Dispatch (GCD) implementation
 Atlas
 \noun default
  scheduling concepts.
- However, I believe my work does not rely on specifics of GCD and should
- generalize to any complete asynchronous lambda system.
+ However, I believe my work does not rely on specifics of GCD and generalizes
+ to any complete asynchronous lambda system.
  The two reasons for siding with GCD are:
 \end_layout
 
@@ -7390,6 +7397,21 @@ multiplier
 Here, libdispatch enters the stage.
  It implements dispatch queues to which a programmer can asynchronously
  submit work items in the form of blocks.
+ GCD conveniently provides synchronization primitives as a natural part
+ of its programming idioms.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Apple:SerialQueue"
+
+\end_inset
+
+ Dispatch queues come in two flavors: serial and parallel queues.
+ Blocks submitted to a serial queue execute one after the other, never running
+ two of them at the same time.
+ This guarantee not only implies protection for critical sections, it also
+ allows developers to reason about the order of block execution.
+ Blocks on a parallel queue execute concurrently and may complete in any
+ order.
  Figure
 \begin_inset space ~
 \end_inset
@@ -7402,20 +7424,6 @@ reference "2-fig:Asynchronous-Execution-libdispatch"
 \end_inset
 
  restates our running example using libdispatch functions:
-\begin_inset Newpage newpage
-\end_inset
-
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-manual page break
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -7640,171 +7648,6 @@ The programming paradigm
  It translates the latent parallelism to actual parallelism.
 \end_layout
 
-\begin_layout Standard
-Academia has explored the mechanics of such generic parallel runtimes and
- their work queue management strategies early.
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Blumofe:Cilk"
-
-\end_inset
-
- Now, these systems appear as mature industrial solutions.
- Preliminary research today suggests that lambda-like programming models
- are also a good fit for future extremely parallel hardware.
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Knauerhase:ExtremeParallelism"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Flex NewThought
-status collapsed
-
-\begin_layout Plain Layout
-Not all threads
-\end_layout
-
-\end_inset
-
- can be managed transparently by the runtime.
- If threads were only spawned implicitly by dispatching blocks to queues,
- a chicken-and-egg problem would ensue: To dispatch a block, code must be
- executed, thus a thread must be running.
- If this thread started implicitly, a block must have been dispatched.
- To break this cycle, an initial thread or an initial block is required.
-\end_layout
-
-\begin_layout Standard
-Current implementations employ an always-on thread: The first thread of
- each application
-\begin_inset space \thinspace{}
-\end_inset
-
-—
-\begin_inset space \thinspace{}
-\end_inset
-
-called the 
-\begin_inset Flex SmallCaps
-status collapsed
-
-\begin_layout Plain Layout
-main thread
-\end_layout
-
-\end_inset
-
-
-\begin_inset Index idx
-status collapsed
-
-\begin_layout Plain Layout
-main thread
-\end_layout
-
-\end_inset
-
-
-\begin_inset space \thinspace{}
-\end_inset
-
-—
-\begin_inset space \thinspace{}
-\end_inset
-
-does not rely on blocks or queues to run.
- In graphical user interface frameworks, this thread is responsible for
- communicating with the user by updating the display and waiting for input.
- It is not supposed to block because this will render the application unresponsi
-ve.
- Therefore, all non-trivial work should be dispatched to a work queue for
- asynchronous execution.
- The main thread thus represents the backbone of the application, but it
- does no real work itself.
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-Microkernels follow a similar philosophy.
- They mediate between hardware and applications, but do so only in direct
- reaction to a system call or interrupt.
- The quote “a microkernel does no real work” is attributed to Jochen Liedtke.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The OpenMP and Galois runtimes similarly distinguish between a singular
- main thread and a pool of worker threads.
- This model is also employed in the large by distributed programming models
- such as Piccolo
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Power:Piccolo"
-
-\end_inset
-
-, where the equivalent to the main thread is the master process.
- It orchestrates workers running on separate machines by dispatching compute
- kernels to them.
-\end_layout
-
-\begin_layout Standard
-I revisit the main thread and other manually managed legacy threads when
- I discuss real-time reservations.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Flex NewThought
-status collapsed
-
-\begin_layout Plain Layout
-Synchronization
-\end_layout
-
-\end_inset
-
- is orthogonal to, but necessary for controlling parallelism.
- Conceptually, synchronization solves race conditions pessimistically using
- mutual exclusion or optimistically using transactions.
- With the exception of Galois, which uses optimistic concurrency and rollback,
- the asynchronous lambda implementations discussed here employ pessimistic
- synchronization with locks or semaphores.
-\end_layout
-
-\begin_layout Standard
-Queue-based systems such as GCD conveniently provide synchronization primitives
- as a natural part of their programming idioms.
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Apple:SerialQueue"
-
-\end_inset
-
- Dispatch queues come in one of two flavors: serial and parallel queues.
- Blocks submitted to a serial queue execute one after the other, never running
- two of them at the same time.
- This guarantee not only implies protection for critical sections, it also
- allows developers to reason about the order of block execution.
- Locks lack the latter property, which is a significant source of concurrency
- errors.
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Lu:ConcurrencyBugs"
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Section
 An Asynchronous World
 \end_layout
@@ -7825,8 +7668,8 @@ ng operation with a single mouse click, the queues can fill with substantial
 \end_layout
 
 \begin_layout Standard
-Media playback is the prime example for such an operation that is one-shot
- triggered, but then runs autonomously for an extended period of time.
+Media playback is an example for such an operation that is one-shot triggered,
+ but then runs autonomously for an extended period of time.
  As the user clicks play and sits back, all the following calculations are
  predetermined and known to the application.
  This also holds true for interactive applications such as games, albeit
@@ -8037,7 +7880,7 @@ To the best of my knowledge,
 
  the combination and mutual benefits of asynchronous lambdas and real-time
  jobs have not been explored yet.
- A different example of marrying real-time and programming concepts was
+ A different example of connecting real-time and programming concepts was
  the Comquad project, which introduced timing contracts
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -8263,6 +8106,30 @@ https://os.inf.tu-dresden.de/~mroi/svn/video/branches/Dissertation/
 
 \end_layout
 
+\begin_layout Plain Layout
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+hfill
+\backslash
+begin{pspicture}(0.5in,0.5in)
+\backslash
+psbarcode{https://os.inf.tu-dresden.de/
+\backslash
+%7Emroi/svn/video/branches/Dissertation/}{width=0.5 height=0.5}{qrcode}
+\backslash
+end{pspicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \end_inset
 
 
@@ -8292,6 +8159,10 @@ reference "2-fig:FFplay-Multithreaded-Player"
 \end_inset
 
 .
+ This architecture offloads the bulk of work to background threads, keeping
+ the main thread responsive.
+ Thus, it is prototypical for a well-behaving graphical user interface applicati
+on that performs heavy data processing.
 \end_layout
 
 \begin_layout Standard
@@ -8353,9 +8224,8 @@ stage reads the video file from disk, parses the stream and splits it into
  packets of compressed data, with one packet holding the data for one resulting
  frame of video.
  This stage is input-bound and requires little CPU time.
- It is also not particularly time-critical.
- When the input stage becomes delayed, buffering within the player ensures
- that the following stages can continue working.
+ When the input stage becomes delayed, buffering within the player helps
+ the following stages to continue working.
 \end_layout
 
 \begin_layout Description
@@ -8369,12 +8239,13 @@ decoder
 
 stage receives individual packets of compressed video data and decodes them
  to obtain the finished frames.
- This process is compute intensive, especially with high resolution video
+ This process is compute-intensive, especially for high resolution video
  streams.
  The computing time needed to decode one frame is dynamic and changes as
  the video progresses.
  A buffer to the final stage can compensate timing fluctuations, but when
- high CPU throughput is needed, catching up after a delay is difficult.
+ the system experiences high competing CPU load, catching up after a delay
+ is difficult.
 \end_layout
 
 \begin_layout Description
@@ -8413,8 +8284,6 @@ Two more threads deal with audio and subtitle decoding, but are ignored
  the player and coordinating the pipeline to achieve the desired result.
  To always remain responsive, this thread never executes a long-running
  or blocking operation.
- This design is prototypical for a well-behaving graphical user interface
- application.
 \end_layout
 
 \begin_layout Standard
@@ -8422,7 +8291,7 @@ Data travels through queues, which help even out the varying execution time
  of decoding video frames and mitigate temporary interruptions in the threads’
  operation.
  The queues connect the stages and allow the threads to synchronize: The
- input stage requires a free slot on the video queue and fills it with data
+ input stage acquires a free slot on the video queue and fills it with data
  it has read from the video file.
  The decoder stage consumes one packet from the video queue and fills an
  empty slot on the picture queue with a finished frame.
@@ -8576,7 +8445,7 @@ key "Liu:RealTimeSystems"
 
  uses a slightly different meaning for the term release time.
  Here, it is a specific point in the flow of the running code.
- The CPU reaching the next iteration marks the release of the job.
+ A job is released when the CPU reaches the next iteration.
  Thus, the release instant is a result of previous scheduling decisions.
  In the real-time sense, the release time is part of a formal task model
  and is an input to the scheduler rather than an output.
@@ -8897,8 +8766,7 @@ switch to Sintel if numbers are equally convincing, use a Full-HD video
 \end_layout
 
 \begin_layout Itemize
-convert from TeX-include to LyX-include so that it works in XHTML output
- for ePub
+add average absolute execution time and slightly adapt discussion
 \end_layout
 
 \end_inset
@@ -8975,11 +8843,6 @@ Atlas
  The integration between application and scheduler can then be implemented
  generically in the runtime library managing the asynchronous execution
  of the lambdas.
- All applications built on asynchronous lambdas can then benefit from 
-\noun on
-Atlas
-\noun default
- with little extra burden to the developer.
 \end_layout
 
 \begin_layout Standard
@@ -9045,6 +8908,16 @@ status collapsed
 \begin_inset Formula $10\%$
 \end_inset
 
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+absolute count in addition to the percentage
+\end_layout
+
+\end_inset
+
  of its source code lines needed changing to adapt the programming style.
  The tens of thousands of source lines from FFmpeg libraries which FFplay
  uses for video decoding remain unchanged, making this a small change overall.
@@ -9052,6 +8925,7 @@ status collapsed
 
 \begin_layout Standard
 \begin_inset Float figure
+placement t
 wide true
 sideways false
 status open
@@ -9371,12 +9245,7 @@ dispatch_block_t output_stage = ^{
 
 \begin_layout Plain Layout
 
-void start_playback()
-\end_layout
-
-\begin_layout Plain Layout
-
-{
+void start_playback() {
 \end_layout
 
 \begin_layout Plain Layout
@@ -9434,13 +9303,6 @@ block-based implementation
 </row>
 </lyxtabular>
 
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset VSpace 20pt
 \end_inset
 
 
@@ -9628,6 +9490,25 @@ existing solutions: spectrum between strong guarantees + complex programming
 \begin_deeper
 \begin_layout Itemize
 points in this design space discussed in related work, here: only the ends
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+frame this in a two-dimensional map instead: flexible/weak – rigid/strong;
+ fluid flow – individual jobs
+\end_layout
+
+\begin_deeper
+\begin_layout Plain Layout
+An illustrative analogy to the use of asynchronous lambdas instead of threads
+ is the shift from circuit-switched networks to packet routing.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "MacResearch:AboardGrandCentral"
+
+\end_inset
+
+
 \end_layout
 
 \end_deeper
@@ -9943,7 +9824,26 @@ in real applications, jobs may block
 
 \begin_deeper
 \begin_layout Itemize
-blocking occurs when waiting for another resource
+types of blocking
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+self-suspension
+\end_layout
+
+\begin_layout Itemize
+waiting for the real world
+\end_layout
+
+\begin_layout Itemize
+waiting for someone else’s computation
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+the latter type could be predicted and planned, when all work (including
+ IO) in the system is scheduled by Atlas
 \end_layout
 
 \begin_layout Itemize
@@ -9961,6 +9861,17 @@ scheduler design
 \end_layout
 
 \begin_deeper
+\begin_layout Itemize
+contact with the real world makes schedulers complex
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Corbet:CFS_Complexity"
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Itemize
 dispatch according to EDF among the not-late jobs
 \end_layout
@@ -10053,6 +9964,110 @@ key "Rajkumar:ResourceKernels"
 
 \end_layout
 
+\begin_deeper
+\begin_layout Plain Layout
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+Not all threads
+\end_layout
+
+\end_inset
+
+ can be managed transparently by the runtime.
+ If threads were only spawned implicitly by dispatching blocks to queues,
+ a chicken-and-egg problem would ensue: To dispatch a block, code must be
+ executed, thus a thread must be running.
+ If this thread started implicitly, a block must have been dispatched.
+ Current implementations break this cycle an always-on thread: The first
+ thread of each application
+\begin_inset space \thinspace{}
+\end_inset
+
+—
+\begin_inset space \thinspace{}
+\end_inset
+
+called the 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+main thread
+\end_layout
+
+\end_inset
+
+
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+main thread
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \thinspace{}
+\end_inset
+
+—
+\begin_inset space \thinspace{}
+\end_inset
+
+does not rely on blocks or queues to run.
+ In graphical user interface frameworks, this thread is responsible for
+ communicating with the user by updating the display and waiting for input.
+ It is not supposed to block because this will render the application unresponsi
+ve.
+ Therefore, all non-trivial work should be dispatched to a work queue for
+ asynchronous execution.
+ The main thread thus represents the backbone of the application, but it
+ does no real work itself.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Microkernels follow a similar philosophy.
+ They mediate between hardware and applications, but do so only in direct
+ reaction to a system call or interrupt.
+ The quote “a microkernel does no real work” is attributed to Jochen Liedtke.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Björn dislikes this remark
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+The OpenMP and Galois runtimes similarly distinguish between a singular
+ main thread and a pool of worker threads.
+ This model is also employed in the large by distributed programming models
+ such as Piccolo
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Power:Piccolo"
+
+\end_inset
+
+, where the equivalent to the main thread is the master process.
+ It orchestrates workers running on separate machines by dispatching compute
+ kernels to them.
+\end_layout
+
+\end_deeper
 \end_deeper
 \end_deeper
 \begin_layout Itemize
@@ -10796,6 +10811,23 @@ without global coordination, applications should specify timing requirements
 task models that express other properties: gravitational task model
 \end_layout
 
+\begin_deeper
+\begin_layout Itemize
+we schedule LRT, so we assume the sweet spot at the end of the scheduling
+ window
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Litmus-RT: platform for experimenting with scheduling in Linux
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+limited to sporadic task model (check this!)
+\end_layout
+
+\end_deeper
 \begin_layout Itemize
 two-level scheduling
 \begin_inset CommandInset citation
@@ -11548,7 +11580,7 @@ with NUMA or discontiguous memory, data needs to travel when making placement
 out of scope for me, but an important future problem
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Knauerhase:ExtremeParallelism"
+key "Knauerhase:ExtremeParallelism,Rossbach:PTask"
 
 \end_inset
 
