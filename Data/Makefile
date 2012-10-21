@@ -3,16 +3,17 @@ SCILAB = $(wildcard *.sci)
 
 .PHONY: all clean force
 
-all:: $(VEUSZ:.vsz=.pdf) $(SCILAB:.sci=.tex)
+all:: $(VEUSZ:.vsz=.pdf) $(SCILAB:.sci=.lyx)
 
 %.pdf: %.vsz
 	veusz --export="$(dir $(realpath $<))/$@" "$(realpath $<)"
 
-%.tex: %.sci
+%.lyx: %.tab ../tab2lyx.pl
+	../tab2lyx.pl < $< > $@
+
+%.tab: %.sci
 	rm -f $@
 	scilab -nw -nb -f $<
-	sed -i_ '1i\'$$'\n''\\tabularnewline\\midrule\\midrule'$$'\n''s/^ //;$$b'$$'\n''s/$$/\\tabularnewline/' $@
-	rm -f $@_
 
 %.log: force
 	$(MAKE) -C "$(shell dirname "`readlink "$@"`")" "$(shell basename "`readlink "$@"`")"
