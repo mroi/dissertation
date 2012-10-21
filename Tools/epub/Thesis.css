@@ -69,7 +69,7 @@ div.float-marginfigure, div.float-table {
 div.float-marginfigure {
 	clear:both;
 	float:right;
-	width:300px;
+	width:5cm;
 	margin-left:2em;
 	margin-right:0px;
 }
