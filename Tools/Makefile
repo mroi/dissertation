@@ -27,7 +27,8 @@ Thesis.tex: ../Thesis.lyx
 Thesis.epub: epub/Thesis.ncx epub/Thesis.xhtml
 	rm -f $@
 	cd $(<D) ; zip -0 ../$@ mimetype
-	cd $(<D) ; zip ../$@ META-INF/container.xml $(basename $@).*
+	cd $(<D) ; zip ../$@ META-INF/container.xml $(basename $@).* *.png
+	cd $(<D) ; rm *.png
 
 epub/Thesis.ncx: epub/Thesis.xhtml epub/template.ncx
 	cp epub/template.ncx $@
@@ -47,7 +48,8 @@ epub/Thesis.xhtml: ../Thesis.lyx
 		s_href='#\([A-Z]\)_href='#LyXCite-\1_g; \
 		s_, -[0-9]*\\\\baselineskip__g;s_\\\\raisebox{.*}{\(.*\)}_\1_g;s_\\\\noindent__g; \
 		s_MarginFigure_Margin Figure_g;s_Table of Contents_Contents_" < ../$(@F) > $@
-	rm ../$(@F)
+	mv $(<D)/*.png $(@D)
+	rm $(<D)/$(@F)
 
 clean:
 	rm -f Thesis-stylight.pdf
