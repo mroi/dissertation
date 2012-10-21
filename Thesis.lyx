@@ -8261,8 +8261,8 @@ stage triggers the display of decoded video frames at their proper presentation
  time.
  This stage interacts with physical reality, because it determines when
  the user sees which frame.
- Therefore, this stage has the most strict timing requirements of the three,
- but does not require much CPU time.
+ Therefore, this stage has strict timing requirements, but does not generate
+ much CPU load.
  To ensure portability, the SDL documentation discourages calling graphics
  functions from background threads.
 \begin_inset CommandInset citation
@@ -8637,12 +8637,30 @@ n of FFplay running on a
 \end_inset
 
 i5.
- The Sintel-
-\begin_inset Formula $4\mathrm{k}$
+ The Hunger Games video
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+This video is a representative high definition movie trailer.
+ For detailed video properties, see Table
+\begin_inset space ~
 \end_inset
 
- video with a resolution of 
-\begin_inset Formula $4096\!\!\times\!\!1744\,\mathrm{pixels}$
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "3-tab:Videos"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ with a resolution of 
+\begin_inset Formula $1920\!\!\times\!\!816\,\mathrm{pixels}$
 \end_inset
 
  was played.
@@ -8653,7 +8671,8 @@ i5.
 \end_inset
 
 .
- The interquartile range
+ The table continues with the median execution time and its interquartile
+ range
 \begin_inset space \thinspace{}
 \end_inset
 
@@ -8669,16 +8688,9 @@ the difference between the
 \begin_inset Formula $75\%$
 \end_inset
 
- quantile
-\begin_inset space \thinspace{}
-\end_inset
-
-—
-\begin_inset space \thinspace{}
-\end_inset
-
-of the execution time helps judge the variability of the stage, while the
- average slack time indicates how time critical the stage is.
+ quantiles.
+ These values help judge the weight and variability of the stages, while
+ the average slack time indicates how time critical the stage is.
  A lower value signifies more critical work, because any delay greater than
  the slack time will lead to a deadline miss.
 \end_layout
@@ -8690,84 +8702,9 @@ sideways false
 status open
 
 \begin_layout Plain Layout
-\begin_inset Tabular
-<lyxtabular version="3" rows="1" columns="5">
-<features booktabs="true" tabularvalignment="middle">
-<column alignment="right" valignment="top" width="0pt">
-<column alignment="left" valignment="top" width="0">
-<column alignment="right" valignment="top" width="0">
-<column alignment="right" valignment="top" width="0">
-<column alignment="right" valignment="top" width="0">
-<row>
-<cell alignment="right" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Stage
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Summary
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="right" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Load
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="right" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-IQR
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="right" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Slack
 \begin_inset CommandInset include
 LatexCommand input
-filename "Data/2-Anatomy/Characteristics.tex"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
-
-\end_inset
-
-
-\begin_inset Note Note
-status open
-
-\begin_layout Itemize
-switch to Sintel if numbers are equally convincing, use a Full-HD video
- otherwise
-\end_layout
-
-\begin_layout Itemize
-add average absolute execution time and slightly adapt discussion
-\end_layout
+filename "Data/2-Anatomy/Characteristics.lyx"
 
 \end_inset
 
@@ -8799,12 +8736,12 @@ Characteristics of FFplay Stages
 
 \begin_layout Standard
 The results emphasize the different properties of the three stages: Input
- exhibits the lowest CPU load because it merely shuttles data from disk
- to the queue.
+ exhibits the lowest execution times because it merely shuttles data from
+ disk to the queue.
  Decoding is compute-intensive and the execution time is varying considerably,
  as indicated by the interquartile range.
- The output stage experiences the lowest slack time, making it the most
- time critical part.
+ The decode and output stages experience low slack times, illustrating their
+ tight timing requirements.
 \end_layout
 
 \begin_layout Standard
