@@ -1,7 +1,13 @@
+.PHONY: all style epub clean
+
 all:
 	@echo "choose one of the targets"
+	@echo "  check   text consistency checks"
 	@echo "  style   highlight weak style in the text"
 	@echo "  epub    compile an epub version"
+
+check: ../Thesis.lyx
+	grep -B1 -A1 -w Atlas $< | sed '/^\\noun on$$/,/^\\noun default$$/d' | fgrep --color=auto Atlas
 
 style: Thesis-stylight.pdf
 	open $<
