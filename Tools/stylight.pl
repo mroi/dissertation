@@ -99,7 +99,7 @@ $last_word = "";
 
 while (<STDIN>) {
 	s/(^|\s)($weasels)($|\s)/$1\\hl{$2}$3/g;
-	s/(^|\s)(am|are|were|being|is|been|was|be)(\s+)(\w+ed|$irregulars)($|\s)/$1\\hl{$2$3$4}$5/g;
+	s/(^|\s)(am|are|were|being|is|been|was|be)((\s|not)+)(\w+ed|$irregulars)($|\s)/$1\\hl{$2$3$5}$6/g;
 	s/(^|\s)($biw)($|\s)/$1\\hl{$2}$3/g;
 	
 	@words = split(/(\W+)/);
