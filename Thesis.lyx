@@ -4499,7 +4499,7 @@ However, this model made the developers’ lives easier at the price of user
  Consequently, that thread is now unavailable for user interactions.
  The application appears dead for a while.
  The visual cue for such a mishap are redraw artifacts that tail other windows
- as they are dragged over the blocked application.
+ as they get dragged over the blocked application.
  They appear like in Figure
 \begin_inset space ~
 \end_inset
@@ -5470,7 +5470,7 @@ reference "2-tab:Asynchronous-Lambdas"
 
  presents a selection of popular complete and partial implementations, including
  their name for the unit of code execution, for which the different solutions
- are unfortunately not in agreement:
+ are unfortunately not in agreement.
 \begin_inset Float table
 wide false
 sideways false
@@ -6427,15 +6427,6 @@ Complete or Partial Implementations of Asynchronous Lambdas
 \end_layout
 
 \begin_layout Standard
-\noindent
-\begin_inset VSpace defskip
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\noindent
 Two complete solutions are available from commercial operating system vendors:
  Microsoft offers the Parallel Patterns Library,
 \begin_inset CommandInset citation
@@ -6676,9 +6667,9 @@ key "Kulkarni:Galois"
  like traversing graphs or other pointer-based data structures.
  For the latter class of algorithms, parallelism is data-dependent and builds
  up at runtime.
- The iteration space can therefore not be split among threads at the beginning
- of the iteration, but must be assigned dynamically while the iterator progresse
-s.
+ The runtime is therefore unable to split the iteration space among threads
+ at the beginning of the iteration, but must dynamically assign work while
+ the iterator progresses.
  Figure
 \begin_inset space ~
 \end_inset
@@ -7881,7 +7872,17 @@ To the best of my knowledge,
  the combination and mutual benefits of asynchronous lambdas and real-time
  jobs have not been explored yet.
  A different example of connecting real-time and programming concepts was
- the Comquad project, which introduced timing contracts
+ the Comquad
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+Comquad
+\end_layout
+
+\end_inset
+
+ project, which introduced timing contracts
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Haertig:COMQUAD"
@@ -8153,7 +8154,7 @@ FFplay is designed
 
 
 \begin_inset CommandInset ref
-LatexCommand vref
+LatexCommand ref
 reference "2-fig:FFplay-Multithreaded-Player"
 
 \end_inset
@@ -8167,7 +8168,6 @@ on that performs heavy data processing.
 
 \begin_layout Standard
 \begin_inset Float figure
-placement t
 wide true
 sideways false
 status open
@@ -8377,7 +8377,7 @@ reference "2-mar:Job-Terminology"
  illustrates the necessary terminology.
  An individual iteration of a stage starts by consuming an item from its
  incoming queue.
- This item originates from the previous stage, which inserted it into the
+ This item originated from the previous stage, which inserted it into the
  queue earlier.
  We call this insertion point the 
 \begin_inset Flex SmallCaps
@@ -8448,7 +8448,7 @@ key "Liu:RealTimeSystems"
  A job is released when the CPU reaches the next iteration.
  Thus, the release instant is a result of previous scheduling decisions.
  In the real-time sense, the release time is part of a formal task model
- and is an input to the scheduler rather than an output.
+ and is an input to the scheduler rather than an outcome.
 \end_layout
 
 \begin_layout Standard
@@ -8560,7 +8560,7 @@ execution time
 
 \end_inset
 
- less than the duration.
+ less than the makespan.
  The interval between release and deadline is the 
 \begin_inset Flex SmallCaps
 status collapsed
@@ -8654,7 +8654,7 @@ reference "3-tab:Videos"
 
 \end_inset
 
-
+.
 \end_layout
 
 \end_inset
@@ -8665,8 +8665,8 @@ reference "3-tab:Videos"
 
  was played.
  The CPU load column shows the share of CPU time spent in that stage.
- Because FFplay idles for some portion of time, the loads do not sum up
- to 
+ Because FFplay idles for a portion of time, the loads do not sum up to
+ 
 \begin_inset Formula $100\%$
 \end_inset
 
@@ -8735,9 +8735,10 @@ Characteristics of FFplay Stages
 \end_layout
 
 \begin_layout Standard
+\noindent
 The results emphasize the different properties of the three stages: Input
- exhibits the lowest execution times because it merely shuttles data from
- disk to the queue.
+ exhibits low execution times because it merely shuttles data from disk
+ to the queue.
  Decoding is compute-intensive and the execution time is varying considerably,
  as indicated by the interquartile range.
  The decode and output stages experience low slack times, illustrating their
@@ -9343,112 +9344,824 @@ Time
 \end_layout
 
 \begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+Many of today’s applications
+\end_layout
+
+\end_inset
+
+ have intrinsic real-time characteristics.
+ The term real-time
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+real-time
+\end_layout
+
+\end_inset
+
+ describes a predictable relation between observable system behavior and
+ physical time.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Kopetz:RealTimeSystems"
+
+\end_inset
+
+ Therefore, such requirements naturally surface when computers interact
+ with the real world, which most application do through their user interface.
+ For this work, I exclusively target interactive systems,
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+interactive systems
+\end_layout
+
+\end_inset
+
+ so examples operating along this cyber-physical boundary are:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 1
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+\begin_inset VSpace smallskip
+\end_inset
+
+Timely delivery of system output, such as
+\begin_inset VSpace -8pt
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Argument
+status collapsed
+
+\begin_layout Plain Layout
+noitemsep
+\end_layout
+
+\end_inset
+
+speedy updates of user interface elements,
+\end_layout
+
+\begin_layout Itemize
+smooth user interface animations, and
+\end_layout
+
+\begin_layout Itemize
+uninterrupted video and sound output.
+\end_layout
+
+\begin_layout Plain Layout
+Timely reaction to human input, such as
+\begin_inset VSpace -8pt
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Argument
+status collapsed
+
+\begin_layout Plain Layout
+noitemsep
+\end_layout
+
+\end_inset
+
+gesture tracking or
+\end_layout
+
+\begin_layout Itemize
+speech recognition.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+I will evaluate 
+\noun on
+Atlas
+\noun default
+ with user interface updates, video playback, and gesture tracking workloads.
+ 
 \begin_inset Note Greyedout
 status open
 
-\begin_layout Itemize
-many applications have intrinsic real-time characteristics
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-real-time naturally surfaces when computers interact with the real world,
- in both input and output (cyber-physical boundary)
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-output: sound, video, UI animations (tight interaction with touch interfaces)
+\begin_layout Plain Layout
+I hope this works.
 \end_layout
 
 \begin_layout Itemize
-input: gesture tracking (kinect), speech recognition
+summarize claim and contribution of this chapter
 \end_layout
 
-\end_deeper
 \begin_layout Itemize
-all desktops do that, yet almost no desktop software uses real-time programming
+teaser on execution times
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
-can we get a reference to the priority-boosting trick Apple uses on iOS?
+lead over to timing requirements
 \end_layout
 
-\end_deeper
 \begin_layout Itemize
-deadlines for UI code driven by usability requirements: 10/100/1000
+some words on deadlines for continuous media
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+User interface code
+\end_layout
+
+\end_inset
+
+ is one of the most pervasive interactions of computer systems with the
+ real world.
+ Timing requirements are driven by usability
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+usability
+\end_layout
+
+\end_inset
+
+ considerations and follow a 10/100/1000
 \begin_inset space \thinspace{}
 \end_inset
 
-ms
+ms cadence:
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+cite the GUI bloopers book, illustration for the different time horizons
 \end_layout
 
-\begin_layout Itemize
-obvious for animations, which become increasingly ubiquitous and which should
- not stutter if they are supposed to help usability by supporting mental
- transitions
+\end_inset
+
+
 \end_layout
 
-\begin_layout Itemize
-even harder for touch-based interaction, where lag of UI breaks the user's
- mental link of interacting with on-screen items directly
+\begin_layout Standard
+When a user explores an application by scrolling through data views or operating
+ controls, visual feedback like updating the scroll view or rendering a
+ button in pressed state should feel immediate, giving the user confidence
+ that he is in charge.
+ Immediacy in human perception demands for response times less than 10
+\begin_inset space \thinspace{}
+\end_inset
+
+ms.
+ This limit becomes even more important for touchscreen devices, where users
+ operate items on the screen without the indirection of a mouse.
+ Any interface lag will break the user’s perception, that the app “sticks
+ to his finger.”
+\begin_inset CommandInset citation
+LatexCommand cite
+key "MSDN:FastFluid"
+
+\end_inset
+
+
 \end_layout
 
-\begin_layout Itemize
-often buried within the application and not expressed
+\begin_layout Standard
+When the user pushes a button, the immediate reaction of showing the button
+ depressed is followed by a larger change visualizing the button action.
+ This change may involve updating data representations, revealing interface
+ panels, or opening popup-windows.
+ The user recognizes the causal relation between trigger and action if the
+ response time stays under 100
+\begin_inset space \thinspace{}
+\end_inset
+
+ms.
+ Animation can accompany the interface state change to support the user’s
+ mental transition.
+ Such aids should run timely and smoothly.
 \end_layout
 
-\begin_layout Itemize
-real-time used to be a rare special case, but it should become default;
- this work tries to pave the way
+\begin_layout Standard
+Whenever an operation runs longer than 1000
+\begin_inset space \thinspace{}
+\end_inset
+
+ms or one second, the application should show a progress indicator.
+ Otherwise, users start to wonder whether they accidentally missed the button
+ and may click again.
 \end_layout
 
-\end_deeper
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+Virtually all desktop applications
+\end_layout
+
+\end_inset
+
+ perform user interface activities.
+ But even though developers are aware of the need for responsiveness, timing
+ requirements are buried deep within the application and are not expressed
+ to the scheduler.
+ Typical frameworks for graphical user interfaces perform all screen updates
+ from the main thread, so all the previously mentioned deadline classes
+ conflate on one thread, impossible to distinguish for the scheduler.
+\end_layout
+
+\begin_layout Standard
+I believe real-time programming can help with these problems and should
+ become the default rather than the rare special case it is today.
+ 
+\noun on
+Atlas
+\noun default
+ can help pave the way by providing a simple scheduler interface.
+\end_layout
+
+\begin_layout Section
+Talking to Schedulers
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Figures/3-Real-Time/Order_Matters.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-mar:Order-Matters"
+
+\end_inset
+
+Order Matters
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Real-time scheduling is about ordering work so that its execution meets
+ previously negotiated timing requirements.
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+timing requirements
+\end_layout
+
+\end_inset
+
+ Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-mar:Order-Matters"
+
+\end_inset
+
+ illustrates, how order matters with time: Two jobs may come with different
+ deadlines
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+deadline
+\end_layout
+
+\end_inset
+
+ such that one potential order violates the earlier deadline of job
+\begin_inset space ~
+\end_inset
+
+B, while another order satisfies both deadlines.
+ The scheduler should recognize this advantage of the second ordering and
+ pick job
+\begin_inset space ~
+\end_inset
+
+B first.
+ To make this decision, it needs prior knowledge on both jobs’ deadlines
+ and execution times.
+ How applications can communicate their timing and resource requirements
+ to the system and what guarantees they receive in return are important
+ aspects of scheduler design.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Figures/3-Real-Time/Solution_Spectrum.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-mar:Solution-Spectrum"
+
+\end_inset
+
+Real-Time Solution Spectrum
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+Existing solutions
+\end_layout
+
+\end_inset
+
+ cover a spectrum from strictly regulated to loosely managed platforms.
+ As pictured in Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-mar:Solution-Spectrum"
+
+\end_inset
+
+, the strict regulations are harder to program against, but yield strong
+ guarantees, whereas the loosely organized systems trade weaker guarantees
+ for simpler programming.
+ To motivate the 
+\noun on
+Atlas
+\noun default
+ design, I describe the two extremes of this spectrum and discuss their
+ downsides.
+ A comparison of 
+\noun on
+Atlas
+\noun default
+ with other points in this solution space follows in a section on related
+ work at the end of this chapter.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+Fair CPU sharing
+\end_layout
+
+\end_inset
+
+
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+fair sharing
+\end_layout
+
+\end_inset
+
+ sits at the simplicity end of the spectrum.
+ All of today’s commodity operating systems run almost exclusively on this
+ policy.
+ The Completely Fair Scheduler
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+Completely Fair Scheduler
+\end_layout
+
+\end_inset
+
+ (CFS) is the default scheduler on Linux
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Jones:InsideCFS"
+
+\end_inset
+
+ and is also used pervasively on Android.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Maia:AndroidRT"
+
+\end_inset
+
+ The advantage of fair sharing is the lack of a complicated interface or
+ task model.
+ In fact, a developer has to do nothing to get decent behavior for his applicati
+on.
+ The scheduler distributes the CPU evenly across all ready threads to ensure
+ that all of them make equal progress.
+\end_layout
+
+\begin_layout Standard
+Users however do not care whether their applications receive equal shares,
+ they simply want the right thing to happen at the right time.
+ The fair share model is a good abstraction for performance isolation, but
+ it may be the wrong abstraction for applications with timing requirements.
+ The scheduler completely disregards timing requirements, because developers
+ have no meaningful way to express them.
+\end_layout
+
+\begin_layout Standard
+An experiment shows this disadvantage: While playing the Hunger Games video
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+This video is a representative high definition movie trailer.
+ For detailed video properties, see Table
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "3-tab:Videos"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+ in FFplay, a concurrent load of ten CPU-hogging processes
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Their complete source code:
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+int main(void) 
+\backslash
+{ while (1); 
+\backslash
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ starts one minute into playback.
+ The CPU hoggers simulate a compute-intensive background activity.
+ Linux’ default scheduler is used and threads may freely migrate between
+ the four cores of the 
+\begin_inset Formula $2.4\,\mathrm{GHz}$
+\end_inset
+
+ Intel Core
+\begin_inset space ~
+\end_inset
+
+i5 processor.
+ Due to the scheduler’s fairness policy, each thread receives an equal share,
+ leaving the player with only 
+\begin_inset Formula $\frac{1}{10+1}=9\%$
+\end_inset
+
+ of total CPU time.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Counting FFplay as one thread is reasonable, because only its decoder thread
+ is CPU intensive.
+\end_layout
+
+\end_inset
+
+ This share is insufficient to decode the video, so frames are delayed.
+ Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-fig:Video-Smoothness"
+
+\end_inset
+
+ plots the time interval between adjacent frames over the runtime of the
+ video, illustrating the user-perceived smoothness of the playback.
+ Ideally, the graph should show a flat line at 
+\begin_inset Formula $41.7\,\mathrm{ms}$
+\end_inset
+
+, corresponding to a rate of 24 frames per second.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+null
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Default Nice-Level
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+null
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Nice-Level 
+\begin_inset Formula $-5$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-fig:Video-Smoothness"
+
+\end_inset
+
+Video Smoothness with Concurrent Background Load
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As soon as the background load starts, video quality suffers, because its
+ timing requirements are no longer satisfied.
+ Nice levels
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+nice level
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Unix:nice"
+
+\end_inset
+
+ alleviate the problem, but cannot fundamentally solve it.
+ A thread with a lower nice level receives a larger CPU share, but the actual
+ time available to each thread depends on the number of competing threads
+ and their nice levels.
+ Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-fig:Video-Smoothness"
+
+\end_inset
+
+ includes an experiment running FFplay at nice level 
+\begin_inset Formula $-5$
+\end_inset
+
+.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Only the root user is allowed to run applications with negative nice levels.
+\end_layout
+
+\end_inset
+
+ The situation improves, but video quality is still not satisfying.
+ Choosing the perfect nice level would require global knowledge of all threads
+ in the system and their execution behavior.
+ Therefore, nice levels are an inadequate interface to specify application
+ timing requirements, because they rely on information an individual application
+ does not have.
+\end_layout
+
+\begin_layout Standard
+For the design of 
+\noun on
+Atlas
+\noun default
+, we learn that applications must specify their timing needs in a way that
+ requires no contextual knowledge of the surrounding system.
+ 
+\noun on
+Atlas
+\noun default
+ should focus on meeting those timing requirements, even at the expense
+ of fairness.
+ The biggest strength of fair sharing
+\begin_inset space \thinspace{}
+\end_inset
+
+—
+\begin_inset space \thinspace{}
+\end_inset
+
+it is simple because it has no interface and it is practical because it
+ exhibits useful default behavior
+\begin_inset space \thinspace{}
+\end_inset
+
+—
+\begin_inset space \thinspace{}
+\end_inset
+
+is also its biggest weakness: There is nothing the developer must do to
+ use it, but at the same time, there is nothing the developer can do if
+ things go wrong.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Greyedout
+status open
+
 \begin_layout Itemize
 real-time scheduling is about ordering work so that it meets timing requirements
 \end_layout
 
 \begin_deeper
-\begin_layout Itemize
-order matters with time
-\end_layout
-
-\begin_layout Itemize
-how to communicate timing and resource requirements between application
- and scheduler?
-\end_layout
-
-\begin_layout Itemize
-existing solutions: spectrum between strong guarantees + complex programming
- and weak guarantees + simple programming
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-points in this design space discussed in related work, here: only the ends
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-frame this in a two-dimensional map instead: flexible/weak – rigid/strong;
- fluid flow – individual jobs
-\end_layout
-
-\begin_deeper
-\begin_layout Plain Layout
-An illustrative analogy to the use of asynchronous lambdas instead of threads
- is the shift from circuit-switched networks to packet routing.
-\begin_inset CommandInset citation
-LatexCommand cite
-key "MacResearch:AboardGrandCentral"
-
-\end_inset
-
-
-\end_layout
-
-\end_deeper
 \begin_layout Itemize
 one end: classical periodic task model
 \end_layout
@@ -9478,50 +10191,21 @@ strict admission not useful on desktops: yet another error condition for
 
 \end_deeper
 \begin_layout Itemize
-other end: fair CPU sharing
+frame this in a two-dimensional map instead: flexible/weak – rigid/strong;
+ fluid flow – individual jobs
 \end_layout
 
 \begin_deeper
-\begin_layout Itemize
-nothing to be done for developers, but also: nothing can be done
-\end_layout
-
-\begin_layout Itemize
-scheduler distributes CPU evenly across applications according to a fairness
- measure
-\end_layout
-
-\begin_layout Itemize
-users and applications do not want a fair share, so it's the wrong abstraction
-\end_layout
-
-\begin_layout Itemize
-but it's the right abstraction for performance isolation
-\end_layout
-
-\begin_layout Itemize
-pervasive: on Android all Dalvik threads use SCHED_OTHER
+\begin_layout Plain Layout
+An illustrative analogy to the use of asynchronous lambdas instead of threads
+ is the shift from circuit-switched networks to packet routing.
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Maia:AndroidRT"
+key "MacResearch:AboardGrandCentral"
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Itemize
-applications treated equally, disregarding their timing requirements because
- they are not expressed
-\end_layout
-
-\begin_layout Itemize
-for video: concurrent heavy calculation may squeeze out video
-\end_layout
-
-\begin_layout Itemize
-priorities would fix this, but they are an implementation detail of the
- scheduler that is hard to determine for developers in open systems
 \end_layout
 
 \end_deeper
@@ -9780,7 +10464,9 @@ waiting for someone else’s computation
 \end_deeper
 \begin_layout Itemize
 the latter type could be predicted and planned, when all work (including
- IO) in the system is scheduled by Atlas
+ IO) in the system is scheduled by 
+\noun on
+Atlas
 \end_layout
 
 \begin_layout Itemize
@@ -10406,7 +11092,11 @@ dynamic bandwidth adaptation to workload as an afterthought
 \end_layout
 
 \begin_layout Itemize
-both control and Atlas assume that extrapolation from past behavior works
+both control and 
+\noun on
+Atlas
+\noun default
+ assume that extrapolation from past behavior works
 \end_layout
 
 \begin_layout Itemize
