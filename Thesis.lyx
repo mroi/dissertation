@@ -1570,7 +1570,7 @@ Central Processing Unit: the assembly of general purpose processors executing
 
 \begin_inset CommandInset href
 LatexCommand href
-name "Wikipedia"
+name "Wikipedia: Central Processing Unit"
 target "http://en.wikipedia.org/w/index.php?title=Central_processing_unit&oldid=511660312"
 
 \end_inset
@@ -4082,6 +4082,13 @@ video playback
 
  I chose video because I think it is representative for a number of real-time
  and throughput applications, because it combines interesting properties:
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Baiceanu:VideoScheduling"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -9487,7 +9494,7 @@ smooth user interface animations, and
 \end_layout
 
 \begin_layout Itemize
-uninterrupted video and sound output.
+uninterrupted video and sound playback.
 \end_layout
 
 \begin_layout Plain Layout
@@ -9508,7 +9515,11 @@ noitemsep
 
 \end_inset
 
-gesture tracking or
+classical keyboard and mouse interaction,
+\end_layout
+
+\begin_layout Itemize
+gesture tracking with touchscreen or video camera, and
 \end_layout
 
 \begin_layout Itemize
@@ -9615,16 +9626,122 @@ reference "4-chap:Parallelism"
 \end_inset
 
 .
- 
-\begin_inset Note Greyedout
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+On the following pages,
+\end_layout
+
+\end_inset
+
+ I will first motivate the need for real-time programming by explaining
+ common time-critical operations.
+ I continue with insights on existing scheduler interfaces and their shortcoming
+s, before describing and evaluating the design of 
+\noun on
+Atlas
+\noun default
+.
+ The chapter closes with a discussion of previous research results and how
+ they relate to 
+\noun on
+Atlas
+\noun default
+.
+\end_layout
+
+\begin_layout Section
+The Need for Real-Time
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 1
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
 status open
 
-\begin_layout Itemize
-lead over to timing requirements
+\begin_layout Plain Layout
+Timing requirements in end-user systems emerge for one of two reasons, illustrat
+ed in Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-mar:Timing-Requirements"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Itemize
-some words on deadlines for continuous media
+\begin_inset Argument
+status collapsed
+
+\begin_layout Plain Layout
+noitemsep
+\end_layout
+
+\end_inset
+
+the system autonomously executes a workload that requires timely output
+ of results or
+\end_layout
+
+\begin_layout Itemize
+the user interacted with the system and expects a timely response.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Figures/3-Real-Time/Timing_Requirements.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-mar:Timing-Requirements"
+
+\end_inset
+
+Sources of Timing Requirements
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -9637,13 +9754,74 @@ some words on deadlines for continuous media
 status collapsed
 
 \begin_layout Plain Layout
+Continuous media
+\end_layout
+
+\end_inset
+
+ is a real-time application with natural deadlines dictated directly by
+ the processed workload.
+ Video playback exhibits typical frame rates between 24 and 60 frames per
+ second, so frames must be displayed at 
+\begin_inset Formula $16.7$
+\end_inset
+
+ to 
+\begin_inset Formula $41.7\,\mathrm{ms}$
+\end_inset
+
+ intervals.
+ Because users are accustomed to stutter-free movie experiences from cinema
+ and television, providing high-quality video playback on general-purpose
+ computers has been a subject of previous research regarding task models
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Ditze:RT_MPEG2"
+
+\end_inset
+
+, execution time analysis
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Altenbernd:MPEG-WCET"
+
+\end_inset
+
+ and quality of service.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Isovic:QoS_Video"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\noun on
+Atlas
+\noun default
+ was designed with video in mind and solves the problem of providing temporal
+ guarantees to high-throughput dynamic applications such as video decoding.
+ However, 
+\noun on
+Atlas
+\noun default
+ is not a video-specific solution, but also applies to other workloads.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
 User interface code
 \end_layout
 
 \end_inset
 
- is one of the most pervasive interactions of computer systems with the
- real world.
+ is of the second type.
  Timing requirements are driven by usability
 \begin_inset Index idx
 status collapsed
@@ -10038,8 +10216,8 @@ int main(void)
 
  starts one minute into playback.
  The CPU hoggers simulate a compute-intensive background activity.
- Linux’ default scheduler is used and threads may freely migrate between
- the four cores of the 
+ Linux’ default scheduler is used, but all threads are pinned to the same
+ core of the 
 \begin_inset Formula $2.4\,\mathrm{GHz}$
 \end_inset
 
@@ -10053,7 +10231,7 @@ i5 processor.
 \begin_inset Formula $\frac{1}{10+1}=9\%$
 \end_inset
 
- of total CPU time.
+ of CPU time.
 \begin_inset Foot
 status open
 
@@ -10428,6 +10606,12 @@ key "Liu:RMS"
 The strictness of the periodic task model limits application development.
  Complex real-time loads in interactive systems may not easily adhere to
  a minimum inter-arrival distance or a constant execution time of jobs.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Baiceanu:VideoScheduling"
+
+\end_inset
+
  Varying execution times have to be admitted with their theoretical worst
  case.
  For a dynamic workload like video playback, this worst-case planning leads
@@ -12970,6 +13154,10 @@ no admission
 \begin_deeper
 \begin_layout Itemize
 but only when overloaded: timeliness first, fairness only when overloaded
+\end_layout
+
+\begin_layout Itemize
+decouple urgency (timing requirements) and importance
 \end_layout
 
 \end_deeper
