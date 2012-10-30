@@ -1,7 +1,7 @@
 # Veusz saved document (version 1.15)
 # Saved at 2012-07-03T12:58:59.781075
 
-AddImportPath(u'/Users/Michael/Documents/Forschung/Dissertation/Plots/1-Introduction')
+AddImportPath(u'/Users/Michael/Documents/Forschung/Dissertation/Data/1-Introduction')
 ImportFile(u'Decoding_Times.log', u'time', linked=True, ignoretext=True)
 SetDataRange(u'frame', 21314, (1.0, 888.0), linked=True)
 Set('StyleSheet/Font/font', u'Gill Sans Light')

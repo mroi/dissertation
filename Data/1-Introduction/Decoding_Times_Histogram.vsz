@@ -1,7 +1,7 @@
 # Veusz saved document (version 1.14)
 # Saved at 2012-03-17T10:22:27.279119
 
-AddImportPath(u'/Users/Michael/Documents/Forschung/Dissertation/Plots/1-Introduction')
+AddImportPath(u'/Users/Michael/Documents/Forschung/Dissertation/Data/1-Introduction')
 ImportFile(u'Decoding_Times.log', u'measured', linked=True, ignoretext=True)
 CreateHistogram(u'measured', u'time', u'amount', binparams=(200, 0.0, 0.1, False), binmanual=None, method=u'density', cumulative='none', errors=False)
 Set('StyleSheet/Font/font', u'Gill Sans Light')
