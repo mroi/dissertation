@@ -12,7 +12,7 @@ ImportString(u'interval_bg(numeric)','''
 ImportString(u'time_bg(numeric)','''
 0.000000e+00
 6.000000e+01
-1.000000e+02
+1.200000e+02
 ''')
 Set('StyleSheet/Font/font', u'Gill Sans Light')
 Set('StyleSheet/Font/size', u'8pt')
