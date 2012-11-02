@@ -1,5 +1,5 @@
-# Veusz saved document (version 1.14)
-# Saved at 2012-03-17T10:22:27.279119
+# Veusz saved document (version 1.16)
+# Saved at 2012-11-02T16:36:25.225880
 
 AddImportPath(u'/Users/Michael/Documents/Forschung/Dissertation/Data/1-Introduction')
 ImportFile(u'Decoding_Times.log', u'measured', linked=True, ignoretext=True)
@@ -20,12 +20,14 @@ Set('StyleSheet/graph/leftMargin', u'0.8cm')
 Set('StyleSheet/graph/rightMargin', u'1pt')
 Set('StyleSheet/graph/topMargin', u'1pt')
 Set('StyleSheet/graph/bottomMargin', u'0.8cm')
+Set('StyleSheet/graph/Background/hide', True)
 Set('StyleSheet/graph/Border/hide', True)
 Set('StyleSheet/grid/leftMargin', u'0')
 Set('StyleSheet/grid/rightMargin', u'0')
 Set('StyleSheet/grid/topMargin', u'0')
 Set('StyleSheet/grid/bottomMargin', u'0')
 Set('StyleSheet/xy/markerSize', u'1pt')
+Set('StyleSheet/xy/MarkerLine/hide', True)
 Set('StyleSheet/xy/FillBelow/color', u'#808785')
 Add('page', name='page1', autoadd=False)
 To('page1')

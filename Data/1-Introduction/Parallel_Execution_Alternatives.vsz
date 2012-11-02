@@ -1,5 +1,5 @@
 # Veusz saved document (version 1.16)
-# Saved at 2012-11-01T09:22:45.296016
+# Saved at 2012-11-02T15:57:46.142967
 
 AddImportPath(u'/Users/Michael/Documents/Forschung/Dissertation/Data/1-Introduction')
 ImportString(u'cores(numeric)','''
@@ -48,6 +48,7 @@ Set('StyleSheet/graph/leftMargin', u'0.8cm')
 Set('StyleSheet/graph/rightMargin', u'1pt')
 Set('StyleSheet/graph/topMargin', u'1pt')
 Set('StyleSheet/graph/bottomMargin', u'0.8cm')
+Set('StyleSheet/graph/Background/hide', True)
 Set('StyleSheet/graph/Border/hide', True)
 Set('StyleSheet/grid/leftMargin', u'0')
 Set('StyleSheet/grid/rightMargin', u'0')
