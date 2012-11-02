@@ -1,5 +1,5 @@
 # Veusz exported stylesheet (version 1.16)
-# Saved at 2012-11-01T09:22:20.493660
+# Saved at 2012-11-02T15:19:58.243048
 
 Set('StyleSheet/Line/width', '0.5pt')
 Set('StyleSheet/Line/color', 'black')
@@ -358,7 +358,7 @@ Set('StyleSheet/graph/topMargin', u'1pt')
 Set('StyleSheet/graph/bottomMargin', u'0.8cm')
 Set('StyleSheet/graph/Background/color', 'white')
 Set('StyleSheet/graph/Background/style', 'solid')
-Set('StyleSheet/graph/Background/hide', False)
+Set('StyleSheet/graph/Background/hide', True)
 Set('StyleSheet/graph/Background/transparency', 0)
 Set('StyleSheet/graph/Background/linewidth', '0.5pt')
 Set('StyleSheet/graph/Background/linestyle', 'solid')
