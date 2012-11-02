@@ -1383,7 +1383,7 @@ overload
 \begin_inset space \space{}
 \end_inset
 
-Management: Overload situations occur when all ready applications collectively
+Mitigation: Overload situations occur when all ready applications collectively
  ask for more computation time than the machine can offer without violating
  any timing requirements.
  Real-time systems avoid such situations statically with an admission
@@ -1972,7 +1972,7 @@ Driving Insights
 \begin_layout Standard
 The walk-through of the problem area shows that the considered non-functional
  properties timeliness, informed core placement, and quality-aware overload
- management are cross-cutting concerns.
+ mitigation are cross-cutting concerns.
  They involve local knowledge from the applications and global policy executed
  by the scheduler.
  Furthermore, many applications act as an execution environment tailored
@@ -2446,7 +2446,7 @@ informed core placement, and
 \end_layout
 
 \begin_layout Itemize
-quality-aware overload management.
+quality-aware overload mitigation.
 \end_layout
 
 \end_inset
@@ -2860,7 +2860,7 @@ overload
 
 \end_inset
 
- Management
+ Mitigation
 \end_layout
 
 \end_inset
@@ -3790,7 +3790,7 @@ reference "4-chap:Parallelism"
 \end_layout
 
 \begin_layout Section
-Overload Management
+Overload Mitigation
 \end_layout
 
 \begin_layout Standard
@@ -4005,7 +4005,7 @@ al.
 \begin_inset space \space{}
 \end_inset
 
-is the only work I am aware of that combines global overload management
+is the only work I am aware of that combines global overload mitigation
  with per-application adaptation.
  It does so by exposing a quality measure for each individual job, allowing
  the scheduler to globally order jobs by quality.
@@ -4046,7 +4046,7 @@ Atlas
 \end_layout
 
 \begin_layout Standard
-I validate the claim by comparing overload management with and without look-ahea
+I validate the claim by comparing overload mitigation with and without look-ahea
 d.
  The flexibility of quality-weighted back-pressure is evaluated with implementat
 ions of different degradation strategies.
@@ -4415,7 +4415,7 @@ Before we dive into the details
 
 \end_inset
 
- of the timeliness, core placement and overload management aspects of 
+ of the timeliness, core placement and overload mitigation aspects of 
 \noun on
 Atlas, 
 \noun default
@@ -9639,7 +9639,7 @@ On the following pages,
 \end_inset
 
  I will first motivate the need for real-time programming by explaining
- common time-critical operations.
+ pervasive time-critical operations.
  I continue with insights on existing scheduler interfaces and their shortcoming
 s, before describing and evaluating the design of 
 \noun on
@@ -10017,6 +10017,15 @@ B first.
  To make this decision, it needs prior knowledge on both jobs’ deadlines
  and execution times.
  How applications can communicate their timing and resource requirements
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+resource requirements
+\end_layout
+
+\end_inset
+
  to the system and what guarantees they receive in return are important
  aspects of scheduler design.
 \end_layout
@@ -10185,7 +10194,7 @@ reference "3-tab:Videos"
 
 \end_inset
 
- in FFplay, a concurrent load of ten CPU-hogging processes
+ in FFplay, a competing load of ten CPU-hogging processes
 \begin_inset Foot
 status open
 
@@ -10227,7 +10236,7 @@ int main(void)
 
 i5 processor.
  Due to the scheduler’s fairness policy, each thread receives an equal share,
- leaving the player with only 
+ squeezing the player down to 
 \begin_inset Formula $\frac{1}{10+1}=9\%$
 \end_inset
 
@@ -10256,6 +10265,7 @@ reference "3-fig:Video-Smoothness"
 
  plots the time interval between adjacent frames over the runtime of the
  video, illustrating the user-perceived smoothness of the playback.
+ The grey areas mark the competing background activity.
  Ideally, the graph should show a flat line at 
 \begin_inset Formula $41.7\,\mathrm{ms}$
 \end_inset
@@ -10270,48 +10280,8 @@ sideways false
 status open
 
 \begin_layout Plain Layout
-\begin_inset Box Boxed
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "5cm"
-height_special "none"
-status open
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-null
-\end_layout
-
-\end_inset
-
-
-\begin_inset space \hfill{}
-\end_inset
-
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-experiment: competing CFS load, default and nice level 5
-\end_layout
-
-\end_inset
-
-
-\end_layout
+\begin_inset Graphics
+	filename Data/3-Real-Time/Background_CFS_nice.pdf
 
 \end_inset
 
@@ -10328,7 +10298,7 @@ name "3-fig:Video-Smoothness"
 
 \end_inset
 
-Video Smoothness with Concurrent Background Load
+Video Smoothness with Competing Background Load
 \end_layout
 
 \end_inset
@@ -10445,25 +10415,8 @@ sideways false
 status open
 
 \begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-null
-\end_layout
-
-\end_inset
-
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-illustration, e for execution time, p for period
-\end_layout
+\begin_inset Graphics
+	filename Figures/3-Real-Time/Periodic_Task.svg
 
 \end_inset
 
@@ -10540,7 +10493,7 @@ reference "3-mar:Periodic-Task-Model"
 .
  Each job meets an implicit deadline at the beginning of the next period,
  so jobs cannot overlap.
- This is the only inter-job dependency the model allows.
+ This serial arrangement is the only inter-job dependency the model allows.
  Jobs from different tasks have to be independent, jobs may not block or
  self-suspend and must be fully preemptible.
 \end_layout
@@ -10625,25 +10578,12 @@ sideways false
 status open
 
 \begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-null
-\end_layout
-
+\begin_inset VSpace defskip
 \end_inset
 
 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-x-axis: admitted reservation, CPU share; y-axis: deadline misses
-\end_layout
+\begin_inset Graphics
+	filename Data/3-Real-Time/RMS_Admission.pdf
 
 \end_inset
 
@@ -10666,6 +10606,10 @@ RMS Admission Below Worst-Case
 \end_inset
 
 
+\begin_inset VSpace defskip
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -10674,7 +10618,26 @@ RMS Admission Below Worst-Case
 \end_layout
 
 \begin_layout Standard
-Extensions to the periodic task model as in Quality Rate-Monotonic Scheduling
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+Extensions to the periodic task model
+\end_layout
+
+\end_inset
+
+ as in Quality Rate-Monotonic Scheduling
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+Quality Rate-Monotonic Scheduling
+\end_layout
+
+\end_inset
+
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Hamann:QRMS"
@@ -10694,24 +10657,48 @@ reference "3-mar:RMS-Below-Worst-Case"
 
 \end_inset
 
- plots the expected deadline misses for the Hunger Games video over the
- execution time reserved per period.
+ plots the expected deadline misses for the Sintel video
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+This video is CPU intensive to decode.
+ For detailed video properties, see Table
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "3-tab:Videos"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+ over the execution time reserved per period.
  The period is a constant 
-\begin_inset Formula $p=41.7\,\mathrm{ms}$
+\begin_inset Formula $p\!=\!41.7\,\mathrm{ms}$
 \end_inset
 
 , so the execution time directly corresponds to a CPU reservation 
 \begin_inset Formula $\:\nicefrac{e}{p}$
 \end_inset
 
-.
+, given in percent.
+ Buffering in the player is disregarded, because the task model disallows
+ overlapping scheduling windows.
  The very right end of the graph shows a worst-case admission, which would
  result in no deadline misses, but its required CPU share of 
 \begin_inset Note Note
 status open
 
 \begin_layout Plain Layout
-insert number here
+insert number here, automate using one LyX document per chapter with math
+ macros?
 \end_layout
 
 \end_inset
@@ -10721,7 +10708,254 @@ insert number here
 \begin_inset Formula $100\%$
 \end_inset
 
- are infeasible.
+ are infeasible, so even the best reservation possible only guarantees a
+ minimum of 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+insert
+\end_layout
+
+\end_inset
+
+ deadline misses.
+\end_layout
+
+\begin_layout Standard
+At runtime, the player will of course consume much less than the worst-case
+ most of the time, so a slack reclaiming
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+slack reclaiming
+\end_layout
+
+\end_inset
+
+ strategy
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Caccamo:SlackReclaiming"
+
+\end_inset
+
+ can redistribute the extra time to other threads.
+ However, such slack is not guaranteed and threads with an admission below
+ their worst-case may not receive enough time when they need it.
+\end_layout
+
+\begin_layout Standard
+We learn that the periodic task model is inflexible in describing timing
+ requirements and pessimistic in describing resource requirements.
+ 
+\noun on
+Atlas
+\noun default
+ should offer more flexible reservations than periods with a constant job
+ execution time.
+ Instead, we want 
+\noun on
+Atlas
+\noun default
+ to accommodate jobs dynamically according to their actual need, thus improving
+ support for highly dynamic applications like video decoding.
+\end_layout
+
+\begin_layout Standard
+The main advantage of the periodic task model is its infinite clairvoyance
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+clairvoyance
+\end_layout
+
+\end_inset
+
+.
+ The scheduling algorithm can make strong assumptions on the tasks future
+ behavior and can use them to provide an admission test.
+ Once admitted, a task receives guaranteed performance, but with worst-case
+ reservations, only few tasks can be admitted.
+ Developers must take responsibility for adhering to the task model and
+ not violating its assumptions.
+\end_layout
+
+\begin_layout Standard
+
+\noun on
+Atlas
+\noun default
+ opts for an explicit submission of future jobs, replacing infinite clairvoyance
+ with a time-limited look-ahead.
+ 
+\noun on
+Atlas
+\noun default
+ therefore compromises on the guarantees it can give.
+ I think an admission test is not desirable on end-user systems, because
+ the user’s wish to start an operation should not be refused.
+ 
+\noun on
+Atlas
+\noun default
+ mitigates overload instead of preventing it.
+\end_layout
+
+\begin_layout Section
+Designing 
+\noun on
+Atlas
+\end_layout
+
+\begin_layout Standard
+From the above discussion of existing scheduling interfaces and their advantages
+ and shortcomings, we can summarize a set of properties we like 
+\noun on
+Atlas
+\noun default
+ to have.
+ We want to find a middle ground between simplicity for programmers and
+ strong real-time guarantees.
+\end_layout
+
+\begin_layout Enumerate
+
+\noun on
+Atlas
+\noun default
+ shall allow developers to express timing requirements, otherwise we cannot
+ ask the scheduler to respect them.
+\begin_inset Newline newline
+\end_inset
+
+Contrast this to fair sharing, which does not convey any timing requirements
+ and thus fails to meet applications’ timeliness needs.
+\end_layout
+
+\begin_layout Enumerate
+
+\noun on
+Atlas
+\noun default
+ shall allow a context-independent specification of resource requirements.
+\begin_inset Newline newline
+\end_inset
+
+Neither fair sharing nor periodic tasks provide this feature.
+ Fair sharing offers nice levels, which alter a thread’s sharing weight
+ relative to other threads, but the share ultimately depends on the surrounding
+ load.
+ Periodic tasks ask the developer for an execution time, which can be difficult
+ to anticipate, because it depends on the target hardware.
+\end_layout
+
+\begin_layout Enumerate
+
+\noun on
+Atlas
+\noun default
+ shall put timeliness before fairness.
+\begin_inset Newline newline
+\end_inset
+
+Fair sharing tries to assign the CPU equally to all ready threads.
+ As shown by the video player experiment, this is not necessarily in the
+ user’s best interest.
+\end_layout
+
+\begin_layout Enumerate
+
+\noun on
+Atlas
+\noun default
+ shall not refuse work.
+\begin_inset Newline newline
+\end_inset
+
+Scheduling algorithms for hard deadlines come with an admission test that
+ will refuse new work when it cannot guarantee real-time performance.
+ 
+\noun on
+Atlas
+\noun default
+ targets soft deadlines and can afford to overload the system if the user
+ demands too much.
+\end_layout
+
+\begin_layout Enumerate
+
+\noun on
+Atlas
+\noun default
+’ task model and programming interface shall be flexible and insightful.
+\begin_inset Newline newline
+\end_inset
+
+Fair sharing offers perfect flexibility, because it does not impose any
+ rules on application behavior.
+ 
+\noun on
+Atlas
+\noun default
+ will have to introduce some rules to provide timeliness guarantees.
+ The periodic task model offers good insight, because it allows for infinite
+ clairvoyance of the task’s future behavior.
+\end_layout
+
+\begin_layout Standard
+I will now tick off this property list by explaining the architectural building
+ blocks of 
+\noun on
+Atlas
+\noun default
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+I believe deadlines
+\end_layout
+
+\end_inset
+
+
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+deadline
+\end_layout
+
+\end_inset
+
+ are a natural way to express timing requirements.
+ They should be easy for developers to provide, because they are part of
+ the application’s problem domain.
+ The same thread may execute real-time jobs with different deadlines, so
+ the scheduler cannot generally guess deadlines by observing the thread.
+ Programmatically exposing deadlines provides real added value to the scheduler.
+ Deadlines facilitate property one.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+Execution times
+\end_layout
+
+\end_inset
+
+ are necessary for the scheduler to reserve time for jobs.
+ However, they are hard to obtain for developers because they depend on
+ the end-user hardware and the executed workload.
 \end_layout
 
 \begin_layout Standard
@@ -10729,73 +10963,10 @@ insert number here
 status open
 
 \begin_layout Itemize
-real-time scheduling is about ordering work so that it meets timing requirements
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-one end: classical periodic task model
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-inflexible way to express timing requirements, pessimistic resource requirements
-\end_layout
-
-\begin_layout Itemize
-strict admission not useful on desktops: yet another error condition for
- the developer, how to communicate refusal to the user?
-\end_layout
-
-\begin_layout Itemize
-however, the advantages: infinite clairvoyance allows an admission test,
- order matters
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-frame this in a two-dimensional map instead: flexible/weak – rigid/strong;
- fluid flow – individual jobs
-\end_layout
-
-\begin_deeper
-\begin_layout Plain Layout
-An illustrative analogy to the use of asynchronous lambdas instead of threads
- is the shift from circuit-switched networks to packet routing.
-\begin_inset CommandInset citation
-LatexCommand cite
-key "MacResearch:AboardGrandCentral"
-
-\end_inset
-
-
-\end_layout
-
-\end_deeper
-\end_deeper
-\begin_layout Itemize
 find a good middle ground between both approaches
 \end_layout
 
 \begin_deeper
-\begin_layout Itemize
-express timing requirements, but more flexible than periodic task: deadlines
-\end_layout
-
-\begin_layout Itemize
-this is an attribute within the application's problem domain
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-system cannot guess it
-\end_layout
-
-\begin_layout Itemize
-developers should be able to provide it
-\end_layout
-
-\end_deeper
 \begin_layout Itemize
 express resource requirements, but without asking for execution times, which
  are hardware-dependent
@@ -10808,26 +10979,6 @@ replace full clairvoyance with limited look-ahead
 \begin_layout Itemize
 instead of fairness and isolation first, put timeliness first and deal with
  fairness only when overloaded
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-deriving architecture from requirements
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-execution time is workload-dependent, deadlines are application-specific:
- application-view needed
-\end_layout
-
-\begin_layout Itemize
-scheduling must distribute loads so it meets all timing requirements: global
- view needed
-\end_layout
-
-\begin_layout Itemize
-application-level component and global scheduler must work together
 \end_layout
 
 \end_deeper
@@ -10865,6 +11016,51 @@ state the key advancement here and forward-reference to the full related
 \end_layout
 
 \end_deeper
+\begin_layout Itemize
+matches programming paradigm
+\end_layout
+
+\begin_deeper
+\begin_layout Plain Layout
+With fair sharing, tasks can rely on receiving a fraction of CPU time, but
+ do not know when they receive it.
+ A periodic task scheduler additionally guarantees that jobs receive their
+ reservation before the deadline.
+\end_layout
+
+\begin_layout Plain Layout
+An illustrative analogy to the use of asynchronous lambdas instead of threads
+ is the shift from circuit-switched networks to packet routing.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "MacResearch:AboardGrandCentral"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Itemize
+deriving architecture from requirements
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+execution time is workload-dependent, deadlines are application-specific:
+ application-view needed
+\end_layout
+
+\begin_layout Itemize
+scheduling must distribute loads so it meets all timing requirements: global
+ view needed
+\end_layout
+
+\begin_layout Itemize
+application-level component and global scheduler must work together
+\end_layout
+
 \end_deeper
 \begin_layout Itemize
 end-to-end solution
@@ -11435,6 +11631,13 @@ explore the spectrum introduced above, compare approaches to describe timing
  and resource requirements
 \end_layout
 
+\begin_deeper
+\begin_layout Itemize
+frame this in a two-dimensional map instead: flexible/weak – rigid/strong;
+ fluid flow – individual jobs
+\end_layout
+
+\end_deeper
 \begin_layout Itemize
 fixed-priority approaches: strongest guarantees possible, minimal implementation
 \end_layout
@@ -11656,6 +11859,28 @@ does not target improving the soft-real time workload, thus somewhat orthogonal
 
 \begin_layout Itemize
 could be used to provide isolated hard real-time load in our system
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+slack reclamation
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Caccamo:SlackReclaiming"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+similar to Atlas EDF-headstart
+\end_layout
+
+\begin_layout Itemize
+they: server is EDF-scheduled, picks slack time; here: slack time handed
+ to CFS, picks next EDF-job
 \end_layout
 
 \end_deeper
