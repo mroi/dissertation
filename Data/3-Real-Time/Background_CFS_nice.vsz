@@ -2,8 +2,8 @@
 # Saved at 2012-10-30T10:58:34.584740
 
 AddImportPath(u'/Users/Michael/Documents/Forschung/Dissertation/Data/3-Real-Time')
-ImportFile(u'Background-CFS-nice0.log', u'time0 interval0', linked=True, ignoretext=True)
-ImportFile(u'Background-CFS-nice5.log', u'time5 interval5', linked=True, ignoretext=True)
+ImportFile(u'Background_CFS_nice-0.log', u'time0 interval0', linked=True, ignoretext=True)
+ImportFile(u'Background_CFS_nice-5.log', u'time5 interval5', linked=True, ignoretext=True)
 ImportString(u'interval_bg(numeric)','''
 0.000000e+00
 1.000000e+00
