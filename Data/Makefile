@@ -19,10 +19,13 @@ all:: $(VEUSZ:.vsz=.pdf) $(SCILAB:.sci=.lyx)
 	podofobox $*_.pdf $@ media $$box
 	rm $*_.pdf
 
+Values.lyx: Values.val ../val2lyx.pl
+	../val2lyx.pl < $< > $@
+
 %.lyx: %.tab ../tab2lyx.pl
 	../tab2lyx.pl < $< > $@
 
-%.tab: %.sci
+%.tab %.val: %.sci
 	rm -f $@
 	scilab -nw -nb -f $<
 
