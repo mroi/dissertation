@@ -14,7 +14,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.2 r9819"
-   sodipodi:docname="Verically_Integrated_Solution.svg">
+   sodipodi:docname="Verical_Integration_Overview.svg">
   <defs
      id="defs4">
     <marker
@@ -195,15 +195,20 @@
        id="text7288"
        sodipodi:linespacing="100%"><tspan
          sodipodi:role="line"
-         id="tspan7290"
          x="17.716536"
          y="935.43176"
-         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light">workload</tspan><tspan
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light"
+         id="tspan3014">workload metrics</tspan><tspan
          sodipodi:role="line"
          x="17.716536"
          y="945.43176"
-         id="tspan7292"
-         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light">properties</tspan></text>
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light"
+         id="tspan3020">for execution</tspan><tspan
+         sodipodi:role="line"
+         x="17.716536"
+         y="955.43176"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light"
+         id="tspan3022">time estimates</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:12px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:center;line-height:100%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light"
@@ -212,15 +217,15 @@
        id="text7294"
        sodipodi:linespacing="100%"><tspan
          sodipodi:role="line"
-         id="tspan7296"
          x="17.716536"
          y="999.38"
-         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light">application</tspan><tspan
+         id="tspan7298"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light">ahead-of-time</tspan><tspan
          sodipodi:role="line"
          x="17.716536"
          y="1009.38"
-         id="tspan7298"
-         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light">knowledge</tspan></text>
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light"
+         id="tspan3026">job submission</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:10px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:end;line-height:100%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light"
@@ -229,13 +234,13 @@
        id="text7300"
        sodipodi:linespacing="100%"><tspan
          sodipodi:role="line"
-         id="tspan7302"
          x="124.01575"
-         y="1018.4711">consequences</tspan><tspan
+         y="1018.4711"
+         id="tspan3030">timely</tspan><tspan
          sodipodi:role="line"
          x="124.01575"
          y="1028.4712"
-         id="tspan7304">of global policy</tspan></text>
+         id="tspan3034">job execution</tspan></text>
     <text
        sodipodi:linespacing="100%"
        id="text7306"
@@ -243,13 +248,13 @@
        x="124.01575"
        style="font-size:10px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:end;line-height:100%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light"
        xml:space="preserve"><tspan
-         id="tspan7310"
          y="953.14832"
          x="124.01575"
-         sodipodi:role="line">service</tspan><tspan
+         sodipodi:role="line"
+         id="tspan3038">timely</tspan><tspan
          y="963.14832"
          x="124.01575"
          sodipodi:role="line"
-         id="tspan7314">quality</tspan></text>
+         id="tspan3042">processing</tspan></text>
   </g>
 </svg>
