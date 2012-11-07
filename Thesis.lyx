@@ -188,6 +188,32 @@ End
 \begin_body
 
 \begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+use 
+\begin_inset Quotes eld
+\end_inset
+
+time constraint
+\begin_inset Quotes erd
+\end_inset
+
+ as a synonym for 
+\begin_inset Quotes eld
+\end_inset
+
+timing requirement
+\begin_inset Quotes erd
+\end_inset
+
+ to avoid repetition
+\end_layout
+
+\end_inset
+
+
 \begin_inset ERT
 status collapsed
 
@@ -3378,6 +3404,25 @@ Atlas
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Roitzsch:Predict"
+
+\end_inset
+
+
+\begin_inset Marginal
+status open
+
+\begin_layout Plain Layout
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Plain Layout
+Cite the RTAS paper here, if it gets accepted.
+\end_layout
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -7001,8 +7046,27 @@ nolinkurl{libdispatch.macosforge.org}}
 
 \end_inset
 
- Both are open-source licensed and have been ported to Linux, turning GCD
- into a suitable research platform with complete source code available.
+ Both are open-source licensed and have been ported to Linux,
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+
+\emph on
+\begin_inset CommandInset href
+LatexCommand href
+name "OpenGCD: Portable implementation of Grand Central Dispatch"
+target "http://sourceforge.net/projects/opengcd/"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ turning GCD into a suitable research platform with complete source code
+ available.
 \end_layout
 
 \begin_layout Standard
@@ -9407,6 +9471,16 @@ Time
 \end_layout
 
 \begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "Data/3-Real-Time/Values.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \begin_inset Flex NewThought
 status collapsed
 
@@ -9776,7 +9850,7 @@ Continuous media
  computers has been a subject of previous research regarding task models
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Ditze:RT_MPEG2"
+key "Ditze:MPEG_RT"
 
 \end_inset
 
@@ -10532,7 +10606,18 @@ whether the task set can be scheduled such that all tasks receive their
 \begin_inset Formula $\:\nicefrac{e}{p}\:$
 \end_inset
 
- and jobs always finish before their deadline.
+ and jobs always finish before their deadline, even in worst-case conditions.
+ The task set and resulting schedule are then called 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+feasible
+\end_layout
+
+\end_inset
+
+.
  The Rate-Monotonic Scheduling
 \begin_inset Index idx
 status collapsed
@@ -10550,7 +10635,17 @@ key "Liu:RMS"
 
 \end_inset
 
- provides such a test for periodic tasks on a single CPU.
+ provides such a feasibility
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+feasibility
+\end_layout
+
+\end_inset
+
+ test for periodic tasks on a single CPU.
  At runtime, it only needs a fixed priority scheduler to enforce the timeliness
  guarantees.
 \end_layout
@@ -10692,15 +10787,8 @@ reference "3-tab:Videos"
  Buffering in the player is disregarded, because the task model disallows
  overlapping scheduling windows.
  The very right end of the graph shows a worst-case admission, which would
- result in no deadline misses, but its required CPU share of 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-insert number here, automate using one LyX document per chapter with math
- macros?
-\end_layout
-
+ result in no deadline misses, but its required CPU share of almost 
+\begin_inset Formula $200\%$
 \end_inset
 
  is impossible to accommodate on a single CPU.
@@ -10708,18 +10796,12 @@ insert number here, automate using one LyX document per chapter with math
 \begin_inset Formula $100\%$
 \end_inset
 
- are infeasible, so even the best reservation possible only guarantees a
- minimum of 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-insert
-\end_layout
-
+ are infeasible, so even the highest possible reservation only guarantees
+ 
+\begin_inset Formula $\RMSBestAdmission$
 \end_inset
 
- deadline misses.
+ of the deadlines.
 \end_layout
 
 \begin_layout Standard
@@ -10777,31 +10859,11 @@ clairvoyance
 .
  The scheduling algorithm can make strong assumptions on the tasks future
  behavior and can use them to provide an admission test.
- Once admitted, a task receives guaranteed performance, but with worst-case
- reservations, only few tasks can be admitted.
+ Once admitted, jobs are guaranteed to receive their reservations before
+ the deadlines, but with worst-case reservations, only few tasks can be
+ admitted.
  Developers must take responsibility for adhering to the task model and
  not violating its assumptions.
-\end_layout
-
-\begin_layout Standard
-
-\noun on
-Atlas
-\noun default
- opts for an explicit submission of future jobs, replacing infinite clairvoyance
- with a time-limited look-ahead.
- 
-\noun on
-Atlas
-\noun default
- therefore compromises on the guarantees it can give.
- I think an admission test is not desirable on end-user systems, because
- the user’s wish to start an operation should not be refused.
- 
-\noun on
-Atlas
-\noun default
- mitigates overload instead of preventing it.
 \end_layout
 
 \begin_layout Section
@@ -10811,12 +10873,12 @@ Atlas
 \end_layout
 
 \begin_layout Standard
-From the above discussion of existing scheduling interfaces and their advantages
- and shortcomings, we can summarize a set of properties we like 
+The above discussion of existing scheduling interfaces and their advantages
+ and shortcomings condenses into a set of design constraints for 
 \noun on
 Atlas
 \noun default
- to have.
+.
  We want to find a middle ground between simplicity for programmers and
  strong real-time guarantees.
 \end_layout
@@ -10844,12 +10906,11 @@ Atlas
 \begin_inset Newline newline
 \end_inset
 
-Neither fair sharing nor periodic tasks provide this feature.
- Fair sharing offers nice levels, which alter a thread’s sharing weight
- relative to other threads, but the share ultimately depends on the surrounding
- load.
- Periodic tasks ask the developer for an execution time, which can be difficult
- to anticipate, because it depends on the target hardware.
+Fair sharing offers nice levels, which alter a thread’s sharing weight relative
+ to the surrounding load.
+ Periodic tasks ask the developer for an execution time, which depends on
+ the target hardware and the user-provided workload.
+ Both thus require information the developer does not have.
 \end_layout
 
 \begin_layout Enumerate
@@ -10875,8 +10936,8 @@ Atlas
 \begin_inset Newline newline
 \end_inset
 
-Scheduling algorithms for hard deadlines come with an admission test that
- will refuse new work when it cannot guarantee real-time performance.
+Scheduling algorithms for hard deadlines must reject new work when it cannot
+ guarantee real-time performance.
  
 \noun on
 Atlas
@@ -10896,17 +10957,12 @@ Atlas
 
 Fair sharing offers perfect flexibility, because it does not impose any
  rules on application behavior.
- 
-\noun on
-Atlas
-\noun default
- will have to introduce some rules to provide timeliness guarantees.
- The periodic task model offers good insight, because it allows for infinite
- clairvoyance of the task’s future behavior.
+ The periodic task model is rigid, but offers infinite clairvoyance of the
+ task’s future behavior.
 \end_layout
 
 \begin_layout Standard
-I will now tick off this property list by explaining the architectural building
+I will now tick off these properties by explaining the architectural building
  blocks of 
 \noun on
 Atlas
@@ -10914,17 +10970,8 @@ Atlas
 .
 \end_layout
 
-\begin_layout Standard
-\begin_inset Flex NewThought
-status collapsed
-
-\begin_layout Plain Layout
-I believe deadlines
-\end_layout
-
-\end_inset
-
-
+\begin_layout Description
+Deadlines
 \begin_inset Index idx
 status collapsed
 
@@ -10935,27 +10982,365 @@ deadline
 \end_inset
 
  are a natural way to express timing requirements.
- They should be easy for developers to provide, because they are part of
- the application’s problem domain.
+ Developers know about timing constraints, because they are part of the
+ application’s problem domain.
  The same thread may execute real-time jobs with different deadlines, so
  the scheduler cannot generally guess deadlines by observing the thread.
- Programmatically exposing deadlines provides real added value to the scheduler.
- Deadlines facilitate property one.
+ Black-box heuristics may improve unmodified applications,
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Cucinotta:Self-Tuning"
+
+\end_inset
+
+ but programmatically exposing deadlines provides added value to the scheduler.
 \end_layout
 
-\begin_layout Standard
-\begin_inset Flex NewThought
+\begin_layout Description
+Execution
+\begin_inset space \space{}
+\end_inset
+
+times
+\begin_inset Index idx
 status collapsed
 
 \begin_layout Plain Layout
-Execution times
+execution time
 \end_layout
 
 \end_inset
 
- are necessary for the scheduler to reserve time for jobs.
- However, they are hard to obtain for developers because they depend on
- the end-user hardware and the executed workload.
+ allow the scheduler to allocate time for jobs in order to calculate a schedule
+ and to anticipate deadline misses.
+ However, execution times are hard to obtain for developers because they
+ depend on the end-user hardware and the workload.
+ 
+\noun on
+Atlas
+\noun default
+ resolves this impedance mismatch with an indirection: An estimator between
+ the application and the system-level scheduler decouples the interface
+ as seen by the developer from the lower-level interface of the scheduler.
+ Developers provide 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+workload metrics
+\end_layout
+
+\end_inset
+
+
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+workload metrics
+\end_layout
+
+\end_inset
+
+ to the estimator, which uses machine learning to infer execution time predictio
+ns.
+\end_layout
+
+\begin_layout Description
+Urgency is the primary criterion for task selection by the scheduler.
+ Fairness is strictly a secondary concern.
+ I postulate that users do not care about fairness as long as all applications
+ meet their timing requirements.
+ 
+\noun on
+Atlas
+\noun default
+ considers fairness only in overload situations when time constraints are
+ jeopardized.
+ In underloaded systems, applications may receive disproportionate CPU shares
+ to meet deadlines.
+\end_layout
+
+\begin_layout Description
+Overload
+\begin_inset space \space{}
+\end_inset
+
+Detection replaces a traditional real-time admission, which uses a priori
+ information to prevent overload.
+ I object to overruling a user decision, so 
+\noun on
+Atlas
+\noun default
+ will never reject work.
+ However, I demonstrate later in this chapter that 
+\noun on
+Atlas
+\noun default
+ can detect overload situations before they occur.
+ Chapter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "5-chap:Adaptivity"
+
+\end_inset
+
+ discusses how to coordinate workload adaptation to mitigate overload dynamicall
+y.
+\end_layout
+
+\begin_layout Description
+Look-Ahead replaces the infinite clairvoyance offered by periodic tasks.
+ 
+\noun on
+Atlas
+\noun default
+ opts for an explicit submission of future jobs without constraining the
+ inter-arrival distance or demanding non-overlapping scheduling windows.
+ The 
+\noun on
+Atlas
+\noun default
+ task model is flexible, but compromises on the guarantees it can make.
+\end_layout
+
+\begin_layout Standard
+Specifying deadlines and submitting jobs are an application responsibility,
+ because only the developer has the necessary domain knowledge.
+ Execution times even depend on the workload the application is currently
+ processing, like the video the user chose to play.
+ However, distributing CPU time requires global supervision, because jobs
+ from different applications must be ordered according to their individual
+ time constraints.
+ Therefore, application components must work with the global scheduler in
+ a unified solution.
+\end_layout
+
+\begin_layout Section
+End-to-end Integration
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Figures/3-Real-Time/Verical_Integration_Overview.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-mar:Vertical-Integration-Timeliness"
+
+\end_inset
+
+Vertical Integration for Timeliness
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-mar:Vertical-Integration-Timeliness"
+
+\end_inset
+
+ illustrates the cooperation between the 
+\noun on
+Atlas
+\noun default
+ layers to provide timeliness properties to applications: Metrics collected
+ from the workload help a machine learning component understand the dependency
+ between processed data and job execution time.
+ Execution time predictions are derived from the metrics.
+ The application propagates these estimates together with deadlines to the
+ scheduler before the job runs, offering a limited look into the future.
+ The system scheduler orders jobs from all application to provide timely
+ execution.
+ Application and scheduler stay in sync about which job is currently active,
+ allowing the application to associate the right work with each job to ensure
+ timely processing.
+\end_layout
+
+\begin_layout Standard
+Throughout the following explanation of the 
+\noun on
+Atlas
+\noun default
+ architecture and design, I will repeat Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-mar:Vertical-Integration-Timeliness"
+
+\end_inset
+
+ to highlight the described component.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+null
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+rough architecture as in the RTAS-paper
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-mar:Architectural-Overview"
+
+\end_inset
+
+Architectural Overview
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+The architectural overview
+\end_layout
+
+\end_inset
+
+ in Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-mar:Architectural-Overview"
+
+\end_inset
+
+ reflects the conceptual layers just discussed.
+ Applications inspect their workload and talk to a local estimator component,
+ which is linked to the application as a library.
+ This component implements the 
+\noun on
+Atlas
+\noun default
+ interface as it is presented to the application developer.
+ It remembers submitted jobs in a local queue until they have run to completion.
+\end_layout
+
+\begin_layout Standard
+The per-application estimator also forwards all its jobs to the system-wide
+ scheduler, which queues them for execution.
+ The interface of the scheduler is not intended to be used by developers
+ directly, but only because I think the estimator interface is easier to
+ use.
+ No functional or security aspect prohibits direct access to the scheduler.
+\end_layout
+
+\begin_layout Standard
+Two different job descriptions 
+\begin_inset Formula $J'$
+\end_inset
+
+ and 
+\begin_inset Formula $J$
+\end_inset
+
+ are used by the two interface layers.
+ I now formalize the task model, before I explain the interface operations
+ and their integration into the application runtime.
+\begin_inset Marginal
+status open
+
+\begin_layout Plain Layout
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Plain Layout
+Cite the RTAS paper here, if it gets accepted.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Task Model and Interfaces
 \end_layout
 
 \begin_layout Standard
@@ -10963,22 +11348,20 @@ Execution times
 status open
 
 \begin_layout Itemize
-find a good middle ground between both approaches
+explain overall architecture
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
-express resource requirements, but without asking for execution times, which
- are hardware-dependent
+task model
 \end_layout
 
 \begin_layout Itemize
-replace full clairvoyance with limited look-ahead
+interface primitives
 \end_layout
 
 \begin_layout Itemize
-instead of fairness and isolation first, put timeliness first and deal with
- fairness only when overloaded
+runtime integration
 \end_layout
 
 \end_deeper
@@ -11022,13 +11405,6 @@ matches programming paradigm
 
 \begin_deeper
 \begin_layout Plain Layout
-With fair sharing, tasks can rely on receiving a fraction of CPU time, but
- do not know when they receive it.
- A periodic task scheduler additionally guarantees that jobs receive their
- reservation before the deadline.
-\end_layout
-
-\begin_layout Plain Layout
 An illustrative analogy to the use of asynchronous lambdas instead of threads
  is the shift from circuit-switched networks to packet routing.
 \begin_inset CommandInset citation
@@ -11043,33 +11419,7 @@ key "MacResearch:AboardGrandCentral"
 \end_deeper
 \end_deeper
 \begin_layout Itemize
-deriving architecture from requirements
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-execution time is workload-dependent, deadlines are application-specific:
- application-view needed
-\end_layout
-
-\begin_layout Itemize
-scheduling must distribute loads so it meets all timing requirements: global
- view needed
-\end_layout
-
-\begin_layout Itemize
-application-level component and global scheduler must work together
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-end-to-end solution
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-workload: analyze dependency between data and execution time – execution
- time metrics for video
+explain online execution time training in detail
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Roitzsch:Predict"
@@ -11077,21 +11427,6 @@ key "Roitzsch:Predict"
 \end_inset
 
 
-\end_layout
-
-\begin_layout Itemize
-application: offer look into the future, derive execution time prediction
- from metrics, attach deadlines to jobs, propagate knowledge down to system
- level
-\end_layout
-
-\begin_layout Itemize
-system: insert all jobs in an EDF run queue
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-explain online execution time training in detail
 \end_layout
 
 \begin_deeper
@@ -11185,6 +11520,32 @@ system scheduler
 \end_layout
 
 \begin_deeper
+\begin_layout Plain Layout
+The scheduler was implemented by Stefan Wächtler in his master thesis work,
+ which I supervised together with Björn Döbel.
+\begin_inset Marginal
+status open
+
+\begin_layout Plain Layout
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Plain Layout
+Hermann: 
+\lang ngerman
+Kann ich das so schreiben?
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Itemize
 job programming model not compatible with fixed task priorities
 \end_layout
@@ -11962,6 +12323,49 @@ key "Palopoli:AQuoSA"
 
 \end_deeper
 \begin_layout Itemize
+workload insight for video
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Ditze:MPEG_Utilization"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+repeatedly run admission with some granularity like GOPs
+\end_layout
+
+\begin_layout Itemize
+do not plan for global worst-case, but for the worst-case within the admission
+ window
+\end_layout
+
+\begin_layout Itemize
+peak notification embedded in user-data fields of video stream
+\end_layout
+
+\begin_layout Itemize
+Atlas takes this idea to the max an predicts not just peaks but every job
+ and reserves time not for a GOP-sized admission window, but for individual
+ jobs
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+workload metrics for MPEG
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Altenbernd:MPEG-WCET"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
 AIRS
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -12256,6 +12660,17 @@ without global coordination, applications should specify timing requirements
 
 \end_deeper
 \end_deeper
+\begin_layout Itemize
+model predictive control
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Maciejowski:ModelPredictiveControl"
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Itemize
 task models that express other properties: gravitational task model
 \end_layout
@@ -13383,6 +13798,22 @@ but only when overloaded: timeliness first, fairness only when overloaded
 
 \begin_layout Itemize
 decouple urgency (timing requirements) and importance
+\end_layout
+
+\begin_layout Itemize
+Atlas flexibility stems from admitting on job-level instead of task-level
+\end_layout
+
+\begin_layout Itemize
+admission does not reject, but inform
+\end_layout
+
+\begin_layout Itemize
+applications decide how to react, because only they know how to adapt
+\end_layout
+
+\begin_layout Itemize
+no central one-size-fits-all job dropping or deadline tardiness
 \end_layout
 
 \end_deeper
