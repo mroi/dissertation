@@ -24,17 +24,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="3.9017222"
+     inkscape:zoom="2.7617777"
      inkscape:cx="93.63993"
      inkscape:cy="52.476885"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      units="cm"
-     inkscape:window-width="1203"
-     inkscape:window-height="771"
-     inkscape:window-x="71"
-     inkscape:window-y="0"
+     inkscape:window-width="803"
+     inkscape:window-height="566"
+     inkscape:window-x="229"
+     inkscape:window-y="96"
      inkscape:window-maximized="0">
     <inkscape:grid
        type="xygrid"
@@ -55,7 +55,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -64,6 +64,30 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,-999.21129)">
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:100%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="0"
+       y="1009.8412"
+       id="text3917"
+       sodipodi:linespacing="100%"><tspan
+         sodipodi:role="line"
+         x="0"
+         y="1009.8412"
+         id="tspan3921"
+         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light">strict rules</tspan></text>
+    <text
+       sodipodi:linespacing="100%"
+       id="text3923"
+       y="1009.8412"
+       x="141.73228"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:100%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       xml:space="preserve"><tspan
+         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:end;line-height:100%;writing-mode:lr-tb;text-anchor:end;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light"
+         id="tspan3927"
+         y="1009.8412"
+         x="141.73228"
+         sodipodi:role="line">loose rules</tspan></text>
     <g
        id="g3933">
       <path
@@ -106,29 +130,5 @@
            y="1047.2743"
            style="font-size:12px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:end;line-height:125%;writing-mode:lr-tb;text-anchor:end;fill:#ffffff;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Bold">simplicity</tspan></text>
     </g>
-    <text
-       xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-weight:normal;line-height:100%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="0"
-       y="1009.8412"
-       id="text3917"
-       sodipodi:linespacing="100%"><tspan
-         sodipodi:role="line"
-         x="0"
-         y="1009.8412"
-         id="tspan3921"
-         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light">strict rules</tspan></text>
-    <text
-       sodipodi:linespacing="100%"
-       id="text3923"
-       y="1009.8412"
-       x="141.73228"
-       style="font-size:40px;font-style:normal;font-weight:normal;line-height:100%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       xml:space="preserve"><tspan
-         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:end;line-height:100%;writing-mode:lr-tb;text-anchor:end;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light"
-         id="tspan3927"
-         y="1009.8412"
-         x="141.73228"
-         sodipodi:role="line">loose rules</tspan></text>
   </g>
 </svg>

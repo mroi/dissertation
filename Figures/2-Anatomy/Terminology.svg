@@ -31,62 +31,6 @@
          transform="scale(0.2,0.2)"
          inkscape:connector-curvature="0" />
     </marker>
-    <marker
-       inkscape:stockid="Arrow2Mend"
-       orient="auto"
-       refY="0"
-       refX="0"
-       id="Arrow2Mend"
-       style="overflow:visible">
-      <path
-         id="path4014"
-         style="font-size:12px;fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round"
-         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-         transform="scale(-0.6,-0.6)"
-         inkscape:connector-curvature="0" />
-    </marker>
-    <marker
-       inkscape:stockid="Arrow2Send"
-       orient="auto"
-       refY="0"
-       refX="0"
-       id="Arrow2Send"
-       style="overflow:visible">
-      <path
-         id="path4020"
-         style="font-size:12px;fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round"
-         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-         transform="matrix(-0.3,0,0,-0.3,0.69,0)"
-         inkscape:connector-curvature="0" />
-    </marker>
-    <marker
-       inkscape:stockid="Arrow1Mend"
-       orient="auto"
-       refY="0"
-       refX="0"
-       id="Arrow1Mend"
-       style="overflow:visible">
-      <path
-         id="path3996"
-         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
-         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
-         transform="matrix(-0.4,0,0,-0.4,-4,0)"
-         inkscape:connector-curvature="0" />
-    </marker>
-    <marker
-       inkscape:stockid="StopM"
-       orient="auto"
-       refY="0"
-       refX="0"
-       id="StopM"
-       style="overflow:visible">
-      <path
-         id="path4160"
-         d="M 0,5.65 0,-5.65"
-         style="fill:none;stroke:#000000;stroke-width:1pt"
-         transform="scale(0.4,0.4)"
-         inkscape:connector-curvature="0" />
-    </marker>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -205,6 +149,29 @@
    style="font-size:10px;word-spacing:0px">◁ </tspan>release</tspan></text>
     <text
        xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:94.99999881%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="-960.23486"
+       y="90.425537"
+       id="text6580"
+       sodipodi:linespacing="94.999999%"
+       transform="matrix(0,-1,1,0,0,0)"><tspan
+         sodipodi:role="line"
+         id="tspan6582"
+         x="-960.23486"
+         y="90.425537"
+         style="font-size:8px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:94.99999881%;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light"
+         dy="0 0 -1.8"><tspan
+   style="font-size:10px;line-height:94.99999881%;word-spacing:0px"
+   id="tspan6584"
+   dy="1.8">◁ </tspan>blocking or</tspan><tspan
+         sodipodi:role="line"
+         x="-960.23486"
+         y="98.623466"
+         style="font-size:8px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:94.99999881%;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light"
+         dy="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0"
+         id="tspan6590">   preemption</tspan></text>
+    <text
+       xml:space="preserve"
        style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
        x="-960.23486"
        y="115.22868"
@@ -268,6 +235,14 @@
          inkscape:connector-curvature="0"
          sodipodi:nodetypes="ccccc" />
       <rect
+         transform="translate(0,875.19552)"
+         y="74.40947"
+         x="102.75591"
+         height="14.173225"
+         width="10.62992"
+         id="rect3143"
+         style="fill:#5d7fbb" />
+      <rect
          ry="0"
          transform="translate(0,875.19552)"
          y="74.409439"
@@ -276,29 +251,6 @@
          width="21.259846"
          id="rect3141"
          style="fill:#5d7fbb" />
-      <rect
-         transform="translate(0,875.19552)"
-         y="74.40947"
-         x="102.75591"
-         height="14.173225"
-         width="10.62992"
-         id="rect3143"
-         style="fill:#5d7fbb" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text3921"
-         y="958.50018"
-         x="63.779526"
-         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-         xml:space="preserve"><tspan
-           style="font-size:8px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:end;line-height:125%;writing-mode:lr-tb;text-anchor:end;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light"
-           y="958.50018"
-           x="63.779526"
-           id="tspan3923"
-           sodipodi:role="line">preceding jobs <tspan
-   dy="2.3"
-   id="tspan3936"
-   style="font-size:12px">◂</tspan></tspan></text>
       <text
          xml:space="preserve"
          style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
@@ -315,6 +267,21 @@
    dy="2.3"
    id="tspan3944"
    style="font-size:12px">▸</tspan> next jobs</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text3921"
+         y="958.50018"
+         x="63.779526"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:8px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:end;line-height:125%;writing-mode:lr-tb;text-anchor:end;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light"
+           y="958.50018"
+           x="63.779526"
+           id="tspan3923"
+           sodipodi:role="line">preceding jobs <tspan
+   dy="2.3"
+   id="tspan3936"
+   style="font-size:12px">◂</tspan></tspan></text>
     </g>
     <g
        id="g5581"
@@ -390,28 +357,6 @@
            sodipodi:role="line">execution time</tspan></text>
     </g>
     <g
-       id="g5597"
-       transform="translate(-3.2283463e-6,21.259859)">
-      <path
-         style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#SquareS);marker-mid:none;marker-end:url(#SquareS)"
-         d="m 67.322835,1024.0144 46.062995,0"
-         id="path5570"
-         inkscape:connector-curvature="0"
-         sodipodi:nodetypes="cc" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text5572"
-         y="1026.2145"
-         x="61.779526"
-         style="font-size:40px;font-style:normal;font-weight:normal;text-align:end;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-         xml:space="preserve"><tspan
-           style="font-size:8px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:end;line-height:125%;writing-mode:lr-tb;text-anchor:end;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light"
-           y="1026.2145"
-           x="61.779526"
-           id="tspan5574"
-           sodipodi:role="line">makespan</tspan></text>
-    </g>
-    <g
        id="g5602"
        transform="translate(-5.2755905e-6,-7.0865691)">
       <path
@@ -439,28 +384,27 @@
            y="1040.3876"
            style="font-size:8px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:end;line-height:125%;writing-mode:lr-tb;text-anchor:end;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light">slack time</tspan></text>
     </g>
-    <text
-       xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-weight:normal;line-height:94.99999881%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="-960.23486"
-       y="90.425537"
-       id="text6580"
-       sodipodi:linespacing="94.999999%"
-       transform="matrix(0,-1,1,0,0,0)"><tspan
-         sodipodi:role="line"
-         id="tspan6582"
-         x="-960.23486"
-         y="90.425537"
-         style="font-size:8px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:94.99999881%;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light"
-         dy="0 0 -1.8"><tspan
-   style="font-size:10px;line-height:94.99999881%;word-spacing:0px"
-   id="tspan6584"
-   dy="1.8">◁ </tspan>blocking or</tspan><tspan
-         sodipodi:role="line"
-         x="-960.23486"
-         y="98.623466"
-         style="font-size:8px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:94.99999881%;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light"
-         dy="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0"
-         id="tspan6590">   preemption</tspan></text>
+    <g
+       id="g5597"
+       transform="translate(-3.2283463e-6,21.259859)">
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#SquareS);marker-mid:none;marker-end:url(#SquareS)"
+         d="m 67.322835,1024.0144 46.062995,0"
+         id="path5570"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cc" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text5572"
+         y="1026.2145"
+         x="61.779526"
+         style="font-size:40px;font-style:normal;font-weight:normal;text-align:end;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:8px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:end;line-height:125%;writing-mode:lr-tb;text-anchor:end;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light"
+           y="1026.2145"
+           x="61.779526"
+           id="tspan5574"
+           sodipodi:role="line">makespan</tspan></text>
+    </g>
   </g>
 </svg>
