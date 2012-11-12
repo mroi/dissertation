@@ -1,16 +1,19 @@
-.PHONY: all style epub clean
+.PHONY: all style pdf epub force clean
 
 all:
 	@echo "choose one of the targets"
 	@echo "  check   text consistency checks"
 	@echo "  style   highlight weak style in the text"
-	@echo "  epub    compile an epub version"
+	@echo "  pdf     compile PDF version"
+	@echo "  epub    compile EPUB version"
 
 check: ../Thesis.lyx
 	grep -B1 -A1 -w Atlas $< | sed '/^\\noun on$$/,/^\\noun default$$/d' | fgrep --color=auto Atlas
 
 style: Thesis-stylight.pdf
 	open $<
+
+pdf: ../Thesis.pdf
 
 epub: Thesis.epub
 
@@ -29,6 +32,9 @@ Thesis-stylight.tex: Thesis.tex
 Thesis.tex: ../Thesis.lyx
 	lyx --export xetex $<
 	mv ../$@ ./
+
+../Thesis.pdf: ../Thesis.lyx
+	lyx --export pdf4 $<
 
 Thesis.epub: epub/Thesis.ncx epub/Thesis.xhtml
 	rm -f $@
@@ -56,6 +62,9 @@ epub/Thesis.xhtml: ../Thesis.lyx
 		s_MarginFigure_Margin Figure_g;s_Table of Contents_Contents_" < ../$(@F) > $@
 	mv $(<D)/*.png $(@D)
 	rm $(<D)/$(@F)
+
+../Thesis.lyx: force
+	$(MAKE) -C ../Data
 
 clean:
 	rm -f Thesis-stylight.pdf
