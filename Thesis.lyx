@@ -164,7 +164,7 @@ End
 \pdf_pdfusetitle false
 \papersize default
 \use_geometry true
-\use_amsmath 0
+\use_amsmath 2
 \use_esint 0
 \use_mhchem 0
 \use_mathdots 0
@@ -9809,8 +9809,17 @@ height_special "totalheight"
 status open
 
 \begin_layout Plain Layout
-Timing requirements in end-user systems emerge for one of two reasons, illustrat
-ed in Figure
+Timing requirements
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+timing requirements
+\end_layout
+
+\end_inset
+
+ in end-user systems emerge for one of two reasons, illustrated in Figure
 \begin_inset space ~
 \end_inset
 
@@ -9934,12 +9943,12 @@ key "Isovic:QoS_Video"
 \end_layout
 
 \begin_layout Standard
-
+I designed 
 \noun on
 Atlas
 \noun default
- was designed with video in mind and solves the problem of providing temporal
- guarantees to high-throughput dynamic applications such as video decoding.
+ with video in mind and it solves the problem of providing temporal guarantees
+ to high-throughput dynamic applications such as video decoding.
  However, 
 \noun on
 Atlas
@@ -9968,17 +9977,26 @@ usability
 
 \end_inset
 
- considerations and follow a 10/100/1000
-\begin_inset space \thinspace{}
+ considerations and follow a 
+\begin_inset Formula $0.1$
 \end_inset
 
-ms cadence:
-\begin_inset Note Note
-status open
+/
+\begin_inset Formula $1$
+\end_inset
 
-\begin_layout Plain Layout
-cite the GUI bloopers book, illustration for the different time horizons
-\end_layout
+/
+\begin_inset Formula $10$
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+second cadence:
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Card:RealTimeUI"
 
 \end_inset
 
@@ -9990,13 +10008,16 @@ When a user explores an application by scrolling through data views or operating
  controls, visual feedback like updating the scroll view or rendering a
  button in pressed state should feel immediate, giving the user confidence
  that he is in charge.
- Immediacy in human perception demands for response times less than 10
-\begin_inset space \thinspace{}
+ Interface changes may involve updating data representations, revealing
+ interface panels, or opening popup-windows.
+ The user perceives those changes as immediate, if the response time stays
+ under 
+\begin_inset Formula $100\,\mathrm{ms}$
 \end_inset
 
-ms.
- This limit becomes even more important for touchscreen devices, where users
- operate items on the screen without the indirection of a mouse.
+.
+ This limit becomes even tighter for touchscreen devices, where users operate
+ items on the screen without the indirection of a mouse.
  Any interface lag will break the user’s perception, that the app “sticks
  to his finger.”
 \begin_inset CommandInset citation
@@ -10005,33 +10026,17 @@ key "MSDN:FastFluid"
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
-When the user pushes a button, the immediate reaction of showing the button
- depressed is followed by a larger change visualizing the button action.
- This change may involve updating data representations, revealing interface
- panels, or opening popup-windows.
- The user recognizes the causal relation between trigger and action if the
- response time stays under 100
-\begin_inset space \thinspace{}
-\end_inset
-
-ms.
  Animation can accompany the interface state change to support the user’s
  mental transition.
  Such aids should run timely and smoothly.
 \end_layout
 
 \begin_layout Standard
-Whenever an operation runs longer than 1000
-\begin_inset space \thinspace{}
-\end_inset
-
-ms or one second, the application should show a progress indicator.
+Whenever an operation runs longer than one second, the application should
+ show a progress indicator.
  Otherwise, users start to wonder whether they accidentally missed the button
  and may click again.
+ After ten seconds, users get bored waiting and switch to a different task.
 \end_layout
 
 \begin_layout Standard
@@ -10046,7 +10051,7 @@ Virtually all desktop applications
 
  perform user interface activities.
  But even though developers are aware of the need for responsiveness, timing
- requirements are buried deep within the application and are not expressed
+ requirements are hidden deep within the application and are not expressed
  to the scheduler.
  Typical frameworks for graphical user interfaces perform all screen updates
  from the main thread, so all the previously mentioned deadline classes
@@ -10303,8 +10308,8 @@ Users however do not care whether their applications receive equal shares,
  they simply want the right thing to happen at the right time.
  The fair share model is a good abstraction for performance isolation, but
  it may be the wrong abstraction for applications with timing requirements.
- The scheduler completely disregards timing requirements, because developers
- have no meaningful way to express them.
+ The scheduler disregards timing requirements, because developers have no
+ meaningful way to express them.
 \end_layout
 
 \begin_layout Standard
@@ -10520,8 +10525,7 @@ Atlas
 \noun on
 Atlas
 \noun default
- should focus on meeting those timing requirements, even at the expense
- of fairness.
+ should meet those timing requirements even at the expense of fairness.
  The biggest strength of fair sharing
 \begin_inset space \thinspace{}
 \end_inset
@@ -10604,7 +10608,7 @@ periodic task model
 
  is diametrically opposed to the fair sharing model in our spectrum of solutions.
  Developers have to follow a strict programming regime, but the system’s
- runtime behavior will be completely predictable.
+ runtime behavior will be predictable.
  Periodic tasks as illustrated in Figure
 \begin_inset space ~
 \end_inset
@@ -10616,7 +10620,7 @@ reference "3-mar:Periodic-Task-Model"
 
 \end_inset
 
- are comprised of a chain of jobs with equal execution time 
+ describe a chain of jobs with equal execution time 
 \begin_inset Formula $e$
 \end_inset
 
@@ -10848,13 +10852,13 @@ reference "3-tab:Videos"
 , given in percent.
  Buffering in the player is disregarded, because the task model disallows
  overlapping scheduling windows.
- The very right end of the graph shows a worst-case admission, which would
- result in no deadline misses, but its required CPU share of almost 
+ The right end of the graph shows a worst-case admission, which would result
+ in no deadline misses, but its required CPU share of almost 
 \begin_inset Formula $200\%$
 \end_inset
 
  is impossible to accommodate on a single CPU.
- In fact, all reservations above 
+ In fact, all reservations greater than 
 \begin_inset Formula $100\%$
 \end_inset
 
@@ -10886,8 +10890,8 @@ key "Caccamo:SlackReclaiming"
 \end_inset
 
  can redistribute the extra time to other threads.
- However, such slack is not guaranteed and threads with an admission below
- their worst-case may not receive enough time when they need it.
+ However, such slack is not guaranteed and threads with a reservation less
+ than their worst-case may not receive enough time when they need it.
 \end_layout
 
 \begin_layout Standard
@@ -10908,7 +10912,7 @@ Atlas
 \end_layout
 
 \begin_layout Standard
-The main advantage of the periodic task model is its infinite clairvoyance
+The main advantage of the periodic task model is its infinite clairvoyance.
 \begin_inset Index idx
 status collapsed
 
@@ -10918,7 +10922,6 @@ clairvoyance
 
 \end_inset
 
-.
  The scheduling algorithm can make strong assumptions on the tasks’ future
  behavior and can use them to provide an admission test.
  Once admitted, jobs are guaranteed to receive their reservations before
@@ -10935,8 +10938,8 @@ Atlas
 \end_layout
 
 \begin_layout Standard
-The above discussion of existing scheduling interfaces and their advantages
- and shortcomings condenses into a set of design constraints for 
+The discussion of existing scheduling interfaces and their advantages and
+ shortcomings condenses into a set of design constraints for 
 \noun on
 Atlas
 \noun default
@@ -10950,13 +10953,42 @@ Atlas
 \noun on
 Atlas
 \noun default
- shall allow developers to express timing requirements, otherwise we cannot
- ask the scheduler to respect them.
+ shall allow developers to express timing requirements,
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+timing requirements
+\end_layout
+
+\end_inset
+
+ otherwise we cannot ask the scheduler to respect them.
 \begin_inset Newline newline
 \end_inset
 
-Contrast this to fair sharing, which does not convey any timing requirements
- and thus fails to meet applications’ timeliness needs.
+Contrast this to fair sharing,
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+fair sharing
+\end_layout
+
+\end_inset
+
+ which does not convey any timing requirements and thus fails to meet applicatio
+ns’ timeliness
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+timeliness
+\end_layout
+
+\end_inset
+
+ needs.
 \end_layout
 
 \begin_layout Enumerate
@@ -10980,13 +11012,23 @@ Fair sharing offers nice levels, which alter a thread’s sharing weight relativ
 \noun on
 Atlas
 \noun default
- shall put timeliness before fairness.
+ shall put timeliness
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+timeliness
+\end_layout
+
+\end_inset
+
+ before fairness.
 \begin_inset Newline newline
 \end_inset
 
 Fair sharing tries to assign the CPU equally to all ready threads.
- As shown by the video player experiment, this is not necessarily in the
- user’s best interest.
+ As shown by the video player experiment, this behavior is not necessarily
+ in the user’s best interest.
 \end_layout
 
 \begin_layout Enumerate
@@ -11004,8 +11046,27 @@ Scheduling algorithms for hard deadlines must reject new work when they
 \noun on
 Atlas
 \noun default
- targets soft deadlines and can afford to overload the system if the user
- demands too much.
+ targets soft deadlines
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+soft deadline
+\end_layout
+
+\end_inset
+
+ and can afford to overload
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+overload
+\end_layout
+
+\end_inset
+
+ the system if the user demands too much.
 \end_layout
 
 \begin_layout Enumerate
@@ -11073,14 +11134,14 @@ execution time
 
 \end_inset
 
- allow the scheduler to allocate time for jobs
+ allow the scheduler to allocate time for jobs,
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Mercer:CapacityReserve"
 
 \end_inset
 
- in order to calculate a schedule and to anticipate deadline misses.
+ calculate a schedule, and anticipate deadline misses.
  However, execution times are hard to obtain for developers because they
  depend on the end-user hardware and the workload.
  
@@ -11178,7 +11239,7 @@ Specifying deadlines and submitting jobs are an application responsibility,
  Execution times even depend on the workload the application is currently
  processing, like the video the user chose to play.
  However, distributing CPU time requires global supervision, because jobs
- from different applications must be ordered according to their individual
+ from different applications must be ordered to respect their individual
  time constraints.
  Therefore, application components must work with the global scheduler in
  a unified solution.
@@ -11243,13 +11304,32 @@ reference "3-mar:Vertical-Integration-Timeliness"
 Atlas
 \noun default
  layers to provide timeliness properties to applications: Metrics collected
- from the workload help a machine learning component understand the dependency
- between processed data and job execution time.
- Execution time predictions are derived from the metrics.
+ from the workload
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+workload
+\end_layout
+
+\end_inset
+
+ help a machine learning component understand the dependency between processed
+ data and job execution time.
+ Execution time predictions follow from the metrics.
  The application propagates these estimates together with deadlines to the
- scheduler before the job runs, offering a limited look into the future.
- The system scheduler orders jobs from all application to provide timely
- execution.
+ scheduler
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+scheduler
+\end_layout
+
+\end_inset
+
+ before the job runs, offering a limited look into the future.
+ The scheduler orders jobs from all application to provide timely execution.
  Application and scheduler stay in sync about which job is currently active,
  allowing the application to associate the right work with each job to ensure
  timely processing.
@@ -11334,8 +11414,17 @@ reference "3-mar:Architectural-Overview"
 \end_inset
 
  reflects the conceptual layers just discussed.
- Applications inspect their workload and talk to a local estimator component,
- which is linked to the application as a library.
+ Applications inspect their workload and talk to a local estimator
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+estimator
+\end_layout
+
+\end_inset
+
+ component, which is linked to the application as a library.
  This component implements the 
 \noun on
 Atlas
@@ -11347,14 +11436,42 @@ Atlas
 \begin_layout Standard
 The per-application estimator also forwards all its jobs to the system-wide
  scheduler, which queues them for execution.
- The interface of the scheduler is not intended to be used by developers
- directly, because I think the estimator interface is simpler.
+ Because I think the estimator interface is simpler, developers should not
+ need to use the scheduler interface directly.
  However, direct access to the scheduler is not prohibitive for functionality
  or security.
 \end_layout
 
 \begin_layout Standard
-Two different job descriptions 
+The estimator component queues the jobs solely to remember the workload
+ metrics and the application code associated with the job.
+ 
+\noun on
+Atlas
+\noun default
+ does not employ hierarchical scheduling.
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+hierarchical scheduling
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Shin:Compositional"
+
+\end_inset
+
+ Instead, the passing of job descriptions from the application to the system-wid
+e scheduler enables comprehensive scheduling decisions in one place.
+\end_layout
+
+\begin_layout Standard
+Two different kinds of job descriptions 
 \begin_inset Formula $J'$
 \end_inset
 
@@ -11363,7 +11480,7 @@ Two different job descriptions
 \end_inset
 
  are used by the two interface layers.
- I now formalize the task model, before I explain the interface operations
+ I first formalize the task model, before I explain the interface operations
  and their integration into the application runtime.
 \begin_inset Marginal
 status open
@@ -11405,8 +11522,8 @@ Atlas
 \end_inset
 
 .
- The task set is dynamic, because applications are started and stopped at
- the user’s discretion.
+ The task set is dynamic, because applications start and stop at the user’s
+ discretion.
  Each task 
 \begin_inset Formula $\tau_{i}$
 \end_inset
@@ -11415,7 +11532,17 @@ Atlas
 \begin_inset Formula $\tau_{i}=\{\, J_{i,j}\mid j=1,\ldots,m\}$
 \end_inset
 
- of aperiodic jobs 
+ of aperiodic jobs
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+aperiodic jobs
+\end_layout
+
+\end_inset
+
+ 
 \begin_inset Formula $J_{i,j}$
 \end_inset
 
@@ -11436,11 +11563,31 @@ Atlas
 \begin_inset Formula $J_{i,j}=(e_{i,j},d_{i,j})$
 \end_inset
 
- of an execution time 
+ of an execution time
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+execution time
+\end_layout
+
+\end_inset
+
+ 
 \begin_inset Formula $e_{i,j}$
 \end_inset
 
- and an absolute deadline 
+ and an absolute deadline
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+deadline
+\end_layout
+
+\end_inset
+
+ 
 \begin_inset Formula $d_{i,j}$
 \end_inset
 
@@ -11470,15 +11617,25 @@ While the deadlines
 \begin_inset Formula $\underline{m}_{i,j}$
 \end_inset
 
- of workload metrics and the deadline as seen by the scheduler.
+ of workload metrics
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+workload metrics
+\end_layout
+
+\end_inset
+
+ and the deadline as seen by the scheduler.
  From the metrics, the estimator derives approximate execution times.
  It can provide these estimates before the job executes.
  Workload metrics are a tuple of positive real numbers describing the computatio
 nal weight of the workload.
  The estimator expects at least a subset of them to correlate positively
  with the execution time.
- Details on the nature of the metrics and examples for their use follow
- later in this chapter.
+ Details on the metrics and examples for their use follow later in this
+ chapter.
 \end_layout
 
 \begin_layout Standard
@@ -11487,6 +11644,16 @@ status collapsed
 
 \begin_layout Plain Layout
 The estimator
+\end_layout
+
+\end_inset
+
+
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+estimator
 \end_layout
 
 \end_inset
@@ -11608,7 +11775,7 @@ Applications can submit jobs long before actual execution begins and should
 \begin_inset Formula $J'_{i,j}$
 \end_inset
 
- that is not covered by the submitted jobs.
+ that the submitted jobs do not cover.
  This way, the estimator and scheduler are aware of all work the application
  performs within a task 
 \begin_inset Formula $\tau_{i}$
@@ -11623,8 +11790,8 @@ next(
 \begin_inset space \thinspace{}
 \end_inset
 
-) Because jobs are required to execute back to back within a task, this
- primitive notifies the estimator that both the current job 
+) Because jobs execute back to back within a task, this primitive notifies
+ the estimator that the current job 
 \begin_inset Formula $J'_{i,j}$
 \end_inset
 
@@ -11632,20 +11799,20 @@ next(
 \begin_inset Formula $\tau_{i}$
 \end_inset
 
- is finished and that the next job 
+ completed and that the next job 
 \begin_inset Formula $J'_{i,j+1}$
 \end_inset
 
  should start.
- The task number 
+ The identity of the caller invoking 
+\emph on
+next
+\emph default
+ implicitly determines the task number 
 \begin_inset Formula $i$
 \end_inset
 
- is implicitly determined by the identity of the caller invoking 
-\emph on
-next.
-
-\emph default
+.
  The estimator is trained with the actual execution time 
 \begin_inset Formula $t_{i,j}$
 \end_inset
@@ -11663,7 +11830,7 @@ submit
 \begin_inset Formula $t_{i,j+1}$
 \end_inset
 
- of the new job starts.
+ starts.
  The 
 \emph on
 next
@@ -11724,25 +11891,39 @@ The CPU scheduler
 
 \end_inset
 
- is located in the Linux kernel.
+ resides in the Linux kernel.
  
 \noun on
 Atlas
 \noun default
  modifies the kernel’s interface to add three new system calls:
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+system call
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Description
 atlas_submit notifies the scheduler about a new job.
- It is used by the 
+ The 
 \emph on
 submit
 \emph default
- primitive to pass the estimated execution time and the application-provided
+ primitive employs the 
+\emph on
+atlas_submit
+\emph default
+ system call to pass the estimated execution time and the application-provided
  deadline to the kernel.
  The kernel also receives the thread identifier of the submission target.
- This information is necessary, because a thread can not only submit new
- jobs for itself, but also for another thread.
+ This information is necessary, because a thread can submit new jobs to
+ threads other than itself.
  This is useful for producer-consumer scenarios, where the producer thread
  will submit jobs for the consumer thread.
 \end_layout
@@ -11804,6 +11985,10 @@ Look-ahead knowledge
  of work to a queueing runtime library for asynchronous execution.
 \end_layout
 
+\begin_layout Section
+Lambdas with Deadlines
+\end_layout
+
 \begin_layout Standard
 \begin_inset Float marginfigure
 wide false
@@ -11824,10 +12009,6 @@ status open
 
 \end_layout
 
-\begin_layout Section
-Lambdas with Deadlines
-\end_layout
-
 \begin_layout Standard
 Integration of the 
 \noun on
@@ -11835,8 +12016,17 @@ Atlas
 \noun default
  primitives with an asynchronous lambda runtime helps to reduce the development
  overhead of adding real-time support to such modern desktop applications.
- Therefore, I implement a subset of the Grand Central Dispatch (GCD) infrastruct
-ure with built-in 
+ Therefore, I implement a subset of the Grand Central Dispatch
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+Grand Central Dispatch
+\end_layout
+
+\end_inset
+
+ (GCD) infrastructure with built-in 
 \noun on
 Atlas
 \noun default
@@ -11883,7 +12073,17 @@ key "Apple:GrandCentralDispatchRef"
 
 \end_inset
 
- It submits block 
+ It submits block
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+block
+\end_layout
+
+\end_inset
+
+ 
 \begin_inset Flex Code
 status collapsed
 
@@ -11893,7 +12093,17 @@ b
 
 \end_inset
 
- to the queue 
+ to the queue
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+dispatch queue
+\end_layout
+
+\end_inset
+
+ 
 \begin_inset Flex Code
 status collapsed
 
@@ -12051,11 +12261,11 @@ Atlas
 \end_inset
 
  with the given deadline and metrics.
- The task 
+ The dispatch queue parameter denominates the task 
 \begin_inset Formula $\tau_{i}$
 \end_inset
 
- is specified by the dispatch queue parameter.
+.
  The estimator predicts the execution time for the job and forwards it to
  the scheduler.
 \end_layout
@@ -12072,8 +12282,7 @@ next
 next
 \emph default
  returns, the worker dequeues the next block and executes it.
- After the block completes, its measured execution time is used to train
- the estimator.
+ After the block completes, its measured execution time trains the estimator.
 \end_layout
 
 \begin_layout Standard
@@ -12089,9 +12298,9 @@ reference "3-fig:Job-Lifetime"
 \end_inset
 
  summarizes the lifetime of a job from initial submission to final execution.
- The interplay between asynchronous runtime, estimator and system-wide scheduler
- ensure, that the timely release of jobs in the kernel translates to timely
- processing of the application workload.
+ The interplay between asynchronous runtime, estimator, and system-wide
+ scheduler ensure, that the timely release of jobs in the kernel translates
+ to timely processing of the application workload.
 \end_layout
 
 \begin_layout Standard
@@ -12205,14 +12414,13 @@ I might change this just to get rid of this limitation here.
 
 \begin_layout Itemize
 Consecutive submissions to the same queue must have non-decreasing deadlines.
- This limitation is imposed by the implementation of the 
+ This limitation originates from the implementation of the 
 \noun on
 Atlas
 \noun default
  kernel scheduler.
- It sorts jobs by their deadline, which means applications have to match
- their job management.
- Otherwise, the kernel’s and the application’s job order will differ.
+ The kernel sorts jobs by their deadline, which means applications have
+ to match their job management, or the job order will differ.
  Job identifiers, which applications pass to the kernel and which the kernel
  returns from 
 \emph on
@@ -12226,8 +12434,8 @@ atlas_next
 \noun on
 Atlas
 \noun default
- also assumes that deadlines and metrics are known at job submission time.
- This assumption is not imposed by my implementation, but is fundamental
+ also assumes deadlines and metrics to be available at job submission time.
+ This assumption is not an artifact of my implementation, but is fundamental
  to the concept.
  
 \noun on
@@ -12237,7 +12445,10 @@ Atlas
  execution time prediction from them.
  This estimate together with the deadline informs the scheduler about the
  timing and resource requirements of the job.
- Applications, were deadlines or metrics emerge while the job is already
+\end_layout
+
+\begin_layout Standard
+Applications, were deadlines or metrics emerge while the job is already
  running are unsuitable for 
 \noun on
 Atlas
@@ -12246,16 +12457,635 @@ Atlas
  It may help to split work into multiple jobs, starting with the first job
  until the deadline is known and then submitting a follow-up job with that
  deadline.
- However, I was not restricted by this limitation in my experiments so I
- presume it does not hinder 
+ However, this limitation was not impeding my experiments so I presume it
+ does not hinder 
 \noun on
 Atlas
 \noun default
 ’ applicability.
+ A detailed explanation on my test workloads and how I adapted them for
+ 
+\noun on
+Atlas
+\noun default
+ follows later in this chapter.
 \end_layout
 
 \begin_layout Section
 Execution Time Prediction
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Figures/3-Real-Time/Verical_Integration_Workload.svg
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\noun on
+Atlas
+\noun default
+ uses workload metrics
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+workload metrics
+\end_layout
+
+\end_inset
+
+ from the application domain instead of calling on developers to provide
+ actual execution times.
+ Applications provide the metrics as part of each job description 
+\begin_inset Formula $J'_{i,j}$
+\end_inset
+
+ in a vector 
+\begin_inset Formula $\underline{m}_{i,j}$
+\end_inset
+
+ of real numbers to their estimator.
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+estimator
+\end_layout
+
+\end_inset
+
+ The estimator assumes a subset of metrics to have a positive linear correlation
+ with the job execution time.
+ Badly correlated elements will be filtered out automatically to improve
+ numerical stability.
+\end_layout
+
+\begin_layout Standard
+The developer should choose metrics on a “larger value means more work”
+ basis.
+ Expected iteration counts of loops or the expected number of times an expensive
+ function is called are good candidates.
+ Metrics vectors of different jobs within the same task must be compatible,
+ that is, the same metric must be delivered in the same vector element.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+A linear auto-regressive predictor
+\end_layout
+
+\end_inset
+
+
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+linear auto-regressive predictor
+\end_layout
+
+\end_inset
+
+ produces execution time estimates from the metrics.
+ The problem formalization is based on previous work,
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Roitzsch:Predict"
+
+\end_inset
+
+ but has been enhanced to remove the offline training phase, creating a
+ self-updating predictor.
+ The prediction state is maintained individually for each real-time task
+ 
+\begin_inset Formula $\tau_{i}$
+\end_inset
+
+.
+ However, for clarity, I omit the index 
+\begin_inset Formula $i$
+\end_inset
+
+ on each variable below.
+\end_layout
+
+\begin_layout Standard
+The estimator conceptually collects a history of metrics vectors in a metrics
+ matrix 
+\begin_inset Formula $M$
+\end_inset
+
+, where each individual vector 
+\begin_inset Formula $\underline{m}_{j}$
+\end_inset
+
+ contributes a row of the matrix.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Capital letters denote matrices, underlined letters denote vectors.
+\end_layout
+
+\end_inset
+
+ All elements are real values.
+ For jobs already executed, the estimator also knows the actual, measured
+ execution times 
+\begin_inset Formula $t_{j}$
+\end_inset
+
+ of the jobs and collects them in a column vector 
+\begin_inset Formula $\underline{t}$
+\end_inset
+
+.
+ To predict execution times of future jobs, the estimator uses this history
+ to obtain a coefficient vector 
+\begin_inset Formula $\underline{x}$
+\end_inset
+
+ that approximates the execution times when applied to past metrics:
+\begin_inset Formula 
+\[
+M\underline{x}\approx\underline{t}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+The number of metrics per job is expected to be small compared to the number
+ of jobs, so the above linear equation has more rows than columns.
+ The equation is therefore overdetermined, so we reformulate it as a linear
+ least square problem:
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+linear least square problem
+\end_layout
+
+\end_inset
+
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula $\left\Vert \underline{z}\right\Vert _{2}$
+\end_inset
+
+ is the Euclidean Norm of 
+\begin_inset Formula $\underline{z}$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\left\Vert M\underline{x}-\underline{t}\right\Vert _{2}\rightarrow\min_{\underline{x}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Given such coefficients 
+\begin_inset Formula $\underline{x}$
+\end_inset
+
+ and a metrics vector 
+\begin_inset Formula $\underline{m}$
+\end_inset
+
+ of a new job description 
+\begin_inset Formula $J'$
+\end_inset
+
+, the estimator can calculate the execution time prediction as a dot product
+ of both:
+\begin_inset Formula 
+\[
+e=\underline{m}\cdot\underline{x}
+\]
+
+\end_inset
+
+This estimated time is forwarded to the system scheduler.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+QR decomposition
+\end_layout
+
+\end_inset
+
+
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+QR decomposition
+\end_layout
+
+\end_inset
+
+ is the textbook solution
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Stoer:Numerics"
+
+\end_inset
+
+ for linear least square problems.
+ Let 
+\begin_inset Formula $M$
+\end_inset
+
+ have 
+\begin_inset Formula $k$
+\end_inset
+
+ rows and 
+\begin_inset Formula $l$
+\end_inset
+
+ columns, with 
+\begin_inset Formula $k>l$
+\end_inset
+
+.
+ 
+\begin_inset Formula $M$
+\end_inset
+
+ is decomposed into an orthogonal 
+\begin_inset Formula $k\times k$
+\end_inset
+
+ matrix 
+\begin_inset Formula $Q$
+\end_inset
+
+ and a 
+\begin_inset Formula $k\times l$
+\end_inset
+
+ matrix 
+\begin_inset Formula $R$
+\end_inset
+
+, such that 
+\begin_inset Formula $M=QR$
+\end_inset
+
+ holds.
+ 
+\begin_inset Formula $R$
+\end_inset
+
+ has the form
+\begin_inset Formula 
+\[
+R=\begin{pmatrix}\hat{R}\\
+0
+\end{pmatrix}\begin{array}{l}
+\left\} \; l\right.\\
+\left\} \; k-l\right.
+\end{array}
+\]
+
+\end_inset
+
+with 
+\begin_inset Formula $\hat{R}$
+\end_inset
+
+ being a real 
+\begin_inset Formula $l\times l$
+\end_inset
+
+ upper triangular matrix.
+ Similarly dividing the 
+\begin_inset Formula $Q$
+\end_inset
+
+-transformed vector of measured execution times
+\begin_inset Formula 
+\[
+\underline{c}:=Q^{T}\underline{t}=\begin{pmatrix}\underline{\hat{c}}\\
+\underline{c_{R}}
+\end{pmatrix}\begin{array}{l}
+\left\} \; l\right.\\
+\left\} \; k-l\right.
+\end{array}
+\]
+
+\end_inset
+
+and invoking the orthogonality of 
+\begin_inset Formula $Q$
+\end_inset
+
+ yields a solution for the linear least square problem:
+\begin_inset Formula 
+\begin{gather*}
+\bigl\Vert M\underline{x}-\underline{t}\bigr\Vert_{2}=\bigl\Vert\hat{R}\underline{x}-\underline{\hat{c}}\bigr\Vert_{2}+\bigl\Vert\underline{c_{R}}\bigr\Vert_{2}\rightarrow\min_{\underline{x}}\\
+\mathrm{iff}\\
+\hat{R}\underline{x}=\underline{\hat{c}}
+\end{gather*}
+
+\end_inset
+
+This equation is easy to solve, because 
+\begin_inset Formula $\hat{R}$
+\end_inset
+
+ is upper triangular.
+ The result 
+\begin_inset Formula $\underline{x}$
+\end_inset
+
+ is unique, if 
+\begin_inset Formula $M$
+\end_inset
+
+ has full rank; the residual error is 
+\begin_inset Formula $\left\Vert \underline{c}_{R}\right\Vert _{2}$
+\end_inset
+
+.
+ The transformation of 
+\begin_inset Formula $M$
+\end_inset
+
+ and 
+\begin_inset Formula $\underline{t}$
+\end_inset
+
+ into 
+\begin_inset Formula $R$
+\end_inset
+
+ and 
+\begin_inset Formula $\underline{c}$
+\end_inset
+
+ and thereby into 
+\begin_inset Formula $\hat{R}$
+\end_inset
+
+ and 
+\begin_inset Formula $\underline{\hat{c}}$
+\end_inset
+
+ can be unified into one step:
+\begin_inset Formula 
+\begin{gather*}
+R=Q^{T}M\quad\mathrm{and}\quad\underline{c}=Q^{T}\underline{t}\\
+\mathrm{iff}\\
+\left(R,\underline{c}\right)=Q^{T}\left(M,\underline{t}\right)
+\end{gather*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Therefore, the approach to determine 
+\begin_inset Formula $\underline{x}$
+\end_inset
+
+ is to merge metrics and measured execution times into one two-dimensional
+ array and transform it as a whole.
+ The resulting array holds 
+\begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)$
+\end_inset
+
+, which represents the upper triangular system 
+\begin_inset Formula $\hat{R}\underline{x}=\underline{\hat{c}}$
+\end_inset
+
+ yielding 
+\begin_inset Formula $\underline{x}$
+\end_inset
+
+.
+ Note that this system has a constant size of 
+\begin_inset Formula $l$
+\end_inset
+
+ equations, independent of the number of rows 
+\begin_inset Formula $k$
+\end_inset
+
+ collected in 
+\begin_inset Formula $M$
+\end_inset
+
+ and 
+\begin_inset Formula $\underline{t}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+The coefficient vector
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Formula $\underline{x}$
+\end_inset
+
+ should be calculated continuously at runtime, without an offline training
+ phase.
+ A naïve implementation would remember the entire history of metrics and
+ measured execution times and repeatedly solve the complete linear least
+ square problem to obtain an updated coefficient vector 
+\begin_inset Formula $\underline{x}$
+\end_inset
+
+.
+ As jobs are executed, new metrics vectors 
+\begin_inset Formula $\underline{m}$
+\end_inset
+
+ and measured execution times 
+\begin_inset Formula $t$
+\end_inset
+
+ add more rows to the problem, so the computation required to update 
+\begin_inset Formula $\underline{x}$
+\end_inset
+
+ would increase over time.
+\end_layout
+
+\begin_layout Standard
+Literature on numerical algorithms however offers updating solutions, preventing
+ the unbounded row growth: Given an upper triangular system 
+\begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)^{\left(n\right)}$
+\end_inset
+
+ solving a linear least square problem 
+\begin_inset Formula $\bigl(M,\underline{t}\bigr)^{\left(n\right)}$
+\end_inset
+
+, a new job being executed adds a new row to both the metrics matrix and
+ the vector of measured execution times.
+ The resulting new problem is 
+\begin_inset Formula $\bigl(M,\underline{t}\bigr)^{\left(n+1\right)}$
+\end_inset
+
+.
+ The system 
+\begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)^{\left(n+1\right)}$
+\end_inset
+
+ which solves this new problem can be calculated from the previous solution
+ 
+\begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)^{\left(n\right)}$
+\end_inset
+
+ and the newly added row alone, without the need for the entire 
+\begin_inset Formula $\bigl(M,\underline{t}\bigr)^{\left(n\right)}$
+\end_inset
+
+.
+ The new row is appended at the top of 
+\begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)^{\left(n\right)}$
+\end_inset
+
+ and Givens rotations are applied
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Schwetlick:Numerics"
+
+\end_inset
+
+ to turn it into upper triangular form again.
+ The coefficients 
+\begin_inset Formula $\underline{x}$
+\end_inset
+
+ are then determined by solving the resulting system 
+\begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)^{\left(n+1\right)}$
+\end_inset
+
+.
+ With this updating predictor, only the current value of the constant-size
+ system 
+\begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)$
+\end_inset
+
+ needs to be stored, the ever-growing matrix 
+\begin_inset Formula $M$
+\end_inset
+
+ and vector 
+\begin_inset Formula $\underline{t}$
+\end_inset
+
+ need not be stored, because new rows are directly merged into 
+\begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Itemize
+aging factor
+\end_layout
+
+\begin_deeper
+\begin_layout Plain Layout
+This updating predictor always provides a coefficient vector 
+\begin_inset Formula $\underline{x}$
+\end_inset
+
+ that fully considers all past jobs.
+ Due to numerical problems like rounding errors, the solution can get stuck
+ at a global average and not adapt to new behavior any more.
+ I compensate for this by including an
+\emph on
+ 
+\emph default
+aging factor in the updating predictor.
+ This factor slightly downscales the influence of past knowledge and allows
+ the solution to remain flexible and lean towards newly acquired knowledge.
+ Because any past behavior of the task may resurface, I argue that this
+ aging should be small and only allow for slow adaptation by a long-term
+ sliding average.
+ Therefore, I chose an aging factor of 
+\begin_inset Formula $0.999$
+\end_inset
+
+, which reduces the weight of past knowledge to 
+\begin_inset Formula $10\%$
+\end_inset
+
+ after 
+\begin_inset Formula $2300$
+\end_inset
+
+ jobs.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+improving stability through column dropping or selection
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -12264,20 +13094,9 @@ status open
 
 \begin_layout Itemize
 explain online execution time training in detail
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Roitzsch:Predict"
-
-\end_inset
-
-
 \end_layout
 
 \begin_deeper
-\begin_layout Itemize
-linear auto-regressive predictor
-\end_layout
-
 \begin_layout Itemize
 model predictive control
 \begin_inset CommandInset citation
@@ -12287,6 +13106,14 @@ key "Maciejowski:ModelPredictiveControl"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Itemize
+the 1-column
+\end_layout
+
+\begin_layout Itemize
+practical issues from RTAS paper
 \end_layout
 
 \begin_layout Itemize
@@ -12327,6 +13154,10 @@ Kann ich das so schreiben?
 \end_layout
 
 \begin_layout Itemize
+scheduler implemented as a Linux kernel patch to 3.5.4
+\end_layout
+
+\begin_layout Itemize
 related work: Litmus-RT – platform for experimenting with scheduling in
  Linux
 \end_layout
@@ -12337,6 +13168,11 @@ not suitable, because limited to sporadic task model (check this!)
 \end_layout
 
 \end_deeper
+\begin_layout Itemize
+deriving design constraints from job specification
+\end_layout
+
+\begin_deeper
 \begin_layout Itemize
 job programming model not compatible with fixed task priorities
 \end_layout
@@ -12351,20 +13187,15 @@ depends on what work the application dispatches when to what queue
 \end_layout
 
 \begin_layout Itemize
-we could restrict the programmer to allow for more implicit scheduler knowledge
- (like minimum inter-arrival distance), but this work opts not to
-\end_layout
-
-\begin_layout Itemize
 assumption: the urgency of one job remains the same over its lifetime
 \end_layout
 
+\end_deeper
 \begin_layout Itemize
 we need dynamic task priorities, but have fixed job priorities, so EDF is
  a good start
 \end_layout
 
-\end_deeper
 \begin_layout Itemize
 our execution times are only estimates
 \end_layout
@@ -12378,11 +13209,6 @@ design for underestimation and late jobs
 late jobs should not interfere with honest jobs
 \end_layout
 
-\begin_layout Itemize
-without overload, we want EDF-behavior even when all execution times are
- wrong (for example all 0)
-\end_layout
-
 \end_deeper
 \begin_layout Itemize
 in real applications, jobs may block
@@ -12390,23 +13216,21 @@ in real applications, jobs may block
 
 \begin_deeper
 \begin_layout Itemize
-types of blocking
-\end_layout
+contact with the real world makes schedulers complex
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Corbet:CFS_Complexity"
 
-\begin_deeper
-\begin_layout Itemize
-self-suspension
-\end_layout
+\end_inset
 
-\begin_layout Itemize
-waiting for the real world
+
 \end_layout
 
 \begin_layout Itemize
-waiting for someone else’s computation
+types of blocking: self-suspension, waiting for the real world, waiting
+ for someone else’s computation
 \end_layout
 
-\end_deeper
 \begin_layout Itemize
 the latter type could be predicted and planned, when all work (including
  IO) in the system is scheduled by 
@@ -12424,72 +13248,27 @@ video: producer-consumer scenario
 \end_layout
 
 \end_deeper
+\end_deeper
 \begin_layout Itemize
 scheduler design
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
-contact with the real world makes schedulers complex
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Corbet:CFS_Complexity"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-dispatch according to EDF among the not-late jobs
+layered design, because timeliness comes above all else (fairness)
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
-without overload, there will be no late jobs
+LRT
 \end_layout
 
 \begin_layout Itemize
-gives us EDF-behavior when everyone behaves
+EDF recover
 \end_layout
 
 \begin_layout Itemize
-execution times not needed, so they can be arbitrarily wrong
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-round-robin all late jobs and the next job in EDF order when there is slack
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-jobs that need more time can continue, but the next job in EDF order can
- also start to work early
-\end_layout
-
-\begin_layout Itemize
-accounts for underestimated execution time
-\end_layout
-
-\begin_layout Itemize
-reuses CFS
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-run next job in EDF order exclusively when deadlines would otherwise be
- missed down the road
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-uses estimated execution times to calculate deadline misses
-\end_layout
-
-\begin_layout Itemize
-makes sure that late jobs do not interfere with the timeliness of honest
- jobs
+CFS preroll
 \end_layout
 
 \end_deeper
@@ -12499,12 +13278,142 @@ create a virtual LRT schedule using the estimated execution times
 
 \begin_deeper
 \begin_layout Itemize
-solves the blocking problem: when starting job at latest possible instant
+intuition: solves blocking, when starting job at latest possible instant
  and it still blocks, there's nothing else we can do
 \end_layout
 
 \begin_layout Itemize
-LRT is optimal
+assumes sweet spot at the end of the scheduling window, makes sense for
+ video
+\end_layout
+
+\begin_layout Itemize
+task models that express other properties: gravitational task model
+\end_layout
+
+\begin_layout Itemize
+also helps with late jobs, because slack is moved to the front
+\end_layout
+
+\begin_layout Itemize
+reuse throughput-optimization of existing scheduler (CFS) until some urgent
+ job must run
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Reuther:DAS"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+optimality proof, sustainable?
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Baruah:Sustainability"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+we could stop here, because it's optimal
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+estimates may be wrong
+\end_layout
+
+\begin_layout Itemize
+blocking may push jobs over deadline
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+EDF recovery layer for jobs delayed by blocking
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+allow jobs behind their deadline but within their reservation to catch up
+\end_layout
+
+\begin_layout Itemize
+only shuffles already assigned reservations, service to CFS not diminished
+\end_layout
+
+\begin_layout Itemize
+minimum tardiness proof?
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+free preroll in CFS
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+the earliest non-blocking job in EDF-order gets to run as part of the CFS
+ mix
+\end_layout
+
+\begin_layout Itemize
+not accounted against reservation
+\end_layout
+
+\begin_layout Itemize
+allows for underestimation
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+jobs behind their reservation are called 
+\begin_inset Quotes eld
+\end_inset
+
+late
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+dropped to CFS where they receive no guarantees
+\end_layout
+
+\begin_layout Itemize
+the next job reservation will run in LRT again, like CBS
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Itemize
+properties, scheduler contract
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+when there is a feasible schedule, all behaving jobs meet their deadline
+\end_layout
+
+\begin_layout Itemize
+late jobs do not interfere with the timeliness of independent jobs
+\end_layout
+
+\begin_layout Itemize
+jobs dispatched in EDF-order by preroll, even when execution times are arbitrari
+ly wrong
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+more developer effort improves behavior
 \end_layout
 
 \end_deeper
@@ -12637,65 +13546,11 @@ key "Power:Piccolo"
 
 \end_deeper
 \end_deeper
-\end_deeper
-\begin_layout Itemize
-summary: scheduler contract
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-when the system is not overloaded, all behaving jobs meet their deadline
-\end_layout
-
-\begin_layout Itemize
-\begin_inset Quotes eld
-\end_inset
-
-not overloaded
-\begin_inset Quotes erd
-\end_inset
-
-: the set of all reported deadlines and execution times allow a feasible
- schedule, which EDF will find (optimal)
-\end_layout
-
-\begin_layout Itemize
-\begin_inset Quotes eld
-\end_inset
-
-behaving job
-\begin_inset Quotes erd
-\end_inset
-
-: the job does not run for longer than its estimated execution time and
- only blocks when its laxity is greater 0
-\end_layout
-
-\begin_layout Itemize
-can we prove this? can we show sustainability?
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Baruah:Sustainability"
-
-\end_inset
-
-
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-background jobs can use infinite deadline to get out of the way, no extra
- low priority scheduling-band or nice levels needed
-\end_layout
-
 \begin_layout Itemize
 deadline inheritance on blocking is left for others to analyze
 \end_layout
 
-\begin_layout Itemize
-evaluate scheduler overhead
-\end_layout
-
+\end_deeper
 \end_deeper
 \begin_layout Itemize
 details on workloads
@@ -12770,14 +13625,13 @@ Videos Used in Experiments
 \end_layout
 
 \end_deeper
-\end_deeper
 \begin_layout Itemize
 evaluate accuracy of execution time prediction against worst-case allocation
  of a periodic task
 \end_layout
 
 \begin_layout Itemize
-sensitivity analysis for all the 
+sensitivity analysis for the 
 \begin_inset Quotes eld
 \end_inset
 
@@ -12788,6 +13642,7 @@ magic
  parameters of the estimator
 \end_layout
 
+\end_deeper
 \begin_layout Itemize
 end-to-end evaluation
 \end_layout
@@ -12809,6 +13664,21 @@ submitting execution times defends against a CPU hogger
 
 \begin_layout Itemize
 real-time task may fail into a while-1-loop
+\end_layout
+
+\begin_layout Itemize
+such runaway jobs lead to locked up system with strict priorities
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Nieh:SVR4UNIX_Unacceptable"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+evaluate scheduler overhead
 \end_layout
 
 \end_deeper
@@ -12880,6 +13750,60 @@ frame this in a two-dimensional map instead? flexible/weak – rigid/strong;
  fluid flow – individual jobs
 \end_layout
 
+\begin_layout Itemize
+discuss clusters first and the provide details for each cluster
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+figure out where these fit in, maybe move to earlier discussions
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+resource kernels
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Rajkumar:ResourceKernels"
+
+\end_inset
+
+ separate concerns top-down: applications specify, scheduler manages time
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+similar insight into task model: requirements state explicitly, execution
+ time is not portable, calibrate automatically
+\end_layout
+
+\begin_layout Itemize
+otherwise very close to periodic tasks
+\end_layout
+
+\begin_layout Itemize
+decouple different resources with buffering
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+ARTIFACT
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Sasinowski:ARTIFACT"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+ubiquitous priorities, MPEG execution model hard, load-shedding (forward
+ reference to adaptivity)
+\end_layout
+
+\end_deeper
 \end_deeper
 \begin_layout Itemize
 fixed-priority approaches: strongest guarantees possible, minimal implementation
@@ -12968,7 +13892,6 @@ no look-ahead
 \end_layout
 
 \end_deeper
-\end_deeper
 \begin_layout Itemize
 event streams
 \begin_inset CommandInset citation
@@ -12977,35 +13900,19 @@ key "Albers:EventStreams"
 
 \end_inset
 
- allow periodic jobs with jitter and sporadic jobs, but still targets strong
- analysis rather than easy programming
-\end_layout
 
-\begin_layout Itemize
-resource kernels
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Rajkumar:ResourceKernels"
-
-\end_inset
-
- separate concerns top-down: applications specify, scheduler manages time
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
-similar insight into task model: requirements state explicitly, execution
- time is not portable, calibrate automatically
+allow periodic jobs with jitter and sporadic jobs
 \end_layout
 
 \begin_layout Itemize
-otherwise very close to periodic tasks
+still targets strong analysis rather than easy programming
 \end_layout
 
-\begin_layout Itemize
-decouple different resources with buffering
-\end_layout
-
+\end_deeper
 \end_deeper
 \begin_layout Itemize
 reservation approaches: focus on isolation
@@ -13230,8 +14137,12 @@ peak notification embedded in user-data fields of video stream
 \end_layout
 
 \begin_layout Itemize
-Atlas takes this idea to the max an predicts not just peaks but every job
- and reserves time not for a GOP-sized admission window, but for individual
+
+\noun on
+Atlas
+\noun default
+ takes this idea to the max an predicts not just peaks but every job and
+ reserves time not for a GOP-sized admission window, but for individual
  jobs
 \end_layout
 
@@ -13321,75 +14232,6 @@ estimate period and execution time by looking at its outside behavior
 study in this paper: choosing the wrong scheduling period causes deadline
  misses or over-allocation, so schedulers that decouple scheduling period
  from application period can be inefficient
-\end_layout
-
-\end_deeper
-\end_deeper
-\begin_layout Itemize
-whole-system approaches: lightweight specification
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-Redline
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Yang:Redline"
-
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-\begin_inset CommandInset href
-LatexCommand href
-name "Redline Slides"
-target "http://os.inf.tu-dresden.de/local/dropscon/archive/2008-12-03-Michael-Redline.pdf"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-also no modifications to applications
-\end_layout
-
-\begin_layout Itemize
-manual annotation with period and fixed execution time
-\end_layout
-
-\begin_layout Itemize
-will adapt parameters at runtime using feedback
-\end_layout
-
-\begin_layout Itemize
-uses EDF scheduler
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-coop_poll
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Krasic:CoopPoll"
-
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-uses application insight, no black-box approach, applications explicitly
- expose knowledge
-\end_layout
-
-\begin_layout Itemize
-propagates application's task descriptions down to the kernel, but without
- look-ahead
 \end_layout
 
 \end_deeper
@@ -13532,21 +14374,71 @@ without global coordination, applications should specify timing requirements
 \end_deeper
 \end_deeper
 \begin_layout Itemize
-task models that express other properties: gravitational task model
+whole-system approaches: lightweight specification
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
-we schedule LRT, so we assume the sweet spot at the end of the scheduling
- window
+SMART
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Nieh:SMART"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+deadlines and relative shares for tasks
+\end_layout
+
+\begin_layout Itemize
+respects timing until system is overloaded
+\end_layout
+
+\begin_layout Itemize
+when overloaded, only shares are guaranteed, which are context-sensitive
+\end_layout
+
+\begin_layout Itemize
+rationale for fairness: responsiveness under overload
+\end_layout
+
+\begin_layout Itemize
+for Atlas, the LRT-band always comes first; responsiveness is real-time
+ and should be expressed by deadline
+\end_layout
+
+\begin_layout Itemize
+in the presence of a compute-bound non-real-time application, the system
+ is immediately overloaded
+\end_layout
+
+\begin_layout Itemize
+a background calculation without time constraints can squeeze down real-time
+ applications
 \end_layout
 
 \end_deeper
 \begin_layout Itemize
-two-level scheduling
+Redline
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Shin:Compositional"
+key "Yang:Redline"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset CommandInset href
+LatexCommand href
+name "Redline Slides"
+target "http://os.inf.tu-dresden.de/local/dropscon/archive/2008-12-03-Michael-Redline.pdf"
 
 \end_inset
 
@@ -13554,7 +14446,49 @@ key "Shin:Compositional"
 \end_layout
 
 \begin_layout Itemize
-device IO
+also no modifications to applications
+\end_layout
+
+\begin_layout Itemize
+manual annotation with period and fixed execution time
+\end_layout
+
+\begin_layout Itemize
+will adapt parameters at runtime using feedback
+\end_layout
+
+\begin_layout Itemize
+uses EDF scheduler
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+coop_poll
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Krasic:CoopPoll"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+uses application insight, no black-box approach, applications explicitly
+ expose knowledge
+\end_layout
+
+\begin_layout Itemize
+propagates application's task descriptions down to the kernel, but without
+ look-ahead
+\end_layout
+
+\end_deeper
+\end_deeper
+\end_deeper
+\begin_layout Itemize
+future work: device IO
 \end_layout
 
 \begin_deeper
@@ -13562,7 +14496,6 @@ device IO
 propagate deadlines to device queues when jobs issue IO requests
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
 helps anticipatory schedulers
 \begin_inset CommandInset citation
@@ -13574,7 +14507,6 @@ key "Iyer:Anticipatory"
 
 \end_layout
 
-\end_deeper
 \begin_layout Itemize
 propagate future jobs to devices for prefetching
 \begin_inset CommandInset citation
@@ -13614,6 +14546,7 @@ key "Intel_NIC"
 
 \end_layout
 
+\begin_deeper
 \begin_layout Itemize
 submit code directly to such smart devices, run the scheduler on the device
 \begin_inset CommandInset citation
@@ -13635,24 +14568,6 @@ key "Reuther:DAS"
 \end_inset
 
 
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-ARTIFACT
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Sasinowski:ARTIFACT"
-
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-ubiquitous priorities, MPEG execution model hard, load-shedding (forward
- reference to adaptivity)
 \end_layout
 
 \end_deeper
@@ -14107,6 +15022,11 @@ avoid context-switch, so no upcall interface, but info-page-style shared
 \end_layout
 
 \end_deeper
+\begin_layout Itemize
+limitation: dependency fan-in/out for jobs not implemented in scheduler,
+ only serial dependencies
+\end_layout
+
 \end_deeper
 \begin_layout Itemize
 end-to-end evaluation
@@ -14654,15 +15574,19 @@ but only when overloaded: timeliness first, fairness only when overloaded
 \end_layout
 
 \begin_layout Itemize
-decouple urgency (timing requirements) and importance
+decouple urgency (timing requirements) and importance (utility)
 \end_layout
 
 \begin_layout Itemize
-Atlas flexibility stems from admitting on job-level instead of task-level
+
+\noun on
+Atlas
+\noun default
+ flexibility stems from admitting on job-level instead of task-level
 \end_layout
 
 \begin_layout Itemize
-admission does not reject, but inform
+job admission does not reject, but inform
 \end_layout
 
 \begin_layout Itemize
@@ -14696,6 +15620,10 @@ d.
 \end_inset
 
 
+\end_layout
+
+\begin_layout Itemize
+do not waste work by learning after the fact that you missed the deadline
 \end_layout
 
 \begin_layout Itemize
@@ -14770,6 +15698,10 @@ this also applies to resources other than CPU time, like network bandwidth
 \end_layout
 
 \end_deeper
+\begin_layout Itemize
+better behavior for more developer effort
+\end_layout
+
 \begin_layout Itemize
 look-ahead enables choosing the part to degrade amongst many options, compared
  to forcibly degrade the job at hand
@@ -14949,6 +15881,17 @@ key "Krasic:CoopPoll"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Itemize
+application notifications using execution time estimates
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Nieh:SMART"
+
+\end_inset
+
+, but no look-ahead
 \end_layout
 
 \begin_layout Itemize
@@ -15428,6 +16371,17 @@ key "Snowdon:Koala"
 \end_layout
 
 \begin_layout Itemize
+power behavior can be modeled with performance counters
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Isci:PowerPhases"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
 exploit look-ahead for energy metadata: clock CPU down and then run all
  pending memory-bound jobs
 \end_layout
@@ -15591,6 +16545,16 @@ nochapteredge
 \begin_inset CommandInset index_print
 LatexCommand printindex
 type "idx"
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+check the index terms and their referencing
+\end_layout
 
 \end_inset
 
