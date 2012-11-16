@@ -1825,7 +1825,7 @@ The CPU scheduler
 
 \end_inset
 
-
+ 
 \begin_inset Index idx
 status collapsed
 
@@ -1835,7 +1835,7 @@ CPU scheduling
 
 \end_inset
 
- does not share this benefit: It does not deal with self-describing jobs
+does not share this benefit: It does not deal with self-describing jobs
  in a queue of outstanding work.
  Instead, it maintains a ready queue of runnable threads.
 \begin_inset Index idx
@@ -3891,7 +3891,7 @@ I contribute quality-weighted back-pressure
 
 \end_inset
 
-
+ 
 \begin_inset Index idx
 status collapsed
 
@@ -3901,7 +3901,7 @@ back-pressure
 
 \end_inset
 
- as a mechanism to communicate overload mitigation from the scheduler to
+as a mechanism to communicate overload mitigation from the scheduler to
  applications.
  When the scheduler detects an overload situation, it forcibly reduces the
  CPU time allocated to each application so that the overload is resolved.
@@ -9031,23 +9031,17 @@ ffplay.c
 
 \end_inset
 
- and about 
-\begin_inset Formula $10\%$
+ and I needed to modify or add 75 source lines to adapt the programming
+ style, mostly converting thread management to queue handling and restructuring
+ stage initialization code.
+ This change constitutes less than 
+\begin_inset Formula $5\%$
 \end_inset
 
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-absolute count in addition to the percentage
-\end_layout
-
-\end_inset
-
- of its source code lines needed changing to adapt the programming style.
- The tens of thousands of source lines from FFmpeg libraries which FFplay
- uses for video decoding remain unchanged, making this a small change overall.
+ of the 2100 line file.
+ Additionally, the tens of thousands of source lines from FFmpeg libraries
+ which FFplay uses for video decoding remain unchanged, making this a small
+ change overall.
 \end_layout
 
 \begin_layout Standard
@@ -9059,12 +9053,13 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Tabular
-<lyxtabular version="3" rows="2" columns="2">
+<lyxtabular version="3" rows="2" columns="3">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top" width="32col%" special="@{}>{\centering}p{0.32\columnwidth}">
-<column alignment="center" valignment="top" width="35col%">
+<column alignment="center" valignment="top" width="0pt">
+<column alignment="left" valignment="top" width="35col%">
 <row>
-<cell alignment="center" valignment="top" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -9236,7 +9231,16 @@ void start_playback() {
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" usebox="none">
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -9246,7 +9250,7 @@ status open
 
 \begin_layout Plain Layout
 
-dispatch_block_t input_stage = ^{
+void input_stage() {
 \end_layout
 
 \begin_layout Plain Layout
@@ -9261,17 +9265,17 @@ dispatch_block_t input_stage = ^{
 
 \begin_layout Plain Layout
 
-	dispatch_async(decoder_stage);
+	dispatch_async(^{ decoder_stage(); });
 \end_layout
 
 \begin_layout Plain Layout
 
-	dispatch_async(input_stage);
+	dispatch_async(^{ input_stage(); });
 \end_layout
 
 \begin_layout Plain Layout
 
-};
+}
 \end_layout
 
 \begin_layout Plain Layout
@@ -9284,7 +9288,7 @@ dispatch_block_t input_stage = ^{
 
 \begin_layout Plain Layout
 
-dispatch_block_t decoder_stage = ^{
+void decoder_stage() {
 \end_layout
 
 \begin_layout Plain Layout
@@ -9304,7 +9308,7 @@ dispatch_block_t decoder_stage = ^{
 
 \begin_layout Plain Layout
 
-	dispatch_async(output_stage);
+	dispatch_async(^{ output_stage(); });
 \end_layout
 
 \begin_layout Plain Layout
@@ -9326,7 +9330,7 @@ dispatch_block_t decoder_stage = ^{
 
 \begin_layout Plain Layout
 
-dispatch_block_t output_stage = ^{
+void output_stage() {
 \end_layout
 
 \begin_layout Plain Layout
@@ -9392,7 +9396,7 @@ void start_playback() {
 
 \begin_layout Plain Layout
 
-	dispatch_async(input_stage);
+	dispatch_async(^{ input_stage(); });
 \end_layout
 
 \begin_layout Plain Layout
@@ -9409,7 +9413,7 @@ void start_playback() {
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -9418,7 +9422,16 @@ loop-based implementation
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" usebox="none">
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -10258,7 +10271,7 @@ Fair CPU sharing
 
 \end_inset
 
-
+ 
 \begin_inset Index idx
 status collapsed
 
@@ -10268,7 +10281,7 @@ fair sharing
 
 \end_inset
 
- sits at the simplicity end of the spectrum.
+sits at the simplicity end of the spectrum.
  All of today’s commodity operating systems run almost exclusively on this
  policy.
  The Completely Fair Scheduler
@@ -10596,7 +10609,7 @@ The classical periodic task model
 
 \end_inset
 
-
+ 
 \begin_inset Index idx
 status collapsed
 
@@ -10606,7 +10619,7 @@ periodic task model
 
 \end_inset
 
- is diametrically opposed to the fair sharing model in our spectrum of solutions.
+is diametrically opposed to the fair sharing model in our spectrum of solutions.
  Developers have to follow a strict programming regime, but the system’s
  runtime behavior will be predictable.
  Periodic tasks as illustrated in Figure
@@ -11466,8 +11479,9 @@ key "Shin:Compositional"
 
 \end_inset
 
- Instead, the passing of job descriptions from the application to the system-wid
-e scheduler enables comprehensive scheduling decisions in one place.
+ Instead, the passing of job descriptions to the system-wide scheduler enables
+ comprehensive scheduling decisions in one place.
+ The applications then merely execute those decisions.
 \end_layout
 
 \begin_layout Standard
@@ -11648,7 +11662,7 @@ The estimator
 
 \end_inset
 
-
+ 
 \begin_inset Index idx
 status collapsed
 
@@ -11658,7 +11672,7 @@ estimator
 
 \end_inset
 
- collects job descriptions in a per-task job queue and predicts the per-job
+collects job descriptions in a per-task job queue and predicts the per-job
  execution times.
  It trains itself using the application-provided metrics and a history of
  measured actual execution times of past jobs.
@@ -12182,6 +12196,40 @@ status open
 
 \begin_layout Plain Layout
 
+typedef struct {
+\end_layout
+
+\begin_layout Plain Layout
+
+	enum { absolute, relative } reference;
+\end_layout
+
+\begin_layout Plain Layout
+
+	double deadline;
+\end_layout
+
+\begin_layout Plain Layout
+
+	size_t metrics_count;
+\end_layout
+
+\begin_layout Plain Layout
+
+	const double *metrics;
+\end_layout
+
+\begin_layout Plain Layout
+
+} atlas_job_t;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
 void
 \end_layout
 
@@ -12192,22 +12240,7 @@ dispatch_async_atlas(dispatch_queue_t queue,
 
 \begin_layout Plain Layout
 
-                     enum { absolute, relative } reference,
-\end_layout
-
-\begin_layout Plain Layout
-
-                     double deadline,
-\end_layout
-
-\begin_layout Plain Layout
-
-                     size_t metrics_count,
-\end_layout
-
-\begin_layout Plain Layout
-
-                     const double metrics[],
+                     atlas_job_t job,
 \end_layout
 
 \begin_layout Plain Layout
@@ -12261,7 +12294,7 @@ Atlas
 \end_inset
 
  with the given deadline and metrics.
- The dispatch queue parameter denominates the task 
+ The dispatch queue parameter corresponds to the task 
 \begin_inset Formula $\tau_{i}$
 \end_inset
 
@@ -12555,7 +12588,7 @@ A linear auto-regressive predictor
 
 \end_inset
 
-
+ 
 \begin_inset Index idx
 status collapsed
 
@@ -12565,7 +12598,7 @@ linear auto-regressive predictor
 
 \end_inset
 
- produces execution time estimates from the metrics.
+produces execution time estimates from the metrics.
  The problem formalization is based on previous work,
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -12620,7 +12653,17 @@ Capital letters denote matrices, underlined letters denote vectors.
 
 .
  To predict execution times of future jobs, the estimator uses this history
- to obtain a coefficient vector 
+ to obtain a coefficient vector
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+coefficient vector
+\end_layout
+
+\end_inset
+
+ 
 \begin_inset Formula $\underline{x}$
 \end_inset
 
@@ -12714,7 +12757,7 @@ QR decomposition
 
 \end_inset
 
-
+ 
 \begin_inset Index idx
 status collapsed
 
@@ -12724,7 +12767,7 @@ QR decomposition
 
 \end_inset
 
- is the textbook solution
+is the textbook solution
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Stoer:Numerics"
@@ -12949,6 +12992,16 @@ The coefficient vector
 \end_inset
 
 .
+ This method is called batch computation.
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+batch computation
+\end_layout
+
+\end_inset
+
  As jobs are executed, new metrics vectors 
 \begin_inset Formula $\underline{m}$
 \end_inset
@@ -12999,7 +13052,17 @@ Literature on numerical algorithms however offers updating solutions, preventing
 \begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)^{\left(n\right)}$
 \end_inset
 
- and Givens rotations are applied
+ and Givens rotations
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+Givens rotations
+\end_layout
+
+\end_inset
+
+ are applied
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Schwetlick:Numerics"
@@ -14391,7 +14454,8 @@ key "Nieh:SMART"
 
 \begin_deeper
 \begin_layout Itemize
-deadlines and relative shares for tasks
+deadlines from application, priorities and relative shares configured by
+ user
 \end_layout
 
 \begin_layout Itemize
