@@ -1,5 +1,5 @@
 # Veusz saved document (version 1.16)
-# Saved at 2012-11-02T16:23:20.377614
+# Saved at 2012-11-20T10:23:17.238702
 
 AddImportPath(u'/Users/Michael/Documents/Forschung/Dissertation/Data/3-Real-Time')
 ImportFile(u'RMS_Admission.tab', u'reservation misses', linked=True, ignoretext=True)
@@ -100,8 +100,8 @@ To('function1')
 Set('function', u'1')
 Set('min', 0.041667)
 Set('Line/hide', True)
+Set('FillBelow/color', u'#b5c2be')
 Set('FillBelow/hide', False)
-Set('FillBelow/transparency', 50)
 To('..')
 To('..')
 To('..')
