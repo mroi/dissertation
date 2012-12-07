@@ -7,20 +7,22 @@ body {
 	line-height:140%;
 	font-size:95%;
 }
-.author, .title, .verleger {
+div.epigraphquote, div.epigraphsource, .author, .title, .verleger {
 	font-family:Gill Sans, Helvetica, Arial;
+	font-variant:normal;
 	text-transform:uppercase;
+	margin-left:0px;
 }
-div.author {
+div.epigraphsource, div.author, h1.title {
 	color:#48494B;
 	text-align:left;
+}
+div.author {
 	letter-spacing:1pt;
 }
 h1.title {
-	color:#48494B;
 	font-weight:normal;
 	font-size:200%;
-	text-align:left;
 	letter-spacing:2pt;
 }
 .toc-figure, .lyxtoc-1, .lyxtoc-figure, .toc + .lyxtoc-0 {
