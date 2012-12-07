@@ -81,13 +81,15 @@
 {\vskip -32pt\huge\rmfamily\itshape}
 [\ifthenelse{\NOT\boolean{@tufte@symmetric}}{\end{fullwidth}}{}]
 
-% epigraph command
-\newcommand{\epigraph}[2]{
+% epigraph commands
+\newcommand{\epigraphquote}[1]{
 \begin{fullwidth}
 \sffamily\Large
 \begin{doublespace}
-\noindent\allcaps{#1}\\% epigraph
-\color{darkgray}\noindent\allcaps{#2}% author
+\noindent\allcaps{#1}\\
+}
+\newcommand{\epigraphsource}[1]{
+\color{darkgray}\noindent\allcaps{#1}
 \end{doublespace}
 \end{fullwidth}
 }
@@ -106,11 +108,33 @@ logicalmkup
 \end_modules
 \maintain_unincluded_children false
 \begin_local_layout
-Style Verleger
-Margin	Static
-LatexType	Command
+Style EpigraphQuote
 Category	FrontMatter
+LatexType	Command
+LatexName	epigraphquote
+LeftMargin	MM
+Font
+Family	Sans
+Shape	Smallcaps
+EndFont
+End
+
+Style EpigraphSource
+Category	FrontMatter
+LatexType	Command
+LatexName	epigraphsource
+LeftMargin	MM
+Font
+Family	Sans
+Shape	Smallcaps
+EndFont
+End
+
+Style Verleger
+Category	FrontMatter
+LatexType	Command
 LatexName	publisher
+Margin	Static
 InTitle	1
 InPreamble	1
 Font
@@ -268,24 +292,27 @@ thispagestyle{empty}
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout EpigraphQuote
+I love deadlines.
 \begin_inset ERT
-status open
+status collapsed
 
 \begin_layout Plain Layout
 
 
 \backslash
-epigraph{I love deadlines.
-\backslash
 newline
 \backslash
-noindent I love the whooshing noise they make as they go by.}{Douglas Adams}
+noindent
 \end_layout
 
 \end_inset
 
+ I love the whooshing noise they make as they go by.
+\end_layout
 
+\begin_layout EpigraphSource
+Douglas Adams
 \end_layout
 
 \begin_layout Standard
@@ -295,24 +322,27 @@ noindent I love the whooshing noise they make as they go by.}{Douglas Adams}
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout EpigraphQuote
+The art of prophecy is very difficult,
 \begin_inset ERT
-status open
+status collapsed
 
 \begin_layout Plain Layout
 
 
 \backslash
-epigraph{The art of prophecy is very difficult,
-\backslash
 newline
 \backslash
-noindent especially with respect to the future.}{Mark Twain}
+noindent
 \end_layout
 
 \end_inset
 
+ especially with respect to the future.
+\end_layout
 
+\begin_layout EpigraphSource
+Mark Twain
 \end_layout
 
 \begin_layout Standard
@@ -322,20 +352,12 @@ noindent especially with respect to the future.}{Mark Twain}
 
 \end_layout
 
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-epigraph{Oh dear! Oh dear! I shall be too late!}{The White Rabbit}
+\begin_layout EpigraphQuote
+Oh dear! Oh dear! I shall be too late!
 \end_layout
 
-\end_inset
-
-
+\begin_layout EpigraphSource
+The White Rabbit
 \end_layout
 
 \begin_layout Standard
@@ -11562,8 +11584,8 @@ aperiodic jobs
 
 .
  While theoretically unbounded, at any given time the number of jobs per
- task is finite, because we do not use a periodic task model with an infinite
- set of jobs known a priori.
+ task is finite, because we do not use a periodic task model, where an infinite
+ set of jobs is known a priori.
  In the following, 
 \begin_inset Formula $i$
 \end_inset
@@ -11672,8 +11694,8 @@ estimator
 
 \end_inset
 
-collects job descriptions in a per-task job queue and predicts the per-job
- execution times.
+collects job descriptions in local job queues and predicts the per-job execution
+ times.
  It trains itself using the application-provided metrics and a history of
  measured actual execution times of past jobs.
  With the predicted execution times, the estimator forwards for each of
@@ -11708,7 +11730,7 @@ submit(
 Atlas
 \noun default
 .
- The application passes the number 
+ The application announces an identifier 
 \begin_inset Formula $i$
 \end_inset
 
@@ -12052,7 +12074,7 @@ status open
 Because of its high degree of optimization, the official GCD implementation
  is complex.
  Reimplementing a GCD subset was easier than modifying the actual GCD library
- and suffices to show the viability of the approach.
+ and suffices to show the viability of my approach.
 \end_layout
 
 \end_inset
@@ -12157,7 +12179,7 @@ dispatch_async
 
 \end_inset
 
- with four additional arguments:
+ with a job description containing three additional arguments:
 \end_layout
 
 \begin_layout Itemize
@@ -12170,11 +12192,7 @@ noitemsep
 
 \end_inset
 
-an option to choose between an absolute and a relative deadline,
-\end_layout
-
-\begin_layout Itemize
-the deadline time,
+the absolute deadline,
 \end_layout
 
 \begin_layout Itemize
@@ -12186,7 +12204,7 @@ an array holding the metrics.
 \end_layout
 
 \begin_layout Standard
-The signature of this new function is:
+The signature of the resulting new function is:
 \end_layout
 
 \begin_layout Standard
@@ -12197,11 +12215,6 @@ status open
 \begin_layout Plain Layout
 
 typedef struct {
-\end_layout
-
-\begin_layout Plain Layout
-
-	enum { absolute, relative } reference;
 \end_layout
 
 \begin_layout Plain Layout
@@ -12255,8 +12268,8 @@ dispatch_async_atlas(dispatch_queue_t queue,
 
 \begin_layout Standard
 \noindent
-The block remains the last argument, because this improves readability when
- writing block code inline.
+The block remains the last argument, which improves readability when writing
+ block code inline.
 \end_layout
 
 \begin_layout Standard
@@ -12294,7 +12307,7 @@ Atlas
 \end_inset
 
  with the given deadline and metrics.
- The dispatch queue parameter corresponds to the task 
+ The dispatch queue corresponds directly to the task 
 \begin_inset Formula $\tau_{i}$
 \end_inset
 
@@ -12379,6 +12392,46 @@ A Job’s Life through the Interface Layers
 status collapsed
 
 \begin_layout Plain Layout
+Queues and estimators
+\end_layout
+
+\end_inset
+
+ are orthogonal in my implementation, allowing the programmer to submit
+ any block to any queue.
+ The queue is specified explicitly in the first parameter of 
+\begin_inset Flex NoWrap
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+dispatch_async_atlas
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+ The correct execution time estimator is chosen automatically based on the
+ identity of the block.
+ This separation allows developers to freely organize queues and blocks
+ to fit the application.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
 Being a research prototype,
 \end_layout
 
@@ -12394,9 +12447,8 @@ Atlas
 \begin_layout Itemize
 Other than the official GCD library, my reimplementation of the queueing
  infrastructure only supports independent serial queues.
- In the next chapter, I add parallel queues, but GCD can also suspend and
- resume queues, organize them in parent-child relationships, and handle
- synchronous submissions.
+ In the next chapter, I add parallel queues, but GCD also provides functions
+ to suspend and resume queues or organize them in parent-child relationships.
  The 
 \noun on
 Atlas
@@ -12409,40 +12461,12 @@ Atlas
 One worker thread is statically allocated for each dispatch queue.
  The worker threads could be dynamically stopped when the queues are idle
  and restarted on demand, but my implementation is simpler and not wasteful,
- because the worker of an empty queue will block in the kernel when calling
- 
+ because the worker of an empty queue will not needlessly burn CPU time,
+ but blocks in the kernel when calling 
 \emph on
 atlas_next
 \emph default
 .
-\end_layout
-
-\begin_layout Itemize
-I assume that one queue will always receive the same kind of block.
- Submitting different blocks to the same queue can be enabled by managing
- multiple estimator contexts per queue, but homogeneous blocks were sufficient
- for my experiments.
- Of course, individual block instances still have different runtimes, depending
- on the workload.
-\begin_inset Marginal
-status open
-
-\begin_layout Plain Layout
-\begin_inset Note Greyedout
-status open
-
-\begin_layout Plain Layout
-I might change this just to get rid of this limitation here.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Itemize
@@ -12454,12 +12478,8 @@ Atlas
  kernel scheduler.
  The kernel sorts jobs by their deadline, which means applications have
  to match their job management, or the job order will differ.
- Job identifiers, which applications pass to the kernel and which the kernel
- returns from 
-\emph on
-atlas_next
-\emph default
- can remove this limitation.
+ The semantics of serial queues dictate submit-order execution anyway, so
+ this limitation is acceptable.
 \end_layout
 
 \begin_layout Standard
@@ -12574,7 +12594,7 @@ The developer should choose metrics on a “larger value means more work”
  basis.
  Expected iteration counts of loops or the expected number of times an expensive
  function is called are good candidates.
- Metrics vectors of different jobs within the same task must be compatible,
+ Metrics vectors for different instances of the same block must be compatible,
  that is, the same metric must be delivered in the same vector element.
 \end_layout
 
@@ -12608,21 +12628,37 @@ key "Roitzsch:Predict"
 
  but has been enhanced to remove the offline training phase, creating a
  self-updating predictor.
- The prediction state is maintained individually for each real-time task
- 
-\begin_inset Formula $\tau_{i}$
+ An independent prediction state is maintained for each kind of block submitted
+ with 
+\begin_inset Flex NoWrap
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+dispatch_async_atlas
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \end_inset
 
 .
- However, for clarity, I omit the index 
-\begin_inset Formula $i$
-\end_inset
-
- on each variable below.
+ However, for clarity, I omit an index discriminating different predictors
+ on the variables below.
+ The index would be identical for all variables and would only clutter the
+ explanation.
 \end_layout
 
 \begin_layout Standard
-The estimator conceptually collects a history of metrics vectors in a metrics
+The predictor conceptually collects a history of metrics vectors in a metrics
  matrix 
 \begin_inset Formula $M$
 \end_inset
@@ -12796,7 +12832,7 @@ key "Stoer:Numerics"
 \begin_inset Formula $M$
 \end_inset
 
- is decomposed into an orthogonal 
+ is decomposed into an orthogonal real 
 \begin_inset Formula $k\times k$
 \end_inset
 
@@ -12804,7 +12840,7 @@ key "Stoer:Numerics"
 \begin_inset Formula $Q$
 \end_inset
 
- and a 
+ and a real 
 \begin_inset Formula $k\times l$
 \end_inset
 
@@ -12860,7 +12896,7 @@ with
 
 \end_inset
 
-and invoking the orthogonality of 
+and applying the orthogonality of 
 \begin_inset Formula $Q$
 \end_inset
 
@@ -13146,6 +13182,15 @@ aging factor in the updating predictor.
 improving stability through column dropping or selection
 \end_layout
 
+\begin_layout Itemize
+illustrate with matrix structure pictures and the subdiagonal values we
+ rotate to zero with Givens
+\end_layout
+
+\begin_layout Itemize
+complexity discussion
+\end_layout
+
 \end_inset
 
 
@@ -13388,6 +13433,10 @@ we could stop here, because it's optimal
 
 \begin_deeper
 \begin_layout Itemize
+policing needed when jobs overrun their execution time
+\end_layout
+
+\begin_layout Itemize
 estimates may be wrong
 \end_layout
 
@@ -13448,6 +13497,13 @@ late
 \begin_deeper
 \begin_layout Itemize
 dropped to CFS where they receive no guarantees
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Mercer:CapacityReserve"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Itemize
@@ -13611,6 +13667,33 @@ key "Power:Piccolo"
 \end_deeper
 \begin_layout Itemize
 deadline inheritance on blocking is left for others to analyze
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Itemize
+summarize
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+developers drive all this machinery by way of one simple API call, mindset:
+ 
+\begin_inset Quotes eld
+\end_inset
+
+Do this work.
+ Until then.
+ Here’s what I know about it.”
+\end_layout
+
+\begin_layout Itemize
+practical section
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+slip in non-RT work: abuse the scheduler dropping out-of-time jobs to CFS
 \end_layout
 
 \end_deeper
@@ -14034,17 +14117,6 @@ key "Abeni:CBS"
 
 \begin_deeper
 \begin_layout Itemize
-based on the concept of processor reservations
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Mercer:CapacityReserve"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
 employs EDF as the fundamental scheduler
 \end_layout
 
@@ -14350,7 +14422,14 @@ sharing based on cycle rates with slack reclaiming similar to CBS work
 
 \begin_layout Itemize
 timing guarantees for virtual-time based algorithms are possible by showing
- equivalence to EDF scheduling
+ bounded deadline overrun
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Stoica:ProportionalShareRT"
+
+\end_inset
+
+
 \end_layout
 
 \end_deeper
@@ -14385,6 +14464,35 @@ BERT
 \begin_layout Itemize
 binary overload mitigation: important tasks unboundedly steal from unimportant
  tasks
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Real-Rate Scheduling
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Steere:RealRate"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+task model based on period and proportion
+\end_layout
+
+\begin_layout Itemize
+estimate both by a feedback loop at runtime
+\end_layout
+
+\begin_layout Itemize
+adapt CPU-share according to application-exposed progress hints
+\end_layout
+
+\begin_layout Itemize
+for example buffer fill level in producer-consumer-scenario
 \end_layout
 
 \end_deeper
@@ -14425,6 +14533,11 @@ like reservations, virtual time put isolation first and application’s timing
 \end_layout
 
 \begin_deeper
+\begin_layout Itemize
+some of the above work tries to retrofit timing requirements into the fair
+ sharing concept
+\end_layout
+
 \begin_layout Itemize
 my approach: put applications first, consider fairness only on overload
 \end_layout
@@ -15930,6 +16043,17 @@ overload handling with adaptive reservations
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Abeni:AdaptiveReservations"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+real-rate scheduling reduces allocations weighted by an importance value
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Steere:RealRate"
 
 \end_inset
 
