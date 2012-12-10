@@ -3580,6 +3580,12 @@ reference "3-chap:Real-Time"
 \end_inset
 
 .
+ This chapter also comprehensively explains the overall architecture of
+ 
+\noun on
+Atlas
+\noun default
+.
 \end_layout
 
 \begin_layout Section
@@ -11208,6 +11214,24 @@ workload metrics
 
  to the estimator, which uses machine learning to infer execution time predictio
 ns.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+This component inspired the “
+\noun on
+At
+\noun default
+” when naming 
+\noun on
+Atlas
+\noun default
+ the Auto-Training Look-Ahead Scheduler.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Description
@@ -12719,7 +12743,7 @@ M\underline{x}\approx\underline{t}
 The number of metrics per job is expected to be small compared to the number
  of jobs, so the above linear equation has more rows than columns.
  The equation is therefore overdetermined, so we reformulate it as a linear
- least square problem:
+ least squares problem:
 \begin_inset Index idx
 status collapsed
 
@@ -12810,7 +12834,7 @@ key "Stoer:Numerics"
 
 \end_inset
 
- for linear least square problems.
+ for linear least squares problems.
  Let 
 \begin_inset Formula $M$
 \end_inset
@@ -12915,7 +12939,7 @@ This equation is easy to solve, because
 \end_inset
 
  is upper triangular.
- The result 
+ The resulting 
 \begin_inset Formula $\underline{x}$
 \end_inset
 
@@ -12966,18 +12990,68 @@ R=Q^{T}M\quad\mathrm{and}\quad\underline{c}=Q^{T}\underline{t}\\
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Figures/3-Real-Time/LLSP_System.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-mar:Structure-LLSP"
+
+\end_inset
+
+Structure of the Linear Least Squares Solution
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \noindent
 Therefore, the approach to determine 
 \begin_inset Formula $\underline{x}$
 \end_inset
 
- is to merge metrics and measured execution times into one two-dimensional
+ is to merge metrics and measured execution times into a single two-dimensional
  array and transform it as a whole.
  The resulting array holds 
 \begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)$
 \end_inset
 
-, which represents the upper triangular system 
+ as illustrated in Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-mar:Structure-LLSP"
+
+\end_inset
+
+.
+ It represents the upper triangular system 
 \begin_inset Formula $\hat{R}\underline{x}=\underline{\hat{c}}$
 \end_inset
 
@@ -13023,7 +13097,7 @@ The coefficient vector
  phase.
  A naïve implementation would remember the entire history of metrics and
  measured execution times and repeatedly solve the complete linear least
- square problem to obtain an updated coefficient vector 
+ squares problem to obtain an updated coefficient vector 
 \begin_inset Formula $\underline{x}$
 \end_inset
 
@@ -13051,6 +13125,44 @@ batch computation
 \end_inset
 
  would increase over time.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Figures/3-Real-Time/LLSP_Update.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-mar:Updating-LLSP"
+
+\end_inset
+
+Updating the Linear Least Squares Solution
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -13083,12 +13195,23 @@ Literature on numerical algorithms however offers updating solutions, preventing
 \begin_inset Formula $\bigl(M,\underline{t}\bigr)^{\left(n\right)}$
 \end_inset
 
-.
- The new row is appended at the top of 
+: As shown in Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-mar:Updating-LLSP"
+
+\end_inset
+
+, the new row is appended at the top of 
 \begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)^{\left(n\right)}$
 \end_inset
 
- and Givens rotations
+, shifting the previous values down one row.
+ Givens rotations
 \begin_inset Index idx
 status collapsed
 
@@ -13105,7 +13228,8 @@ key "Schwetlick:Numerics"
 
 \end_inset
 
- to turn it into upper triangular form again.
+ to zero the subdiagonal elements, turning the matrix into upper triangular
+ form again.
  The coefficients 
 \begin_inset Formula $\underline{x}$
 \end_inset
@@ -13115,6 +13239,104 @@ key "Schwetlick:Numerics"
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Standard
+A single Givens rotation is a rotation in a plane defined by two standard
+ basis vectors.
+ The points represented by the matrix columns are rotated such that a selected
+ point will align with one of the basis vectors, zeroing one of its coordinates.
+ Consequently, a Givens rotation can zero any matrix element other than
+ diagonal elements.
+ When zeroing the element at row 
+\begin_inset Formula $i$
+\end_inset
+
+ and column 
+\begin_inset Formula $j$
+\end_inset
+
+ (
+\begin_inset Formula $i\neq j$
+\end_inset
+
+), only the rows 
+\begin_inset Formula $i$
+\end_inset
+
+ and 
+\begin_inset Formula $j$
+\end_inset
+
+ of the matrix change.
+ Because we rotate in the plane defined by the 
+\begin_inset Formula $i\mathrm{\text{’th}}$
+\end_inset
+
+ and 
+\begin_inset Formula $j\mathrm{\text{’th}}$
+\end_inset
+
+ standard basis vector, all other coordinates remain the same, thus all
+ other rows are unaffected.
+ Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-mar:Givens-Rotation"
+
+\end_inset
+
+ illustrates a single Givens rotation.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Figures/3-Real-Time/Givens_Rotation.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-mar:Givens-Rotation"
+
+\end_inset
+
+Effect of a Single Givens Rotation
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Subsequently applying Givens rotations to all subdiagonal elements returns
+ the matrix to upper triangular form.
+ Because the metrics columns and the rightmost execution times column are
+ transformed alike, the rotations are neutral to the linear least squares
+ solution.
  With this updating predictor, only the current value of the constant-size
  system 
 \begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)$
@@ -13227,6 +13449,80 @@ practical issues from RTAS paper
 \begin_layout Itemize
 application-specific predictors can be used instead of the default auto-regressi
 ve predictor
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+excursion into video decoding time
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+give a feeling for the metrics and the estimator
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Float table
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-tab:Videos"
+
+\end_inset
+
+Videos Used in Experiments
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+explain the metrics selection
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Roitzsch:Predict"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+related: workload metrics for MPEG
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Altenbernd:MPEG-WCET"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+evaluate metrics alternatives
+\end_layout
+
+\begin_layout Itemize
+show stability problems and substantiate choice of estimator parameters
+\end_layout
+
+\begin_layout Itemize
+segue by summarizing the nature of the estimates: underestimation possible,
+ scheduler must account for this
 \end_layout
 
 \end_deeper
@@ -13726,51 +14022,9 @@ boring for the predictor
 
 \end_deeper
 \begin_layout Itemize
-video
+video: stages other than decoding
 \end_layout
 
-\begin_deeper
-\begin_layout Itemize
-workload metrics for MPEG
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Altenbernd:MPEG-WCET"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Float table
-wide true
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "3-tab:Videos"
-
-\end_inset
-
-Videos Used in Experiments
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_deeper
 \begin_layout Itemize
 evaluate accuracy of execution time prediction against worst-case allocation
  of a periodic task
@@ -14458,12 +14712,49 @@ warp time is a priority, admission control needed to control the assignment
 \end_deeper
 \begin_layout Itemize
 BERT
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Bavier:BERT"
+
+\end_inset
+
+
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
-binary overload mitigation: important tasks unboundedly steal from unimportant
- tasks
+virtual-clock-based scheduler combines of EDF and proportional share: tasks
+ receive a share of cycles before a given deadline
+\end_layout
+
+\begin_layout Itemize
+tasks reserve time according to a feedback estimator
+\end_layout
+
+\begin_layout Itemize
+feedback is coarse grained (in the order of seconds) and only aligns allocation
+ and actual use in the long term
+\end_layout
+
+\begin_layout Itemize
+ATLAS aims for precise allocation of every job
+\end_layout
+
+\begin_layout Itemize
+on load spikes, cycles are stolen from lower priorities; similar to CBS
+ with adaptive reservations
+\end_layout
+
+\begin_layout Itemize
+strict priorities for stealing
+\end_layout
+
+\begin_layout Itemize
+stealing in BERT in unbounded, no guarantees for the lower priority tasks
+\end_layout
+
+\begin_layout Itemize
+ATLAS uses CFS preroll to gain extra cycles without harming any guarntees
 \end_layout
 
 \end_deeper
@@ -16080,6 +16371,18 @@ key "Nieh:SMART"
 \end_inset
 
 , but no look-ahead
+\end_layout
+
+\begin_layout Itemize
+BERT
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Bavier:BERT"
+
+\end_inset
+
+: no strict task admission, but overload mitigation; job-shedding, when
+ latest release time is in the past
 \end_layout
 
 \begin_layout Itemize
