@@ -3585,7 +3585,7 @@ reference "3-chap:Real-Time"
 \noun on
 Atlas
 \noun default
-.
+, which the succeeding two chapters build upon.
 \end_layout
 
 \begin_layout Section
@@ -11376,8 +11376,8 @@ workload
  help a machine learning component understand the dependency between processed
  data and job execution time.
  Execution time predictions follow from the metrics.
- The application propagates these estimates together with deadlines to the
- scheduler
+ The application propagates these predictions together with deadlines to
+ the scheduler
 \begin_inset Index idx
 status collapsed
 
@@ -12620,6 +12620,11 @@ The developer should choose metrics on a “larger value means more work”
  function is called are good candidates.
  Metrics vectors for different instances of the same block must be compatible,
  that is, the same metric must be delivered in the same vector element.
+ Accordingly, the vectors also deliver the same number of metrics 
+\begin_inset Formula $l_{i}$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -12650,9 +12655,14 @@ key "Roitzsch:Predict"
 
 \end_inset
 
- but has been enhanced to remove the offline training phase, creating a
- self-updating predictor.
- An independent prediction state is maintained for each kind of block submitted
+ but the implementation presented here removes the need for an offline training
+ phase.
+ It is based on a different mathematical apparatus, which continuously updates
+ and stabilizes online.
+\end_layout
+
+\begin_layout Standard
+An independent estimator state is maintained for each kind of block submitted
  with 
 \begin_inset Flex NoWrap
 status collapsed
@@ -12675,14 +12685,14 @@ dispatch_async_atlas
 \end_inset
 
 .
- However, for clarity, I omit an index discriminating different predictors
+ However, for clarity, I omit an index discriminating different estimators
  on the variables below.
  The index would be identical for all variables and would only clutter the
  explanation.
 \end_layout
 
 \begin_layout Standard
-The predictor conceptually collects a history of metrics vectors in a metrics
+The estimator conceptually collects a history of metrics vectors in a metrics
  matrix 
 \begin_inset Formula $M$
 \end_inset
@@ -12740,15 +12750,23 @@ M\underline{x}\approx\underline{t}
 
 \begin_layout Standard
 \noindent
-The number of metrics per job is expected to be small compared to the number
- of jobs, so the above linear equation has more rows than columns.
+The number 
+\begin_inset Formula $l$
+\end_inset
+
+ of metrics per job is expected to be small compared to the number of jobs
+ 
+\begin_inset Formula $k$
+\end_inset
+
+, so the above linear equation has more rows than columns.
  The equation is therefore overdetermined, so we reformulate it as a linear
  least squares problem:
 \begin_inset Index idx
 status collapsed
 
 \begin_layout Plain Layout
-linear least square problem
+linear least squares problem
 \end_layout
 
 \end_inset
@@ -12990,6 +13008,58 @@ R=Q^{T}M\quad\mathrm{and}\quad\underline{c}=Q^{T}\underline{t}\\
 \end_layout
 
 \begin_layout Standard
+\noindent
+Therefore, the approach to determine 
+\begin_inset Formula $\underline{x}$
+\end_inset
+
+ is to merge metrics and measured execution times into a single two-dimensional
+ array and transform it as a whole.
+ The resulting array holds 
+\begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)$
+\end_inset
+
+ as illustrated in Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-mar:Structure-LLSP"
+
+\end_inset
+
+.
+ It represents the upper triangular system 
+\begin_inset Formula $\hat{R}\underline{x}=\underline{\hat{c}}$
+\end_inset
+
+ yielding 
+\begin_inset Formula $\underline{x}$
+\end_inset
+
+.
+ Note that this system has a constant size of 
+\begin_inset Formula $l$
+\end_inset
+
+ rows, independent of the number of rows 
+\begin_inset Formula $k$
+\end_inset
+
+ collected in 
+\begin_inset Formula $M$
+\end_inset
+
+ and 
+\begin_inset Formula $\underline{t}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
 \begin_inset Float marginfigure
 wide false
 sideways false
@@ -13028,73 +13098,20 @@ Structure of the Linear Least Squares Solution
 \end_layout
 
 \begin_layout Standard
-\noindent
-Therefore, the approach to determine 
-\begin_inset Formula $\underline{x}$
-\end_inset
-
- is to merge metrics and measured execution times into a single two-dimensional
- array and transform it as a whole.
- The resulting array holds 
-\begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)$
-\end_inset
-
- as illustrated in Figure
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "3-mar:Structure-LLSP"
-
-\end_inset
-
-.
- It represents the upper triangular system 
-\begin_inset Formula $\hat{R}\underline{x}=\underline{\hat{c}}$
-\end_inset
-
- yielding 
-\begin_inset Formula $\underline{x}$
-\end_inset
-
-.
- Note that this system has a constant size of 
-\begin_inset Formula $l$
-\end_inset
-
- equations, independent of the number of rows 
-\begin_inset Formula $k$
-\end_inset
-
- collected in 
-\begin_inset Formula $M$
-\end_inset
-
- and 
-\begin_inset Formula $\underline{t}$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
 \begin_inset Flex NewThought
 status collapsed
 
 \begin_layout Plain Layout
-The coefficient vector
+Advancing from concept to implementation,
 \end_layout
 
 \end_inset
 
- 
+ we want an estimator that continuously calculates the solution 
 \begin_inset Formula $\underline{x}$
 \end_inset
 
- should be calculated continuously at runtime, without an offline training
- phase.
+ at runtime, without an offline training phase.
  A naïve implementation would remember the entire history of metrics and
  measured execution times and repeatedly solve the complete linear least
  squares problem to obtain an updated coefficient vector 
@@ -13124,7 +13141,7 @@ batch computation
 \begin_inset Formula $\underline{x}$
 \end_inset
 
- would increase over time.
+ would unboundedly increase over time.
 \end_layout
 
 \begin_layout Standard
@@ -13166,12 +13183,18 @@ Updating the Linear Least Squares Solution
 \end_layout
 
 \begin_layout Standard
-Literature on numerical algorithms however offers updating solutions, preventing
- the unbounded row growth: Given an upper triangular system 
+Literature on numerical algorithms however offers updating solutions,
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Schwetlick:Numerics"
+
+\end_inset
+
+ preventing this unbounded growth: Given an upper triangular system 
 \begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)^{\left(n\right)}$
 \end_inset
 
- solving a linear least square problem 
+, which solves a linear least square problem 
 \begin_inset Formula $\bigl(M,\underline{t}\bigr)^{\left(n\right)}$
 \end_inset
 
@@ -13221,15 +13244,8 @@ Givens rotations
 
 \end_inset
 
- are applied
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Schwetlick:Numerics"
-
-\end_inset
-
- to zero the subdiagonal elements, turning the matrix into upper triangular
- form again.
+ are applied to zero the subdiagonal elements, turning the matrix into upper
+ triangular form again.
  The coefficients 
 \begin_inset Formula $\underline{x}$
 \end_inset
@@ -13242,10 +13258,31 @@ key "Schwetlick:Numerics"
 \end_layout
 
 \begin_layout Standard
-A single Givens rotation is a rotation in a plane defined by two standard
- basis vectors.
- The points represented by the matrix columns are rotated such that a selected
- point will align with one of the basis vectors, zeroing one of its coordinates.
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+A single Givens rotation
+\end_layout
+
+\end_inset
+
+ is a rotation in a plane defined by two standard basis vectors.
+ Regarding the linear least squares problem as a set of column vectors,
+ the solution 
+\begin_inset Formula $\underline{x}$
+\end_inset
+
+ describes a linear combination of the first 
+\begin_inset Formula $l$
+\end_inset
+
+ vectors that approximates the execution times vector.
+\end_layout
+
+\begin_layout Standard
+Rotating a matrix can align a selected vector with one of the basis vectors,
+ zeroing one of its coordinates.
  Consequently, a Givens rotation can zero any matrix element other than
  diagonal elements.
  When zeroing the element at row 
@@ -13332,12 +13369,68 @@ Effect of a Single Givens Rotation
 \end_layout
 
 \begin_layout Standard
-Subsequently applying Givens rotations to all subdiagonal elements returns
- the matrix to upper triangular form.
- Because the metrics columns and the rightmost execution times column are
- transformed alike, the rotations are neutral to the linear least squares
+Subsequently applying Givens rotations to all subdiagonal elements transforms
+ a matrix to its upper triangular form 
+\begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)$
+\end_inset
+
+, affording a staggered calculation of 
+\begin_inset Formula $\underline{x}$
+\end_inset
+
+.
+ Because the 
+\begin_inset Formula $l$
+\end_inset
+
+ metrics columns and the rightmost execution times column 
+\begin_inset Formula $\underline{\hat{c}}$
+\end_inset
+
+ are transformed alike, the rotations are neutral to the linear least squares
  solution.
- With this updating predictor, only the current value of the constant-size
+ The scalar in the lower right of 
+\begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)$
+\end_inset
+
+ contains the residual error as shown in Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "3-mar:Structure-LLSP"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+In summary, the estimator starts with an all-zero system 
+\begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)^{\left(0\right)}$
+\end_inset
+
+ and repeatedly adds new rows 
+\begin_inset Formula $\bigl(\underline{m}_{j},t_{j}\bigr)$
+\end_inset
+
+ consisting of application-provided metrics 
+\begin_inset Formula $\underline{m}_{j}$
+\end_inset
+
+ and measured execution times 
+\begin_inset Formula $t_{j}$
+\end_inset
+
+ to the top of the current system.
+ Each new row shifts the existing elements down, but applying 
+\begin_inset Formula $l+1$
+\end_inset
+
+ Givens rotations keeps the system in upper triangular form.
+ With this updating estimator, only the current value of the constant-size
  system 
 \begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)$
 \end_inset
@@ -13355,51 +13448,340 @@ Subsequently applying Givens rotations to all subdiagonal elements returns
 \end_inset
 
 .
+ The time complexity
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+time complexity
+\end_layout
+
+\end_inset
+
+ is in 
+\begin_inset Formula $\mathcal{O}\bigl(l^{2}\bigr)$
+\end_inset
+
+, because 
+\begin_inset Formula $l+1$
+\end_inset
+
+ Givens rotations are applied, each affecting at most 
+\begin_inset Formula $2\bigl(l+1\bigr)$
+\end_inset
+
+ nonzero matrix elements.
+\end_layout
+
+\begin_layout Section
+Numerical Stability
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 1
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+After gaining some practical experience with the described execution time
+ estimator, I observed two numerical problems:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Argument
+status collapsed
+
+\begin_layout Plain Layout
+noitemsep
+\end_layout
+
+\end_inset
+
+inflexibility
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+inflexibility
+\end_layout
+
+\end_inset
+
+ because of a large amount of previously trained values and
+\end_layout
+
+\begin_layout Itemize
+instability
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+instability
+\end_layout
+
+\end_inset
+
+ because of overfitting
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+overfitting
+\end_layout
+
+\end_inset
+
+ to previously trained values.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Both problems are related, because they are instances of the same fundamental
+ conflict: The estimator accumulates knowledge of past job executions and
+ calculates a coefficient vector 
+\begin_inset Formula $\underline{x}$
+\end_inset
+
+ that approximates this history well.
+ However, our intention is to use the estimator as a predictor in a Model
+ Predictive Control
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Maciejowski:ModelPredictiveControl"
+
+\end_inset
+
+ setup to direct scheduling.
+ We want good approximations for future execution times; we actually do
+ not care how well it models the past.
+ Therefore, two independent heuristics dampen the influence of the past
+ to mitigate the two problems mentioned.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+The increasing inflexibility
+\end_layout
+
+\end_inset
+
+ stems from the estimator always considering all past jobs equally.
+ The solution closes in on a global fit over the entire history and considers
+ new information with decreasing significance.
+ Because the workload metrics never cover the full complexity of the execution
+ time fluctuations, the estimator should maintain a moving average fit,
+ placing more emphasis on recent application behavior than on the distant
+ past.
+\end_layout
+
+\begin_layout Standard
+Atlas incorporates an 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+aging factor
+\end_layout
+
+\end_inset
+
+
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+aging factor
+\end_layout
+
+\end_inset
+
+ in the updating predictor.
+ Before adding a new row 
+\begin_inset Formula $\bigl(\underline{m}_{j},t_{j}\bigr)$
+\end_inset
+
+ to the predictor, the current system 
+\begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)$
+\end_inset
+
+ is multiplied with a scalar factor slightly below 
+\begin_inset Formula $1$
+\end_inset
+
+.
+ This aging factor downscales the complete system and is therefore neutral
+ to the solution.
+ It reduces the influence of the previous knowledge and allows the solution
+ to remain flexible and lean towards the newly acquired row.
+ Instead of multiplying the matrix, an alternative implementation would
+ multiply the new row with an emphasis factor slightly above 
+\begin_inset Formula $1$
+\end_inset
+
+.
+ However, multiplying the matrix has the additional benefit of “shaking
+ up” any matrix elements that may have become stale due to rounding errors.
+ The scalar multiplication has a time complexity of 
+\begin_inset Formula $\mathcal{O}\bigl(l^{2}\bigr)$
+\end_inset
+
+, so the aging factor approach does not increase the complexity of the update
+ step.
+\end_layout
+
+\begin_layout Standard
+The aging factor is the first tunable parameter of the estimator.
+ It adjusts the relative weight of past knowledge against new information.
+ Because any past behavior of the application may resurface, I argue that
+ the aging effect should be small and only allow for slow adaptation in
+ a long-term moving average style.
+ I experiment with different factors in a video decoding case study below.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+Overfitting
+\end_layout
+
+\end_inset
+
+ occurs when the linear least squares problem contains redundant metrics.
+ These metrics can show unsystematic correlation with previously trained
+ values and skew the resulting coefficients.
+ Such a solution models past values better than a solution without redundancies,
+ but it generates unstable predictions for future behavior.
+\end_layout
+
+\begin_layout Standard
+An example helps to understand this effect: Two jobs are submitted with
+ two metrics each: 
+\begin_inset Formula $\left(1,1\right)$
+\end_inset
+
+ for the first job and 
+\begin_inset Formula $\left(3,3.00001\right)$
+\end_inset
+
+ for the second job.
+ The two metrics strongly correlate, so one of them can be considered redundant.
+ The measured execution times are 
+\begin_inset Formula $1$
+\end_inset
+
+ for the first job and 
+\begin_inset Formula $3.01$
+\end_inset
+
+ for the second job.
+ Intuitively, the execution time appears to follow both metrics with some
+ small error.
+ We should ignore one of the redundant metrics and use the other for prediction.
+ But mathematically, we solve the following system of equations:
+\begin_inset Formula 
+\[
+\begin{array}{ccccc}
+x_{1} & + & x_{2} & = & 1\\
+3x_{1} & + & 3.00001x_{2} & = & 3.01
+\end{array}
+\]
+
+\end_inset
+
+The solution is 
+\begin_inset Formula $x_{1}=-999,\: x_{2}=1000$
+\end_inset
+
+.
+ For a next job with the metrics 
+\begin_inset Formula $\left(1,1.01\right)$
+\end_inset
+
+, where we would intuitively expect a prediction around 
+\begin_inset Formula $1$
+\end_inset
+
+, the calculated coefficients say 
+\begin_inset Formula $11$
+\end_inset
+
+, an unstable prediction due to overfitting.
+\end_layout
+
+\begin_layout Standard
+I approached this problem before
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Roitzsch:Beleg"
+
+\end_inset
+
+ and devised a strategy based on dropping redundant metrics before solving
+ the reduced system.
+ This method however operates offline with full knowledge of the complete
+ linear least squares problem 
+\begin_inset Formula $\bigl(M,\underline{t}\bigr)$
+\end_inset
+
+.
+ 
+\noun on
+Atlas
+\noun default
+’ updating predictor requires online stabilization and only has access to
+ the aggregated upper triangular 
+\begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)$
+\end_inset
+
+ system.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+The online metrics dropping algorithm
+\end_layout
+
+\end_inset
+
+ runs in two phases: At first, it scans all metrics to figure out which
+ are significant for the result and which are redundant.
+ It then reorganizes the current 
+\begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)$
+\end_inset
+
+ so a reduced result 
+\begin_inset Formula $\underline{\tilde{x}}$
+\end_inset
+
+ can be calculated, which ignores the redundant metrics.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Note Greyedout
 status open
 
-\begin_layout Itemize
-aging factor
-\end_layout
-
-\begin_deeper
-\begin_layout Plain Layout
-This updating predictor always provides a coefficient vector 
-\begin_inset Formula $\underline{x}$
-\end_inset
-
- that fully considers all past jobs.
- Due to numerical problems like rounding errors, the solution can get stuck
- at a global average and not adapt to new behavior any more.
- I compensate for this by including an
-\emph on
- 
-\emph default
-aging factor in the updating predictor.
- This factor slightly downscales the influence of past knowledge and allows
- the solution to remain flexible and lean towards newly acquired knowledge.
- Because any past behavior of the task may resurface, I argue that this
- aging should be small and only allow for slow adaptation by a long-term
- sliding average.
- Therefore, I chose an aging factor of 
-\begin_inset Formula $0.999$
-\end_inset
-
-, which reduces the weight of past knowledge to 
-\begin_inset Formula $10\%$
-\end_inset
-
- after 
-\begin_inset Formula $2300$
-\end_inset
-
- jobs.
-\end_layout
-
-\end_deeper
 \begin_layout Itemize
 improving stability through column dropping or selection
 \end_layout
@@ -13428,22 +13810,11 @@ explain online execution time training in detail
 
 \begin_deeper
 \begin_layout Itemize
-model predictive control
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Maciejowski:ModelPredictiveControl"
-
-\end_inset
-
-
+time-measurements using per-thread clock
 \end_layout
 
 \begin_layout Itemize
-the 1-column
-\end_layout
-
-\begin_layout Itemize
-practical issues from RTAS paper
+initialization of the predictor
 \end_layout
 
 \begin_layout Itemize
@@ -13453,12 +13824,12 @@ ve predictor
 
 \end_deeper
 \begin_layout Itemize
-excursion into video decoding time
+caste study: video decoding time
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
-give a feeling for the metrics and the estimator
+goal: give a feeling for the metrics and the estimator
 \end_layout
 
 \begin_layout Plain Layout
@@ -13518,6 +13889,28 @@ evaluate metrics alternatives
 
 \begin_layout Itemize
 show stability problems and substantiate choice of estimator parameters
+\end_layout
+
+\begin_deeper
+\begin_layout Plain Layout
+Therefore, I chose an aging factor of 
+\begin_inset Formula $0.999$
+\end_inset
+
+, which reduces the weight of past knowledge to 
+\begin_inset Formula $10\%$
+\end_inset
+
+ after 
+\begin_inset Formula $2300$
+\end_inset
+
+ jobs.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+stability allows adding unrelated columns, always add a 1-column for convenience
 \end_layout
 
 \begin_layout Itemize
@@ -13960,6 +14353,10 @@ key "Power:Piccolo"
 \end_layout
 
 \end_deeper
+\begin_layout Itemize
+slip in non-RT work: abuse the scheduler dropping out-of-time jobs to CFS
+\end_layout
+
 \end_deeper
 \begin_layout Itemize
 deadline inheritance on blocking is left for others to analyze
@@ -13984,15 +14381,9 @@ Do this work.
 \end_layout
 
 \begin_layout Itemize
-practical section
+GCD runtime and estimator mediate between application and scheduler
 \end_layout
 
-\begin_deeper
-\begin_layout Itemize
-slip in non-RT work: abuse the scheduler dropping out-of-time jobs to CFS
-\end_layout
-
-\end_deeper
 \end_deeper
 \begin_layout Itemize
 details on workloads
@@ -14151,7 +14542,7 @@ frame this in a two-dimensional map instead? flexible/weak – rigid/strong;
 \end_layout
 
 \begin_layout Itemize
-discuss clusters first and the provide details for each cluster
+discuss clusters first and then provide details for each cluster
 \end_layout
 
 \end_deeper
