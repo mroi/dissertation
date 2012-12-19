@@ -10,7 +10,7 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="145.27559"
-   height="194.88188"
+   height="212.59842"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.2 r9819"
@@ -40,8 +40,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="3.5560001"
-     inkscape:cx="76.181099"
-     inkscape:cy="97.440941"
+     inkscape:cx="72.603874"
+     inkscape:cy="153.22584"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -80,7 +80,29 @@
      inkscape:label="Ebene 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-857.48031)">
+     transform="translate(0,-839.76377)">
+    <g
+       id="g3048">
+      <text
+         sodipodi:linespacing="125%"
+         id="text3045"
+         y="849.69373"
+         x="125.31572"
+         style="font-size:40px;font-style:normal;font-weight:normal;text-align:end;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:12px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:end;text-anchor:end;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light"
+           y="849.69373"
+           x="125.31572"
+           id="tspan3047"
+           sodipodi:role="line">execution times column</tspan></text>
+      <path
+         sodipodi:nodetypes="ccc"
+         transform="translate(0,857.48031)"
+         inkscape:connector-curvature="0"
+         id="path3823"
+         d="m 127.55906,-10.629929 c 7.08661,0 7.08661,3.5433068 7.08661,7.0866138 l 0,31.8897642"
+         style="fill:none;stroke:#000000;stroke-width:0.75;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow2Mend)" />
+    </g>
     <g
        id="g4589"
        transform="translate(-3.5433071,-6.2822573e-6)">
