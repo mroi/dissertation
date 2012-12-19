@@ -3421,29 +3421,22 @@ Atlas
 \noun on
 Atlas
 \noun default
- on the 27th IEEE Real-Time Systems Symposium.
+ on the 27th IEEE Real-Time Systems Symposium
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Roitzsch:Predict"
 
 \end_inset
 
-
-\begin_inset Marginal
-status open
-
-\begin_layout Plain Layout
-\begin_inset Note Greyedout
-status open
-
-\begin_layout Plain Layout
-Cite the RTAS paper here, if it gets accepted.
-\end_layout
-
-\end_inset
-
-
-\end_layout
+ and the overall 
+\noun on
+Atlas
+\noun default
+ architecture on the 19th IEEE Real-Time and Embedded Technology and Application
+s Symposium.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Roitzsch:Atlas"
 
 \end_inset
 
@@ -3580,8 +3573,8 @@ reference "3-chap:Real-Time"
 \end_inset
 
 .
- This chapter also comprehensively explains the overall architecture of
- 
+ This chapter also comprehensively explains the fundamental architecture
+ of 
 \noun on
 Atlas
 \noun default
@@ -3777,8 +3770,19 @@ Atlas
 \begin_layout Standard
 Because parallel speedup is typically sub-linear,
 \begin_inset CommandInset citation
-LatexCommand citet
+LatexCommand cite
+after "-1\\baselineskip"
 key "Amdahl:AmdahlsLaw"
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+manual offset
+\end_layout
 
 \end_inset
 
@@ -11218,7 +11222,7 @@ ns.
 status open
 
 \begin_layout Plain Layout
-This component inspired the “
+This aspect inspired the “
 \noun on
 At
 \noun default
@@ -11411,6 +11415,16 @@ reference "3-mar:Vertical-Integration-Timeliness"
 \end_inset
 
  to highlight the described component.
+ With the exception of the asynchronous lambda layer, the architecture was
+ previously published
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Roitzsch:Atlas"
+
+\end_inset
+
+ and select text in the task model, interfaces, and prediction sections
+ may be copied verbatim from this paper.
 \end_layout
 
 \begin_layout Standard
@@ -11542,26 +11556,6 @@ Two different kinds of job descriptions
  are used by the two interface layers.
  I first formalize the task model, before I explain the interface operations
  and their integration into the application runtime.
-\begin_inset Marginal
-status open
-
-\begin_layout Plain Layout
-\begin_inset Note Greyedout
-status open
-
-\begin_layout Plain Layout
-Cite the RTAS paper here, if it gets accepted and mention that pieces are
- copied verbatim in the task model, interfaces and estimator sections.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Section
@@ -12952,7 +12946,7 @@ and applying the orthogonality of
 
 \end_inset
 
-This equation is easy to solve, because 
+This equation is easily solved by back-substitution, because 
 \begin_inset Formula $\hat{R}$
 \end_inset
 
@@ -12965,11 +12959,24 @@ This equation is easy to solve, because
 \begin_inset Formula $M$
 \end_inset
 
- has full rank; the residual error is 
+ has full rank.
+ The residual error of the least squares fit is 
 \begin_inset Formula $\left\Vert \underline{c}_{R}\right\Vert _{2}$
 \end_inset
 
 .
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula $\left\Vert \underline{c}_{R}\right\Vert _{2}^{2}$
+\end_inset
+
+ is also called the residual sum of squares.
+\end_layout
+
+\end_inset
+
  The transformation of 
 \begin_inset Formula $M$
 \end_inset
@@ -13229,7 +13236,7 @@ reference "3-mar:Updating-LLSP"
 
 \end_inset
 
-, the new row is appended at the top of 
+, the new row is appended to 
 \begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)^{\left(n\right)}$
 \end_inset
 
@@ -13250,7 +13257,7 @@ Givens rotations
 \begin_inset Formula $\underline{x}$
 \end_inset
 
- are then determined by solving the resulting system 
+ are then solved by back-substitution in the resulting system 
 \begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)^{\left(n+1\right)}$
 \end_inset
 
@@ -13374,7 +13381,7 @@ Subsequently applying Givens rotations to all subdiagonal elements transforms
 \begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)$
 \end_inset
 
-, affording a staggered calculation of 
+, affording back-substitution calculation of 
 \begin_inset Formula $\underline{x}$
 \end_inset
 
@@ -13424,12 +13431,18 @@ In summary, the estimator starts with an all-zero system
 \begin_inset Formula $t_{j}$
 \end_inset
 
- to the top of the current system.
- Each new row shifts the existing elements down, but applying 
+ to the current system.
+ Applying 
 \begin_inset Formula $l+1$
 \end_inset
 
  Givens rotations keeps the system in upper triangular form.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Chambers:RegressionUpdating"
+
+\end_inset
+
  With this updating estimator, only the current value of the constant-size
  system 
 \begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)$
@@ -13636,8 +13649,12 @@ aging factor
 \end_inset
 
 .
- However, multiplying the matrix has the additional benefit of “shaking
- up” any matrix elements that may have become stale due to rounding errors.
+ However, multiplying the matrix has the additional benefit of 
+\begin_inset space \thinspace{}
+\end_inset
+
+“shaking up” any matrix elements that may have become stale due to rounding
+ errors.
  The scalar multiplication has a time complexity of 
 \begin_inset Formula $\mathcal{O}\bigl(l^{2}\bigr)$
 \end_inset
@@ -13647,7 +13664,7 @@ aging factor
 \end_layout
 
 \begin_layout Standard
-The aging factor is the first tunable parameter of the estimator.
+The aging factor is the first tunable parameter of the predictor.
  It adjusts the relative weight of past knowledge against new information.
  Because any past behavior of the application may resurface, I argue that
  the aging effect should be small and only allow for slow adaptation in
@@ -13716,11 +13733,11 @@ The solution is
 \begin_inset Formula $\left(1,1.01\right)$
 \end_inset
 
-, where we would intuitively expect a prediction around 
+, we would intuitively expect a prediction around 
 \begin_inset Formula $1$
 \end_inset
 
-, the calculated coefficients say 
+, but the calculated coefficients say 
 \begin_inset Formula $11$
 \end_inset
 
@@ -13753,6 +13770,15 @@ Atlas
 \end_inset
 
  system.
+ I independently developed a solution, which turned out to be similar to
+ subset regression algorithms from statistics literature.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Clarke:SubsetRegression"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -13779,20 +13805,108 @@ The online metrics dropping algorithm
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Greyedout
+The scan for redundant metrics successively drops the rightmost metrics
+ column and recalculates the residual error 
+\begin_inset Formula $c_{R}$
+\end_inset
+
+.
+ Because of the nature of a linear least squares solution, the residual
+ error increases with each dropped column.
+ However, a metric that does not contribute significantly will cause only
+ a minor increase of the residual error.
+ The predictor therefore consider a metric redundant, if its contribution
+ increases 
+\begin_inset Formula $c_{R}$
+\end_inset
+
+ by less than 
+\begin_inset Formula $10\%$
+\end_inset
+
+.
+ This 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+column contribution threshold
+\end_layout
+
+\end_inset
+
+ is the second tunable parameter of the predictor.
+ It allows trading prediction accuracy for better stability.
+ I evaluate different thresholds in the video decoding case study below.
+\end_layout
+
+\begin_layout Standard
+Because the last column of 
+\begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)$
+\end_inset
+
+ always represents the measured execution times, dropping the rightmost
+ metric means dropping the second column from the right.
+ As Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-mar:Dropping-a-Column"
+
+\end_inset
+
+ shows, readjusting the matrix to upper triangular form requires only one
+ Givens rotation, which changes just a single matrix element: the new residual
+ error after dropping the column.
+ The old residual error is zeroed by the Givens rotation.
+ The implementation thus only handles the last column when successively
+ calculating the individual column contributions.
+ Scanning through all metrics in this fashion applies 
+\begin_inset Formula $l$
+\end_inset
+
+ Givens rotations, each affecting one element.
+ The time complexity of this step is 
+\begin_inset Formula $\mathcal{O}\bigl(l\bigr)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
 status open
 
-\begin_layout Itemize
-improving stability through column dropping or selection
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Figures/3-Real-Time/LLSP_Drop.svg
+
+\end_inset
+
+
 \end_layout
 
-\begin_layout Itemize
-illustrate with matrix structure pictures and the subdiagonal values we
- rotate to zero with Givens
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-mar:Dropping-a-Column"
+
+\end_inset
+
+Dropping a Column to Determine Error Contribution
 \end_layout
 
-\begin_layout Itemize
-complexity discussion
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -13801,28 +13915,188 @@ complexity discussion
 \end_layout
 
 \begin_layout Standard
+Dropping the last of the metrics degenerates the matrix to a scalar value
+ equivalent to the standard deviation of the measured execution times, the
+ upper bound for the residual error of the linear least square solution.
+ The complete scan yields a series of non-decreasing residual error values
+ as illustrated in Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-mar:Residual-Error"
+
+\end_inset
+
+.
+ Metrics that only cause a sub-threshold increase in the residual error
+\begin_inset space \thinspace{}
+\end_inset
+
+—
+\begin_inset space \thinspace{}
+\end_inset
+
+like metrics two and five in the figure
+\begin_inset space \thinspace{}
+\end_inset
+
+—
+\begin_inset space \thinspace{}
+\end_inset
+
+are considered redundant and dropped in the second phase.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Data/3-Real-Time/Residual_Error_Scan.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-mar:Residual-Error"
+
+\end_inset
+
+Residual Error when Dropping Columns
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+After the scan step,
+\end_layout
+
+\end_inset
+
+ the predictor drops metrics that contribute below threshold.
+ As we have seen, dropping from the right of the matrix is computationally
+ lightweight.
+ Therefore, the algorithm reorders the matrix by moving all to-be-dropped
+ columns to the right.
+ The column representing the measured execution times column must stay in
+ place, so all moves happen within the metrics columns.
+\end_layout
+
+\begin_layout Standard
+An individual move operation pulls a column from its previous position and
+ reinserts it further right.
+ The first such move reinserts the column as the new rightmost metrics column.
+ Any subsequent move reinserts the column left of the previously moved drop-colu
+mn.
+ After every move, the subdiagonal elements are zeroed with Givens rotations
+ as shown in Figure
+\begin_inset space ~
+\end_inset
+
+, keeping the matrix in upper triangular form.
+ The resulting matrix is not a temporary result, but actually replaces the
+ previous system 
+\begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)^{\left(n\right)}$
+\end_inset
+
+ and becomes the new 
+\begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)^{\left(n+1\right)}$
+\end_inset
+
+.
+ The predictor remembers the column permutation, because new rows that are
+ added to the system and solution coefficients derived from it must be equally
+ permuted.
+\end_layout
+
+\begin_layout Standard
+The worst-case time complexity of this reorganization is 
+\begin_inset Formula $\mathcal{O}\bigl(l^{3}\bigr)$
+\end_inset
+
+.
+ Imagine a matrix, where the left half of the metrics columns are to be
+ dropped and the right half are to be kept.
+ We will move 
+\begin_inset Formula $\nicefrac{l}{2}$
+\end_inset
+
+ columns and for each move apply 
+\begin_inset Formula $\nicefrac{l}{2}$
+\end_inset
+
+ Givens rotations, each affecting up to 
+\begin_inset Formula $l+1$
+\end_inset
+
+ elements.
+ However, the state of an individual column hopefully does not oscillate
+ wildly between keeping and dropping.
+ The case study below shows that the column selection settles, which reduces
+ the average case time complexity.
+\end_layout
+
+\begin_layout Standard
+In the new system 
+\begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)$
+\end_inset
+
+, all drop-columns are grouped together in a single block on the right side
+ of the matrix, followed only by the execution times column.
+ A reduced solution 
+\begin_inset Formula $\underline{\tilde{x}}$
+\end_inset
+
+ can now be calculated by performing back-substitution in a reduced system,
+ where the dropped columns are removed and an equal number of rows are deleted
+ from the bottom end of the system.
+ Figure
+\begin_inset space ~
+\end_inset
+
+ visualizes such a reduced system.
+ This solution 
+\begin_inset Formula $\underline{\tilde{x}}$
+\end_inset
+
+ derives only from the significant metrics, so it is expected to produce
+ a more stable prediction.
+ The following case study confirms this proposition.
+\end_layout
+
+\begin_layout Section
+Case Study: Video Decoding
+\end_layout
+
+\begin_layout Standard
 \begin_inset Note Greyedout
 status open
 
-\begin_layout Itemize
-explain online execution time training in detail
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-time-measurements using per-thread clock
-\end_layout
-
-\begin_layout Itemize
-initialization of the predictor
-\end_layout
-
-\begin_layout Itemize
-application-specific predictors can be used instead of the default auto-regressi
-ve predictor
-\end_layout
-
-\end_deeper
 \begin_layout Itemize
 caste study: video decoding time
 \end_layout
@@ -13888,6 +14162,20 @@ evaluate metrics alternatives
 \end_layout
 
 \begin_layout Itemize
+practical issues
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+initialization of the predictor
+\end_layout
+
+\begin_layout Itemize
+time-measurements using per-thread clock
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
 show stability problems and substantiate choice of estimator parameters
 \end_layout
 
@@ -13909,6 +14197,11 @@ Therefore, I chose an aging factor of
 \end_layout
 
 \end_deeper
+\begin_layout Itemize
+application-specific predictors can be used instead, but auto-regressive
+ predictor is a useful default since it can predict such a dynamic process
+\end_layout
+
 \begin_layout Itemize
 stability allows adding unrelated columns, always add a 1-column for convenience
 \end_layout
