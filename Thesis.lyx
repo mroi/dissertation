@@ -5398,6 +5398,25 @@ Lambdas Far and Wide
 \end_layout
 
 \begin_layout Standard
+\begin_inset Marginal
+status open
+
+\begin_layout Plain Layout
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Plain Layout
+Some of the text here went verbatim into the HotOS paper on Elastic Manycores.
+ Reference here, if it gets accepted.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
 Asynchronous lambdas combine a programming pattern based on asynchronous
  invocation and a lambda language feature to deliver a unique combination
  of properties.
@@ -13605,7 +13624,11 @@ The increasing inflexibility
 \end_layout
 
 \begin_layout Standard
-Atlas incorporates an 
+
+\noun on
+Atlas
+\noun default
+ incorporates an 
 \begin_inset Flex SmallCaps
 status collapsed
 
@@ -14066,8 +14089,8 @@ In the new system
 \begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)$
 \end_inset
 
-, all drop-columns are grouped together in a single block on the right side
- of the matrix, followed only by the execution times column.
+, all drop-columns are grouped together in a single block on the right-hand
+ side of the matrix, followed only by the execution times column.
  A reduced solution 
 \begin_inset Formula $\underline{\tilde{x}}$
 \end_inset
@@ -14161,6 +14184,24 @@ key "Altenbernd:MPEG-WCET"
 evaluate metrics alternatives
 \end_layout
 
+\begin_deeper
+\begin_layout Itemize
+also show with complete movies
+\end_layout
+
+\begin_deeper
+\begin_layout Plain Layout
+The convincing results for the other videos in Table
+\begin_inset space ~
+\end_inset
+
+X indicate that the prediction provides accurate estimates for both the
+ short clips and the full-length movies, regardless of the encoding profile
+ being used.
+\end_layout
+
+\end_deeper
+\end_deeper
 \begin_layout Itemize
 practical issues
 \end_layout
@@ -14172,6 +14213,10 @@ initialization of the predictor
 
 \begin_layout Itemize
 time-measurements using per-thread clock
+\end_layout
+
+\begin_layout Itemize
+overhead from the predictor
 \end_layout
 
 \end_deeper
@@ -14762,7 +14807,7 @@ key "Nieh:SVR4UNIX_Unacceptable"
 \end_layout
 
 \begin_layout Itemize
-evaluate scheduler overhead
+scheduler overhead: see Stefan’s thesis
 \end_layout
 
 \end_deeper
@@ -14812,6 +14857,12 @@ this may not work for games or camera-based gesture tracking
 \end_layout
 
 \end_deeper
+\begin_layout Itemize
+more than one application concurrently scheduled by 
+\noun on
+Atlas
+\end_layout
+
 \begin_layout Itemize
 system can predict deadline misses, even though it does not have implicit
  clairvoyance from periods
@@ -15098,7 +15149,11 @@ key "Caccamo:SlackReclaiming"
 
 \begin_deeper
 \begin_layout Itemize
-similar to Atlas EDF-headstart
+similar to 
+\noun on
+Atlas
+\noun default
+ EDF-headstart
 \end_layout
 
 \begin_layout Itemize
@@ -15421,7 +15476,11 @@ feedback is coarse grained (in the order of seconds) and only aligns allocation
 \end_layout
 
 \begin_layout Itemize
-ATLAS aims for precise allocation of every job
+
+\noun on
+Atlas
+\noun default
+ aims for precise allocation of every job
 \end_layout
 
 \begin_layout Itemize
@@ -15438,7 +15497,11 @@ stealing in BERT in unbounded, no guarantees for the lower priority tasks
 \end_layout
 
 \begin_layout Itemize
-ATLAS uses CFS preroll to gain extra cycles without harming any guarntees
+
+\noun on
+Atlas
+\noun default
+ uses CFS preroll to gain extra cycles without harming any guarntees
 \end_layout
 
 \end_deeper
@@ -15559,8 +15622,12 @@ rationale for fairness: responsiveness under overload
 \end_layout
 
 \begin_layout Itemize
-for Atlas, the LRT-band always comes first; responsiveness is real-time
- and should be expressed by deadline
+for 
+\noun on
+Atlas
+\noun default
+, the LRT-band always comes first; responsiveness is real-time and should
+ be expressed by deadline
 \end_layout
 
 \begin_layout Itemize
