@@ -1,5 +1,5 @@
 # Veusz saved document (version 1.16)
-# Saved at 2012-11-20T10:23:17.238702
+# Saved at 2013-01-30T09:34:18.850009
 
 AddImportPath(u'/Users/Michael/Documents/Forschung/Dissertation/Data/3-Real-Time')
 ImportFile(u'RMS_Admission.tab', u'reservation misses', linked=True, ignoretext=True)
@@ -48,6 +48,7 @@ To('x')
 Set('label', u'Reservation')
 Set('TickLabels/format', u'%g\u200ams')
 Set('TickLabels/scale', 1000.0)
+Set('MajorTicks/number', 4)
 To('..')
 Add('axis', name=u'x2', autoadd=False)
 To(u'x2')
@@ -57,6 +58,7 @@ Set('TickLabels/format', u'%g%')
 Set('TickLabels/scale', 2400.0)
 Set('TickLabels/offset', u'10pt')
 Set('MajorTicks/hide', True)
+Set('MajorTicks/number', 4)
 To('..')
 Add('axis', name='y', autoadd=False)
 To('y')
