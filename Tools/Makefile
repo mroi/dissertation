@@ -9,6 +9,7 @@ all:
 
 check: ../Thesis.lyx
 	grep -B1 -A1 -w Atlas $< | sed '/^\\noun on$$/,/^\\noun default$$/d' | fgrep --color=auto Atlas
+	grep -B4 -A3 -w H.264 $< | sed '/^\\begin_inset Flex SmallCaps$$/,/^\\end_inset$$/d' | fgrep --color=auto H.264
 
 style: Thesis-stylight.pdf
 	open $<
