@@ -210,7 +210,7 @@ End
 \papercolumns 1
 \papersides 2
 \paperpagestyle default
-\listings_params "basicstyle={\ttfamily\small},language=C,numberstyle={\ttfamily\small\color{gray}},tabsize=2"
+\listings_params "aboveskip=0pt,basicstyle={\ttfamily\small},belowskip=0pt,language=C,numberstyle={\ttfamily\small\color{gray}},tabsize=2"
 \tracking_changes false
 \output_changes false
 \html_math_output 0
@@ -1791,7 +1791,7 @@ sideways false
 status open
 
 \begin_layout Plain Layout
-\begin_inset VSpace defskip
+\begin_inset VSpace -1mm
 \end_inset
 
 
@@ -1820,13 +1820,6 @@ name "1-mar:CPU-Scheduling"
 CPU Scheduling
 \end_layout
 
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset VSpace defskip
 \end_inset
 
 
@@ -2058,6 +2051,13 @@ A vertically integrated solution
 wide false
 sideways false
 status open
+
+\begin_layout Plain Layout
+\begin_inset VSpace -1mm
+\end_inset
+
+
+\end_layout
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -3227,7 +3227,7 @@ reference "5-chap:Adaptivity"
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset VSpace bigskip
+\begin_inset VSpace 15pt
 \end_inset
 
 
@@ -3353,8 +3353,8 @@ I contribute a scheduler interface
 
 \end_inset
 
- and an accompanying task model that allow applications to express timing
- and resource requirements.
+ and an accompanying task model and runtime infrastructure that allow applicatio
+ns to express timing and resource requirements.
  Other than the majority of related work, I do not employ a periodic task
  model.
 \begin_inset Index idx
@@ -3382,8 +3382,8 @@ The
 \noun on
 Atlas
 \noun default
- scheduler interface as seen by the application developer only asks for
- parameters from the application domain.
+ interface as seen by the application developer only asks for parameters
+ from the application domain.
  Deadlines specify timing requirements.
  Resource requirements are specified using 
 \begin_inset Flex SmallCaps
@@ -3444,10 +3444,14 @@ key "Roitzsch:Atlas"
 \end_layout
 
 \begin_layout Standard
-I demonstrate with code examples that this task model is easy to program
+The 
+\noun on
+Atlas
+\noun default
+ runtime has been designed with current programming trends in mind.
+ It explores the interaction between real-time jobs and asynchronous lambdas.
+ I demonstrate with code examples that the task model is easy to program
  against.
- I believe it is easier than reservation-based interfaces for which the
- developer needs to specify a desired CPU allocation.
  However, a formal usability analysis of the programming interface is not
  part of this thesis.
 \end_layout
@@ -3489,7 +3493,18 @@ constraint satisfaction problem
 
 \begin_inset CommandInset citation
 LatexCommand cite
+after "-2\\baselineskip"
 key "Schaerf:CSP"
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+manual offset
+\end_layout
 
 \end_inset
 
@@ -3668,6 +3683,13 @@ Parallel Execution Alternatives
 
 \end_layout
 
+\begin_layout Plain Layout
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
 \end_inset
 
 
@@ -3771,7 +3793,7 @@ Atlas
 Because parallel speedup is typically sub-linear,
 \begin_inset CommandInset citation
 LatexCommand cite
-after "-1\\baselineskip"
+after "-2\\baselineskip"
 key "Amdahl:AmdahlsLaw"
 
 \end_inset
@@ -4581,8 +4603,8 @@ However, this model made the developers’ lives easier at the price of user
  from the network, its only thread is stuck in a blocking system call.
  Consequently, that thread is now unavailable for user interactions.
  The application appears dead for a while.
- The visual cue for such a mishap are redraw artifacts that tail other windows
- as they get dragged over the blocked application.
+ The visual cue for such a mishap are redraw artifacts that tail other applicati
+ons’ windows when the user drags them over the blocked application.
  They appear like in Figure
 \begin_inset space ~
 \end_inset
@@ -4594,8 +4616,8 @@ reference "2-mar:Blocked-Window-Redraws"
 
 \end_inset
 
- because the blocked application no longer performs updates of its window
- content.
+ because the blocked application underneath no longer updates its window
+ content and thus never clears the ghost copies of the window on top.
 \end_layout
 
 \begin_layout Standard
@@ -4755,6 +4777,13 @@ status collapsed
 \begin_layout Plain Layout
 closure
 \end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Jarvi:Wording"
 
 \end_inset
 
@@ -5314,6 +5343,14 @@ Version on the very right invokes a block of code asynchronously, but without
  In fact, using lambdas, the code regains a lot of the simplicity of the
  serial version, which is the main reason why this programming style is
  so attractive.
+ It may appear as syntactic sugar in this toy example, but such assistance
+ encourages new paradigms for concurrent and responsive program design.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Cowin:ParadigmShift"
+
+\end_inset
+
  The pseudo-code lambda in the figure uses the block syntax from Apple’s
  Grand
 \begin_inset space ~
@@ -5488,8 +5525,14 @@ key "Sutter:C++AMP_Keynote"
 
 \end_inset
 
- Academia has explored the mechanics of such generic parallel runtimes and
- their work queue management strategies early.
+ Early academic research pioneered many concepts of parallel language runtimes
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Murer:pSather"
+
+\end_inset
+
+ or work queue management strategies.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Blumofe:Cilk"
@@ -5612,7 +5655,7 @@ Implementation
 \begin_inset Text
 
 \begin_layout Plain Layout
-Term
+Code Unit
 \end_layout
 
 \end_inset
@@ -6753,7 +6796,7 @@ key "OpenMP"
 
 \begin_inset CommandInset ref
 LatexCommand vref
-reference "2-mar:OpenMP-Fork-Join"
+reference "2-fig:OpenMP-Fork-Join"
 
 \end_inset
 
@@ -6788,7 +6831,7 @@ key "Kulkarni:Galois"
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "2-mar:Galois-Set-Iterator"
+reference "2-fig:Galois-Set-Iterator"
 
 \end_inset
 
@@ -6816,7 +6859,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "2-mar:OpenMP-Fork-Join"
+name "2-fig:OpenMP-Fork-Join"
 
 \end_inset
 
@@ -6826,7 +6869,38 @@ OpenMP Fork-Join-Model
 \end_inset
 
 
-\begin_inset VSpace defskip
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Figures/2-Anatomy/Set_Iterator.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "2-fig:Galois-Set-Iterator"
+
+\end_inset
+
+Galois Set Iterator
+\end_layout
+
 \end_inset
 
 
@@ -6893,48 +6967,24 @@ key "Limberg:Tomahawk"
  asynchronously on a processing element.
  Although input and output data of a task must be marked explicitly, the
  memory content is automatically transferred by a memory controller.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float marginfigure
-wide false
-sideways false
-status open
+ Similar hardware-implemented scheduling like Nvidia’s Gigathread engine
+\begin_inset Index idx
+status collapsed
 
 \begin_layout Plain Layout
-\begin_inset Graphics
-	filename Figures/2-Anatomy/Set_Iterator.svg
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "2-mar:Galois-Set-Iterator"
-
-\end_inset
-
-Galois Set Iterator
+Gigathread engine
 \end_layout
 
 \end_inset
 
 
-\begin_inset VSpace defskip
-\end_inset
-
-
-\end_layout
+\begin_inset CommandInset citation
+LatexCommand cite
+key "NVIDIA_Fermi"
 
 \end_inset
 
-
+ operates in today’s GPUs.
 \end_layout
 
 \begin_layout Section
@@ -7164,20 +7214,6 @@ reference "2-fig:GCD-Blocks-Capture"
 \end_inset
 
  demonstrates these properties:
-\begin_inset Newpage newpage
-\end_inset
-
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-manual page break
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -7187,10 +7223,6 @@ sideways false
 status open
 
 \begin_layout Plain Layout
-\begin_inset VSpace -3mm
-\end_inset
-
-
 \begin_inset listings
 lstparams "numbers=left"
 inline false
@@ -7382,10 +7414,6 @@ sideways false
 status open
 
 \begin_layout Plain Layout
-\begin_inset VSpace -3mm
-\end_inset
-
-
 \begin_inset listings
 lstparams "numbers=left"
 inline false
@@ -7614,10 +7642,6 @@ sideways false
 status open
 
 \begin_layout Plain Layout
-\begin_inset VSpace -3mm
-\end_inset
-
-
 \begin_inset listings
 lstparams "numbers=left"
 inline false
@@ -7718,7 +7742,8 @@ Asynchronous Execution with libdispatch
 
 \begin_layout Standard
 \noindent
-The block is passed in line six to a libdispatch function, which enqueues
+Line four obtains a reference to the default global dispatch queue.
+ The block is passed in line six to a libdispatch function, which enqueues
  it for asynchronous execution.
  Figure
 \begin_inset space ~
@@ -8267,7 +8292,7 @@ Git commit
 \begin_inset CommandInset href
 LatexCommand href
 name "39fe8033"
-target "http://git.videolan.org/?p=ffmpeg.git;a=commit;h=39fe8033bbf94cac7935d749849fdf67ba8fc16a"
+target "http://git.videolan.org/?p=ffmpeg.git;a=tree;h=6e8813a1c43a17b07e85af6872e86234d0167bcb;hb=39fe8033bbf94cac7935d749849fdf67ba8fc16a"
 
 \end_inset
 
@@ -8364,7 +8389,7 @@ status collapsed
 
 \begin_layout Plain Layout
 
-https://os.inf.tu-dresden.de/~mroi/svn/video/branches/Dissertation/
+https://os.inf.tu-dresden.de/~mroi/thesis-svn
 \end_layout
 
 \end_inset
@@ -8374,7 +8399,7 @@ https://os.inf.tu-dresden.de/~mroi/svn/video/branches/Dissertation/
 
 \begin_layout Plain Layout
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -8382,11 +8407,11 @@ status collapsed
 \backslash
 hfill
 \backslash
-begin{pspicture}(0.5in,0.5in)
+begin{pspicture}(0.45in,0.45in)
 \backslash
 psbarcode{https://os.inf.tu-dresden.de/
 \backslash
-%7Emroi/svn/video/branches/Dissertation/}{width=0.5 height=0.5}{qrcode}
+%7Emroi/thesis-svn}{width=0.45 height=0.45}{qrcode}
 \backslash
 end{pspicture}
 \end_layout
@@ -8427,8 +8452,8 @@ reference "2-fig:FFplay-Multithreaded-Player"
 .
  This architecture offloads the bulk of work to background threads, keeping
  the main thread responsive.
- Thus, it is prototypical for a well-behaving graphical user interface applicati
-on that performs heavy data processing.
+ Thus, it typifies a well-behaving graphical user interface application
+ that performs data processing.
 \end_layout
 
 \begin_layout Standard
@@ -8710,10 +8735,9 @@ key "Liu:RealTimeSystems"
 
  uses a slightly different meaning for the term release time.
  Here, it is a specific point in the flow of the running code.
- A job is released when the CPU reaches the next iteration.
- Thus, the release instant is a result of previous scheduling decisions.
+ A job is released when execution reaches the next iteration.
  In the real-time sense, the release time is part of a formal task model
- and is an input to the scheduler rather than an outcome.
+ and is a constraint or an assumption for the scheduler to consider.
 \end_layout
 
 \begin_layout Standard
@@ -8905,7 +8929,7 @@ This video is a representative high definition movie trailer.
 
 \begin_inset CommandInset ref
 LatexCommand vref
-reference "3-tab:Videos"
+reference "3-tab:Test-Clips"
 
 \end_inset
 
@@ -8927,7 +8951,7 @@ reference "3-tab:Videos"
 
 .
  The table continues with the median execution time and its interquartile
- range
+ range (IQR)
 \begin_inset space \thinspace{}
 \end_inset
 
@@ -9049,7 +9073,7 @@ Processing pipelines
 \end_inset
 
  such as FFplay’s engine lend themselves well to the queue-based dispatching
- of work in the asynchronous lambdas style.
+ of work in the asynchronous lambda style.
  Figure
 \begin_inset space ~
 \end_inset
@@ -9115,6 +9139,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset listings
+lstparams "aboveskip=0pt,belowskip=0pt"
 inline false
 status open
 
@@ -9296,6 +9321,7 @@ void start_playback() {
 
 \begin_layout Plain Layout
 \begin_inset listings
+lstparams "aboveskip=0pt,belowskip=0pt"
 inline false
 status open
 
@@ -9364,7 +9390,7 @@ void decoder_stage() {
 
 \begin_layout Plain Layout
 
-};
+}
 \end_layout
 
 \begin_layout Plain Layout
@@ -9406,7 +9432,7 @@ void output_stage() {
 
 \begin_layout Plain Layout
 
-};
+}
 \end_layout
 
 \begin_layout Plain Layout
@@ -10895,7 +10921,7 @@ This video is CPU intensive to decode.
 
 \begin_inset CommandInset ref
 LatexCommand vref
-reference "3-tab:Videos"
+reference "3-tab:Test-Clips"
 
 \end_inset
 
@@ -11277,7 +11303,7 @@ Overload
 \begin_inset space \space{}
 \end_inset
 
-Detection replaces a traditional real-time admission, which uses a priori
+Detection replaces traditional real-time admission, which uses a priori
  information to prevent overload.
  I object to overruling a user decision, so 
 \noun on
@@ -11560,7 +11586,7 @@ key "Shin:Compositional"
 
  Instead, the passing of job descriptions to the system-wide scheduler enables
  comprehensive scheduling decisions in one place.
- The applications then merely execute those decisions.
+ The applications then execute according to those decisions.
 \end_layout
 
 \begin_layout Standard
@@ -11632,11 +11658,16 @@ aperiodic jobs
 \end_inset
 
  the job number within the task.
- At the scheduler level, each job is described as a pair 
+ At most one job per task can be running and jobs execute in arrival order.
+ Therefore, tasks are an abstract concept to describe inter-job dependencies.
+\end_layout
+
+\begin_layout Standard
+At the scheduler level, each job is described as a pair 
 \begin_inset Formula $J_{i,j}=(e_{i,j},d_{i,j})$
 \end_inset
 
- of an execution time
+ of an estimated execution time
 \begin_inset Index idx
 status collapsed
 
@@ -12166,7 +12197,7 @@ b
 
 \end_inset
 
- to the queue
+ to a queue
 \begin_inset Index idx
 status collapsed
 
@@ -12242,9 +12273,53 @@ an array holding the metrics.
 
 \begin_layout Standard
 The signature of the resulting new function is:
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+enlargethispage{
+\backslash
+baselineskip}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+manual page size adjustment
+\end_layout
+
+\end_inset
+
+
+\begin_inset VSpace defskip
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
+\noindent
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
 \begin_inset listings
 inline false
 status open
@@ -12303,6 +12378,11 @@ dispatch_async_atlas(dispatch_queue_t queue,
 
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
 \noindent
 The block remains the last argument, which improves readability when writing
@@ -12340,11 +12420,11 @@ submit
 Atlas
 \noun default
  estimator about a new job 
-\begin_inset Formula $J'$
+\begin_inset Formula $J'_{i,j}$
 \end_inset
 
  with the given deadline and metrics.
- The dispatch queue corresponds directly to the task 
+ The dispatch queue corresponds to the task 
 \begin_inset Formula $\tau_{i}$
 \end_inset
 
@@ -12354,7 +12434,7 @@ Atlas
 \end_layout
 
 \begin_layout Standard
-Every dispatch queue comes with an associated worker thread.
+In my prototype, every dispatch queue comes with an associated worker thread.
  It runs an endless loop, where it first calls the 
 \emph on
 next
@@ -12484,14 +12564,22 @@ Atlas
 \begin_layout Itemize
 Other than the official GCD library, my reimplementation of the queueing
  infrastructure only supports independent serial queues.
- In the next chapter, I add parallel queues, but GCD also provides functions
- to suspend and resume queues or organize them in parent-child relationships.
+ I add parallel queues in the next chapter 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "4-chap:Parallelism"
+
+\end_inset
+
+.
+ However, the official GCD interface also provides functions to suspend
+ and resume queues or organize them in parent-child relationships.
  The 
 \noun on
 Atlas
 \noun default
- concept does not technically prevent completing the implementation.
- However, the implemented subset is sufficient to demonstrate my approach.
+ concept does not technically prevent completing the implementation, but
+ the implemented subset is sufficient to demonstrate my approach.
 \end_layout
 
 \begin_layout Itemize
@@ -12681,12 +12769,10 @@ An independent estimator state is maintained for each kind of block submitted
 status collapsed
 
 \begin_layout Plain Layout
-\noindent
 \begin_inset Flex Code
 status collapsed
 
 \begin_layout Plain Layout
-\noindent
 dispatch_async_atlas
 \end_layout
 
@@ -14117,6 +14203,902 @@ Case Study: Video Decoding
 \end_layout
 
 \begin_layout Standard
+After the mathematical rundown of execution time prediction, I want to explain
+ the bigger picture: How would a developer with specific knowledge in his
+ application domain
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+domain knowledge
+\end_layout
+
+\end_inset
+
+ adopt 
+\noun on
+Atlas
+\noun default
+? I continue using video playback as the example, because it is a highly
+ dynamic workload that is challenging to estimate.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "1-fig:Total-and-Zoomed"
+
+\end_inset
+
+ illustrates the variability of video decoding times.
+ More examples follow later in this section.
+\end_layout
+
+\end_inset
+
+ The case study provides a better understanding of the workload metrics
+ and the behavior of the estimator.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+We assume
+\end_layout
+
+\end_inset
+
+ the video player has already been adapted to the asynchronous lambda style
+ using GCD.
+ The necessary changes to FFplay have been outlined in the previous chapter
+ 
+\emph on
+
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "2-chap:Anatomy"
+
+\end_inset
+
+
+\emph default
+.
+ Employing 
+\noun on
+Atlas
+\noun default
+ is easiest when using the interface with the highest abstraction level:
+ the 
+\begin_inset Flex NoWrap
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+dispatch_async_atlas
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ extension to GCD.
+ Accessing the lower-level primitives of the estimator is also possible
+ and will become necessary during the modification of FFplay because of
+ technical constraints.
+\end_layout
+
+\begin_layout Standard
+We further assume the developer is familiar with the problem domain of the
+ application, in this case video playback.
+ Such knowledge is helpful to formulate the timing requirements and to come
+ up with good candidate metrics for the execution time prediction.
+\end_layout
+
+\begin_layout Standard
+For a video player, the time constraint is rather obvious: frames should
+ be completely decoded and displayed until a time instant dictated by video
+ metadata, commonly a fixed frame rate.
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+frame rate
+\end_layout
+
+\end_inset
+
+ Although variable frame-rate video is possible,
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Today’s video formats like the MPEG-4 family support individual presentation
+ time stamps (PTS) for each frame.
+ This can improve compression efficiency for certain source material, for
+ example cel-animated content.
+\end_layout
+
+\end_inset
+
+ I assume a constant frame rate for this case study.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+To discuss the metrics selection,
+\end_layout
+
+\end_inset
+
+ I selected the five demo videos in Table
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-tab:Test-Clips"
+
+\end_inset
+
+.
+ They cover a typical range of resolutions, given in pixels, frame rates,
+ given as frames per second (FPS), and coding profiles, which declare a
+ set of decoder features required by the video.
+ I focus on the 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+H.264
+\end_layout
+
+\end_inset
+
+ video decoding standard,
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Wiegand:H.264"
+
+\end_inset
+
+ because it is widely deployed and powers the majority of modern media applicati
+ons from mobile video to HD and 
+\begin_inset Formula $3\mathrm{D}$
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+Blu-ray discs.
+ All test videos but one have been encoded by me with the x264 encoder.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+
+\emph on
+\begin_inset CommandInset href
+LatexCommand href
+name "x264"
+target "http://www.videolan.org/developers/x264.html"
+
+\end_inset
+
+
+\emph default
+ is a highly competitive open-source 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+H.264
+\end_layout
+
+\end_inset
+
+ encoder.
+ At the time of this writing, it has won the last six installments of the
+ Annual MSU 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+H.264
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset CommandInset href
+LatexCommand href
+name "Video Codec Comparison"
+target "http://www.compression.ru/video/codec_comparison/h264_2012/"
+
+\end_inset
+
+.
+ The x264 version used here is git commit 
+\emph on
+
+\begin_inset CommandInset href
+LatexCommand href
+name "37be5521"
+target "http://git.videolan.org/?p=x264.git;a=tree;h=853628a3c38c6bc06b049ff9c74dc33c7f2a317f;hb=37be55213a39db40cf159ada319bd482a1b00680"
+
+\end_inset
+
+
+\emph default
+ from July 2012.
+\end_layout
+
+\end_inset
+
+ The Shore video was encoded by the manufacturer of the commercial FastVDO
+ encoder.
+ I ignore audio, because its computational load is two orders of magnitude
+ smaller than video decoding and its timing requirements are less strict,
+ because sample buffering and timely output are managed by the audio hardware.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="7">
+<features booktabs="true" tabularvalignment="middle">
+<column alignment="left" valignment="top" width="2.3cm">
+<column alignment="left" valignment="top" width="4cm">
+<column alignment="right" valignment="top" width="0pt">
+<column alignment="right" valignment="top" width="0">
+<column alignment="right" valignment="top" width="0">
+<column alignment="left" valignment="top" width="0">
+<column alignment="left" valignment="top" width="2.2cm">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Video (Source)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Content
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Resolution
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+FPS
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Length
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Profile
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Encoding
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row bottomspace="default">
+<cell alignment="left" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Shore
+\begin_inset Newline newline
+\end_inset
+
+(
+\emph on
+
+\begin_inset CommandInset href
+LatexCommand href
+name "FastVDO"
+target "http://www.fastvdo.com/H.264.html"
+
+\end_inset
+
+
+\emph default
+)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+flight over a shoreline at dawn
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $740\!\!\times\!\!576$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $25$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $27\,\mathrm{s}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+High
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+FastVDO
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row bottomspace="default">
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Black Swan (
+\emph on
+
+\begin_inset CommandInset href
+LatexCommand href
+name "Apple Trailers"
+target "http://trailers.apple.com/trailers/fox_searchlight/blackswan/"
+
+\end_inset
+
+
+\emph default
+)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+movie trailer for “Black
+\begin_inset space ~
+\end_inset
+
+Swan” (2010)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $848\!\!\times\!\!352$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $24$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $126\,\mathrm{s}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Baseline
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+x264, CBR, 
+\begin_inset Formula $1500\,\mathrm{kbit/s}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row bottomspace="default">
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Parkrun
+\begin_inset Newline newline
+\end_inset
+
+(
+\emph on
+
+\begin_inset CommandInset href
+LatexCommand href
+name "Xiph Test Clip"
+target "http://media.xiph.org/video/derf/"
+
+\end_inset
+
+
+\emph default
+)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+man running in a park with trees, snow and water
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $1280\!\!\times\!\!720$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $50$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $10\,\mathrm{s}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+High
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+x264, CBR, 
+\begin_inset Formula $4\,\mathrm{Mbit/s}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row bottomspace="default">
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Rush Hour
+\begin_inset Newline newline
+\end_inset
+
+(
+\emph on
+
+\begin_inset CommandInset href
+LatexCommand href
+name "Xiph Test Clip"
+target "http://media.xiph.org/video/derf/"
+
+\end_inset
+
+
+\emph default
+)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+rush-hour in downtown Munich with heat haze
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $1920\!\!\times\!\!1080$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $25$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $20\,\mathrm{s}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Main
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+x264, CRF, Rate
+\begin_inset space ~
+\end_inset
+
+Factor
+\begin_inset space ~
+\end_inset
+
+23
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row bottomspace="default">
+<cell alignment="left" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Hunger Games
+\begin_inset Newline newline
+\end_inset
+
+(
+\emph on
+
+\begin_inset CommandInset href
+LatexCommand href
+name "Apple Trailers"
+target "http://trailers.apple.com/trailers/lions_gate/thehungergames/"
+
+\end_inset
+
+
+\emph default
+)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+movie trailer for “The Hunger
+\begin_inset space ~
+\end_inset
+
+Games” (2012)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $1920\!\!\times\!\!816$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $24$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $155\,\mathrm{s}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+High
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+x264, CRF, Rate
+\begin_inset space ~
+\end_inset
+
+Factor
+\begin_inset space ~
+\end_inset
+
+23
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset VSpace 15pt
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-tab:Test-Clips"
+
+\end_inset
+
+Properties of Test Videos for Experiments
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+The video playback pipeline
+\end_layout
+
+\end_inset
+
+ consists of three stages: the input stage reads the compressed video from
+ disk, the decoder stage converts it to frames, which the output stage displays.
+ These stages are connected by queues
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+These queues contain application data and should not be confused with GCD’s
+ work queues.
+\end_layout
+
+\end_inset
+
+ with a limited number of slots where elements wait to be processed by the
+ next stage.
+\end_layout
+
+\begin_layout Standard
+Figure
+\begin_inset space ~
+\end_inset
+
+ shows one possible queue situation: the current length of the video queue
+ is four, the picture queue holds one decoded frame.
+ FFplay’s default setup uses a five-slot video queue and a two-slot picture
+ queue.
+ The time interval between two consecutive frames is determined by the video
+ frame rate and dictates a display time for every frame.
+ The idea of the queues is to compensate for heavyweight frames who need
+ more execution time in a stage than the frame interval allows.
+ We therefore try to keep the queues filled and derive the following deadlines
+ for the jobs processed by the player stages:
+\end_layout
+
+\begin_layout Standard
 \begin_inset Note Greyedout
 status open
 
@@ -14125,39 +15107,6 @@ caste study: video decoding time
 \end_layout
 
 \begin_deeper
-\begin_layout Itemize
-goal: give a feeling for the metrics and the estimator
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Float table
-wide true
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "3-tab:Videos"
-
-\end_inset
-
-Videos Used in Experiments
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Itemize
 explain the metrics selection
 \begin_inset CommandInset citation
@@ -14201,6 +15150,35 @@ X indicate that the prediction provides accurate estimates for both the
 \end_layout
 
 \end_deeper
+\begin_layout Plain Layout
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-tab:Videos"
+
+\end_inset
+
+Test Clips, Short Films, and Movies for Experiments
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \end_deeper
 \begin_layout Itemize
 practical issues
@@ -15184,11 +16162,24 @@ overload handling instead of admission
 \end_layout
 
 \begin_layout Itemize
-two layer approach: dedicated controller per task like HDE
+two layer approach: dedicated controller per task like estimator
 \end_layout
 
 \begin_layout Itemize
 dynamic bandwidth adaptation to workload as an afterthought
+\end_layout
+
+\begin_layout Itemize
+control remembers the past and predicts from there, chaotic jumps are eased
+ after they occurred
+\end_layout
+
+\begin_layout Itemize
+
+\noun on
+Atlas
+\noun default
+ can preconceive jumps from metrics and predict much tighter
 \end_layout
 
 \begin_layout Itemize
@@ -16093,6 +17084,17 @@ key "Lemon:Kqueue"
 
 \end_deeper
 \begin_layout Itemize
+asynchronous network packet API for 10Gbit/s speed at userlevel
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Rizzo:netmap"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
 DSI on L4 and Fbufs
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -16425,6 +17427,17 @@ on NUMA-systems, placement influences memory latency
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Blagodurov:DINO"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+warm up caches on a second core using an active prefetch thread
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Kamruzzaman:Prefetching"
 
 \end_inset
 
@@ -17686,6 +18699,17 @@ trivial examples (disable backup on low battery) are rather obvious and
 
 \begin_layout Itemize
 use energy instead of CPU time as a cost metric in adaptation decisions
+\end_layout
+
+\begin_layout Itemize
+nested control loops for trading application quality and energy use
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Cucinotta:ApplicationQoS"
+
+\end_inset
+
+
 \end_layout
 
 \end_deeper
