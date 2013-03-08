@@ -1,5 +1,5 @@
 # Veusz saved document (version 1.16)
-# Saved at 2012-10-30T11:00:47.182594
+# Saved at 2013-01-30T09:39:02.122229
 
 AddImportPath(u'/Users/Michael/Documents/Forschung/Dissertation/Data/1-Introduction')
 ImportFile(u'Decoding_Times.log', u'time', linked=True, ignoretext=True)
@@ -78,7 +78,7 @@ Add('axis', name='y', autoadd=False)
 To('y')
 Set('label', u'Decoding Time (ms)')
 Set('min', 0.0)
-Set('max', 0.08)
+Set('max', 0.06)
 Set('direction', 'vertical')
 Set('TickLabels/scale', 1000.0)
 To('..')
