@@ -1,4 +1,3 @@
-format(5);
 Log = read("Characteristics.log", -1, 5);
 Stage_inp = Log(find(Log == 0), 2:5);
 Stage_dec = Log(find(Log == 1), 2:5);
@@ -9,6 +8,7 @@ Result = Result + ascii(9) + ["right"; "Stage"; "input"; "decoder"; "output"];
 Result = Result + ascii(9) + ["left"; "Behavior"; "input-bound"; "CPU-intensive"; "self-suspending"];
 
 // CPU load = time_in_thread / total runtime
+format(5);
 Cpu = [];
 Cpu = [Cpu; max(Stage_inp(:,2)) / (max(Stage_inp(:,1)) - min(Stage_inp(:,1)))];
 Cpu = [Cpu; max(Stage_dec(:,2)) / (max(Stage_dec(:,1)) - min(Stage_dec(:,1)))];
@@ -16,6 +16,7 @@ Cpu = [Cpu; max(Stage_out(:,2)) / (max(Stage_out(:,1)) - min(Stage_out(:,1)))];
 Result = Result + ascii(9) + ["right"; "Load"; ("$" + string(100*Cpu) + "\%$")];
 
 // median execution time
+format(5);
 Avg = [];
 Avg = [Avg; median(Stage_inp(:,3))];
 Avg = [Avg; median(Stage_dec(:,3))];
@@ -23,6 +24,7 @@ Avg = [Avg; median(Stage_out(:,3))];
 Result = Result + ascii(9) + ["right"; "Median"; ("$" + string(1000*Avg) + "\,\mathrm{ms}$")];
 
 // interquartile range
+format(6);
 Iqr = [];
 Iqr = [Iqr; iqr(Stage_inp(:,3))];
 Iqr = [Iqr; iqr(Stage_dec(:,3))];
@@ -30,6 +32,7 @@ Iqr = [Iqr; iqr(Stage_out(:,3))];
 Result = Result + ascii(9) + ["right"; "IQR"; ("$" + string(1000*Iqr) + "\,\mathrm{ms}$")];
 
 // average slack
+format(5);
 Slack = [];
 Slack = [Slack; mean(Stage_inp(:,4))];
 Slack = [Slack; mean(Stage_dec(:,4))];
