@@ -1,5 +1,5 @@
 # Veusz saved document (version 1.16)
-# Saved at 2013-03-09T17:41:55.218981
+# Saved at 2013-03-23T16:33:10.956763
 
 AddImportPath(u'/Users/Michael/Documents/Forschung/Dissertation/Data/3-Real-Time')
 ImportFileCSV(u'CPU_Load_Player.tab', delimiter='\t', headermode='none', linked=True, dsprefix=u'cpu_')
@@ -38,7 +38,7 @@ To('page1')
 Add('graph', name='graph1', autoadd=False)
 To('graph1')
 Set('leftMargin', u'1pt')
-Set('rightMargin', u'1.8cm')
+Set('rightMargin', u'2cm')
 Set('topMargin', u'1pt')
 Set('bottomMargin', u'2cm')
 Add('axis', name='x', autoadd=False)
