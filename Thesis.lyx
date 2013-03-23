@@ -15138,7 +15138,7 @@ reference "3-fig:Decoding-Times"
  provides an overview of the decoding time per video frame, illustrating
  the variability within and across the test clips.
  However, when we run the same video twice, the decoding times of the two
- runs match well as illustrated in Figure
+ runs match well as demonstrated in Figure
 \begin_inset space ~
 \end_inset
 
@@ -15360,6 +15360,203 @@ workload metrics
 status collapsed
 
 \begin_layout Plain Layout
+To determine candidate metrics
+\end_layout
+
+\end_inset
+
+ we need inside knowledge of the decoding process to select good metrics.
+ I developed and published an approach for earlier video standards,
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Roitzsch:Predict"
+
+\end_inset
+
+ which I subsequently also applied to 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+H.264
+\end_layout
+
+\end_inset
+
+.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Roitzsch:Balancing"
+
+\end_inset
+
+ It is based on dividing the decoding work into smaller steps that are easier
+ to examine individually.
+ I will summarize the line of thought in the following paragraphs.
+ Text may be copied verbatim from the two papers mentioned.
+\end_layout
+
+\begin_layout Standard
+First, we need an overview of the decoding steps and how they fit together.
+ A domain expert will know that the building blocks connect as shown in
+ Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-fig:Decoder-Components"
+
+\end_inset
+
+.
+ The entire chain of components executes once per frame.
+ An inner loop iterates over the macroblocks within a frame.
+ A macroblock
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+macroblock
+\end_layout
+
+\end_inset
+
+ is a 16
+\begin_inset Formula $\times$
+\end_inset
+
+16 pixel image tile that is stored consecutively in the bitstream.
+ To form the final video frame the decoder arranges the macroblocks in raster
+ scan order and applies post processing.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Figures/3-Real-Time/Decoder_Components.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-fig:Decoder-Components"
+
+\end_inset
+
+Decoding Steps
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-mar:Relative-Time-Steps"
+
+\end_inset
+
+ visualizes the relative weight of the execution times spent in the decoding
+ steps.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Data/3-Real-Time/Times_Relative.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-mar:Relative-Time-Steps"
+
+\end_inset
+
+Relative Execution Time of the Decoding Steps
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Itemize
+caste study: video decoding time
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+relative weight of the steps
+\end_layout
+
+\begin_layout Itemize
+explain the metrics selection
+\end_layout
+
+\begin_layout Itemize
+related: workload metrics for MPEG
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Altenbernd:MPEG-WCET"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
 The video playback pipeline
 \end_layout
 
@@ -15382,7 +15579,7 @@ These queues contain application data and should not be confused with GCD’s
  next stage.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Figure
 \begin_inset space ~
 \end_inset
@@ -15397,37 +15594,6 @@ Figure
  more execution time in a stage than the frame interval allows.
  We therefore try to keep the queues filled and derive the following deadlines
  for the jobs processed by the player stages:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Greyedout
-status open
-
-\begin_layout Itemize
-caste study: video decoding time
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-explain the metrics selection
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Roitzsch:Predict"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-related: workload metrics for MPEG
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Altenbernd:MPEG-WCET"
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Itemize
