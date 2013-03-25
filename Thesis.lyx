@@ -31,6 +31,9 @@
 \renewcommand{\allcapsspacing}[1]{{\addfontfeature{LetterSpace=6.5}#1}}
 \renewcommand{\smallcapsspacing}[1]{{\addfontfeature{LetterSpace=5.0,Letters=SmallCaps}#1}}
 
+% lining figures for bibtex references (usually enabled by using math mode)
+\newcommand{\liningfigures}[1]{{\addfontfeature{Numbers=Lining}#1}}
+
 % use all-bullets for itemize and give them the right size and height
 \AtBeginDocument{
 \def\labelitemi{\raisebox{0.3mm}{\scriptsize\(\bullet\)}}
@@ -14280,8 +14283,11 @@ frame rate
 status open
 
 \begin_layout Plain Layout
-Today’s video formats like the MPEG-4 family support individual presentation
- time stamps (PTS) for each frame.
+Today’s video formats like the MPEG-
+\begin_inset Formula $4$
+\end_inset
+
+ family support individual presentation time stamps (PTS) for each frame.
  This can improve compression efficiency for certain source material, for
  example cel-animated content.
 \end_layout
@@ -14375,12 +14381,12 @@ coding profiles
 status collapsed
 
 \begin_layout Plain Layout
-H.264
+H
 \end_layout
 
 \end_inset
 
-
+.264
 \begin_inset Index idx
 status collapsed
 
@@ -14389,12 +14395,12 @@ status collapsed
 status collapsed
 
 \begin_layout Plain Layout
-H.264
+H
 \end_layout
 
 \end_inset
 
-
+.264
 \end_layout
 
 \end_inset
@@ -14447,24 +14453,24 @@ target "http://www.videolan.org/developers/x264.html"
 status collapsed
 
 \begin_layout Plain Layout
-H.264
+H
 \end_layout
 
 \end_inset
 
- encoder.
+.264 encoder.
  At the time of this writing, it has won the last six installments of the
  Annual MSU 
 \begin_inset Flex SmallCaps
 status collapsed
 
 \begin_layout Plain Layout
-H.264
+H
 \end_layout
 
 \end_inset
 
- 
+.264 
 \begin_inset CommandInset href
 LatexCommand href
 name "Video Codec Comparison"
@@ -15223,13 +15229,13 @@ are determined by the input data.
 status collapsed
 
 \begin_layout Plain Layout
-H.264
+H
 \end_layout
 
 \end_inset
 
- have a bitstream format so complex that it can be considered a domain-specific
- language to describe video frames.
+.264 have a bitstream format so complex that it can be considered a domain-specif
+ic language to describe video frames.
  The video decoder is then a special-purpose interpreter for this language
  whose execution time inherently depends on the video bitstream
 \begin_inset Index idx
@@ -15323,6 +15329,10 @@ Decoding Times of a Repeat Run
 
 \end_layout
 
+\begin_layout Plain Layout
+Test
+\end_layout
+
 \end_inset
 
 
@@ -15378,12 +15388,12 @@ key "Roitzsch:Predict"
 status collapsed
 
 \begin_layout Plain Layout
-H.264
+H
 \end_layout
 
 \end_inset
 
-.
+.264.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Roitzsch:Balancing"
@@ -15392,8 +15402,8 @@ key "Roitzsch:Balancing"
 
  It is based on dividing the decoding work into smaller steps that are easier
  to examine individually.
- I will summarize the line of thought in the following paragraphs.
- Text may be copied verbatim from the two papers mentioned.
+ I summarize the line of thought in the following paragraphs.
+ Text may be copied verbatim from the two mentioned papers.
 \end_layout
 
 \begin_layout Standard
@@ -15451,6 +15461,16 @@ status open
 \begin_inset Caption
 
 \begin_layout Plain Layout
+\begin_inset Argument
+status open
+
+\begin_layout Plain Layout
+Decoding Steps
+\end_layout
+
+\end_inset
+
+
 \begin_inset CommandInset label
 LatexCommand label
 name "3-fig:Decoder-Components"
@@ -15458,6 +15478,23 @@ name "3-fig:Decoder-Components"
 \end_inset
 
 Decoding Steps
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent 
+\end_layout
+
+\end_inset
+
+The numbering matches the description in the text.
 \end_layout
 
 \end_inset
@@ -15468,22 +15505,6 @@ Decoding Steps
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-Figure
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "3-mar:Relative-Time-Steps"
-
-\end_inset
-
- visualizes the relative weight of the execution times spent in the decoding
- steps.
 \end_layout
 
 \begin_layout Standard
@@ -15493,6 +15514,10 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\begin_inset VSpace 3cm
+\end_inset
+
+
 \begin_inset Graphics
 	filename Data/3-Real-Time/Times_Relative.pdf
 
@@ -15525,6 +15550,32 @@ Relative Execution Time of the Decoding Steps
 \end_layout
 
 \begin_layout Standard
+Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-mar:Relative-Time-Steps"
+
+\end_inset
+
+ visualizes the relative weight of the execution times spent in the decoding
+ steps.
+ We observe that decompression and temporal prediction are the two heaviest
+ contributors, followed by post processing.
+ It is therefore most important to find highly correlating metrics for these
+ parts.
+ I now visit each decoding step and illustrate how a domain expert selects
+ appropriate workload metrics:
+\end_layout
+
+\begin_layout Enumerate
+Bitstream Parsing
+\end_layout
+
+\begin_layout Standard
 \begin_inset Note Greyedout
 status open
 
@@ -15533,10 +15584,6 @@ caste study: video decoding time
 \end_layout
 
 \begin_deeper
-\begin_layout Itemize
-relative weight of the steps
-\end_layout
-
 \begin_layout Itemize
 explain the metrics selection
 \end_layout
