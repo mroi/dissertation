@@ -18,12 +18,15 @@ all:: $(VEUSZ:.vsz=.pdf) $(SCILAB:.sci=.lyx)
 		}'`" ; \
 	podofobox $*_.pdf $@ media $$box
 	rm $*_.pdf
+	$(if $(REVIEW),open $@)
 
 Values.lyx: Values.val ../val2lyx.pl
 	../val2lyx.pl < $< > $@
+	$(if $(REVIEW),open $@)
 
 %.lyx: %.tab ../tab2lyx.pl
 	../tab2lyx.pl < $< > $@
+	$(if $(REVIEW),open $@)
 
 %.tab %.val: %.sci
 	rm -f $@
