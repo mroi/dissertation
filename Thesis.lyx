@@ -11472,7 +11472,7 @@ key "Roitzsch:Atlas"
 \end_inset
 
  and select text in the task model, interfaces, and prediction sections
- may be copied verbatim from this paper.
+ may have been copied verbatim from this paper.
 \end_layout
 
 \begin_layout Standard
@@ -15143,8 +15143,7 @@ reference "3-fig:Decoding-Times"
 
  provides an overview of the decoding time per video frame, illustrating
  the variability within and across the test clips.
- However, when we run the same video twice, the decoding times of the two
- runs match well as demonstrated in Figure
+ However, when we run the same video twice, Figure
 \begin_inset space ~
 \end_inset
 
@@ -15155,8 +15154,8 @@ reference "3-fig:Decoding-Times-Repeat"
 
 \end_inset
 
-.
- The Pearson correlation is 
+ demonstrates that decoding times of the two runs are strongly correlated,
+ with a Pearson correlation of 
 \begin_inset Formula $\DecodeRepeatCorrelation$
 \end_inset
 
@@ -15206,23 +15205,8 @@ Relative Execution Time of the Player Stages
 \end_layout
 
 \begin_layout Standard
-We conclude that video decoding times
-\begin_inset space \thinspace{}
-\end_inset
-
-—
-\begin_inset space \thinspace{}
-\end_inset
-
-although highly variable
-\begin_inset space \thinspace{}
-\end_inset
-
-—
-\begin_inset space \thinspace{}
-\end_inset
-
-are determined by the input data.
+We conclude that the high variability of video decoding times does not stem
+ from random influences, but is determined by the input data.
  This is not surprising given that modern video compression standards like
  
 \begin_inset Flex SmallCaps
@@ -15329,10 +15313,6 @@ Decoding Times of a Repeat Run
 
 \end_layout
 
-\begin_layout Plain Layout
-Test
-\end_layout
-
 \end_inset
 
 
@@ -15343,7 +15323,7 @@ As a developer trying to benefit from
 \noun on
 Atlas
 \noun default
-, our main task is to find workload metrics
+, a key obligation is to find workload metrics
 \begin_inset Index idx
 status collapsed
 
@@ -15403,7 +15383,7 @@ key "Roitzsch:Balancing"
  It is based on dividing the decoding work into smaller steps that are easier
  to examine individually.
  I summarize the line of thought in the following paragraphs.
- Text may be copied verbatim from the two mentioned papers.
+ Text may have been copied verbatim from the two mentioned papers.
 \end_layout
 
 \begin_layout Standard
@@ -15462,7 +15442,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Argument
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Decoding Steps
@@ -15568,11 +15548,547 @@ reference "3-mar:Relative-Time-Steps"
  It is therefore most important to find highly correlating metrics for these
  parts.
  I now visit each decoding step and illustrate how a domain expert selects
- appropriate workload metrics:
+ appropriate workload metrics.
+ A detailed correlation breakdown follows after the discussion.
+\begin_inset Newpage newpage
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+manual page break
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Data/3-Real-Time/Metrics_Key.pdf
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Enumerate
 Bitstream Parsing
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+nopagebreak 
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+The decoder reads and parses the bitstream representing the next frame and
+ processes header information to prepare the following steps.
+ The parsing effort scans the input data, so it obviously depends on the
+ bitstream length of the compressed frame.
+ In addition, each output pixel is represented in the bitstream and processed
+ by the downstream steps, so the number of pixels in the final frame is
+ another candidate metric.
+ Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-mar:Metrics-Parsing"
+
+\end_inset
+
+ shows that a linear fit of the per-frame pixel and bit counts sufficiently
+ matches the execution time of the bitstream parsing step.
+ Remember that this step accounts for a relatively small fraction of total
+ decoding time.
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Data/3-Real-Time/Metrics_Parsing.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-mar:Metrics-Parsing"
+
+\end_inset
+
+Metrics for Bitstream Parsing
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Decompression
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+nopagebreak 
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+H
+\end_layout
+
+\end_inset
+
+.264 offers two different entropy coding schemes: the faster CAVLC and the
+ more efficient CABAC,
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Marpe:CABAC"
+
+\end_inset
+
+ the latter is only available in the Main and High codec profiles.
+ The decompression step operates on the bitstream to expand the payload
+ and obtain the macroblock data.
+ Thus, the bit count correlates with this step’s execution time as Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-mar:Metrics-Decompression"
+
+\end_inset
+
+ illustrates.
+ Fortunately the match is tight, as this step is responsible for a large
+ share of the overall decoding time.
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Data/3-Real-Time/Metrics_Decompression.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-mar:Metrics-Decompression"
+
+\end_inset
+
+Metrics for Decompression
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Spatial Prediction
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+nopagebreak 
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+The prediction steps try to algorithmically fill the current macroblock
+ by extrapolating from already decoded pixels of either the same frame or
+ a previous frame.
+ Only the residual error between prediction and actual image is stored in
+ the bitstream.
+ Spatial prediction takes patterns from previously decoded pixels and bleeds
+ them into the area of the current macroblock.
+ This process can use sub-block sizes of 4
+\begin_inset Formula $\times$
+\end_inset
+
+4, 8
+\begin_inset Formula $\times$
+\end_inset
+
+8, or 16
+\begin_inset Formula $\times$
+\end_inset
+
+16 pixels, so we separately count occurrences of these block sizes.
+ Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-mar:Metrics-Spatial"
+
+\end_inset
+
+ demonstrates that a linear fit of those counts adequately matches the execution
+ time.
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Data/3-Real-Time/Metrics_Spatial.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-mar:Metrics-Spatial"
+
+\end_inset
+
+Metrics for Spatial Prediction
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Temporal Prediction
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+nopagebreak 
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+This step is the second big contributor to the total decoding time.
+ It extrapolates from previously decoded frames, called reference frames,
+ compensating for for any motion between by shifting image content along
+ a motion vector.
+ Finding good metrics for this step is difficult, because its execution
+ is exceptionally diverse.
+ Not only can motion compensation be used with square and rectangular sub-blocks
+ of different sizes, each block can also be shifted by a motion vector of
+ full, half or quarter pixel accuracy.
+ In addition, bi-predicted macroblocks target two reference frames.
+ They employ two motion vectors for each sub-block and can apply arbitrary
+ weighting factors to the contributions.
+ The key idea to untangle these options is to count memory accesses to the
+ reference frames.
+ The filter operations for full, half and quarter pixel vectors read different
+ amounts of reference pixels.
+ Treating bi-predicted blocks as two blocks and rectangular sub-blocks as
+ two square blocks, we count reference pixel accesses for three sub-block
+ sizes: 4
+\begin_inset Formula $\times$
+\end_inset
+
+4, 8
+\begin_inset Formula $\times$
+\end_inset
+
+8, and 16
+\begin_inset Formula $\times$
+\end_inset
+
+16.
+ Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-mar:Metrics-Temporal"
+
+\end_inset
+
+ shows the resulting fit.
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Data/3-Real-Time/Metrics_Temporal.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-mar:Metrics-Temporal"
+
+\end_inset
+
+Metrics for Temporal Prediction
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Inverse Transform
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+nopagebreak 
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+For spatially or temporally predicted macroblocks, this step compensates
+ the residual error between the prediction and the actual image.
+ For self-contained macroblocks, the pixels are stored in the bitstream
+ directly.
+ To exploit visual redundancy, the bitstream keeps all image data in a two-dimen
+sional frequency domain, which this decoding step transforms to the pixel
+ domain.
+ The transform can operate on two sub-block sizes of 4
+\begin_inset Formula $\times$
+\end_inset
+
+4 and 8
+\begin_inset Formula $\times$
+\end_inset
+
+8.
+ Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-mar:Metrics-Transform"
+
+\end_inset
+
+ illustrates how their occurrence counts fit execution time.
+ The remaining imprecision is inconsequential, because this step has a very
+ small influence on overall decoding time.
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Data/3-Real-Time/Metrics_Transform.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-mar:Metrics-Transform"
+
+\end_inset
+
+Metrics for Inverse Transform
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Post Processing
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+nopagebreak 
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+The mandatory post processing step tries to reduce block artifacts by selective
+ blurring of macroblock edges.
+ Counting the number of edges being treated results in the fit displayed
+ in Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-mar:Metrics-Post"
+
+\end_inset
+
+.
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Data/3-Real-Time/Metrics_Post.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-mar:Metrics-Post"
+
+\end_inset
+
+Metrics for Post Processing
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
