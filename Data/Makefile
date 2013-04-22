@@ -6,7 +6,7 @@ SCILAB = $(wildcard *.sci)
 all:: $(VEUSZ:.vsz=.pdf) $(SCILAB:.sci=.lyx)
 
 %.pdf: %.vsz
-	veusz --export="$(dir $(realpath $<))/$*_.pdf" "$(realpath $<)"
+	veusz --export="$(dir $(realpath $<))$*_.pdf" "$(realpath $<)"
 	# Veusz sometimes slightly clips content on the very right
 	# change the MediaBox to make PDFs a little wider
 	box="`podofopdfinfo $*_.pdf | perl -e ' \
