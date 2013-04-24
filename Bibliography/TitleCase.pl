@@ -24,7 +24,7 @@ use utf8;
 use open qw( :encoding(UTF-8) :std );
 
 
-my @small_words = qw( (?<!q&)a an and as at(?!&t) but by de en for from if in of on or the to v[.]? via vs[.]? with );
+my @small_words = qw( (?<!q&)a an and as at(?!&t) but by de en for from if in of on or the to v[.]? via von vs[.]? with );
 my $small_re = join '|', @small_words;
 
 my $apos = qr/ (?: ['’] [[:lower:]]* )? /x;
@@ -66,7 +66,7 @@ while ( <> ) {
 
 
 	# exception for TeX commands: do not capitalize after backslash
-	s{ (\\) ([^ \{]*) }{$1\L$2}xigo;
+	s{ (\\) ([^ ,\{]*) }{$1\L$2}xigo;
 
 	print;
 }

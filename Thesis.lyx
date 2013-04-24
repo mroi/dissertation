@@ -1927,7 +1927,7 @@ nice level
  This single numeric value
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Unix:nice"
+key "Unix:Nice"
 
 \end_inset
 
@@ -10562,7 +10562,7 @@ nice level
 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Unix:nice"
+key "Unix:Nice"
 
 \end_inset
 
@@ -18147,7 +18147,7 @@ key "Lemon:Kqueue"
 asynchronous network packet API for 10Gbit/s speed at userlevel
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Rizzo:netmap"
+key "Rizzo:Netmap"
 
 \end_inset
 
