@@ -18535,6 +18535,17 @@ with NUMA or discontiguous memory, data needs to travel when making placement
 
 \begin_deeper
 \begin_layout Itemize
+schedule for placement of data regions in caches
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lee:RegionScheduling"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
 out of scope for me, but an important future problem
 \begin_inset CommandInset citation
 LatexCommand cite
