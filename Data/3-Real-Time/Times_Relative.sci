@@ -1,13 +1,13 @@
 function String = relative_time(Video)
-	Log = read("Times_Metrics_" + Video + ".log", -1, 21);
+	Log = read("Times_Metrics_" + Video + ".log", -1, 20);
 	
 	// relative CPU load = time in thread / total cpu time
 	Time = [];
-	Time = [Time, mean((Log(:,15) + Log(:,16)) ./ Log(:,21))];
-	Time = [Time, mean((Log(:,17)            ) ./ Log(:,21))];
-	Time = [Time, mean((Log(:,18)            ) ./ Log(:,21))];
-	Time = [Time, mean((Log(:,19)            ) ./ Log(:,21))];
-	Time = [Time, mean((Log(:,20)            ) ./ Log(:,21))];
+	Time = [Time, mean(Log(:,15) ./ Log(:,20))];
+	Time = [Time, mean(Log(:,16) ./ Log(:,20))];
+	Time = [Time, mean(Log(:,17) ./ Log(:,20))];
+	Time = [Time, mean(Log(:,18) ./ Log(:,20))];
+	Time = [Time, mean(Log(:,19) ./ Log(:,20))];
 	Time = [mean(1 - sum(Time,'c')), Time];
 	
 	String = "";
