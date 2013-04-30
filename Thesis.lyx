@@ -13927,7 +13927,7 @@ The scan for redundant metrics successively drops the rightmost metrics
  error increases with each dropped column.
  However, a metric that does not contribute significantly will cause only
  a minor increase of the residual error.
- The predictor therefore consider a metric redundant, if its contribution
+ The predictor therefore considers a metric redundant, if its contribution
  increases 
 \begin_inset Formula $c_{R}$
 \end_inset
@@ -14115,8 +14115,8 @@ After the scan step,
  lightweight.
  Therefore, the algorithm reorders the matrix by moving all to-be-dropped
  columns to the right.
- The column representing the measured execution times column must stay in
- place, so all moves happen within the metrics columns.
+ The column representing the measured execution times must stay in place,
+ so all moves happen within the metrics columns.
 \end_layout
 
 \begin_layout Standard
@@ -14128,6 +14128,13 @@ mn.
  After every move, the subdiagonal elements are zeroed with Givens rotations
  as shown in Figure
 \begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-mar:Moving-a-Column"
+
 \end_inset
 
 , keeping the matrix in upper triangular form.
@@ -14147,12 +14154,49 @@ mn.
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Figures/3-Real-Time/LLSP_Move.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-mar:Moving-a-Column"
+
+\end_inset
+
+Moving a To-Be-Dropped Column to the Right
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 The worst-case time complexity of this reorganization is 
 \begin_inset Formula $\mathcal{O}\bigl(l^{3}\bigr)$
 \end_inset
 
-.
- Imagine a matrix, where the left half of the metrics columns are to be
+: Imagine a matrix, where the left half of the metrics columns are to be
  dropped and the right half are to be kept.
  We will move 
 \begin_inset Formula $\nicefrac{l}{2}$
@@ -14191,6 +14235,13 @@ In the new system
 \begin_inset space ~
 \end_inset
 
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-mar:Reduced-Solution"
+
+\end_inset
+
  visualizes such a reduced system.
  This solution 
 \begin_inset Formula $\underline{\tilde{x}}$
@@ -14198,7 +14249,45 @@ In the new system
 
  derives only from the significant metrics, so it is expected to produce
  a more stable prediction.
- The following case study confirms this proposition.
+ The following case study examines and confirms this proposition.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Figures/3-Real-Time/LLSP_Reduced.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-mar:Reduced-Solution"
+
+\end_inset
+
+Reduced Solution with Three out of Five Metrics
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -14336,7 +14425,7 @@ dispatch_async_atlas
 
 \end_inset
 
- extension to GCD.
+ extension to GCD attaches deadlines and workload metrics to code blocks.
  Accessing the lower-level primitives of the estimator is also possible
  and will become necessary during the modification of FFplay because of
  technical constraints.
@@ -15906,6 +15995,23 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
+	filename Data/3-Real-Time/Metrics_Key.pdf
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
 	filename Data/3-Real-Time/Metrics_Temporal.pdf
 
 \end_inset
@@ -16222,8 +16328,23 @@ reference "3-tab:Metrics-Correlation"
 \end_inset
 
  analyses the correlation of the metrics with the measured execution times
- over all test videos.
- The table lists the decoding steps and the 
+ for each frame over all test videos.
+ The table lists the decoding steps and their relative share of total decoding
+ time.
+ The selected metrics regressions calculates a fit of the metrics we isolated
+ above as reasonable for the respective steps.
+ This column therefore corresponds to the figures we just discussed.
+ The last column regresses all thirteen metrics against the individual decoding
+ steps and also the total decoding time per frame.
+ As expected, the fit correlates better when more metrics are considered.
+\end_layout
+
+\begin_layout Standard
+The excellent correlation with the decoding time for the complete frames
+ proves the metrics are well-chosen.
+ However, the regression here was performed using perfect a-priori knowledge
+ of all metrics and decoding times.
+ The predictor in the 
 \end_layout
 
 \begin_layout Standard
@@ -16252,7 +16373,7 @@ name "3-tab:Metrics-Correlation"
 
 \end_inset
 
-Correlation of Metrics Fits to Execution Time
+Correlation of Metrics Fits to Per-Frame Execution Time
 \end_layout
 
 \end_inset
