@@ -14,6 +14,9 @@
 #	Re-written and much improved by Aristotle Pagaltzis:
 #	http://plasmasturm.org/code/titlecase/
 #
+#	2013
+#	Extended by Michael Roitzsch for use on BibTeX files
+#
 #	License: http://www.opensource.org/licenses/mit-license.php
 #
 
