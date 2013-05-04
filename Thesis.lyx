@@ -15674,6 +15674,16 @@ status open
 
 \begin_layout Enumerate
 Bitstream Parsing
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+bitstream parsing
+\end_layout
+
+\end_inset
+
+
 \begin_inset ERT
 status collapsed
 
@@ -15742,6 +15752,10 @@ Metrics for Bitstream Parsing
 \end_inset
 
 
+\begin_inset VSpace defskip
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -15751,6 +15765,16 @@ Metrics for Bitstream Parsing
 
 \begin_layout Enumerate
 Decompression
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+decompression
+\end_layout
+
+\end_inset
+
+
 \begin_inset ERT
 status collapsed
 
@@ -15777,11 +15801,30 @@ H
 
 \end_inset
 
-.264 offers two different entropy coding schemes: the faster CAVLC and the
- more efficient CABAC,
+.264 offers two different entropy coding schemes: the faster CAVLC
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+CAVLC
+\end_layout
+
+\end_inset
+
+ and the more efficient CABAC,
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Marpe:CABAC"
+
+\end_inset
+
+
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+CABAC
+\end_layout
 
 \end_inset
 
@@ -15832,6 +15875,10 @@ Metrics for Decompression
 \end_inset
 
 
+\begin_inset VSpace defskip
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -15841,6 +15888,16 @@ Metrics for Decompression
 
 \begin_layout Enumerate
 Spatial Prediction
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+spatial prediction
+\end_layout
+
+\end_inset
+
+
 \begin_inset ERT
 status collapsed
 
@@ -15920,6 +15977,10 @@ Metrics for Spatial Prediction
 \end_inset
 
 
+\begin_inset VSpace defskip
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -15929,6 +15990,16 @@ Metrics for Spatial Prediction
 
 \begin_layout Enumerate
 Temporal Prediction
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+temporal prediction
+\end_layout
+
+\end_inset
+
+
 \begin_inset ERT
 status collapsed
 
@@ -15949,6 +16020,15 @@ This step is the second big contributor to the total decoding time.
  It extrapolates from previously decoded frames, called reference frames,
  compensating for for any motion between by shifting image content along
  a motion vector.
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+motion vector
+\end_layout
+
+\end_inset
+
  Finding good metrics for this step is difficult, because its execution
  is exceptionally diverse.
  Not only can motion compensation be used with square and rectangular sub-blocks
@@ -16035,6 +16115,10 @@ Metrics for Temporal Prediction
 \end_inset
 
 
+\begin_inset VSpace defskip
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -16044,6 +16128,16 @@ Metrics for Temporal Prediction
 
 \begin_layout Enumerate
 Inverse Transform
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+inverse transform
+\end_layout
+
+\end_inset
+
+
 \begin_inset ERT
 status collapsed
 
@@ -16064,9 +16158,15 @@ For spatially or temporally predicted macroblocks, this step compensates
  the residual error between the prediction and the actual image.
  For self-contained macroblocks, the pixels are stored in the bitstream
  directly.
- To exploit visual redundancy, the bitstream keeps all image data in a two-dimen
-sional frequency domain, which this decoding step transforms to the pixel
- domain.
+ To exploit visual redundancy, the bitstream keeps all image data in a DCT-like
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Ahmed:DCT"
+
+\end_inset
+
+ two-dimensional frequency domain, which this decoding step transforms to
+ the pixel domain.
  The transform can operate on two sub-block sizes of 4
 \begin_inset Formula $\times$
 \end_inset
@@ -16122,6 +16222,10 @@ Metrics for Inverse Transform
 \end_inset
 
 
+\begin_inset VSpace defskip
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -16131,6 +16235,16 @@ Metrics for Inverse Transform
 
 \begin_layout Enumerate
 Post Processing
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+post processing
+\end_layout
+
+\end_inset
+
+
 \begin_inset ERT
 status collapsed
 
@@ -16147,8 +16261,33 @@ nopagebreak
 \begin_inset Newline newline
 \end_inset
 
-The mandatory post processing step tries to reduce block artifacts by selective
- blurring of macroblock edges.
+The mandatory
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Post processing was optional with previous MPEG-
+\begin_inset Formula $4$
+\end_inset
+
+ coding standards.
+ 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+H
+\end_layout
+
+\end_inset
+
+.264 uses an in-loop deblocking filter that cannot be skipped.
+\end_layout
+
+\end_inset
+
+ post processing step tries to reduce block artifacts by selective blurring
+ of macroblock edges.
  Counting the number of edges being treated results in the fit displayed
  in Figure
 \begin_inset space ~
@@ -16189,6 +16328,10 @@ name "3-mar:Metrics-Post"
 Metrics for Post Processing
 \end_layout
 
+\end_inset
+
+
+\begin_inset VSpace defskip
 \end_inset
 
 
@@ -16344,7 +16487,8 @@ The excellent correlation with the decoding time for the complete frames
  proves the metrics are well-chosen.
  However, the regression here was performed using perfect a-priori knowledge
  of all metrics and decoding times.
- The predictor in the 
+ The predictor in our video player however has to learn this information
+ while the video is playing.
 \end_layout
 
 \begin_layout Standard
@@ -16373,7 +16517,7 @@ name "3-tab:Metrics-Correlation"
 
 \end_inset
 
-Correlation of Metrics Fits to Per-Frame Execution Time
+Correlation of Metrics Fitted to Per-Frame Execution Times
 \end_layout
 
 \end_inset
@@ -16387,30 +16531,6 @@ Correlation of Metrics Fits to Per-Frame Execution Time
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Greyedout
-status open
-
-\begin_layout Itemize
-caste study: video decoding time
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-explain the metrics selection
-\end_layout
-
-\begin_layout Itemize
-related: workload metrics for MPEG
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Altenbernd:MPEG-WCET"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
 \begin_inset Flex NewThought
 status collapsed
 
@@ -16437,7 +16557,7 @@ These queues contain application data and should not be confused with GCD’s
  next stage.
 \end_layout
 
-\begin_layout Plain Layout
+\begin_layout Standard
 Figure
 \begin_inset space ~
 \end_inset
@@ -16447,13 +16567,44 @@ Figure
  FFplay’s default setup uses a five-slot video queue and a two-slot picture
  queue.
  The time interval between two consecutive frames is determined by the video
- frame rate and dictates a display time for every frame.
+ frame rate and dictates an intended display time for every frame.
  The idea of the queues is to compensate for heavyweight frames who need
  more execution time in a stage than the frame interval allows.
  We therefore try to keep the queues filled and derive the following deadlines
  for the jobs processed by the player stages:
 \end_layout
 
+\begin_layout Itemize
+The input stage submits work for the decoder stage.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Itemize
+caste study: video decoding time
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+practical issues
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+initialization of the predictor
+\end_layout
+
+\begin_layout Itemize
+time-measurements using per-thread clock
+\end_layout
+
+\begin_layout Itemize
+overhead from the predictor
+\end_layout
+
+\end_deeper
 \begin_layout Itemize
 evaluate metrics alternatives
 \end_layout
@@ -16504,22 +16655,15 @@ Test Clips, Short Films, and Movies for Experiments
 
 \end_layout
 
-\end_deeper
 \begin_layout Itemize
-practical issues
-\end_layout
+related: workload metrics for MPEG
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Altenbernd:MPEG-WCET"
 
-\begin_deeper
-\begin_layout Itemize
-initialization of the predictor
-\end_layout
+\end_inset
 
-\begin_layout Itemize
-time-measurements using per-thread clock
-\end_layout
 
-\begin_layout Itemize
-overhead from the predictor
 \end_layout
 
 \end_deeper
@@ -16544,7 +16688,14 @@ Therefore, I chose an aging factor of
  jobs.
 \end_layout
 
-\end_deeper
+\begin_layout Itemize
+aging, drop-threshold sensitivity
+\end_layout
+
+\begin_layout Itemize
+metrics sub-setting settles
+\end_layout
+
 \begin_layout Itemize
 application-specific predictors can be used instead, but auto-regressive
  predictor is a useful default since it can predict such a dynamic process
@@ -16554,6 +16705,7 @@ application-specific predictors can be used instead, but auto-regressive
 stability allows adding unrelated columns, always add a 1-column for convenience
 \end_layout
 
+\end_deeper
 \begin_layout Itemize
 segue by summarizing the nature of the estimates: underestimation possible,
  scheduler must account for this
