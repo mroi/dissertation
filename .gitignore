@@ -1,4 +1,5 @@
 .DS_Store
+/._Statusvortrag.key
 /Data/*/*.lyx
 /Data/*/*.pdf
 /Data/*/*.tab
