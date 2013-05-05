@@ -8392,7 +8392,7 @@ status collapsed
 
 \begin_layout Plain Layout
 
-https://os.inf.tu-dresden.de/~mroi/thesis-svn
+https://os.inf.tu-dresden.de/~mroi/git/thesis
 \end_layout
 
 \end_inset
@@ -8414,7 +8414,7 @@ begin{pspicture}(0.45in,0.45in)
 \backslash
 psbarcode{https://os.inf.tu-dresden.de/
 \backslash
-%7Emroi/thesis-svn}{width=0.45 height=0.45}{qrcode}
+%7Emroi/git/thesis}{width=0.45 height=0.45}{qrcode}
 \backslash
 end{pspicture}
 \end_layout
