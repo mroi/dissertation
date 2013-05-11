@@ -4851,7 +4851,7 @@ reference "2-fig:Mouse-Processing-Styles"
 
 \end_inset
 
- shows four pseudocode versions
+ shows four pseudo-code versions
 \begin_inset space \thinspace{}
 \end_inset
 
@@ -5227,7 +5227,7 @@ name "2-fig:Mouse-Processing-Styles"
 
 \end_inset
 
-Pseudocode Examples for Long-Running Mouse Click Processing
+Pseudo-Code Examples for Long-Running Mouse Click Processing
 \end_layout
 
 \end_inset
@@ -14387,7 +14387,7 @@ Today’s video formats like the MPEG-
 \end_layout
 
 \begin_layout Standard
-We assume the video player has already adopted the asynchronous lambda style
+I assume the video player has already adopted the asynchronous lambda style
  using GCD.
  I outlined the necessary changes to FFplay in the previous chapter 
 \emph on
