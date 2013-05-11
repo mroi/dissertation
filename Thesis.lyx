@@ -3439,7 +3439,7 @@ Atlas
 s Symposium.
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Roitzsch:Atlas"
+key "Roitzsch:ATLAS"
 
 \end_inset
 
@@ -11467,7 +11467,7 @@ reference "3-mar:Vertical-Integration-Timeliness"
  previously published
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Roitzsch:Atlas"
+key "Roitzsch:ATLAS"
 
 \end_inset
 
@@ -14497,7 +14497,7 @@ H
  video decoding standard,
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Wiegand:H.264"
+key "Wiegand:H264"
 
 \end_inset
 
