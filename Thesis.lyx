@@ -17133,15 +17133,15 @@ practical issues
 
 \begin_deeper
 \begin_layout Itemize
-initialization of the predictor
-\end_layout
-
-\begin_layout Itemize
 time-measurements using per-thread clock
 \end_layout
 
 \begin_layout Itemize
-overhead from the predictor
+always add a 1-column for convenience
+\end_layout
+
+\begin_layout Itemize
+initialization of the predictor
 \end_layout
 
 \end_deeper
@@ -17196,6 +17196,10 @@ Test Clips, Short Films, and Movies for Experiments
 \end_layout
 
 \begin_layout Itemize
+overhead from the predictor
+\end_layout
+
+\begin_layout Itemize
 related: workload metrics for MPEG
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -17239,10 +17243,6 @@ metrics sub-setting settles
 \begin_layout Itemize
 application-specific predictors can be used instead, but auto-regressive
  predictor is a useful default since it can predict such a dynamic process
-\end_layout
-
-\begin_layout Itemize
-stability allows adding unrelated columns, always add a 1-column for convenience
 \end_layout
 
 \end_deeper
@@ -17745,27 +17745,6 @@ boring for the predictor
 \end_layout
 
 \end_deeper
-\begin_layout Itemize
-video: stages other than decoding
-\end_layout
-
-\begin_layout Itemize
-evaluate accuracy of execution time prediction against worst-case allocation
- of a periodic task
-\end_layout
-
-\begin_layout Itemize
-sensitivity analysis for the 
-\begin_inset Quotes eld
-\end_inset
-
-magic
-\begin_inset Quotes erd
-\end_inset
-
- parameters of the estimator
-\end_layout
-
 \end_deeper
 \begin_layout Itemize
 end-to-end evaluation
