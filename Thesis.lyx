@@ -14426,9 +14426,8 @@ dispatch_async_atlas
 \end_inset
 
  extension to GCD attaches deadlines and workload metrics to code blocks.
- Accessing the lower-level primitives of the estimator is also possible
- and will become necessary during the modification of FFplay because of
- technical constraints.
+ Should the application structure demand it, direct access to the lower-level
+ primitives of the estimator and scheduler is also possible.
 \end_layout
 
 \begin_layout Standard
@@ -16531,6 +16530,11 @@ Correlation of Metrics Fitted to Per-Frame Execution Times
 \end_layout
 
 \begin_layout Standard
+After analyzing the most time consuming player component in detail, I now
+ explain how these insights practically apply to FFplay.
+\end_layout
+
+\begin_layout Standard
 \begin_inset Flex NewThought
 status collapsed
 
@@ -16563,19 +16567,555 @@ Figure
 \end_inset
 
  shows one possible queue situation: the current length of the video queue
- is four, the picture queue holds one decoded frame.
+ 
+\begin_inset Formula $n_{video}$
+\end_inset
+
+ is three, the picture queue holds 
+\begin_inset Formula $n_{picture}=1$
+\end_inset
+
+ decoded frame.
  FFplay’s default setup uses a five-slot video queue and a two-slot picture
  queue.
- The time interval between two consecutive frames is determined by the video
- frame rate and dictates an intended display time for every frame.
- The idea of the queues is to compensate for heavyweight frames who need
+ The idea of these queues is to compensate for heavyweight frames who need
  more execution time in a stage than the frame interval allows.
- We therefore try to keep the queues filled and derive the following deadlines
- for the jobs processed by the player stages:
+ We therefore try to keep the queues filled by calculating deadlines accordingly.
 \end_layout
 
-\begin_layout Itemize
-The input stage submits work for the decoder stage.
+\begin_layout Standard
+Remember that all 
+\noun on
+Atlas
+\noun default
+ deadlines are absolute deadlines.
+ To model how the pipeline advances, consider a situation where all queues
+ are completely filled.
+ Whenever the currently displayed frame expires, the next frame to show
+ is taken from the picture queue.
+ This free slot unblocks the decoder which can now enqueue a decoded frame
+ and consume one packet of video bitstream from the video queue, thereby
+ unblocking the input stage.
+\end_layout
+
+\begin_layout Standard
+Our simple model of the pipeline progression therefore rests upon the absolute
+ presentation time 
+\begin_inset Formula $t_{frame}$
+\end_inset
+
+ of the currently displayed frame and the time interval 
+\begin_inset Formula $\Delta_{frame}$
+\end_inset
+
+ between two consecutive frames.
+ The former is available in the 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+frame_timer
+\end_layout
+
+\end_inset
+
+ variable in FFplay.
+ The latter is determined by the video frame rate which dictates how long
+ each frame is intended to show up on screen.
+ For simplicity, we assume the queues to advance by one frame in every 
+\begin_inset Formula $\Delta_{frame}$
+\end_inset
+
+ interval.
+\end_layout
+
+\begin_layout Standard
+With these prerequisites, I modified the stages of FFplay as follows to
+ enable 
+\noun on
+Atlas
+\noun default
+ scheduling:
+\end_layout
+
+\begin_layout Description
+The
+\begin_inset space \space{}
+\end_inset
+
+input
+\begin_inset space \space{}
+\end_inset
+
+stage continuously reads packets of the video file from disk and enqueues
+ them into the video queue.
+ Thus, the input stage must submit new 
+\noun on
+Atlas
+\noun default
+ jobs both for itself to read the next video packet and for the decoder
+ stage to process the packets.
+ The input stage needs a free slot on the video queue to proceed, so we
+ set 
+\begin_inset Formula $t_{frame}+\Delta_{frame}$
+\end_inset
+
+ as absolute deadline for the submitted input job.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+The video packet associated with the next decoder job first travels through
+ the video queue and and begins decoding after advancing 
+\begin_inset Formula $n_{video}$
+\end_inset
+
+ slots.
+ The decoder stage then requires one free slot on the picture queue.
+ Thus, we establish 
+\begin_inset Formula $t_{frame}+(n_{video}+1)\Delta_{frame}$
+\end_inset
+
+ as the deadline of the decoder job.
+ However, because we enqueue the packet before submitting the job, the video
+ queue will already be extended to 
+\begin_inset Formula $n_{video}'=n_{video}+1$
+\end_inset
+
+, so the deadline is actually set to 
+\begin_inset Formula $t_{frame}+n_{video}'\Delta_{frame}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Due to their small execution time relative to decoding, no metrics are supplied
+ to the 
+\noun on
+Atlas
+\noun default
+ estimator for the input jobs.
+ The decoder jobs carry the thirteen metrics discussed above, which the
+ input stage obtains by parsing the video bitstream.
+ Below, I evaluate design alternatives for the metrics and their extraction
+ and the consequences for prediction accuracy.
+\end_layout
+
+\begin_layout Standard
+Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-fig:FFplay-Input-Stage"
+
+\end_inset
+
+ shows a pseudo-code representation of the input stage with 
+\noun on
+Atlas
+\noun default
+ modifications on top of the asynchronous lambda version.
+ Remember that 
+\begin_inset Flex NoWrap
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+dispatch_async_atlas
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ sends a new block to the dispatch queue designated and the first argument
+ and also informs the scheduler about this new work by submitting the job
+ given in the second argument.
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+void input_stage() {
+\end_layout
+
+\begin_layout Plain Layout
+
+	/* instruct input stage to read next packet after this one */
+\end_layout
+
+\begin_layout Plain Layout
+
+	atlas_job_t input_job = {
+\end_layout
+
+\begin_layout Plain Layout
+
+		.deadline = frame_timer + frame_interval,
+\end_layout
+
+\begin_layout Plain Layout
+
+		.metrics_count = 0,
+\end_layout
+
+\begin_layout Plain Layout
+
+		.metrics = NULL
+\end_layout
+
+\begin_layout Plain Layout
+
+	};
+\end_layout
+
+\begin_layout Plain Layout
+
+	dispatch_async_atlas(input_queue, input_job, ^{ input_stage(); });
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\end_layout
+
+\begin_layout Plain Layout
+
+	packet = read_input();
+\end_layout
+
+\begin_layout Plain Layout
+
+	enqueue(video_queue, packet);
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\end_layout
+
+\begin_layout Plain Layout
+
+	/* instruct decoder stage to process the video packet */
+\end_layout
+
+\begin_layout Plain Layout
+
+	atlas_job_t decoder_job = {
+\end_layout
+
+\begin_layout Plain Layout
+
+		.deadline = frame_timer + video_queue->length * frame_interval,
+\end_layout
+
+\begin_layout Plain Layout
+
+		.metrics_count = 13,
+\end_layout
+
+\begin_layout Plain Layout
+
+		.metrics = extract_metrics(packet)
+\end_layout
+
+\begin_layout Plain Layout
+
+	};
+\end_layout
+
+\begin_layout Plain Layout
+
+	dispatch_async_atlas(decoder_queue, decoder_job, ^{ decoder_stage(); });
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-fig:FFplay-Input-Stage"
+
+\end_inset
+
+FFplay Input Stage Using the 
+\noun on
+Atlas
+\noun default
+ Interface
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+The
+\begin_inset space \space{}
+\end_inset
+
+decoder
+\begin_inset space \space{}
+\end_inset
+
+stage consumes compressed packets from the video queue, decodes them and
+ places the finished frames onto the picture queue.
+ A newly enqueued frame will have to wait for the currently displayed frame
+ to expire and for the 
+\begin_inset Formula $n_{picture}$
+\end_inset
+
+ frames preceding it in the picture queue.
+ Thus, its output stage invocation receives a deadline of 
+\begin_inset Formula $t_{frame}+(n_{picture}+1)\Delta_{frame}$
+\end_inset
+
+.
+ Again, enqueueing the frame before submitting the job increases the length
+ of the picture queue to 
+\begin_inset Formula $n_{picture}'=n_{picture}+1$
+\end_inset
+
+, resulting in an actual deadline of 
+\begin_inset Formula $t_{frame}+n_{picture}'\Delta_{frame}$
+\end_inset
+
+.
+ Because of the insignificant execution time of the output stage, the estimator
+ receives no metrics.
+ Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-fig:FFplay-Decoder-Stage"
+
+\end_inset
+
+ lists the resulting pseudo-code.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+void input_stage() {
+\end_layout
+
+\begin_layout Plain Layout
+
+	packet = dequeue(video_queue);
+\end_layout
+
+\begin_layout Plain Layout
+
+	frame = decode(packet);
+\end_layout
+
+\begin_layout Plain Layout
+
+	enqueue(picture_queue, frame);
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\end_layout
+
+\begin_layout Plain Layout
+
+	/* instruct output stage to display the frame */
+\end_layout
+
+\begin_layout Plain Layout
+
+	atlas_job_t output_job = {
+\end_layout
+
+\begin_layout Plain Layout
+
+		.deadline = frame_timer + picture_queue->length * frame_interval,
+\end_layout
+
+\begin_layout Plain Layout
+
+		.metrics_count = 0,
+\end_layout
+
+\begin_layout Plain Layout
+
+		.metrics = NULL
+\end_layout
+
+\begin_layout Plain Layout
+
+	};
+\end_layout
+
+\begin_layout Plain Layout
+
+	dispatch_async_atlas(output_queue, output_job, ^{ output_stage(); });
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-fig:FFplay-Decoder-Stage"
+
+\end_inset
+
+FFplay Decoder Stage Using the 
+\noun on
+Atlas
+\noun default
+ Interface
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+The
+\begin_inset space \space{}
+\end_inset
+
+output
+\begin_inset space \space{}
+\end_inset
+
+stage at the end of the video player pipeline finally displays the frames.
+ It does not issue any new work and therefore remains unmodified.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+With these modifications
+\end_layout
+
+\end_inset
+
+ to FFplay, any job submitted to any GCD queue is backed by an 
+\noun on
+Atlas
+\noun default
+ job and therefore real-time scheduled.
+ On top of the changes discussed in Chapter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "2-chap:Anatomy"
+
+\end_inset
+
+ to enable asynchronous lambdas, the 
+\noun on
+Atlas
+\noun default
+ adoption touches 33
+\begin_inset space ~
+\end_inset
+
+lines, less than 2% of 
+\begin_inset Flex NoWrap
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+ffplay.c
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+ No changes are needed within the FFmpeg libraries.
+\end_layout
+
+\begin_layout Standard
+Before I evaluate the prediction quality, some practical details should
+ be mentioned:
 \end_layout
 
 \begin_layout Standard
