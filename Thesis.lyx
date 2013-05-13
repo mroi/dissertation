@@ -17146,8 +17146,182 @@ ffplay.c
 \end_layout
 
 \begin_layout Standard
-Before I evaluate the prediction quality, some practical details should
- be mentioned:
+Note that the application workload dictates only the final display deadline
+ of the frames.
+ Considering the application structure we manually inferred the intermediate
+ deadlines to make maximum use of the queues, ensuring that later stages
+ to operate without being delayed.
+ When I later evaluate the overall scheduling behavior of 
+\noun on
+Atlas
+\noun default
+, I include results where those intermediate deadlines are configured more
+ aggressively, allowing the queues to deplete in high load situations.
+ 
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Plain Layout
+Tease the (hopefully positive) result here.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Before evaluating the prediction quality of FFplay execution times, I want
+ to highlight the following implementation details:
+\end_layout
+
+\begin_layout Itemize
+As a consequence of absolute deadlines the application and the kernel scheduler
+ must agree on a common time reference.
+ 
+\noun on
+Atlas
+\noun default
+ uses the 
+\begin_inset Flex NoWrap
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+CLOCK_MONOTONIC
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ facility which is available on Linux as part of the 
+\begin_inset Flex NoWrap
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+clock_gettime
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ system call.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Unix:Clock_Gettime"
+
+\end_inset
+
+ One second elapsing on this clock always corresponds to one second in physical
+ reality.
+ The clock offers nanosecond granularity and never jumps because of clock
+ adjustments, leap seconds or time zone changes.
+ The starting point is at an unspecified time in the past, so the clock
+ does not bear a meaningful relation to wallclock time.
+ This limitation is unproblematic for the intended use.
+\end_layout
+
+\begin_layout Itemize
+Training the predictor requires measuring the execution time of individual
+ jobs.
+ However, simply subtracting the job’s release time from its completion
+ time calculates the makespan instead of the execution time, the difference
+ being interruptions due to blocking or preemption.
+ To measure time spent within a job, 
+\begin_inset Flex NoWrap
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+clock_gettime
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ provides the 
+\begin_inset Flex NoWrap
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+CLOCK_THREAD_CPUTIME_ID
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ flavor.
+ This thread-specific clock only ticks, when the respective thread executes.
+\end_layout
+
+\begin_layout Itemize
+Thanks to the numerical enhancements presented earlier, the 
+\noun on
+Atlas
+\noun default
+ predictor automatically selects a stable subset from the metrics given
+ to it.
+ Therefore, we can always supply additional metrics without harming the
+ prediction quality.
+ As a convenience to the programmer, the 
+\noun on
+Atlas
+\noun default
+ runtime library always adds a constant metric of all-ones before passing
+ the metrics to the linear solver.
+ This all-one metric catches any constant-time contribution to execution
+ time.
+ Especially when the developer passes no metrics, like I did for the input
+ and output stages of FFplay, this behind-the-scenes addition enables the
+ predictor to extrapolate future execution times from previously measured
+ execution times.
+ Otherwise, the predictor would always return zero for jobs with no metrics.
+\end_layout
+
+\begin_layout Itemize
+When an 
+\noun on
+Atlas
+\noun default
+-enabled application is launched, the predictor always starts off from an
+ empty state with no knowledge about job execution times.
+ Before it has seen the first jobs actually execute, it cannot make any
+ predictions and consequently returns zero.
+ After the first jobs passed, the initial predictions may be less accurate
+ because the internal coefficients need to settle.
+ These problems can be avoided by resuming from a saved predictor state,
+ for example from the previous run of the application or from a training
+ workload processed at install time.
 \end_layout
 
 \begin_layout Standard
@@ -17159,24 +17333,6 @@ caste study: video decoding time
 \end_layout
 
 \begin_deeper
-\begin_layout Itemize
-practical issues
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-time-measurements using per-thread clock
-\end_layout
-
-\begin_layout Itemize
-always add a 1-column for convenience
-\end_layout
-
-\begin_layout Itemize
-initialization of the predictor
-\end_layout
-
-\end_deeper
 \begin_layout Itemize
 evaluate metrics alternatives
 \end_layout
@@ -17835,8 +17991,7 @@ no support for IO, only blocking for other CPU jobs works as intended
 \end_layout
 
 \begin_layout Itemize
-compare overall deadlines with keep-the-queue-filled-deadlines for input
- stage
+compare keep-the-queue-filled deadlines with tight deadlines
 \end_layout
 
 \end_deeper
