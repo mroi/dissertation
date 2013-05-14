@@ -18,20 +18,6 @@
   <defs
      id="defs4">
     <marker
-       inkscape:stockid="Arrow2Send"
-       orient="auto"
-       refY="0"
-       refX="0"
-       id="Arrow2Send"
-       style="overflow:visible">
-      <path
-         id="path4567"
-         style="font-size:12px;fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round"
-         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-         transform="matrix(-0.3,0,0,-0.3,0.69,0)"
-         inkscape:connector-curvature="0" />
-    </marker>
-    <marker
        inkscape:stockid="Arrow2Mend"
        orient="auto"
        refY="0"
@@ -54,7 +40,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="3.1724494"
-     inkscape:cx="194.33512"
+     inkscape:cx="206.94367"
      inkscape:cy="54.921253"
      inkscape:document-units="px"
      inkscape:current-layer="svg2"
@@ -64,11 +50,11 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:window-width="1280"
-     inkscape:window-height="980"
-     inkscape:window-x="71"
+     inkscape:window-width="1193"
+     inkscape:window-height="821"
+     inkscape:window-x="109"
      inkscape:window-y="0"
-     inkscape:window-maximized="1"
+     inkscape:window-maximized="0"
      inkscape:snap-object-midpoints="false">
     <inkscape:grid
        type="xygrid"
@@ -89,7 +75,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -278,7 +264,7 @@
   </g>
   <text
      xml:space="preserve"
-     style="font-size:8px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light"
+     style="font-size:8px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:110.00000238%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light"
      x="453.5433"
      y="17.716547"
      id="text5476"
@@ -287,56 +273,63 @@
        id="tspan5478"
        x="453.5433"
        y="17.716547"
-       style="font-size:10px;line-height:175%;letter-spacing:0px">① displayed until t<tspan
-   style="font-size:65.00091553000000033%;line-height:175%;letter-spacing:0px;baseline-shift:sub"
+       style="font-size:10px;line-height:175%;letter-spacing:0px">① displayed since t<tspan
+   style="font-size:65.00091553%;baseline-shift:sub"
+   id="tspan3107">frame</tspan></tspan><tspan
+       sodipodi:role="line"
+       x="453.5433"
+       y="30.079676"
+       style="font-size:10px;line-height:110.00000238%;letter-spacing:0px"
+       id="tspan3101">     until t<tspan
+   style="font-size:65.00091553%;line-height:110.00000238%;letter-spacing:0px;baseline-shift:sub"
    id="tspan5482">frame</tspan><tspan
-   style="letter-spacing:-1.2px"
+   style="line-height:110.00000238%;letter-spacing:-1.20000005px"
    id="tspan6500"> +</tspan><tspan
-   style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:Avenir;-inkscape-font-specification:Avenir Light;line-height:175%;letter-spacing:0px"
+   style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;line-height:110.00000238%;letter-spacing:0px;font-family:Avenir;-inkscape-font-specification:Avenir Light"
    id="tspan5631"> Δ</tspan><tspan
-   style="font-size:65.00091553000000033%;baseline-shift:sub;line-height:175%;letter-spacing:0px"
+   style="font-size:65.00091553%;line-height:110.00000238%;letter-spacing:0px;baseline-shift:sub"
    id="tspan5633">frame </tspan></tspan><tspan
        sodipodi:role="line"
        x="453.5433"
-       y="31.037498"
+       y="46.987427"
        style="font-size:10px;line-height:175%;letter-spacing:0px"
        id="tspan5486">② displayed at</tspan><tspan
        sodipodi:role="line"
        x="453.5433"
-       y="41.561779"
-       style="font-size:10px;line-height:110%;letter-spacing:0px"
+       y="59.350555"
+       style="font-size:10px;line-height:110.00000238%;letter-spacing:0px"
        id="tspan5490">     t<tspan
-   style="font-size:65.00091553000000033%;line-height:110%;letter-spacing:0px;baseline-shift:sub"
+   style="font-size:65.00091553%;line-height:110.00000238%;letter-spacing:0px;baseline-shift:sub"
    id="tspan5492">frame</tspan><tspan
-   style="letter-spacing:-1.2px"
+   style="letter-spacing:-1.20000005px"
    id="tspan6498"> +</tspan> (n<tspan
-   style="font-size:65.00091553000000033%;line-height:110%;baseline-shift:sub;letter-spacing:0px"
+   style="font-size:65.00091553%;line-height:110.00000238%;letter-spacing:0px;baseline-shift:sub"
    id="tspan5494">picture</tspan>+1)<tspan
-   style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;line-height:110%;letter-spacing:0px;font-family:Avenir;-inkscape-font-specification:Avenir Light"
+   style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;line-height:110.00000238%;letter-spacing:0px;font-family:Avenir;-inkscape-font-specification:Avenir Light"
    id="tspan5500">Δ</tspan><tspan
-   style="font-size:65.00091553000000033%;line-height:110%;letter-spacing:0px;baseline-shift:sub"
+   style="font-size:65.00091553%;line-height:110.00000238%;letter-spacing:0px;baseline-shift:sub"
    id="tspan5496">frame</tspan></tspan><tspan
        sodipodi:role="line"
        x="453.5433"
-       y="54.212891"
+       y="76.258308"
        style="font-size:10px;line-height:175%;letter-spacing:0px"
        id="tspan5518">③ displayed at</tspan><tspan
        sodipodi:role="line"
        x="453.5433"
-       y="64.737167"
-       style="font-size:10px;line-height:110%;letter-spacing:0px"
+       y="88.621437"
+       style="font-size:10px;line-height:110.00000238%;letter-spacing:0px"
        id="tspan5520">     t<tspan
-   style="font-size:65.00091553000000033%;line-height:110%;baseline-shift:sub"
+   style="font-size:65.00091553%;line-height:110.00000238%;baseline-shift:sub"
    id="tspan5522">frame</tspan><tspan
-   style="line-height:110%;letter-spacing:-1.20000005000000010px"
+   style="line-height:110.00000238%;letter-spacing:-1.20000005px"
    id="tspan5532"> +</tspan> (n<tspan
-   style="font-size:65.00091553000000033%;line-height:110%;baseline-shift:sub"
+   style="font-size:65.00091553%;line-height:110.00000238%;baseline-shift:sub"
    id="tspan5526">video</tspan>+n<tspan
-   style="font-size:65.00091553000000033%;line-height:110%;baseline-shift:sub"
+   style="font-size:65.00091553%;line-height:110.00000238%;baseline-shift:sub"
    id="tspan5524">picture</tspan>+1)<tspan
-   style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;line-height:110%;font-family:Avenir;-inkscape-font-specification:Avenir Light"
+   style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;line-height:110.00000238%;font-family:Avenir;-inkscape-font-specification:Avenir Light"
    id="tspan5530">Δ</tspan><tspan
-   style="font-size:65.00091553000000033%;line-height:110%;baseline-shift:sub"
+   style="font-size:65.00091553%;line-height:110.00000238%;baseline-shift:sub"
    id="tspan5528">frame</tspan></tspan></text>
   <g
      id="g6434">
