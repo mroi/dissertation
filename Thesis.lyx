@@ -16844,8 +16844,8 @@ Atlas
 
 \begin_deeper
 \begin_layout Standard
-The video packet associated with the next decoder job first travels through
- the video queue and and begins decoding after advancing 
+The video packet associated with the decoder job first travels through the
+ video queue and and begins decoding after advancing 
 \begin_inset Formula $n_{video}$
 \end_inset
 
@@ -16953,6 +16953,31 @@ job
 
 \end_deeper
 \begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+enlargethispage{2
+\backslash
+baselineskip}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+manual page size adjustment
+\end_layout
+
+\end_inset
+
+
 \begin_inset Float figure
 wide false
 sideways false
@@ -17166,7 +17191,7 @@ status open
 
 \begin_layout Plain Layout
 
-void input_stage() {
+void decoder_stage() {
 \end_layout
 
 \begin_layout Plain Layout
@@ -17328,7 +17353,11 @@ Atlas
 \begin_inset space ~
 \end_inset
 
-lines, less than 2% of 
+lines, less than 
+\begin_inset Formula $2\%$
+\end_inset
+
+ of 
 \begin_inset Flex NoWrap
 status collapsed
 
@@ -17378,7 +17407,7 @@ Tease the (hopefully positive) result here.
 
 \begin_layout Standard
 Before evaluating the prediction quality of FFplay execution times, I want
- to highlight the following implementation details:
+ to bring up the following implementation details:
 \end_layout
 
 \begin_layout Itemize
