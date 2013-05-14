@@ -17411,6 +17411,24 @@ Before evaluating the prediction quality of FFplay execution times, I want
 \end_layout
 
 \begin_layout Itemize
+Because SDL limits calls to graphics functions to the main thread,
+\begin_inset CommandInset citation
+LatexCommand cite
+key "SDL:MultipleThreads"
+
+\end_inset
+
+ the output stage is split in two parts: the first part runs from the GCD
+ output queue on a background thread and manages the timing of frame display,
+ the second part runs on the main thread and puts the image on screen.
+ Therefore, the decoder stage actually emits two 
+\noun on
+Atlas
+\noun default
+ jobs, one for each part of the output stage.
+\end_layout
+
+\begin_layout Itemize
 As a consequence of absolute deadlines the application and the kernel scheduler
  must agree on a common time reference.
  
