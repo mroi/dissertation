@@ -160,7 +160,7 @@ End
 \fontencoding global
 \font_roman Hoefler Text
 \font_sans Gill Sans
-\font_typewriter Menlo Regular
+\font_typewriter Menlo
 \font_default_family default
 \use_non_tex_fonts true
 \font_sc false
@@ -571,19 +571,7 @@ null
 \end_layout
 
 \begin_layout Standard
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-
-\backslash
-noindent 
-\end_layout
-
-\end_inset
-
-
+\noindent
 \begin_inset Graphics
 	filename Figures/TU-Logo.pdf
 	width 5cm
@@ -687,7 +675,7 @@ August 1980 in Dresden.
 
 \lang ngerman
 \begin_inset Tabular
-<lyxtabular version="3" rows="7" columns="2">
+<lyxtabular version="3" rows="8" columns="2">
 <features booktabs="true" tabularvalignment="middle">
 <column alignment="left" valignment="top" width="0pt" special="@{}l">
 <column alignment="left" valignment="top" width="0pt">
@@ -731,7 +719,7 @@ Hermann Härtig,
 \end_inset
 </cell>
 </row>
-<row>
+<row bottomspace="default">
 <cell alignment="left" valignment="top" usebox="none">
 \begin_inset Text
 
@@ -765,7 +753,7 @@ Fachreferent:
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" usebox="none">
+<cell alignment="left" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -785,7 +773,7 @@ Christof Fetzer,
 \end_inset
 </cell>
 </row>
-<row>
+<row bottomspace="default">
 <cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
@@ -795,7 +783,7 @@ Christof Fetzer,
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" usebox="none">
+<cell alignment="left" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -819,24 +807,37 @@ Gutachter:
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" usebox="none">
+<cell alignment="left" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 
 \lang ngerman
-\begin_inset Note Greyedout
-status open
+Prof.
+ Dr.
+ Gerhard Fohler,
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row bottomspace="default">
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
 
 \begin_layout Plain Layout
 
 \lang ngerman
-fehlt
-\end_layout
-
-\end_inset
-
-
+Technische Universität Kaiserslautern
 \end_layout
 
 \end_inset
@@ -854,7 +855,7 @@ Statusvortrag:
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" usebox="none">
+<cell alignment="left" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -882,7 +883,7 @@ Verteidigung:
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" usebox="none">
+<cell alignment="left" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -15417,6 +15418,7 @@ Decoding Times of a Repeat Run
 \end_layout
 
 \begin_layout Standard
+\noindent
 As a developer trying to benefit from 
 \noun on
 Atlas
@@ -15628,6 +15630,7 @@ Relative Execution Time of the Decoding Steps
 \end_layout
 
 \begin_layout Standard
+\noindent
 Figure
 \begin_inset space ~
 \end_inset
@@ -16468,6 +16471,7 @@ number of deblocked edges
 \end_layout
 
 \begin_layout Standard
+\noindent
 To judge the quality of the selected metrics, Table
 \begin_inset space ~
 \end_inset
@@ -16613,10 +16617,7 @@ TODO
  The idea of these queues is to compensate for heavyweight frames who need
  more execution time in a stage than the frame interval allows.
  We therefore try to keep the queues filled by calculating deadlines accordingly.
-\end_layout
-
-\begin_layout Standard
-Remember that all 
+ Remember that all 
 \noun on
 Atlas
 \noun default
