@@ -4244,7 +4244,17 @@ Histogram of Sintel-
 
 \begin_layout Itemize
 Video playback is subject to deadlines that derive naturally from the frame
- rate specification or the presentation timestamps in the video stream.
+ rate
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+frame rate
+\end_layout
+
+\end_inset
+
+ specification or the presentation timestamps in the video stream.
  Timing requirements are tight, because even small delays
 \begin_inset Foot
 status open
@@ -8441,7 +8451,17 @@ FFplay is designed
 \end_inset
 
  according to the traditional multithreading paradigm.
- At the beginning of playback, it initializes a pipeline with three stages.
+ At the beginning of playback,
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+video playback
+\end_layout
+
+\end_inset
+
+ it initializes a pipeline with three stages.
  A dedicated thread services each stage in a loop, as illustrated in Figure
 \begin_inset space ~
 \end_inset
@@ -8514,8 +8534,18 @@ input
 \begin_inset space \space{}
 \end_inset
 
-stage reads the video file from disk, parses the stream and splits it into
- packets of compressed data, with one packet holding the data for one resulting
+stage
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+input stage
+\end_layout
+
+\end_inset
+
+ reads the video file from disk, parses the stream and splits it into packets
+ of compressed data, with one packet holding the data for one resulting
  frame of video.
  This stage is input-bound and requires little CPU time.
  When the input stage becomes delayed, buffering within the player helps
@@ -8531,8 +8561,18 @@ decoder
 \begin_inset space \space{}
 \end_inset
 
-stage receives individual packets of compressed video data and decodes them
- to obtain the finished frames.
+stage
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+decoder stage
+\end_layout
+
+\end_inset
+
+ receives individual packets of compressed video data and decodes them to
+ obtain the finished frames.
  This process is compute-intensive, especially for high resolution video
  streams.
  The computing time needed to decode one frame is dynamic and changes as
@@ -8551,7 +8591,17 @@ output
 \begin_inset space \space{}
 \end_inset
 
-stage triggers the display of decoded video frames at their proper presentation
+stage
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+output stage
+\end_layout
+
+\end_inset
+
+ triggers the display of decoded video frames at their proper presentation
  time.
  This stage interacts with physical reality, because it determines when
  the user sees which frame.
@@ -10010,8 +10060,17 @@ Continuous media
 
  is a real-time application with natural deadlines dictated directly by
  the processed workload.
- Video playback exhibits typical frame rates between 24 and 60 frames per
- second, so frames must be displayed at 
+ Video playback exhibits typical frame rates
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+frame rate
+\end_layout
+
+\end_inset
+
+ between 24 and 60 frames per second, so frames must be displayed at 
 \begin_inset Formula $16.7$
 \end_inset
 
@@ -11651,6 +11710,16 @@ status collapsed
 
 \begin_layout Plain Layout
 aperiodic jobs
+\end_layout
+
+\end_inset
+
+
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+job
 \end_layout
 
 \end_inset
@@ -16570,7 +16639,17 @@ The video playback pipeline
 
 \end_inset
 
- consists of three stages: the input stage reads the compressed video from
+ 
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+video playback
+\end_layout
+
+\end_inset
+
+consists of three stages: the input stage reads the compressed video from
  disk, the decoder stage converts it to frames, which the output stage displays.
  These stages are connected by queues
 \begin_inset Foot
@@ -16622,7 +16701,20 @@ TODO
 Atlas
 \noun default
  deadlines are absolute deadlines.
- To model how the pipeline advances, consider a situation where all queues
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+deadline
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To model how the pipeline advances, consider a situation where all queues
  are completely filled.
  Whenever the currently displayed frame expires, the next frame to show
  is taken from the picture queue.
@@ -16653,8 +16745,17 @@ frame_timer
 \end_inset
 
  variable in FFplay.
- The latter is determined by the video frame rate which dictates how long
- each frame is intended to show up on screen.
+ The latter is determined by the video frame rate
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+frame rate
+\end_layout
+
+\end_inset
+
+ which dictates how long each frame is intended to show up on screen.
  For simplicity, we assume the queues to advance by one frame in every 
 \begin_inset Formula $\Delta_{frame}$
 \end_inset
@@ -16680,8 +16781,18 @@ input
 \begin_inset space \space{}
 \end_inset
 
-stage continuously reads packets of the video file from disk and enqueues
- them into the video queue.
+stage
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+input stage
+\end_layout
+
+\end_inset
+
+ continuously reads packets off the video file from disk and enqueues them
+ into the video queue.
  Thus, the input stage must submit new 
 \noun on
 Atlas
@@ -16771,8 +16882,37 @@ dispatch_async_atlas
 
 \end_inset
 
- sends a new block to the dispatch queue designated and the first argument
- and also informs the scheduler about this new work by submitting the job
+ sends a new block
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+block
+\end_layout
+
+\end_inset
+
+ to the dispatch queue
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+dispatch queue
+\end_layout
+
+\end_inset
+
+ designated by the first argument and also informs the scheduler about this
+ new work by submitting the job
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+job
+\end_layout
+
+\end_inset
+
  given in the second argument.
 \end_layout
 
@@ -16929,8 +17069,18 @@ decoder
 \begin_inset space \space{}
 \end_inset
 
-stage consumes compressed packets from the video queue, decodes them and
- places the finished frames onto the picture queue.
+stage
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+decoder stage
+\end_layout
+
+\end_inset
+
+ consumes compressed packets from the video queue, decodes them and places
+ the finished frames onto the picture queue.
  A newly enqueued frame will have to wait for the currently displayed frame
  to expire and for the 
 \begin_inset Formula $n_{picture}$
@@ -17085,7 +17235,17 @@ output
 \begin_inset space \space{}
 \end_inset
 
-stage at the end of the video player pipeline finally displays the frames.
+stage
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+output stage
+\end_layout
+
+\end_inset
+
+ at the end of the video player pipeline finally displays the frames.
  It does not issue any new work and therefore remains unmodified.
 \end_layout
 
@@ -17099,7 +17259,17 @@ With these modifications
 
 \end_inset
 
- to FFplay, any job submitted to any GCD queue is backed by an 
+ to FFplay, any job submitted to any GCD
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+Grand Central Dispatch
+\end_layout
+
+\end_inset
+
+ queue is backed by an 
 \noun on
 Atlas
 \noun default
@@ -17222,14 +17392,33 @@ clock_gettime
 \end_inset
 
  system call.
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+system call
+\end_layout
+
+\end_inset
+
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Unix:Clock_Gettime"
 
 \end_inset
 
- One second elapsing on this clock always corresponds to one second in physical
- reality.
+ One second elapsing on this clock
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+clock
+\end_layout
+
+\end_inset
+
+ always corresponds to one second in physical reality.
  The clock offers nanosecond granularity and never jumps because of clock
  adjustments, leap seconds or time zone changes.
  The starting point is at an unspecified time in the past, so the clock
