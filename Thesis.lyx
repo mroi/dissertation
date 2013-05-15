@@ -17595,6 +17595,92 @@ Atlas
  These problems can be avoided by resuming from a saved predictor state,
  for example from the previous run of the application or from a training
  workload processed at install time.
+\begin_inset Newpage newpage
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+manual page break
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+From metrics selection
+\end_layout
+
+\end_inset
+
+ to inferring deadlines and modifying FFplay, I hope I conveyed a thorough
+ understanding of integrating 
+\noun on
+Atlas
+\noun default
+ into a complex real-time application.
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Full Width
+\begin_inset Flex Emph
+status collapsed
+
+\begin_layout Plain Layout
+Asynchronous lambdas are gaining traction because of their benefits for
+ parallel programming.
+ 
+\noun on
+Atlas
+\noun default
+ builds on this trend by extending it: With asynchronous lambdas, the applicatio
+n dispatches blocks, which the runtime later executes on an automatic background
+ thread.
+ By passing additional job information with blocks, the 
+\noun on
+Atlas
+\noun default
+ task model aims for a developer mindset of telling the runtime: “Do this
+ work.
+ Until then.
+ Here’s what I know about it.” Deadlines specify the time constraint, workload
+ metrics describe the resource requirements.
+ Both are part of the application domain and can be obtained by developers
+ with local reasoning.
+ No global system knowledge is needed.
+\end_layout
+
+\end_inset
+
+
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The estimator derives approximate execution times from the metrics.
+ But to be useful for look-ahead scheduling, we need the estimator to operate
+ predictively.
+ It needs to provide execution times of submitted, but not yet executed
+ jobs before they run.
+ The next section evaluates this ability.
+\end_layout
+
+\begin_layout Section
+Prediction Accuracy
 \end_layout
 
 \begin_layout Standard
