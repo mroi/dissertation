@@ -1682,7 +1682,7 @@ key "Love:IO_Schedulers"
  We start with an application asking for the service of a device.
  A write request to persistent storage shall serve as an example.
  The application collects the data it wants to make durable and submits
- a job toward the device using an API or system call.
+ a job toward the device.
  A write request to a file would now traverse various layers of file system
  and buffer caching code in the operating system, but would finally arrive
  at the device driver as a write request to the magnetic disk.
@@ -7026,7 +7026,8 @@ First, GCD is a mature and fully-featured implementation of asynchronous
 
 X and iOS.
  GCD is becoming an essential technology on these platforms, with older
- APIs being rewritten to use it and newer APIs relying on it exclusively.
+ frameworks being rewritten to use it and newer interfaces relying on it
+ exclusively.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Apple:AVFoundation"
@@ -14302,7 +14303,7 @@ In the new system
 \begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)$
 \end_inset
 
-, all drop-columns are grouped together in a single block on the right-hand
+, all drop-columns are grouped together in a single run on the right-hand
  side of the matrix, followed only by the execution times column.
  A reduced solution 
 \begin_inset Formula $\underline{\tilde{x}}$
