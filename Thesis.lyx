@@ -8367,33 +8367,9 @@ Model identifier: MacBookPro6,2
 \end_inset
 
 i5-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\uuline off
-\uwave off
-\noun off
-\color none
-
 \begin_inset Formula $520\mathrm{M}$
 \end_inset
 
-
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\bar default
-\strikeout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
  Arrandale and 
 \begin_inset Formula $4\,\mathrm{GiB}$
 \end_inset
@@ -11937,18 +11913,6 @@ Atlas
 
  to the scheduler.
  It keeps the job 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\uuline off
-\uwave off
-\noun off
-\color none
-
 \begin_inset Formula $J'_{i,j}$
 \end_inset
 
@@ -17814,33 +17778,9 @@ The test machine is the same as in preceding experiments: a
 \end_inset
 
 i5-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\uuline off
-\uwave off
-\noun off
-\color none
-
 \begin_inset Formula $520\mathrm{M}$
 \end_inset
 
-
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\bar default
-\strikeout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
  Arrandale with 
 \begin_inset Formula $4\,\mathrm{GiB}$
 \end_inset
