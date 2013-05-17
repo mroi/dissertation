@@ -8362,15 +8362,39 @@ Model identifier: MacBookPro6,2
 \begin_inset Formula $2.4\,\mathrm{GHz}$
 \end_inset
 
- 
-\begin_inset Formula $(520\mathrm{M})$
-\end_inset
-
  Intel Core
 \begin_inset space ~
 \end_inset
 
-i5 Arrandale and 
+i5-
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $520\mathrm{M}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ Arrandale and 
 \begin_inset Formula $4\,\mathrm{GiB}$
 \end_inset
 
@@ -8394,7 +8418,7 @@ SDRAM.
  This configuration is representative for a mid-range consumer notebook
  at the time of this writing.
  Reproducing the experiments is fully automated and all source code and
- scripts are available in a public Subversion repository.
+ scripts are available in a public source code repository.
 \begin_inset Foot
 status open
 
@@ -13984,8 +14008,18 @@ The online metrics dropping algorithm
 
 \end_inset
 
- runs in two phases: At first, it scans all metrics to figure out which
- are significant for the result and which are redundant.
+ 
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+metrics dropping
+\end_layout
+
+\end_inset
+
+runs in two phases: At first, it scans all metrics to figure out which are
+ significant for the result and which are redundant.
  It then reorganizes the current 
 \begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)$
 \end_inset
@@ -13994,7 +14028,28 @@ The online metrics dropping algorithm
 \begin_inset Formula $\underline{\tilde{x}}$
 \end_inset
 
- can be calculated, which ignores the redundant metrics.
+ can be calculated, which ignores the redundant metrics and is based only
+ on the 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+stable subset
+\end_layout
+
+\end_inset
+
+.
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+stable subset
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -14020,6 +14075,16 @@ The scan for redundant metrics successively drops the rightmost metrics
 .
  This 
 \begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+column contribution threshold
+\end_layout
+
+\end_inset
+
+
+\begin_inset Index idx
 status collapsed
 
 \begin_layout Plain Layout
@@ -14324,11 +14389,11 @@ reference "3-mar:Reduced-Solution"
 \end_inset
 
  visualizes such a reduced system.
- This solution 
+ The solution 
 \begin_inset Formula $\underline{\tilde{x}}$
 \end_inset
 
- derives only from the significant metrics, so it is expected to produce
+ stems from the subset of significant metrics, so it is expected to produce
  a more stable prediction.
  The following case study examines and confirms this proposition.
 \end_layout
@@ -15125,11 +15190,11 @@ Main
 \begin_inset Text
 
 \begin_layout Plain Layout
-x264, CRF, Rate
+x264, CRF, rate
 \begin_inset space ~
 \end_inset
 
-Factor
+factor
 \begin_inset space ~
 \end_inset
 
@@ -15227,11 +15292,11 @@ High
 \begin_inset Text
 
 \begin_layout Plain Layout
-x264, CRF, Rate
+x264, CRF, rate
 \begin_inset space ~
 \end_inset
 
-Factor
+factor
 \begin_inset space ~
 \end_inset
 
@@ -17378,6 +17443,8 @@ ffplay.c
 \end_inset
 
 .
+ The modifications are straightforward for a developer familiar with the
+ codebase.
  No changes are needed within the FFmpeg libraries.
 \end_layout
 
@@ -17570,10 +17637,19 @@ Atlas
 \noun on
 Atlas
 \noun default
- runtime library always adds a constant metric of all-ones before passing
- the metrics to the linear solver.
- This all-one metric catches any constant-time contribution to execution
- time.
+ runtime library always adds a constant metric of one before passing the
+ metrics to the linear solver.
+ This always-one metric
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+always-one metric
+\end_layout
+
+\end_inset
+
+ catches any constant-time contribution to execution time.
  Especially when the developer passes no metrics, like I did for the input
  and output stages of FFplay, this behind-the-scenes addition enables the
  predictor to extrapolate future execution times from previously measured
@@ -17595,20 +17671,6 @@ Atlas
  These problems can be avoided by resuming from a saved predictor state,
  for example from the previous run of the application or from a training
  workload processed at install time.
-\begin_inset Newpage newpage
-\end_inset
-
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-manual page break
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -17621,12 +17683,16 @@ From metrics selection
 
 \end_inset
 
- to inferring deadlines and modifying FFplay, I hope I conveyed a thorough
- understanding of integrating 
+ to inferring deadlines and modifying FFplay, I hope I conveyed an understanding
+ of integrating 
 \noun on
 Atlas
 \noun default
  into a complex real-time application.
+ Unlike the classical periodic task model, deadlines can be placed arbitrarily.
+ Unlike priority-based schedulers, no knowledge of surrounding applications
+ and their priorities was needed.
+ 
 \begin_inset VSpace defskip
 \end_inset
 
@@ -17671,8 +17737,8 @@ Atlas
 \end_layout
 
 \begin_layout Standard
-The estimator derives approximate execution times from the metrics.
- But to be useful for look-ahead scheduling, we need the estimator to operate
+The estimator uses the metrics to derive approximate execution times.
+ But to be useful for look-ahead scheduling, we want the estimator to operate
  predictively.
  It needs to provide execution times of submitted, but not yet executed
  jobs before they run.
