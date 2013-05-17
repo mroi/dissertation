@@ -17680,7 +17680,500 @@ The estimator derives approximate execution times from the metrics.
 \end_layout
 
 \begin_layout Section
-Prediction Accuracy
+Look-Ahead Prediction
+\end_layout
+
+\begin_layout Standard
+Thanks to queueing, FFplay exposes jobs to the 
+\noun on
+Atlas
+\noun default
+ interface ahead-of-time.
+ For every such submitted job, a predicted execution time 
+\begin_inset Formula $e$
+\end_inset
+
+ is calculated as the dot product of the job’s workload metrics vector 
+\begin_inset Formula $\underline{m}$
+\end_inset
+
+ and the current coefficient vector 
+\begin_inset Formula $\underline{x}$
+\end_inset
+
+ from the auto-regressive predictor:
+\begin_inset Formula 
+\[
+e=\underline{m}\cdot\underline{x}
+\]
+
+\end_inset
+
+For every completed job, the actual execution time is measured and used
+ to train the predictor, updating the coefficient vector 
+\begin_inset Formula $\underline{x}$
+\end_inset
+
+.
+ The queue therefore introduces a gap between prediction and training illustrate
+d in Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+TODO
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+In this section, I evaluate the accuracy of the execution time prediction.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+The test machine is the same as in preceding experiments: a 
+\begin_inset Formula $2.4\,\mathrm{GHz}$
+\end_inset
+
+ Intel Core
+\begin_inset space ~
+\end_inset
+
+i5-
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $520\mathrm{M}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ Arrandale with 
+\begin_inset Formula $4\,\mathrm{GiB}$
+\end_inset
+
+ of 
+\begin_inset Formula $1066\,\mathrm{MHz}$
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\mathrm{DDR}3$
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+SDRAM.
+\end_layout
+
+\end_inset
+
+ In addition to the test videos used so far,
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+see Table
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "3-tab:Test-Clips"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ I include the short film and full-length feature film listed in Table
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "3-tab:Videos"
+
+\end_inset
+
+.
+ I discuss alternatives for the decoder stage metrics and also measure the
+ overhead introduced by the predictor.
+ To improve the stability I introduced the aging factor and automatic metrics
+ sub-setting based on the column contribution threshold.
+ I substantiate the choice of values for these parameters and demonstrate
+ that the stable subset settles quickly.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="7">
+<features booktabs="true" tabularvalignment="middle">
+<column alignment="left" valignment="top" width="2.3cm">
+<column alignment="left" valignment="top" width="4cm">
+<column alignment="right" valignment="top" width="0pt">
+<column alignment="right" valignment="top" width="0">
+<column alignment="right" valignment="top" width="0">
+<column alignment="left" valignment="top" width="0">
+<column alignment="left" valignment="top" width="2.2cm">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Video (Source)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Content
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Resolution
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+FPS
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Length
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Profile
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Encoding
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row bottomspace="default">
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Sintel
+\begin_inset Newline newline
+\end_inset
+
+(
+\emph on
+
+\begin_inset CommandInset href
+LatexCommand href
+name "Xiph Archive"
+target "http://media.xiph.org/sintel/"
+
+\end_inset
+
+
+\emph default
+)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+short film “Sintel” (2010) by Blender Foundation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $4096\!\!\times\!\!1744$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $24$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $15\,\mathrm{min}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+High
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+x264, CRF, rate
+\begin_inset space ~
+\end_inset
+
+factor
+\begin_inset space ~
+\end_inset
+
+23
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row bottomspace="default">
+<cell alignment="left" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Hunger Games
+\begin_inset Newline newline
+\end_inset
+
+(
+\emph on
+
+\begin_inset CommandInset href
+LatexCommand href
+name "Apple Trailers"
+target "http://trailers.apple.com/trailers/lions_gate/thehungergames/"
+
+\end_inset
+
+
+\emph default
+)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+movie trailer for “The Hunger
+\begin_inset space ~
+\end_inset
+
+Games” (2012)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $1920\!\!\times\!\!816$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $24$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $155\,\mathrm{s}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Main
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+x264, CRF, rate
+\begin_inset space ~
+\end_inset
+
+factor
+\begin_inset space ~
+\end_inset
+
+23
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset VSpace 15pt
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-tab:Videos"
+
+\end_inset
+
+Properties of Movies for Experiments
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+No metrics
+\end_layout
+
+\end_inset
+
+ were passed for the input and output stages of FFplay.
+ For convenience, 
+\noun on
+Atlas
+\noun default
+ adds an always-one metric to enable prediction based on an average of previous
+ execution times.
 \end_layout
 
 \begin_layout Standard
@@ -17713,35 +18206,6 @@ X indicate that the prediction provides accurate estimates for both the
 \end_layout
 
 \end_deeper
-\begin_layout Plain Layout
-\begin_inset Float table
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "3-tab:Videos"
-
-\end_inset
-
-Test Clips, Short Films, and Movies for Experiments
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Itemize
 overhead from the predictor
 \end_layout
