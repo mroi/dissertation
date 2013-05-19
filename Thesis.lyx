@@ -4337,14 +4337,14 @@ Such video dimensions may not be common today, but they are already used
  in cinematic applications.
  With high resolution displays coming to market, such videos may appear
  on desktops soon.
- The properties of all videos used in this thesis are summarized in Table
+ The properties of this video are summarized in Table
 \begin_inset space ~
 \end_inset
 
 
 \begin_inset CommandInset ref
 LatexCommand vref
-reference "3-tab:Videos"
+reference "3-tab:Film-Clips"
 
 \end_inset
 
@@ -10490,7 +10490,7 @@ This video is a representative high definition movie trailer.
 
 \begin_inset CommandInset ref
 LatexCommand vref
-reference "3-tab:Videos"
+reference "3-tab:Test-Clips"
 
 \end_inset
 
@@ -17827,21 +17827,22 @@ reference "3-tab:Test-Clips"
 
 \end_inset
 
- I include the short film and full-length feature film listed in Table
+ I supplement select experiments with the short and full-length feature
+ films listed in Table
 \begin_inset space ~
 \end_inset
 
 
 \begin_inset CommandInset ref
 LatexCommand vref
-reference "3-tab:Videos"
+reference "3-tab:Film-Clips"
 
 \end_inset
 
 .
- I discuss alternatives for the decoder stage metrics and also measure the
- overhead introduced by the predictor.
- To improve the stability I introduced the aging factor and automatic metrics
+ I discuss alternatives for the decoder metrics and also measure the overhead
+ introduced by the predictor.
+ To improve stability I introduced the aging factor and automatic metrics
  sub-setting based on the column contribution threshold.
  I substantiate the choice of values for these parameters and demonstrate
  that the stable subset settles quickly.
@@ -17857,7 +17858,7 @@ status open
 \begin_inset Tabular
 <lyxtabular version="3" rows="3" columns="7">
 <features booktabs="true" tabularvalignment="middle">
-<column alignment="left" valignment="top" width="2.3cm">
+<column alignment="left" valignment="top" width="2.5cm">
 <column alignment="left" valignment="top" width="4cm">
 <column alignment="right" valignment="top" width="0pt">
 <column alignment="right" valignment="top" width="0">
@@ -17959,7 +17960,7 @@ target "http://media.xiph.org/sintel/"
 \begin_inset Text
 
 \begin_layout Plain Layout
-short film “Sintel” (2010) by Blender Foundation
+short film “Sintel” (2010), computer animated
 \end_layout
 
 \end_inset
@@ -18028,27 +18029,11 @@ factor
 </cell>
 </row>
 <row bottomspace="default">
-<cell alignment="left" valignment="top" bottomline="true" leftline="true" usebox="none">
+<cell alignment="left" valignment="top" bottomline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-Hunger Games
-\begin_inset Newline newline
-\end_inset
-
-(
-\emph on
-
-\begin_inset CommandInset href
-LatexCommand href
-name "Apple Trailers"
-target "http://trailers.apple.com/trailers/lions_gate/thehungergames/"
-
-\end_inset
-
-
-\emph default
-)
+Dante’s Peak (DVB recording)
 \end_layout
 
 \end_inset
@@ -18057,11 +18042,7 @@ target "http://trailers.apple.com/trailers/lions_gate/thehungergames/"
 \begin_inset Text
 
 \begin_layout Plain Layout
-movie trailer for “The Hunger
-\begin_inset space ~
-\end_inset
-
-Games” (2012)
+feature film “Dante’s Peak” (1997), live-action movie
 \end_layout
 
 \end_inset
@@ -18070,7 +18051,7 @@ Games” (2012)
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $1920\!\!\times\!\!816$
+\begin_inset Formula $1280\!\!\times\!\!544$
 \end_inset
 
 
@@ -18094,7 +18075,7 @@ Games” (2012)
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $155\,\mathrm{s}$
+\begin_inset Formula $101\,\mathrm{min}$
 \end_inset
 
 
@@ -18123,7 +18104,7 @@ factor
 \begin_inset space ~
 \end_inset
 
-23
+20
 \end_layout
 
 \end_inset
@@ -18146,7 +18127,7 @@ factor
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-tab:Videos"
+name "3-tab:Film-Clips"
 
 \end_inset
 
