@@ -17739,6 +17739,50 @@ e=\underline{m}\cdot\underline{x}
 
 \end_inset
 
+
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Figures/3-Real-Time/Queueing_Gap.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-mar:Queueing-Gap"
+
+\end_inset
+
+Queueing-Gap Between Prediction and Training
+\end_layout
+
+\end_inset
+
+
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
 For every completed job, the actual execution time is measured and used
  to train the predictor, updating the coefficient vector 
 \begin_inset Formula $\underline{x}$
@@ -17751,12 +17795,9 @@ d in Figure
 \end_inset
 
 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-TODO
-\end_layout
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-mar:Queueing-Gap"
 
 \end_inset
 
