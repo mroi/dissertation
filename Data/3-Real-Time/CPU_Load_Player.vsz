@@ -1,5 +1,5 @@
 # Veusz saved document (version 1.16)
-# Saved at 2013-03-23T16:33:10.956763
+# Saved at 2013-05-21T13:05:58.252487
 
 AddImportPath(u'/Users/Michael/Documents/Forschung/Dissertation/Data/3-Real-Time')
 ImportFileCSV(u'CPU_Load_Player.tab', delimiter='\t', headermode='none', linked=True, dsprefix=u'cpu_')
@@ -46,7 +46,7 @@ To('x')
 Set('mode', u'labels')
 Set('lowerPosition', -0.1)
 Set('Line/hide', True)
-Set('TickLabels/rotate', u'-90')
+Set('TickLabels/rotate', u'90')
 Set('MajorTicks/hide', True)
 To('..')
 Add('axis', name='y', autoadd=False)
