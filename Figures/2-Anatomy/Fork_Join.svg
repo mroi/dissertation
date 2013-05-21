@@ -41,7 +41,7 @@
      inkscape:pageshadow="2"
      inkscape:zoom="3.3566431"
      inkscape:cx="74.409447"
-     inkscape:cy="169.08354"
+     inkscape:cy="109.5002"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -267,15 +267,15 @@
     <text
        xml:space="preserve"
        style="font-size:10px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:100%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#5d7fbb;fill-opacity:1;stroke:none;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Bold"
-       x="972.36444"
-       y="-141.73228"
+       x="-972.716"
+       y="148.50475"
        id="text6132"
        sodipodi:linespacing="100%"
-       transform="matrix(0,1,-1,0,0,0)"><tspan
+       transform="matrix(0,-1,1,0,0,0)"><tspan
          sodipodi:role="line"
          id="tspan6134"
-         x="972.25946"
-         y="-141.73228"
+         x="-972.82098"
+         y="148.50475"
          style="letter-spacing:-0.20999999px">Parallel Section</tspan></text>
   </g>
 </svg>
