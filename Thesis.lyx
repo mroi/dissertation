@@ -20155,6 +20155,13 @@ key "Rizzo:Netmap"
 
 \end_inset
 
+, asynchronous pipes for efficient TCP
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Han:MegaPipe"
+
+\end_inset
+
 
 \end_layout
 
