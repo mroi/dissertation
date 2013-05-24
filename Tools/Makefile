@@ -10,7 +10,7 @@ all:
 check:
 	grep -B1 -A1 -w Atlas ../Thesis.lyx | sed '/^\\noun on$$/,/^\\noun default$$/d' | fgrep --color=auto Atlas
 	fgrep --color=auto H.264 ../Thesis.lyx
-	grep booktitle ../Bibliography/Thesis.bib | sed 's/^[[:space:]]booktitle = {//;s/^Proceedings of the //;s/^[12][0-9][0-9][0-9] //;s/^[0-9]*\\textsuperscript{[snrt][tdh]} //;s/},$$//' | sort | uniq -c
+	grep Booktitle ../Bibliography/Thesis.bib | sed 's/^[[:space:]]Booktitle = {//;s/^Proceedings of the //;s/^[12][0-9][0-9][0-9] //;s/^[0-9]*\\textsuperscript{[snrt][tdh]} //;s/},$$//' | sort | uniq -c
 
 style: Thesis-stylight.pdf
 	open $<
