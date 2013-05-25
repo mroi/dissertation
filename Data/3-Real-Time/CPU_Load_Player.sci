@@ -1,8 +1,8 @@
 function String = cpu_load(Video)
 	Log = read("CPU_Load_Player_" + Video + ".log", -1, 5);
-	Stage_inp = Log(find(Log == 0), 3);
-	Stage_dec = Log(find(Log == 1), 3);
-	Stage_out = Log(find(Log == 2), 3);
+	Stage_inp = Log(find(Log(:,1) == 0), 3);
+	Stage_dec = Log(find(Log(:,1) == 1), 3);
+	Stage_out = Log(find(Log(:,1) == 2), 3);
 	
 	// relative CPU load = time in thread / total cpu time
 	Cpu = [];

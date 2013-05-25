@@ -1,7 +1,7 @@
 Log = read("Characteristics.log", -1, 5);
-Stage_inp = Log(find(Log == 0), 2:5);
-Stage_dec = Log(find(Log == 1), 2:5);
-Stage_out = Log(find(Log == 2), 2:5);
+Stage_inp = Log(find(Log(:,1) == 0), 2:5);
+Stage_dec = Log(find(Log(:,1) == 1), 2:5);
+Stage_out = Log(find(Log(:,1) == 2), 2:5);
 
 Result = [""; "tb"; ""; ""; "b"];
 Result = Result + ascii(9) + ["right"; "Stage"; "input"; "decoder"; "output"];
