@@ -1683,9 +1683,9 @@ key "Love:IO_Schedulers"
  A write request to persistent storage shall serve as an example.
  The application collects the data it wants to make durable and submits
  a job toward the device.
- A write request to a file would now traverse various layers of file system
- and buffer caching code in the operating system, but would finally arrive
- at the device driver as a write request to the magnetic disk.
+ A write request to a file traverses file system and buffer caching code
+ in the operating system and finally arrives at the device driver as a write
+ request to the magnetic disk.
  As part of the driver, the scheduler maintains a work queue of jobs waiting
  for execution.
  Our write request is added to that queue together with concurrent requests
@@ -1789,52 +1789,6 @@ self-describing job
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float marginfigure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset VSpace -1mm
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\noindent
-\begin_inset Graphics
-	filename Figures/1-Introduction/CPU_Scheduling.svg
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "1-mar:CPU-Scheduling"
-
-\end_inset
-
-CPU Scheduling
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 \begin_inset Flex NewThought
 status collapsed
 
@@ -1901,6 +1855,49 @@ reference "1-mar:CPU-Scheduling"
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\begin_inset Graphics
+	filename Figures/1-Introduction/CPU_Scheduling.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "1-mar:CPU-Scheduling"
+
+\end_inset
+
+CPU Scheduling
+\end_layout
+
+\end_inset
+
+
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1988,12 +1985,12 @@ reference "3-chap:Real-Time"
 status collapsed
 
 \begin_layout Plain Layout
-In this thesis
+In this thesis,
 \end_layout
 
 \end_inset
 
-, I want to argue that it is beneficial to organize CPU scheduling using
+ I want to argue that it is beneficial to organize CPU scheduling using
  self-describing jobs similar to peripheral schedulers.
  Those CPU jobs represent a specific piece of code execution and are consumed
  once the CPU executed them.
@@ -2199,7 +2196,7 @@ null
 \end_inset
 
 To provide knowledge explicitly, applications likely have to be modified.
- We may get away with adapting key libraries to change the behavior of many
+ We may get away with adapting key libraries to change the behavior of multiple
  applications at once, but in the context of this dissertation, modifying
  a library counts as modifying the application.
  How to reduce programming effort by architecting software so it hides this
@@ -3299,7 +3296,7 @@ target "http://en.wikipedia.org/wiki/Atlas_(mythology)"
 
 
 \emph default
-), we hope the 
+), I hope the 
 \noun on
 Atlas
 \noun default
@@ -3325,18 +3322,7 @@ Timeliness is the primary property of real-time scheduling.
  Imposing a separation of concerns as in the resource kernels concept,
 \begin_inset CommandInset citation
 LatexCommand cite
-after "-1\\baselineskip"
 key "Rajkumar:ResourceKernels"
-
-\end_inset
-
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-manual offset
-\end_layout
 
 \end_inset
 
@@ -3425,7 +3411,16 @@ Atlas
 \noun on
 Atlas
 \noun default
- on the 27th IEEE Real-Time Systems Symposium
+ on the 27
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+th
+\end_layout
+
+\end_inset
+
+ IEEE Real-Time Systems Symposium
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Roitzsch:Predict"
@@ -3436,8 +3431,16 @@ key "Roitzsch:Predict"
 \noun on
 Atlas
 \noun default
- architecture on the 19th IEEE Real-Time and Embedded Technology and Application
-s Symposium.
+ architecture on the 19
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+th
+\end_layout
+
+\end_inset
+
+ IEEE Real-Time and Embedded Technology and Applications Symposium.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Roitzsch:ATLAS"
@@ -3497,18 +3500,7 @@ constraint satisfaction problem
 
 \begin_inset CommandInset citation
 LatexCommand cite
-after "-2\\baselineskip"
 key "Schaerf:CSP"
-
-\end_inset
-
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-manual offset
-\end_layout
 
 \end_inset
 
@@ -3617,7 +3609,11 @@ Serving the timeliness goal, applications structure their execution into
  into independent pieces that can execute simultaneously.
  To simplify development, I decouple these two structures by allowing for
  parallelism within an individual job.
- Such task models have been presented before.
+ Collette et al.
+\begin_inset space \space{}
+\end_inset
+
+presented such task models before.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Collette:JobParallelism"
@@ -3736,19 +3732,29 @@ reference "1-mar:Parallel-Execution-Alternatives"
 \end_inset
 
 .
- These alternative resource requirements are predicted by 
+ 
 \noun on
 Atlas
 \noun default
- ahead of time, allowing look-ahead scheduling.
+ predicts these alternative resource requirements ahead of time, allowing
+ look-ahead scheduling.
 \end_layout
 
 \begin_layout Standard
-Parallel speedup can be limited by serial sections in the applied algorithm
- or by imbalance in the workload partitioning.
+Serial sections in the applied algorithm or imbalance in the workload partitioni
+ng can limit parallel speedup.
  To demonstrate a typical optimization workflow, I show an example of improving
  the speedup by balancing the workload.
- I presented this work on the 7th International Conference on Embedded Software.
+ I presented this work on the 7
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+th
+\end_layout
+
+\end_inset
+
+ International Conference on Embedded Software.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Roitzsch:Balancing"
@@ -3797,27 +3803,16 @@ Atlas
 Because parallel speedup is typically sub-linear,
 \begin_inset CommandInset citation
 LatexCommand cite
-after "-2\\baselineskip"
 key "Amdahl:AmdahlsLaw"
-
-\end_inset
-
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-manual offset
-\end_layout
 
 \end_inset
 
  reducing core allocation reduces the overhead that comes with parallel
  execution.
- The lowest overhead would be achieved with single-core execution, which
- however also yields the worst response time.
- Timing requirements constrain this optimization problem with a limit on
- the tolerated response time.
+ Single-core execution would achieve the lowest overhead, but also yields
+ the worst response time.
+ Timing requirements constrain this optimization problem by imposing a limit
+ on the tolerated response time.
  Existing real-time research relies on the implicit knowledge of future
  jobs provided by periodic task models.
 \begin_inset CommandInset citation
@@ -3858,7 +3853,7 @@ key "Fedorova:SMT_Scheduling"
  response times, however future arrivals are merely guessed from past observatio
 ns.
  Throughput can suffer, when co-scheduled jobs causes thrashing on shared
- resources such as the last level cache.
+ resources such as the last-level cache.
  In such cases, deliberately not using all the available parallelism increases
  instruction throughput.
  We can observe similar behavior with magnetic disks: Interleaving requests
@@ -11621,7 +11616,7 @@ estimator
 \noun on
 Atlas
 \noun default
- interface as it is presented to the application developer.
+ interface as seen by the application developer.
  It remembers submitted jobs in a local queue until they have run to completion.
 \end_layout
 
@@ -11664,7 +11659,7 @@ key "Shin:Compositional"
 \end_layout
 
 \begin_layout Standard
-Two different kinds of job descriptions 
+The two interface layers use two different kinds of job descriptions 
 \begin_inset Formula $J'$
 \end_inset
 
@@ -11672,7 +11667,7 @@ Two different kinds of job descriptions
 \begin_inset Formula $J$
 \end_inset
 
- are used by the two interface layers.
+.
  I first formalize the task model, before I explain the interface operations
  and their integration into the application runtime.
 \end_layout
@@ -12698,7 +12693,7 @@ Atlas
 \end_layout
 
 \begin_layout Standard
-Applications, were deadlines or metrics emerge while the job is already
+Applications, where deadlines or metrics emerge while the job is already
  running are unsuitable for 
 \noun on
 Atlas
@@ -12830,12 +12825,15 @@ key "Roitzsch:Predict"
 
  but the implementation presented here removes the need for an offline training
  phase.
- It is based on a different mathematical apparatus, which continuously updates
- and stabilizes online.
+ A new mathematical apparatus continuously updates and stabilizes online.
 \end_layout
 
 \begin_layout Standard
-An independent estimator state is maintained for each kind of block submitted
+
+\noun on
+Atlas
+\noun default
+ maintains an independent estimator state for each kind of block submitted
  with 
 \begin_inset Flex NoWrap
 status collapsed
@@ -12930,7 +12928,7 @@ The number
 \begin_inset Formula $k$
 \end_inset
 
-, so the above linear equation has more rows than columns.
+, so the linear equation has more rows than columns.
  The equation is therefore overdetermined, so we reformulate it as a linear
  least squares problem:
 \begin_inset Index idx
@@ -13382,8 +13380,8 @@ key "Schwetlick:Numerics"
 \begin_inset Formula $\bigl(M,\underline{t}\bigr)^{\left(n\right)}$
 \end_inset
 
-, a new job being executed adds a new row to both the metrics matrix and
- the vector of measured execution times.
+, a new job adds a new row to the metrics matrix and the vector of measured
+ execution times.
  The resulting new problem is 
 \begin_inset Formula $\bigl(M,\underline{t}\bigr)^{\left(n+1\right)}$
 \end_inset
@@ -13682,8 +13680,8 @@ height_special "totalheight"
 status open
 
 \begin_layout Plain Layout
-After gaining some practical experience with the described execution time
- estimator, I observed two numerical problems:
+After gaining practical experience with the described execution time estimator,
+ I observed two numerical problems:
 \end_layout
 
 \begin_layout Itemize
@@ -13815,7 +13813,7 @@ aging factor
 \begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)$
 \end_inset
 
- is multiplied with a scalar factor slightly below 
+ is multiplied with a scalar factor less than 
 \begin_inset Formula $1$
 \end_inset
 
@@ -14063,7 +14061,7 @@ column contribution threshold
 \end_layout
 
 \begin_layout Standard
-Because the last column of 
+Because the rightmost column of 
 \begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)$
 \end_inset
 
@@ -14084,7 +14082,7 @@ reference "3-mar:Dropping-a-Column"
  Givens rotation, which changes just a single matrix element: the new residual
  error after dropping the column.
  The old residual error is zeroed by the Givens rotation.
- The implementation thus only handles the last column when successively
+ The implementation thus only touches the rightmost column when successively
  calculating the individual column contributions.
  Scanning through all metrics in this fashion applies 
 \begin_inset Formula $l$
@@ -14137,9 +14135,9 @@ Dropping a Column to Determine Error Contribution
 \end_layout
 
 \begin_layout Standard
-Dropping the last of the metrics degenerates the matrix to a scalar value
- equivalent to the standard deviation of the measured execution times, the
- upper bound for the residual error of the linear least square solution.
+Dropping all of the metrics degenerates the matrix to a scalar value equivalent
+ to the standard deviation of the measured execution times, the upper bound
+ for the residual error of the linear least square solution.
  The complete scan yields a series of non-decreasing residual error values
  as illustrated in Figure
 \begin_inset space ~
@@ -14323,8 +14321,8 @@ The worst-case time complexity of this reorganization is
  elements.
  However, the state of an individual column hopefully does not oscillate
  wildly between keeping and dropping.
- The case study below shows that the column selection settles, which reduces
- the average case time complexity.
+ The following case study shows that the column selection settles, which
+ reduces the average case time complexity.
 \end_layout
 
 \begin_layout Standard
@@ -14466,8 +14464,8 @@ In the following discussion,
 
 \begin_layout Standard
 For a video player, the time constraint is rather obvious: frames should
- be completely decoded and displayed until a time instant dictated by video
- metadata, commonly a fixed frame rate.
+ complete decoding and display until a time instant dictated by video metadata,
+ commonly a fixed frame rate.
 \begin_inset Index idx
 status collapsed
 
@@ -14574,7 +14572,7 @@ coding profiles
 \end_inset
 
 , which declare a set of decoder features required by the video.
- I focus on the 
+ I exercise the 
 \begin_inset Flex SmallCaps
 status collapsed
 
@@ -14657,8 +14655,8 @@ H
 \end_inset
 
 .264 encoder.
- At the time of this writing, it has won the last six installments of the
- Annual MSU 
+ At the time of this writing, it has won the previous six installments of
+ the Annual MSU 
 \begin_inset Flex SmallCaps
 status collapsed
 
@@ -14707,7 +14705,7 @@ FastVDO
  encoder.
  I ignore audio, because its computational load is two orders of magnitude
  smaller than video decoding and its timing requirements are less strict,
- because sample buffering and timely output are managed by the audio hardware.
+ because the audio hardware takes care of sample buffering and timely output.
 \end_layout
 
 \begin_layout Standard
@@ -15416,8 +15414,8 @@ H
 
 \end_inset
 
-.264 have a bitstream format so complex that it can be considered a domain-specif
-ic language to describe video frames.
+.264 have a bitstream format so complex we can consider it a domain-specific
+ language to describe video frames.
  The video decoder is then a special-purpose interpreter for this language
  whose execution time inherently depends on the video bitstream
 \begin_inset Index idx
@@ -15534,7 +15532,7 @@ workload metrics
 
  that allow the estimator to derive good predictions of the decoding time
  spent per frame.
- Intuitively, each metric should grow linearly with some part of the computation.
+ Intuitively, each metric should grow linearly with part of the computation.
  For example, if the computation involves a loop, the number of iterations
  is a good metric candidate.
  In the video case, the metrics should be acquired from the bitstream, because
@@ -15579,7 +15577,7 @@ key "Roitzsch:Balancing"
 
 \end_inset
 
- It is based on dividing the decoding work into smaller steps that are easier
+ The method divides the decoding work into smaller steps that are easier
  to examine individually.
  I summarize the line of thought in the following paragraphs.
  Text may have been copied verbatim from the two mentioned papers.
@@ -15831,8 +15829,8 @@ reference "3-mar:Metrics-Parsing"
 
  shows that a linear fit of the per-frame pixel and bit counts sufficiently
  matches the execution time of the bitstream parsing step.
- Remember that this step accounts for a relatively small fraction of total
- decoding time.
+ Remember that this step accounts for a small fraction of total decoding
+ time.
 \begin_inset Float marginfigure
 wide false
 sideways false
@@ -16028,8 +16026,8 @@ nopagebreak
 The prediction steps try to algorithmically fill the current macroblock
  by extrapolating from already decoded pixels of either the same frame or
  a previous frame.
- Only the residual error between prediction and actual image is stored in
- the bitstream.
+ The bitstream only stores the residual error between prediction and actual
+ image.
  Spatial prediction takes patterns from previously decoded pixels and bleeds
  them into the area of the current macroblock.
  This process can use sub-block sizes of 4
@@ -16129,8 +16127,8 @@ nopagebreak
 
 This step is the second big contributor to the total decoding time.
  It extrapolates from previously decoded frames, called reference frames,
- compensating for for any motion between by shifting image content along
- a motion vector.
+ compensating for any motion between by shifting image content along a motion
+ vector.
 \begin_inset Index idx
 status collapsed
 
@@ -16142,7 +16140,7 @@ motion vector
 
  Finding good metrics for this step is difficult, because its execution
  is exceptionally diverse.
- Not only can motion compensation be used with square and rectangular sub-blocks
+ Not only can motion compensation operate with square and rectangular sub-blocks
  of different sizes, each block can also be shifted by a motion vector of
  full, half or quarter pixel accuracy.
  In addition, bi-predicted macroblocks target two reference frames.
@@ -16267,8 +16265,7 @@ nopagebreak
 
 For spatially or temporally predicted macroblocks, this step compensates
  the residual error between the prediction and the actual image.
- For self-contained macroblocks, the pixels are stored in the bitstream
- directly.
+ For self-contained macroblocks, the bitstream stores the image data directly.
  To exploit visual redundancy, the bitstream keeps all image data in a DCT-like
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -16301,8 +16298,8 @@ reference "3-mar:Metrics-Transform"
 \end_inset
 
  illustrates how the sub-block occurrence counts fit execution time.
- The remaining imprecision is inconsequential, because this step has a very
- small influence on overall decoding time.
+ The remaining imprecision is inconsequential, because this step has a small
+ influence on overall decoding time.
 \begin_inset Float marginfigure
 wide false
 sideways false
@@ -16399,8 +16396,7 @@ H
 
  post processing step tries to reduce block artifacts by selective blurring
  of macroblock edges.
- Counting the number of edges being treated results in the fit displayed
- in Figure
+ Counting the number of treated edges results in the fit displayed in Figure
 \begin_inset space ~
 \end_inset
 
@@ -16586,20 +16582,20 @@ reference "3-tab:Metrics-Correlation"
  for each frame over all test videos.
  The table lists the decoding steps and their relative share of total decoding
  time.
- The selected metrics regression calculates a fit of the metrics we isolated
- above as reasonable for the respective step.
+ The selected metrics regression calculates a fit of the metrics we identified
+ as reasonable for the respective step.
  This column numerically presents the correlation we have visually examined
  in the previous figures.
- The last column regresses all thirteen metrics against the individual decoding
- steps and also the total decoding time per frame.
+ The rightmost column regresses all thirteen metrics against the individual
+ decoding steps and also the total decoding time per frame.
  As expected, the fit correlates better when more metrics are considered.
 \end_layout
 
 \begin_layout Standard
-The excellent correlation with the decoding time for the complete frames
- proves the metrics are well-chosen.
- However, the regression here was performed using perfect a-priori knowledge
- of all metrics and decoding times.
+The tight correlation with the decoding time for complete frames proves
+ that the metrics are well-chosen.
+ However, the regression so far relies on perfect a-priori knowledge of
+ all metrics and decoding times.
  The predictor in our video player however has to learn this information
  while the video is playing.
 \end_layout
@@ -16692,7 +16688,7 @@ These queues contain application data and should not be confused with GCD’s
 
 \end_inset
 
- with a limited number of slots where elements wait to be processed by the
+ with a limited number of slots where elements wait for processing by the
  next stage.
 \end_layout
 
@@ -16742,7 +16738,7 @@ deadline
 
 \begin_layout Standard
 To model how the pipeline advances, consider a situation where all queues
- are completely filled.
+ are filled.
  Whenever the currently displayed frame expires, the next frame to show
  is taken from the picture queue.
  This free slot unblocks the decoder which can now enqueue a decoded frame
@@ -16772,7 +16768,7 @@ frame_timer
 \end_inset
 
  variable in FFplay.
- The latter is determined by the video frame rate
+ The latter is determined by the video frame rate,
 \begin_inset Index idx
 status collapsed
 
@@ -16782,7 +16778,7 @@ frame rate
 
 \end_inset
 
- which dictates how long each frame is intended to show up on screen.
+ which dictates how long each frame shows up on screen.
  For simplicity, we assume the queues to advance by one frame in every 
 \begin_inset Formula $\Delta_{frame}$
 \end_inset
@@ -16862,8 +16858,8 @@ input stage
 \noun on
 Atlas
 \noun default
- jobs both for itself to read the next video packet and for the decoder
- stage to process the packets.
+ jobs for itself to read the next video packet and for the decoder stage
+ to process the packets.
  The input stage needs a free slot on the video queue to proceed, so we
  set 
 \begin_inset Formula $t_{frame}+\Delta_{frame}$
@@ -16875,7 +16871,7 @@ Atlas
 \begin_deeper
 \begin_layout Standard
 The video packet associated with the decoder job first travels through the
- video queue and and begins decoding after advancing 
+ video queue and begins decoding after advancing 
 \begin_inset Formula $n_{video}$
 \end_inset
 
@@ -17409,7 +17405,7 @@ ffplay.c
 .
  The modifications are straightforward for a developer familiar with the
  codebase.
- No changes are needed within the FFmpeg libraries.
+ The FFmpeg libraries remain unchanged.
 \end_layout
 
 \begin_layout Standard
@@ -17422,8 +17418,8 @@ Note that the application workload dictates only the final display deadline
 \noun on
 Atlas
 \noun default
-, I include results where those intermediate deadlines are configured more
- aggressively, allowing the queues to deplete in high load situations.
+, I include results with later intermediate deadlines, allowing the queues
+ to deplete in high load situations.
  
 \begin_inset Note Greyedout
 status open
@@ -17450,14 +17446,15 @@ key "SDL:MultipleThreads"
 
 \end_inset
 
- the output stage is split in two parts: the first part runs from the GCD
- output queue on a background thread and manages the timing of frame display,
- the second part runs on the main thread and puts the image on screen.
- Therefore, the decoder stage actually emits two 
+ the output stage contains two parts: the first part runs from the GCD output
+ queue on a background thread and manages the timing of frame display, the
+ second part runs on the main thread and puts the image on screen.
+ Therefore, the decoder stage emits two 
 \noun on
 Atlas
 \noun default
  jobs, one for each part of the output stage.
+ I ignore this technicality to simplify the evaluation.
 \end_layout
 
 \begin_layout Itemize
@@ -17546,8 +17543,8 @@ clock_gettime
 
 \end_inset
 
- does not actually transition into the kernel, but is handled efficiently
- in user space by the 
+ does not transition into the kernel, but executes in user space thanks
+ to the 
 \emph on
 
 \begin_inset CommandInset href
@@ -17627,7 +17624,7 @@ CLOCK_THREAD_CPUTIME_ID
 \end_inset
 
  flavor.
- This thread-specific clock only ticks, when the respective thread executes.
+ This thread-specific clock only ticks, when the corresponding thread executes.
 \end_layout
 
 \begin_layout Itemize
@@ -17645,12 +17642,22 @@ Atlas
 \noun default
  runtime library always adds a constant metric of one before passing the
  metrics to the linear solver.
- This always-one metric
+ This 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+one-metric
+\end_layout
+
+\end_inset
+
+
 \begin_inset Index idx
 status collapsed
 
 \begin_layout Plain Layout
-always-one metric
+one-metric
 \end_layout
 
 \end_inset
@@ -17670,13 +17677,13 @@ Atlas
 \noun default
 -enabled application is launched, the predictor always starts off from an
  empty state with no knowledge about job execution times.
- Before it has seen the first jobs actually execute, it cannot make any
- predictions and consequently returns zero.
+ Before it has seen the first job executions, it cannot make any predictions
+ and consequently returns zero.
  After the first jobs passed, the initial predictions may be less accurate
  because the internal coefficients need to settle.
- These problems can be avoided by resuming from a saved predictor state,
- for example from the previous run of the application or from a training
- workload processed at install time.
+ Resuming from a saved predictor state avoids these problems.
+ Applications can save this state on every exit or run a training workload
+ at install time.
 \end_layout
 
 \begin_layout Standard
