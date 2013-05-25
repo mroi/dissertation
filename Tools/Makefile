@@ -24,8 +24,7 @@ epub: Thesis.epub
 Thesis-stylight.pdf: Thesis-stylight.tex
 	ln -sf ../Data ../Figures ./
 	xelatex $<
-	svn st Data Figures | cut -c9- | while read file ; do rm "$$file" ; done
-	rm Data Figures
+	rm Data/*/*.tex Figures/*/*.pdf Data Figures
 	rm $(basename $@).{aux,idx,lof,log,lot,out,toc}
 
 Thesis-stylight.tex: Thesis.tex
