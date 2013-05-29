@@ -224,32 +224,6 @@ End
 \begin_body
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-use 
-\begin_inset Quotes eld
-\end_inset
-
-time constraint
-\begin_inset Quotes erd
-\end_inset
-
- as a synonym for 
-\begin_inset Quotes eld
-\end_inset
-
-timing requirement
-\begin_inset Quotes erd
-\end_inset
-
- to avoid repetition
-\end_layout
-
-\end_inset
-
-
 \begin_inset ERT
 status collapsed
 
@@ -1113,7 +1087,7 @@ The evolution of computing
 status collapsed
 
 \begin_layout Plain Layout
-Moore’s Law
+Moore’s law
 \end_layout
 
 \end_inset
@@ -1320,7 +1294,16 @@ BlackBerry PlayBook
 status collapsed
 
 \begin_layout Plain Layout
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
 QNX
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -1803,7 +1786,16 @@ The CPU scheduler
 status collapsed
 
 \begin_layout Plain Layout
-CPU scheduling
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+CPU
+\end_layout
+
+\end_inset
+
+ scheduling
 \end_layout
 
 \end_inset
@@ -5717,7 +5709,7 @@ Apple Grand Central Dispatch
 status collapsed
 
 \begin_layout Plain Layout
-Grand Central Dispatch
+grand central dispatch
 \end_layout
 
 \end_inset
@@ -5805,7 +5797,7 @@ Microsoft Parallel Patterns Library
 status collapsed
 
 \begin_layout Plain Layout
-Parallel Patterns Library
+parallel patterns library
 \end_layout
 
 \end_inset
@@ -5893,7 +5885,7 @@ Google Go
 status collapsed
 
 \begin_layout Plain Layout
-Go
+go
 \end_layout
 
 \end_inset
@@ -6206,7 +6198,7 @@ Intel Threading Building Blocks
 status collapsed
 
 \begin_layout Plain Layout
-Threading Building Blocks
+threading building blocks
 \end_layout
 
 \end_inset
@@ -6353,7 +6345,7 @@ Galois
 status collapsed
 
 \begin_layout Plain Layout
-Galois
+galois
 \end_layout
 
 \end_inset
@@ -6957,7 +6949,7 @@ key "Arnold:CoreManager"
 status collapsed
 
 \begin_layout Plain Layout
-Tomahawk
+tomahawk
 \end_layout
 
 \end_inset
@@ -6981,7 +6973,7 @@ key "Limberg:Tomahawk"
 status collapsed
 
 \begin_layout Plain Layout
-Gigathread engine
+gigathread engine
 \end_layout
 
 \end_inset
@@ -7001,8 +6993,18 @@ The Lambda Style
 \end_layout
 
 \begin_layout Standard
-Throughout this thesis, I use the Grand Central Dispatch (GCD) implementation
- of asynchronous lambdas to illustrate examples and to demonstrate the 
+Throughout this thesis, I use the Grand Central Dispatch
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+grand central dispatch
+\end_layout
+
+\end_inset
+
+ (GCD) implementation of asynchronous lambdas to illustrate examples and
+ to demonstrate the 
 \noun on
 Atlas
 \noun default
@@ -8118,7 +8120,7 @@ To the best of my knowledge,
 status collapsed
 
 \begin_layout Plain Layout
-Comquad
+comquad
 \end_layout
 
 \end_inset
@@ -10435,7 +10437,7 @@ sits at the simplicity end of the spectrum.
 status collapsed
 
 \begin_layout Plain Layout
-Completely Fair Scheduler
+completely fair scheduler
 \end_layout
 
 \end_inset
@@ -10848,7 +10850,7 @@ feasible
 status collapsed
 
 \begin_layout Plain Layout
-Rate-Monotonic Scheduling
+rate-monotonic scheduling
 \end_layout
 
 \end_inset
@@ -10952,7 +10954,7 @@ Extensions to the periodic task model
 status collapsed
 
 \begin_layout Plain Layout
-Quality Rate-Monotonic Scheduling
+quality rate-monotonic scheduling
 \end_layout
 
 \end_inset
@@ -12192,7 +12194,7 @@ Atlas
 status collapsed
 
 \begin_layout Plain Layout
-Grand Central Dispatch
+grand central dispatch
 \end_layout
 
 \end_inset
@@ -13009,7 +13011,16 @@ QR decomposition
 status collapsed
 
 \begin_layout Plain Layout
-QR decomposition
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+QR
+\end_layout
+
+\end_inset
+
+ decomposition
 \end_layout
 
 \end_inset
@@ -13421,7 +13432,7 @@ reference "3-mar:Updating-LLSP"
 status collapsed
 
 \begin_layout Plain Layout
-Givens rotations
+givens rotation
 \end_layout
 
 \end_inset
@@ -15915,25 +15926,43 @@ H
 status collapsed
 
 \begin_layout Plain Layout
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
 CAVLC
 \end_layout
 
 \end_inset
 
- and the more efficient CABAC,
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Marpe:CABAC"
+
+\end_layout
 
 \end_inset
 
-
+ and the more efficient CABAC,
 \begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex SmallCaps
 status collapsed
 
 \begin_layout Plain Layout
 CABAC
 \end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Marpe:CABAC"
 
 \end_inset
 
@@ -17350,7 +17379,7 @@ With these modifications
 status collapsed
 
 \begin_layout Plain Layout
-Grand Central Dispatch
+grand central dispatch
 \end_layout
 
 \end_inset
