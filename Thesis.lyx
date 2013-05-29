@@ -1164,7 +1164,7 @@ key "Markoff:DongarraIPad"
 status collapsed
 
 \begin_layout Plain Layout
-Satisfying these user expectations
+Living up to these expectations
 \end_layout
 
 \end_inset
@@ -1493,7 +1493,7 @@ Developing a modern application
 
 \end_inset
 
- already is a complex undertaking, because users expect intricate features
+ is already a complex undertaking, because users expect intricate features
  and applications have to handle new failure cases by connecting with the
  cloud.
  To face non-functional properties on top of that, developers need to rely
@@ -3292,7 +3292,7 @@ target "http://en.wikipedia.org/wiki/Atlas_(mythology)"
 \noun on
 Atlas
 \noun default
- system can support many applications.
+ system can support applications and developers.
 \end_layout
 
 \end_inset
@@ -3605,7 +3605,7 @@ Serving the timeliness goal, applications structure their execution into
 \begin_inset space \space{}
 \end_inset
 
-presented such task models before.
+presented such a task model before.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Collette:JobParallelism"
@@ -3962,8 +3962,8 @@ quality-weighted policy
 
  Applications tell the scheduler how much reduction they can tolerate to
  maintain a minimal acceptable quality.
- This quality threshold is resembles probabilistic real-time task models
- such as QRMS.
+ This quality threshold resembles probabilistic real-time task models such
+ as QRMS.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Hamann:QRMS"
@@ -4242,7 +4242,8 @@ frame rate
 \end_inset
 
  specification or the presentation timestamps in the video stream.
- Timing requirements are tight, because even small delays
+ Timing requirements are tight, because even small delays in the frame display
+ will be visible to the user.
 \begin_inset Foot
 status open
 
@@ -4282,7 +4283,7 @@ target "http://en.wikipedia.org/w/index.php?title=Telecine&oldid=475341309#Telec
 
 \end_inset
 
- in the frame display will be visible to the user.
+
 \end_layout
 
 \begin_layout Itemize
@@ -5493,8 +5494,8 @@ key "Welsh:SEDA"
 \end_inset
 
  Queuing work instead of explicitly spawning a thread allows the runtime
- layer to control the number of threads, employing strategies like thread
- pooling.
+ layer to control the number of threads, employing strategies like transparent
+ thread pooling.
 \end_layout
 
 \begin_layout Description
@@ -7616,8 +7617,8 @@ multiplier
 
 \begin_layout Standard
 Here, libdispatch enters the stage.
- It implements dispatch queues to which a programmer can asynchronously
- submit work items in the form of blocks.
+ It implements dispatch queues to which a programmer can submit asynchronous
+ work items in the form of blocks.
  GCD conveniently provides synchronization primitives as a natural part
  of its programming idioms.
 \begin_inset CommandInset citation
@@ -7950,9 +7951,9 @@ Blocks expose static program structure to the compiler to enable automatic
  to enable automatic thread management.
  Asynchronous execution by definition announces future computation before
  it begins.
- As shown above, the asynchronous lambda style is gaining traction, thus,
- modern applications increasingly have knowledge about their future execution
- behavior at hand.
+ As shown above, the asynchronous lambda style is gaining traction.
+ Thus, modern applications increasingly have knowledge about their future
+ execution behavior at hand.
  My goal is to expose future program behavior to the CPU scheduler ahead
  of time to improve global management of timeliness, core placement and
  overload.
@@ -8325,8 +8326,8 @@ I conduct all experiments on a 64-bit Ubuntu
 \begin_inset space ~
 \end_inset
 
-Linux version 
-\begin_inset Formula $12.04.1$
+Linux 
+\begin_inset Formula $12.04.2$
 \end_inset
 
 
@@ -10273,16 +10274,7 @@ Order Matters
 
 \begin_layout Standard
 Real-time scheduling is about ordering work so that its execution meets
- previously negotiated timing requirements.
-\begin_inset Index idx
-status collapsed
-
-\begin_layout Plain Layout
-timing requirements
-\end_layout
-
-\end_inset
-
+ previously negotiated timing constraints.
  Figure
 \begin_inset space ~
 \end_inset
@@ -10992,7 +10984,7 @@ This video is CPU intensive to decode.
 
 \begin_inset CommandInset ref
 LatexCommand vref
-reference "3-tab:Test-Clips"
+reference "3-tab:Film-Clips"
 
 \end_inset
 
@@ -11207,7 +11199,17 @@ Scheduling algorithms for hard deadlines must reject new work when they
 \noun on
 Atlas
 \noun default
- targets soft deadlines
+ targets firm
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+firm deadline
+\end_layout
+
+\end_inset
+
+ and soft deadlines
 \begin_inset Index idx
 status collapsed
 
@@ -11387,12 +11389,16 @@ Atlas
 \noun default
  can detect overload situations before they occur.
  The chapter 
+\emph on
+
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "5-chap:Adaptivity"
 
 \end_inset
 
+
+\emph default
  discusses how to coordinate workload adaptation to mitigate overload dynamicall
 y.
 \end_layout
@@ -11874,7 +11880,7 @@ submit(
 \end_inset
 
 ) As soon as an application learns about a job it needs to perform, it should
- register the job with the 
+ register the job with 
 \noun on
 Atlas
 \noun default
@@ -12342,31 +12348,6 @@ an array holding the metrics.
 
 \begin_layout Standard
 The signature of the resulting new function is:
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-
-\backslash
-enlargethispage{
-\backslash
-baselineskip}
-\end_layout
-
-\end_inset
-
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-manual page size adjustment
-\end_layout
-
-\end_inset
-
-
 \begin_inset VSpace defskip
 \end_inset
 
@@ -12634,12 +12615,16 @@ Atlas
 Other than the official GCD library, my reimplementation of the queueing
  infrastructure only supports independent serial queues.
  I add parallel queues in the next chapter 
+\emph on
+
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "4-chap:Parallelism"
 
 \end_inset
 
+
+\emph default
 .
  However, the official GCD interface also provides functions to suspend
  and resume queues or organize them in parent-child relationships.
@@ -13859,7 +13844,12 @@ The aging factor is the first tunable parameter of the predictor.
  Because any past behavior of the application may resurface, I argue that
  the aging effect should be small and only allow for slow adaptation in
  a long-term moving average style.
- I experiment with different factors in a video decoding case study below.
+ I use a value of 
+\begin_inset Formula $0.999$
+\end_inset
+
+ and I experiment with different factors in a video decoding case study
+ below.
 \end_layout
 
 \begin_layout Standard
@@ -14332,8 +14322,8 @@ The worst-case time complexity of this reorganization is
  elements.
  However, the state of an individual column hopefully does not oscillate
  wildly between keeping and dropping.
- The following case study shows that the column selection settles, which
- reduces the average case time complexity.
+ The video decoding case study shows that the column selection settles,
+ which reduces the average case time complexity.
 \end_layout
 
 \begin_layout Standard
@@ -14348,8 +14338,8 @@ In the new system
 \end_inset
 
  can now be calculated by performing back-substitution in a reduced system,
- where the dropped columns are removed and an equal number of rows are deleted
- from the bottom end of the system.
+ where the dropped columns are removed and a matching number of rows are
+ deleted from the bottom end of the system.
  Figure
 \begin_inset space ~
 \end_inset
@@ -14583,7 +14573,7 @@ coding profiles
 \end_inset
 
 , which declare a set of decoder features required by the video.
- I exercise the 
+ I experiment with the 
 \begin_inset Flex SmallCaps
 status collapsed
 
@@ -16180,8 +16170,8 @@ motion vector
  The filter operations for full, half and quarter pixel vectors read different
  amounts of reference pixels.
  Treating bi-predicted blocks as two blocks and rectangular sub-blocks as
- two square blocks, we count reference pixel accesses for three sub-block
- sizes: 4
+ two smaller square blocks, we count reference pixel accesses for three
+ sub-block sizes: 4
 \begin_inset Formula $\times$
 \end_inset
 
@@ -16607,8 +16597,8 @@ reference "3-tab:Metrics-Correlation"
 
 \end_inset
 
- analyses the correlation of the metrics with the measured execution times
- for each frame over all test videos.
+ analyses the Pearson correlation of the metrics with the measured execution
+ times for each frame over all test videos.
  The table lists the decoding steps and their relative share of total decoding
  time.
  The selected metrics regression calculates a fit of the metrics we identified
@@ -16666,7 +16656,7 @@ name "3-tab:Metrics-Correlation"
 
 \end_inset
 
-Correlation of Metrics Fitted to Per-Frame Execution Times
+Pearson Correlation of Metrics Fitted to Per-Frame Execution Times
 \end_layout
 
 \end_inset
@@ -16745,8 +16735,8 @@ reference "3-fig:FFplay-Stage-Structure"
  decoded frame.
  FFplay’s default setup uses a five-slot video queue and a two-slot picture
  queue.
- The idea of these queues is to compensate for heavyweight frames who need
- more execution time in a stage than the frame interval allows.
+ The idea of these queues is to compensate for heavyweight frames which
+ need more execution time in a stage than the frame interval allows.
  We therefore try to keep the queues filled by calculating deadlines accordingly.
  Remember that all 
 \noun on
@@ -16808,7 +16798,8 @@ frame rate
 \end_inset
 
  which dictates how long each frame shows up on screen.
- For simplicity, we assume the queues to advance by one frame in every 
+ For simplicity, we assume that the queues to advance by one frame in every
+ 
 \begin_inset Formula $\Delta_{frame}$
 \end_inset
 
@@ -16912,7 +16903,7 @@ The video packet associated with the decoder job first travels through the
 
  as the deadline of the decoder job.
  However, because we enqueue the packet before submitting the job, the video
- queue will already be extended to 
+ queue is already extended to 
 \begin_inset Formula $n_{video}'=n_{video}+1$
 \end_inset
 
@@ -17009,13 +17000,13 @@ job
 \end_deeper
 \begin_layout Standard
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
 
 \backslash
-enlargethispage{2
+enlargethispage{3
 \backslash
 baselineskip}
 \end_layout
@@ -17374,7 +17365,7 @@ With these modifications
 
 \end_inset
 
- to FFplay, any job submitted to any GCD
+ to FFplay, any block submitted to any GCD
 \begin_inset Index idx
 status collapsed
 
@@ -17443,7 +17434,7 @@ Note that the application workload dictates only the final display deadline
  Considering the application structure we manually inferred the intermediate
  deadlines to make maximum use of the queues, ensuring that later stages
  to operate without being delayed.
- When I later evaluate the overall scheduling behavior of 
+ When I evaluate the overall scheduling behavior of 
 \noun on
 Atlas
 \noun default
@@ -17601,8 +17592,8 @@ clock
 \end_inset
 
  always corresponds to one second in physical reality.
- The clock offers nanosecond granularity and never jumps because of clock
- adjustments, leap seconds or time zone changes.
+ The clock offers nanosecond granularity and is unaffected by clock adjustments,
+ leap seconds or time zone changes.
  The starting point is at an unspecified time in the past, so the clock
  does not bear a meaningful relation to wallclock time.
  This limitation is unproblematic for the intended use.
