@@ -36,7 +36,7 @@ Values.lyx: Values.val ../val2lyx.pl
 	$(MAKE) -C "$(shell dirname "`readlink "$@"`")" "$(shell basename "`readlink "$@"`")"
 
 clean::
-	rm -f *.pdf
+	rm -f *.pdf *.tab *.val
 
 all clean::
 	@for i in * ; do ! test -d "$$i" || $(MAKE) -C "$$i" $@ ; done
