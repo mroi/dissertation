@@ -17959,7 +17959,10 @@ reference "3-tab:Film-Clips"
 \end_inset
 
 .
- I discuss alternatives for the decoder metrics and also measure the overhead
+\end_layout
+
+\begin_layout Standard
+I discuss alternatives for the decoder metrics and also measure the overhead
  introduced by the predictor.
  To improve stability I introduced the aging factor and automatic metrics
  sub-setting based on the column contribution threshold.
@@ -18264,22 +18267,504 @@ Properties of Movies for Experiments
 \end_layout
 
 \begin_layout Standard
-\begin_inset Flex NewThought
-status collapsed
+\begin_inset Float figure
+wide false
+sideways false
+status open
 
 \begin_layout Plain Layout
-No metrics
+\begin_inset Graphics
+	filename Data/3-Real-Time/Prediction_IO.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-fig:Prediction-Accuracy-IO"
+
+\end_inset
+
+Prediction Accuracy for Input and Output Stages
 \end_layout
 
 \end_inset
 
- were passed for the input and output stages of FFplay.
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+No metrics were passed
+\end_layout
+
+\end_inset
+
+ for the input and output stages of FFplay.
  For convenience, 
 \noun on
 Atlas
 \noun default
- adds an always-one metric to enable prediction based on an average of previous
+ adds a one-metric to enable prediction based on the average of previous
  execution times.
+ Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "3-fig:Prediction-Accuracy-IO"
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+unlucky page break
+\end_layout
+
+\end_inset
+
+ shows the mean relative error and the lower and upper quartiles as error
+ bars.
+ Given the small overall execution times of these two stages,
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+recall Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "3-mar:Relative-Time-Steps"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ those errors can be tolerated.
+ The overall evaluation of scheduling behavior will verify that additional
+ effort to find suitable metrics is not warranted.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+The decoding stage
+\end_layout
+
+\end_inset
+
+ is the most time consuming part of FFplay and thus calls for a precise
+ prediction of its execution time.
+ To demonstrate the importance of workload knowledge, I compare three alternativ
+es for the decoding time metrics.
+\end_layout
+
+\begin_layout Standard
+The first version uses no metrics and consequently does not exploit workload
+ insights.
+ Thanks to the automatic one-metric, the prediction is based on previous
+ execution times alone.
+ I call this alternative 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+time only
+\end_layout
+
+\end_inset
+
+ and it serves as a lower bound.
+ No other prediction should be worse.
+\end_layout
+
+\begin_layout Standard
+The option I call 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+full metrics
+\end_layout
+
+\end_inset
+
+
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+full metrics
+\end_layout
+
+\end_inset
+
+ uses the complete set of metrics identified previously.
+ We expect this version to provide the most accurate predictions, because
+ it forwards the largest set of valuable workload information to the estimator.
+ Unfortunately, the majority of the metrics hide in the video bitstream
+ behind an outer layer of entropy coding, so extracting them requires performing
+ part of the decoding work.
+\end_layout
+
+\begin_layout Standard
+Two solutions can remedy this problem.
+ A staged decoder
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+staged decoder
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Altenbernd:MPEG-WCET"
+
+\end_inset
+
+ first processes the entropy compression layer and then extracts the metrics
+ for the second stage, which performs the remaining decoding steps.
+ This design requires intricate changes to the video decoder, which I do
+ not think developers are prepared to implement.
+\end_layout
+
+\begin_layout Standard
+Instead, I chose an offline preprocessing step, which embeds the video metrics
+ into the bitstream.
+ The MPEG-
+\begin_inset Formula $4$
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+Part
+\begin_inset space ~
+\end_inset
+
+2 video standard
+\begin_inset CommandInset citation
+LatexCommand cite
+key "MPEG4-2"
+
+\end_inset
+
+ describes a complexity estimation header
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+complexity estimation header
+\end_layout
+
+\end_inset
+
+ which optionally contains video metadata similar to my metrics.
+ Unfortunately, this header has not been carried over to the 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+H
+\end_layout
+
+\end_inset
+
+.264 standard.
+ My preprocessing recreates such metadata for 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+H
+\end_layout
+
+\end_inset
+
+.264 by adding user-defined datagrams.
+ The resulting video is still a standards compliant stream that can be played
+ by any unmodified 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+H
+\end_layout
+
+\end_inset
+
+.264 decoder.
+ Preprocessing one video only requires decoding it once and thus is fast.
+ To keep the extra data small, I apply exp-golomb coding
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+exp-golomb coding
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Golomb:RLE"
+
+\end_inset
+
+, an established compression technology for bitstream header elements.
+ The size overhead from the embedded metrics amounts to a geometric mean
+ of 
+\begin_inset Formula $\PreprocessSizeOverhead$
+\end_inset
+
+ over all test clips.
+\end_layout
+
+\begin_layout Standard
+The full metrics with stream preprocessing serve as an upper bound for implement
+or effort and resulting prediction accuracy.
+ This alternative demonstrates, how good predictions can get when designers
+ are willing to apply an end-to-end approach and are able to engineer the
+ data format of their application to support a desired non-functional property.
+ But clearly, a middle ground between the full-metrics and time-only approaches
+ is needed.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 1
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+This intermediate option is limited to information that can be easily obtained
+ from an unmodified bitstream:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Argument
+status collapsed
+
+\begin_layout Plain Layout
+noitemsep
+\end_layout
+
+\end_inset
+
+the number of pixels per frame,
+\end_layout
+
+\begin_layout Itemize
+the number of bits of the compressed frame, and
+\end_layout
+
+\begin_layout Itemize
+the frame type (I, P, or B).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+The first two values are used as metrics directly.
+ The frame type is passed to the estimator as three separate binary metrics,
+ each of which can only take the values 
+\begin_inset Formula $0$
+\end_inset
+
+ or 
+\begin_inset Formula $1$
+\end_inset
+
+.
+ The combination 
+\begin_inset Formula $(1,0,0)$
+\end_inset
+
+ signals an I-frame, 
+\begin_inset Formula $(0,1,0)$
+\end_inset
+
+ a P- and 
+\begin_inset Formula $(0,0,1)$
+\end_inset
+
+ a B-frame.
+ I call this alternative 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+reduced metrics.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Data/3-Real-Time/Prediction_Comparison.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-fig:Prediction-Accuracy-Decoder"
+
+\end_inset
+
+Prediction Accuracy for the Decoder Stage
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-fig:Prediction-Accuracy-Decoder"
+
+\end_inset
+
+ shows that workload awareness improves prediction accuracy over a purely
+ time-based predictor.
+ Again, the error bars represent the lower and upper quartile.
+ The reduced metrics, which do not require preprocessing or a staged decoder
+ provide a good middle ground, whereas the full set of metrics offers the
+ highest precision, with typical relative errors below 
+\begin_inset Formula $10\%$
+\end_inset
+
+.
+ The convincing results indicate that the prediction provides accurate estimates
+ for both short clips and full-length features, regardless of the encoding
+ profile and video resolution being used.
+\end_layout
+
+\begin_layout Standard
+Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-fig:Prediction-Zoom"
+
+\end_inset
+
+ zooms in on a section of the Hunger Games video to illustrate that the
+ full-metrics prediction tightly follows the large variations of the decoding
+ time, while time-only prediction yields a long-term moving average.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Data/3-Real-Time/Prediction_Timeline.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-fig:Prediction-Zoom"
+
+\end_inset
+
+Zoomed View of Prediction Alternatives
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -18287,7 +18772,7 @@ Atlas
 status open
 
 \begin_layout Itemize
-caste study: video decoding time
+case study: video decoding time
 \end_layout
 
 \begin_deeper
@@ -18296,22 +18781,6 @@ evaluate metrics alternatives
 \end_layout
 
 \begin_deeper
-\begin_layout Itemize
-also show with complete movies
-\end_layout
-
-\begin_deeper
-\begin_layout Plain Layout
-The convincing results for the other videos in Table
-\begin_inset space ~
-\end_inset
-
-X indicate that the prediction provides accurate estimates for both the
- short clips and the full-length movies, regardless of the encoding profile
- being used.
-\end_layout
-
-\end_deeper
 \begin_layout Itemize
 overhead from the predictor
 \end_layout
