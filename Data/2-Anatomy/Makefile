@@ -1,3 +1,3 @@
 include ../Makefile
 
-Characteristics.lyx: Characteristics.log
+Characteristics.tab: Characteristics.log

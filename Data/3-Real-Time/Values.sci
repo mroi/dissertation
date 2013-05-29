@@ -10,7 +10,7 @@ Decode_Repeat = correl(Decode1, Decode2, eye(Decode1 * Decode2'));
 Result = [];
 format(3);
 Result = [Result; "RMSBestAdmission" + ascii(9) + string(RMS_Best*100) + "\%"];
-format(6);
+format(7);
 Result = [Result; "DecodeRepeatCorrelation" + ascii(9) + string(Decode_Repeat)];
 
 write("Values.val", Result);
