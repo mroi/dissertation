@@ -1,4 +1,6 @@
 function String = accuracy_mode(Video, Mode)
+	if isdef("Prefix") then Mode = Prefix + "_" + Mode; end
+	
 	Decode = read("Prediction_" + Mode + "_" + Video + ".log", -1, 2);
 	Decode = Decode(find(Decode(:,2) > 0), :);
 	Decode = abs(Decode(:,1) ./ Decode(:,2) - 1);
@@ -24,5 +26,9 @@ Result = [Result; """Park Run""" + accuracy("Parkrun")];
 Result = [Result; """Rush Hour""" + accuracy("Rushhour")];
 Result = [Result; """Hunger Games""" + accuracy("Hungergames")];
 
-write("Prediction_Comparison.tab", Result);
+if isdef("Prefix") then
+	write("Prediction_" + Prefix + ".tab", Result);
+else
+	write("Prediction_Comparison.tab", Result);
+end
 exit;

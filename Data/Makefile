@@ -33,7 +33,7 @@ Values.lyx: Values.val ../val2lyx.pl
 	scilab -nw -nb -f $<
 
 %.log: force
-	$(MAKE) -C "$(shell dirname "`readlink "$@"`")" "$(shell basename "`readlink "$@"`")"
+	! test -L $@ || $(MAKE) -C "$(shell dirname "`readlink $@`")" "$(shell basename "`readlink $@`")"
 
 clean::
 	rm -f *.pdf *.tab *.val
