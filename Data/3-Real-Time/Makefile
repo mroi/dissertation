@@ -17,7 +17,7 @@ RMS_Admission.pdf: RMS_Admission.tab
 RMS_Admission.tab: RMS_Admission.log
 Times_Relative.pdf: Times_Relative.tab
 Times_Relative.tab: $(foreach video,$(CASE_STUDY),Times_Metrics_$(video).log)
-Values.val: Decoding_Times_Hungergames.log Decoding_Times_Hungergames_Repeat.log Preprocess.log RMS_Admission.tab
+Values.val: Decoding_Times_Hungergames.log Decoding_Times_Hungergames_Repeat.log Preprocess.log RMS_Admission.tab $(foreach video,$(CASE_STUDY),Runtime_After_$(video).log Runtime_Before_$(video).log)
 
 CPU_Load_Player.lyx Prediction_Comparison.lyx Prediction_IO.lyx RMS_Admission.lyx Times_Relative.lyx:
 	@# ignore

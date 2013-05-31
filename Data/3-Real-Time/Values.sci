@@ -12,6 +12,19 @@ Size = mfscanf(-1, fd, "%*s %u %u");
 Size = geomean(Size(:,2) ./ Size(:,1)) - 1;
 mclose(fd);
 
+function Times = runtimes(Mode);
+Times = [];
+Times = [Times; read("Runtime_" + Mode + "_Blackswan.log", -1, 1)];
+Times = [Times; read("Runtime_" + Mode + "_Shore.log", -1, 1)];
+Times = [Times; read("Runtime_" + Mode + "_Parkrun.log", -1, 1)];
+Times = [Times; read("Runtime_" + Mode + "_Rushhour.log", -1, 1)];
+Times = [Times; read("Runtime_" + Mode + "_Hungergames.log", -1, 1)];
+endfunction
+Times1 = runtimes("Before");
+Times2 = runtimes("After");
+Overhead = geomean(Times2 ./ Times1) - 1;
+Overhead_IQR = iqr(Times2 ./ Times1);
+
 Result = [];
 format(3);
 Result = [Result; "RMSBestAdmission" + ascii(9) + string(RMS_Best*100) + "\%"];
@@ -19,6 +32,8 @@ format(7);
 Result = [Result; "DecodeRepeatCorrelation" + ascii(9) + string(Decode_Repeat)];
 format(4);
 Result = [Result; "PreprocessSizeOverhead" + ascii(9) + string(Size*100) + "\%"];
+Result = [Result; "PredictionOverhead" + ascii(9) + string(Overhead*100) + "\%"];
+Result = [Result; "PredictionOverheadIQR" + ascii(9) + string(Overhead_IQR*100) + "\%"];
 
 write("Values.val", Result);
 exit;
