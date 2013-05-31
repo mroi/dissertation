@@ -18771,6 +18771,106 @@ Across the test videos, the predictor introduces a runtime overhead of
  time measurements.
 \end_layout
 
+\begin_layout Standard
+To show the hardware independence of the resulting preprocessed videos,
+ I reran the prediction experiment on an Intel Atom
+\begin_inset space ~
+\end_inset
+
+D2550 with 
+\begin_inset Formula $1.86\,\mathrm{GHz}$
+\end_inset
+
+.
+ The results in Figure
+\begin_inset space ~
+\end_inset
+
+ are similar to those from the Core
+\begin_inset space ~
+\end_inset
+
+i5, with full metrics leading to relative errors below 
+\begin_inset Formula $10\%$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Data/3-Real-Time/Prediction_Atom.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Prediction Accuracy on Intel
+\begin_inset space ~
+\end_inset
+
+Atom Hardware
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+Two tunable parameters
+\end_layout
+
+\end_inset
+
+ are part of the predictor design: The aging factor
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+aging factor
+\end_layout
+
+\end_inset
+
+ determines, how quickly historical job data should be discarded in favor
+ of newly acquired knowledge.
+ Trading prediction accuracy against numerical stability is controlled by
+ the column contribution threshold.
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+column contribution threshold
+\end_layout
+
+\end_inset
+
+ The following experiments evaluate the effect of these parameters.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Itemize
@@ -18778,29 +18878,6 @@ case study: video decoding time
 \end_layout
 
 \begin_deeper
-\begin_layout Itemize
-evaluate metrics alternatives
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-overhead from the predictor
-\end_layout
-
-\begin_layout Itemize
-related: workload metrics for MPEG
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Altenbernd:MPEG-WCET"
-
-\end_inset
-
-
-\end_layout
-
-\end_deeper
-\begin_layout Standard
-\begin_inset Note Greyedout
 \begin_layout Itemize
 show stability problems and substantiate choice of estimator parameters
 \end_layout

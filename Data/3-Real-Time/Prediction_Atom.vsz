@@ -1,8 +1,8 @@
 # Veusz saved document (version 1.16)
-# Saved at 2013-05-31T07:50:23.183935
+# Saved at 2013-05-31T07:50:38.652218
 
 AddImportPath(u'/Users/Michael/Documents/Forschung/Dissertation/Data/3-Real-Time')
-ImportFile(u'Prediction_Comparison.tab', u'video none - + reduced - + full - +', linked=True, ignoretext=True)
+ImportFile(u'Prediction_Atom.tab', u'video none - + reduced - + full - +', linked=True, ignoretext=True)
 Set('height', u'4cm')
 Set('StyleSheet/Font/font', u'Gill Sans Light')
 Set('StyleSheet/Font/size', u'8pt')

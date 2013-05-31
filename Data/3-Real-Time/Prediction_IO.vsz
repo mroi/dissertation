@@ -1,5 +1,5 @@
 # Veusz saved document (version 1.16)
-# Saved at 2013-05-29T13:13:08.702803
+# Saved at 2013-05-30T12:09:01.061904
 
 AddImportPath(u'/Users/Michael/Documents/Forschung/Dissertation/Data/3-Real-Time')
 ImportFile(u'Prediction_IO.tab', u'video input - + output - +', linked=True, ignoretext=True)
@@ -55,15 +55,12 @@ Add('axis', name='y', autoadd=False)
 To('y')
 Set('label', u'Mean Relative Error')
 Set('min', 0.0)
-Set('max', 1.0)
+Set('max', 0.8)
 Set('direction', 'vertical')
 Set('TickLabels/format', u'%Vg%')
 Set('TickLabels/scale', 100.0)
 To('..')
 Add('key', name='key1', autoadd=False)
-To('key1')
-Set('horzPosn', u'left')
-To('..')
 Add('bar', name='bar1', autoadd=False)
 To('bar1')
 Set('lengths', (u'input', u'output'))
