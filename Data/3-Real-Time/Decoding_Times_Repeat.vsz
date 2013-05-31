@@ -5,7 +5,7 @@ AddImportPath(u'/Users/Michael/Documents/Forschung/Dissertation/Data/3-Real-Time
 ImportFile(u'Decoding_Times_Hungergames_Repeat.log', u'repeat', linked=True, ignoretext=True)
 ImportFile(u'Decoding_Times_Hungergames.log', u'times', linked=True, ignoretext=True)
 SetDataExpression(u'error', u'repeat-times', linked=True)
-SetDataRange(u'frames', 3721, (0.04166666666667, 155.04166666666666), linked=True)
+SetDataRange(u'frames', 3724, (0.04166666666667, 155.16666666666667), linked=True)
 Set('width', u'16.5cm')
 Set('StyleSheet/Font/font', u'Gill Sans Light')
 Set('StyleSheet/Font/size', u'8pt')
