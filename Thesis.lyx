@@ -3584,6 +3584,25 @@ Atlas
 , which the succeeding two chapters build upon.
 \end_layout
 
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+complete implementation stack from application runtime down to the kernel
+ scheduler
+\end_layout
+
+\begin_layout Plain Layout
+Other properties examined with prototypes to demonstrate the potential of
+ ATLAS
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 Core Placement
 \end_layout
@@ -4379,7 +4398,7 @@ The CPU load is also highly dynamic.
 
 
 \begin_inset CommandInset ref
-LatexCommand vref
+LatexCommand ref
 reference "1-fig:Total-and-Zoomed"
 
 \end_inset
@@ -4845,7 +4864,7 @@ Figure
 
 
 \begin_inset CommandInset ref
-LatexCommand vref
+LatexCommand ref
 reference "2-fig:Mouse-Processing-Styles"
 
 \end_inset
@@ -8712,7 +8731,7 @@ Each iteration of a stage represents a real-time job,
 
 
 \begin_inset CommandInset ref
-LatexCommand vref
+LatexCommand ref
 reference "2-mar:Job-Terminology"
 
 \end_inset
@@ -13577,7 +13596,7 @@ Subsequently applying Givens rotations to all subdiagonal elements transforms
 
 
 \begin_inset CommandInset ref
-LatexCommand vref
+LatexCommand ref
 reference "3-mar:Structure-LLSP"
 
 \end_inset
@@ -13676,7 +13695,7 @@ height_special "totalheight"
 status open
 
 \begin_layout Plain Layout
-After gaining practical experience with the described execution time estimator,
+As I gained practical experience with the described execution time estimator,
  I observed two numerical problems:
 \end_layout
 
@@ -13800,38 +13819,48 @@ aging factor
 
 \end_inset
 
+ 
+\begin_inset Formula $a$
+\end_inset
+
  in the updating predictor.
- Before adding a new row 
+ Whenever adding a new row 
 \begin_inset Formula $\bigl(\underline{m}_{j},t_{j}\bigr)$
 \end_inset
 
- to the predictor, the current system 
-\begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)$
-\end_inset
-
- is multiplied with a scalar factor less than 
-\begin_inset Formula $1$
+ to the predictor, it is multiplied with a scalar factor 
+\begin_inset Formula $1+a$
 \end_inset
 
 .
- This aging factor downscales the complete system and is therefore neutral
- to the solution.
- It reduces the influence of the previous knowledge and allows the solution
- to remain flexible and lean towards the newly acquired row.
- Instead of multiplying the matrix, an alternative implementation would
- multiply the new row with an emphasis factor slightly above 
-\begin_inset Formula $1$
+ This factor scales the new row and is therefore neutral to the solution.
+ This emphasis of added rows reduces the influence of the previous knowledge
+ by approximately
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+For small 
+\begin_inset Formula $a$
+\end_inset
+
+, 
+\begin_inset Formula $\frac{1}{1+a}\approx1-a$
 \end_inset
 
 .
- However, multiplying the matrix has the additional benefit of 
-\begin_inset space \thinspace{}
+\end_layout
+
 \end_inset
 
-“shaking up” any matrix elements that may have become stale due to rounding
- errors.
+ 
+\begin_inset Formula $1-a$
+\end_inset
+
+ and allows the solution to remain flexible and lean towards the newly acquired
+ row.
  The scalar multiplication has a time complexity of 
-\begin_inset Formula $\mathcal{O}\bigl(l^{2}\bigr)$
+\begin_inset Formula $\mathcal{O}\bigl(l\bigr)$
 \end_inset
 
 , so the aging factor approach does not increase the complexity of the update
@@ -13845,7 +13874,7 @@ The aging factor is the first tunable parameter of the predictor.
  the aging effect should be small and only allow for slow adaptation in
  a long-term moving average style.
  I use a value of 
-\begin_inset Formula $0.999$
+\begin_inset Formula $a=0.001$
 \end_inset
 
  and I experiment with different factors in a video decoding case study
@@ -14229,40 +14258,6 @@ After the scan step,
 \end_layout
 
 \begin_layout Standard
-An individual move operation pulls a column from its previous position and
- reinserts it further right.
- The first such move reinserts the column as the new rightmost metrics column.
- Any subsequent move reinserts the column left of the previously moved drop-colu
-mn.
- After every move, the subdiagonal elements are zeroed with Givens rotations
- as shown in Figure
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "3-mar:Moving-a-Column"
-
-\end_inset
-
-, keeping the matrix in upper triangular form.
- The resulting matrix is not a temporary result, but actually replaces the
- previous system 
-\begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)^{\left(n\right)}$
-\end_inset
-
- and becomes the new 
-\begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)^{\left(n+1\right)}$
-\end_inset
-
-.
- The predictor remembers the column permutation, because new rows that are
- added to the system and solution coefficients derived from it must be equally
- permuted.
-\end_layout
-
-\begin_layout Standard
 \begin_inset Float marginfigure
 wide false
 sideways false
@@ -14301,6 +14296,40 @@ Moving a To-Be-Dropped Column to the Right
 \end_layout
 
 \begin_layout Standard
+An individual move operation pulls a column from its previous position and
+ reinserts it further right.
+ The first such move reinserts the column as the new rightmost metrics column.
+ Any subsequent move reinserts the column left of the previously moved drop-colu
+mn.
+ After every move, the subdiagonal elements are zeroed with Givens rotations
+ as shown in Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-mar:Moving-a-Column"
+
+\end_inset
+
+, keeping the matrix in upper triangular form.
+ The resulting matrix is not a temporary result, but actually replaces the
+ previous system 
+\begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)^{\left(n\right)}$
+\end_inset
+
+ and becomes the new 
+\begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)^{\left(n+1\right)}$
+\end_inset
+
+.
+ The predictor remembers the column permutation, because new rows that are
+ added to the system and solution coefficients derived from it must be equally
+ permuted.
+\end_layout
+
+\begin_layout Standard
 The worst-case time complexity of this reorganization is 
 \begin_inset Formula $\mathcal{O}\bigl(l^{3}\bigr)$
 \end_inset
@@ -14324,6 +14353,52 @@ The worst-case time complexity of this reorganization is
  wildly between keeping and dropping.
  The video decoding case study shows that the column selection settles,
  which reduces the average case time complexity.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\begin_inset Graphics
+	filename Figures/3-Real-Time/LLSP_Reduced.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-mar:Reduced-Solution"
+
+\end_inset
+
+Reduced Solution with Three out of Five Metrics
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -14359,44 +14434,6 @@ reference "3-mar:Reduced-Solution"
  stems from the subset of significant metrics, so it is expected to produce
  a more stable prediction.
  The following case study examines and confirms this proposition.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float marginfigure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename Figures/3-Real-Time/LLSP_Reduced.svg
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "3-mar:Reduced-Solution"
-
-\end_inset
-
-Reduced Solution with Three out of Five Metrics
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Section
@@ -14537,176 +14574,6 @@ dispatch_async_atlas
  extension to GCD attaches deadlines and workload metrics to code blocks.
  Should the application structure demand it, direct access to the lower-level
  primitives of the estimator and scheduler is also possible.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Flex NewThought
-status collapsed
-
-\begin_layout Plain Layout
-To demonstrate the metrics selection,
-\end_layout
-
-\end_inset
-
- I selected the five demo videos in Table
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "3-tab:Test-Clips"
-
-\end_inset
-
-.
- They cover a typical range of resolutions, given in pixels, frame rates,
- given as frames per second (FPS), and coding profiles
-\begin_inset Index idx
-status collapsed
-
-\begin_layout Plain Layout
-coding profiles
-\end_layout
-
-\end_inset
-
-, which declare a set of decoder features required by the video.
- I experiment with the 
-\begin_inset Flex SmallCaps
-status collapsed
-
-\begin_layout Plain Layout
-H
-\end_layout
-
-\end_inset
-
-.264
-\begin_inset Index idx
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Flex SmallCaps
-status collapsed
-
-\begin_layout Plain Layout
-H
-\end_layout
-
-\end_inset
-
-.264
-\end_layout
-
-\end_inset
-
- video decoding standard,
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Wiegand:H264"
-
-\end_inset
-
- because it is widely deployed and powers the majority of modern media applicati
-ons from mobile video to HD and 
-\begin_inset Formula $3\mathrm{D}$
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-Blu-ray discs.
- All test videos but one have been encoded by me with the x264
-\begin_inset Index idx
-status collapsed
-
-\begin_layout Plain Layout
-x264
-\end_layout
-
-\end_inset
-
- encoder.
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-
-\emph on
-\begin_inset CommandInset href
-LatexCommand href
-name "x264"
-target "http://www.videolan.org/developers/x264.html"
-
-\end_inset
-
-
-\emph default
- is a highly competitive open-source 
-\begin_inset Flex SmallCaps
-status collapsed
-
-\begin_layout Plain Layout
-H
-\end_layout
-
-\end_inset
-
-.264 encoder.
- At the time of this writing, it has won the previous six installments of
- the Annual MSU 
-\begin_inset Flex SmallCaps
-status collapsed
-
-\begin_layout Plain Layout
-H
-\end_layout
-
-\end_inset
-
-.264 
-\begin_inset CommandInset href
-LatexCommand href
-name "Video Codec Comparison"
-target "http://www.compression.ru/video/codec_comparison/h264_2012/"
-
-\end_inset
-
-.
- The x264 version used here is git commit 
-\emph on
-
-\begin_inset CommandInset href
-LatexCommand href
-name "37be5521"
-target "http://git.videolan.org/?p=x264.git;a=tree;h=853628a3c38c6bc06b049ff9c74dc33c7f2a317f;hb=37be55213a39db40cf159ada319bd482a1b00680"
-
-\end_inset
-
-
-\emph default
- from July 2012.
-\end_layout
-
-\end_inset
-
- The Shore video was encoded by the manufacturer of the commercial FastVDO
-\begin_inset Index idx
-status collapsed
-
-\begin_layout Plain Layout
-FastVDO
-\end_layout
-
-\end_inset
-
- encoder.
- I ignore audio, because its computational load is two orders of magnitude
- smaller than video decoding and its timing requirements are less strict,
- because the audio hardware takes care of sample buffering and timely output.
 \end_layout
 
 \begin_layout Standard
@@ -15308,55 +15175,169 @@ Properties of Test Videos for Experiments
 status collapsed
 
 \begin_layout Plain Layout
-Video decoding
+To demonstrate the metrics selection,
 \end_layout
 
 \end_inset
 
- is the biggest spender of CPU time during playback, as shown in Figure
+ I selected the five demo videos in Table
 \begin_inset space ~
 \end_inset
 
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-mar:Relative-Time-Player"
+reference "3-tab:Test-Clips"
 
 \end_inset
 
 .
- Therefore, an accurate prediction of the decoder jobs is vital for informed
- planning by the scheduler.
- Figure
+ They cover a typical range of resolutions, given in pixels, frame rates,
+ given as frames per second (FPS), and coding profiles
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+coding profiles
+\end_layout
+
+\end_inset
+
+, which declare a set of decoder features required by the video.
+ I experiment with the 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+H
+\end_layout
+
+\end_inset
+
+.264
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+H
+\end_layout
+
+\end_inset
+
+.264
+\end_layout
+
+\end_inset
+
+ video decoding standard,
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Wiegand:H264"
+
+\end_inset
+
+ because it is widely deployed and powers the majority of modern media applicati
+ons from mobile video to HD and 
+\begin_inset Formula $3\mathrm{D}$
+\end_inset
+
+
 \begin_inset space ~
 \end_inset
 
+Blu-ray discs.
+ All test videos but one have been encoded by me with the x264
+\begin_inset Index idx
+status collapsed
 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "3-fig:Decoding-Times"
-
-\end_inset
-
- provides an overview of the decoding time per video frame, illustrating
- the variability within and across the test clips.
- However, when we run the same video twice, Figure
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand vref
-reference "3-fig:Decoding-Times-Repeat"
+\begin_layout Plain Layout
+x264
+\end_layout
 
 \end_inset
 
- demonstrates that decoding times of the two runs are strongly correlated,
- with a Pearson correlation of 
-\begin_inset Formula $\DecodeRepeatCorrelation$
+ encoder.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+
+\emph on
+\begin_inset CommandInset href
+LatexCommand href
+name "x264"
+target "http://www.videolan.org/developers/x264.html"
+
+\end_inset
+
+
+\emph default
+ is a highly competitive open-source 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+H
+\end_layout
+
+\end_inset
+
+.264 encoder.
+ At the time of this writing, it has won the previous six installments of
+ the Annual MSU 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+H
+\end_layout
+
+\end_inset
+
+.264 
+\begin_inset CommandInset href
+LatexCommand href
+name "Video Codec Comparison"
+target "http://www.compression.ru/video/codec_comparison/h264_2012/"
+
 \end_inset
 
 .
+ The x264 version used here is git commit 
+\emph on
+
+\begin_inset CommandInset href
+LatexCommand href
+name "37be5521"
+target "http://git.videolan.org/?p=x264.git;a=tree;h=853628a3c38c6bc06b049ff9c74dc33c7f2a317f;hb=37be55213a39db40cf159ada319bd482a1b00680"
+
+\end_inset
+
+
+\emph default
+ from July 2012.
+\end_layout
+
+\end_inset
+
+ The Shore video was encoded by the manufacturer of the commercial FastVDO
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+FastVDO
+\end_layout
+
+\end_inset
+
+ encoder.
+ I ignore audio, because its computational load is two orders of magnitude
+ smaller than video decoding and its timing requirements are less strict,
+ because the audio hardware takes care of sample buffering and timely output.
 \end_layout
 
 \begin_layout Standard
@@ -15399,6 +15380,62 @@ Relative Execution Time of the Player Stages
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+Video decoding
+\end_layout
+
+\end_inset
+
+ is the biggest spender of CPU time during playback, as shown in Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-mar:Relative-Time-Player"
+
+\end_inset
+
+.
+ Therefore, an accurate prediction of the decoder jobs is vital for informed
+ planning by the scheduler.
+ Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-fig:Decoding-Times"
+
+\end_inset
+
+ provides an overview of the decoding time per video frame, illustrating
+ the variability within and across the test clips.
+ However, when we run the same video twice, Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-fig:Decoding-Times-Repeat"
+
+\end_inset
+
+ demonstrates that decoding times of the two runs are strongly correlated,
+ with a Pearson correlation of 
+\begin_inset Formula $\DecodeRepeatCorrelation$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -15749,37 +15786,6 @@ reference "3-mar:Relative-Time-Steps"
  I now visit each decoding step and illustrate how a domain expert selects
  appropriate workload metrics.
  A detailed correlation breakdown follows after the discussion.
-\begin_inset Newpage newpage
-\end_inset
-
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-manual page break
-\end_layout
-
-\end_inset
-
-
-\begin_inset Float marginfigure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename Data/3-Real-Time/Metrics_Key.pdf
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Enumerate
@@ -15832,6 +15838,23 @@ reference "3-mar:Metrics-Parsing"
  matches the execution time of the bitstream parsing step.
  Remember that this step accounts for a small fraction of total decoding
  time.
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Data/3-Real-Time/Metrics_Key.pdf
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \begin_inset Float marginfigure
 wide false
 sideways false
@@ -16190,68 +16213,12 @@ motion vector
 
 
 \begin_inset CommandInset ref
-LatexCommand ref
+LatexCommand vref
 reference "3-mar:Metrics-Temporal"
 
 \end_inset
 
  shows the resulting fit.
-\begin_inset Float marginfigure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename Data/3-Real-Time/Metrics_Key.pdf
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset Float marginfigure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename Data/3-Real-Time/Metrics_Temporal.pdf
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "3-mar:Metrics-Temporal"
-
-\end_inset
-
-Metrics for Temporal Prediction
-\end_layout
-
-\end_inset
-
-
-\begin_inset VSpace defskip
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Enumerate
@@ -16319,6 +16286,62 @@ reference "3-mar:Metrics-Transform"
  illustrates how the sub-block occurrence counts fit execution time.
  The remaining imprecision is inconsequential, because this step has a small
  influence on overall decoding time.
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Data/3-Real-Time/Metrics_Key.pdf
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Data/3-Real-Time/Metrics_Temporal.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-mar:Metrics-Temporal"
+
+\end_inset
+
+Metrics for Temporal Prediction
+\end_layout
+
+\end_inset
+
+
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \begin_inset Float marginfigure
 wide false
 sideways false
@@ -16621,22 +16644,11 @@ The tight correlation with the decoding time for complete frames proves
 
 \begin_layout Standard
 \begin_inset Float table
-placement t
 wide false
 sideways false
 status open
 
 \begin_layout Plain Layout
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-non-default float placement
-\end_layout
-
-\end_inset
-
-
 \begin_inset CommandInset include
 LatexCommand input
 filename "Data/3-Real-Time/Metrics_Correlation.lyx"
@@ -16718,7 +16730,7 @@ Figure
 
 
 \begin_inset CommandInset ref
-LatexCommand vref
+LatexCommand ref
 reference "3-fig:FFplay-Stage-Structure"
 
 \end_inset
@@ -16999,31 +17011,6 @@ job
 
 \end_deeper
 \begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-enlargethispage{3
-\backslash
-baselineskip}
-\end_layout
-
-\end_inset
-
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-manual page size adjustment
-\end_layout
-
-\end_inset
-
-
 \begin_inset Float figure
 wide false
 sideways false
@@ -17944,7 +17931,7 @@ reference "3-tab:Test-Clips"
 
 
 \begin_inset CommandInset ref
-LatexCommand vref
+LatexCommand ref
 reference "3-tab:Film-Clips"
 
 \end_inset
@@ -18258,41 +18245,6 @@ Properties of Movies for Experiments
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename Data/3-Real-Time/Prediction_IO.pdf
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "3-fig:Prediction-Accuracy-IO"
-
-\end_inset
-
-Prediction Accuracy for Input and Output Stages
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
 \begin_inset Flex NewThought
 status collapsed
 
@@ -18330,7 +18282,7 @@ unlucky page break
 
 \end_inset
 
- shows the mean relative error and the lower and upper quartiles as error
+ shows the mean relative error and its lower and upper quartiles as error
  bars.
  Given the small overall execution times of these two stages,
 \begin_inset Foot
@@ -18356,6 +18308,44 @@ reference "3-mar:Relative-Time-Steps"
  those errors can be tolerated.
  The overall evaluation of scheduling behavior will verify that additional
  effort to find suitable metrics is not warranted.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Data/3-Real-Time/Prediction_IO.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-fig:Prediction-Accuracy-IO"
+
+\end_inset
+
+Prediction Accuracy for Input and Output Stages
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -18690,7 +18680,8 @@ reference "3-fig:Prediction-Accuracy-Decoder"
 
  shows that workload awareness improves prediction accuracy over a purely
  time-based predictor.
- Again, the error bars represent the lower and upper quartile.
+ Again, the error bars represent the lower and upper quartile of the per-frame
+ relative errors.
  The reduced metrics, which do not require preprocessing or a staged decoder
  provide a good middle ground, whereas the full set of metrics offers the
  highest precision, with typical relative errors below 
@@ -18866,7 +18857,7 @@ column contribution threshold
 
 \end_inset
 
- The following experiments evaluate the effect of these parameters.
+ The following experiments analyze the effect of these parameters.
 \end_layout
 
 \begin_layout Standard
