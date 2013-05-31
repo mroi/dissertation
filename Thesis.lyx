@@ -18777,6 +18777,13 @@ D2550 with
 \begin_inset space ~
 \end_inset
 
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-fig:Prediction-Atom"
+
+\end_inset
+
  are similar to those from the Core
 \begin_inset space ~
 \end_inset
@@ -18807,6 +18814,12 @@ status open
 \begin_inset Caption
 
 \begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-fig:Prediction-Atom"
+
+\end_inset
+
 Prediction Accuracy on Intel
 \begin_inset space ~
 \end_inset
@@ -18861,6 +18874,243 @@ column contribution threshold
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Data/3-Real-Time/Prediction_Age.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-fig:Prediction-Aging"
+
+\end_inset
+
+Prediction Accuracy Influenced by Different Aging Factors
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-fig:Prediction-Aging"
+
+\end_inset
+
+ demonstrates how the aging factor affects prediction accuracy for the Hunger
+ Games video.
+ The factor determines, how quickly the predictor discards old knowledge
+ and adapts to new application behavior.
+ A larger factor means quicker adaption, while a smaller factor preserves
+ historic data longer.
+\end_layout
+
+\begin_layout Standard
+With the less precise time-only and reduced-metrics options, faster aging
+ improves the prediction.
+ This result is expected, because these metrics rely on the moving average
+ to capture application behavior.
+ This moving average will adapt quicker with faster aging.
+ However, for the full-metrics option, quick aging diminishes prediction
+ accuracy.
+ These metrics already cover the complete application behavior and therefore
+ benefit from more knowledge aggregating in the predictor.
+ Both effects level off at the 
+\begin_inset Formula $0.001$
+\end_inset
+
+ factor, which is why I chose this value as the default.
+ This factor reduces the weight of past knowledge to 
+\begin_inset Formula $10\%$
+\end_inset
+
+ after about 2300 jobs.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula $\nicefrac{\ln0.1}{\ln0.999}=2301.43\text{…}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ Should the need arise, applications are free to override this default.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+The column contribution threshold
+\end_layout
+
+\end_inset
+
+ trades numerical stability against accuracy.
+ A small value drops less columns, which should result in more accurate
+ predictions in the long term, but can lead to overshoots due to instability
+ in the short term.
+ A larger value drops more columns, which reduces long-term precision.
+\end_layout
+
+\begin_layout Standard
+Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-fig:Instability-Problem"
+
+\end_inset
+
+ illustrates an instability problem at the beginning of the Hunger Games
+ video: Like every movie trailer, it starts with the typical green MPAA
+ rating card.
+ With less column dropping, the predictor overfits to those simple frames
+ and produces an exaggerated prediction once the actual trailer begins.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Data/3-Real-Time/Prediction_Stability.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-fig:Instability-Problem"
+
+\end_inset
+
+Instability Problem at the Start of the Hunger Games Trailer
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Interestingly the higher column contribution threshold of 
+\begin_inset Formula $1.2$
+\end_inset
+
+, which drops more columns also exhibits some instability.
+ I chose a value of 
+\begin_inset Formula $1.1$
+\end_inset
+
+, because it performs best for FFplay.
+ Again, applications are free to override the default.
+ Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-fig:Prediction-Column"
+
+\end_inset
+
+ confirms this choice for the entire Hunger Games trailer.
+ The error bars reveal that the lower threshold of 
+\begin_inset Formula $1.05$
+\end_inset
+
+ improves long-term accuracy, but the mean error is higher due to the unstable
+ outlier predictions.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Data/3-Real-Time/Prediction_Column.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-fig:Prediction-Column"
+
+\end_inset
+
+Prediction Accuracy for Different Column Contribution Thresholds
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \begin_inset Note Greyedout
 status open
 
@@ -18874,26 +19124,6 @@ show stability problems and substantiate choice of estimator parameters
 \end_layout
 
 \begin_deeper
-\begin_layout Plain Layout
-Therefore, I chose an aging factor of 
-\begin_inset Formula $0.999$
-\end_inset
-
-, which reduces the weight of past knowledge to 
-\begin_inset Formula $10\%$
-\end_inset
-
- after 
-\begin_inset Formula $2300$
-\end_inset
-
- jobs.
-\end_layout
-
-\begin_layout Itemize
-aging, drop-threshold sensitivity
-\end_layout
-
 \begin_layout Itemize
 metrics sub-setting settles
 \end_layout
