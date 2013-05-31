@@ -18759,7 +18759,18 @@ Zoomed View of Prediction Alternatives
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Greyedout
+Across the test videos, the predictor introduces a runtime overhead of 
+\begin_inset Formula $\PredictionOverhead$
+\end_inset
+
+, but with an interquartile range of 
+\begin_inset Formula $\PredictionOverheadIQR$
+\end_inset
+
+, meaning that the overhead is below the variability of FFplay’s execution
+ time measurements.
+\end_layout
+
 status open
 
 \begin_layout Itemize
@@ -18788,6 +18799,8 @@ key "Altenbernd:MPEG-WCET"
 \end_layout
 
 \end_deeper
+\begin_layout Standard
+\begin_inset Note Greyedout
 \begin_layout Itemize
 show stability problems and substantiate choice of estimator parameters
 \end_layout
