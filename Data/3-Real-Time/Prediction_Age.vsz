@@ -1,5 +1,5 @@
 # Veusz saved document (version 1.16)
-# Saved at 2013-05-31T09:50:43.170041
+# Saved at 2013-06-02T15:16:51.002460
 
 AddImportPath(u'/Users/Michael/Documents/Forschung/Dissertation/Data/3-Real-Time')
 ImportFile(u'Prediction_Age.tab', u'aging none - + reduced - + full - +', linked=True, ignoretext=True)
@@ -71,6 +71,7 @@ Add('axis', name='y', autoadd=False)
 To('y')
 Set('label', u'Mean Relative Error')
 Set('min', 0.0)
+Set('max', 0.4)
 Set('direction', 'vertical')
 Set('TickLabels/format', u'%Vg%')
 Set('TickLabels/scale', 100.0)
@@ -78,7 +79,7 @@ To('..')
 Add('key', name='key1', autoadd=False)
 To('key1')
 Set('vertPosn', u'manual')
-Set('vertManual', 0.6)
+Set('vertManual', 0.55)
 To('..')
 Add('bar', name='bar1', autoadd=False)
 To('bar1')

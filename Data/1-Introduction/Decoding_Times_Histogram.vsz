@@ -1,5 +1,5 @@
 # Veusz saved document (version 1.16)
-# Saved at 2013-05-29T13:17:10.201088
+# Saved at 2013-06-02T14:38:39.377646
 
 AddImportPath(u'/Users/Michael/Documents/Forschung/Dissertation/Data/1-Introduction')
 ImportFile(u'Decoding_Times.log', u'measured', linked=True, ignoretext=True)
@@ -66,6 +66,8 @@ To('..')
 Add('axis', name='y', autoadd=False)
 To('y')
 Set('hide', True)
+Set('min', 0.0)
+Set('autoRange', u'+10%')
 Set('direction', 'vertical')
 Set('otherPosition', 1.0)
 To('..')

@@ -1,11 +1,11 @@
 # Veusz saved document (version 1.16)
-# Saved at 2013-05-30T13:06:14.696464
+# Saved at 2013-06-02T15:14:59.189151
 
 AddImportPath(u'/Users/Michael/Documents/Forschung/Dissertation/Data/3-Real-Time')
 ImportFile(u'Prediction_Full_Hungergames.log', u'full measure', linked=True, ignoretext=True)
 ImportFile(u'Prediction_None_Hungergames.log', u'none', linked=True, ignoretext=True)
 ImportFile(u'Prediction_Reduced_Hungergames.log', u'reduced', linked=True, ignoretext=True)
-SetDataRange(u'frames', 3724, (0.04166666666667, 155.16666666666667), linked=True)
+SetDataRange(u'frames', 3724, (0.04166666666667, 155.16666666666666), linked=True)
 Set('StyleSheet/Font/font', u'Gill Sans Light')
 Set('StyleSheet/Font/size', u'8pt')
 Set('StyleSheet/axis/autoMirror', False)
@@ -56,7 +56,7 @@ To('..')
 Add('axis', name='y', autoadd=False)
 To('y')
 Set('label', u'Time (ms)')
-Set('max', 0.025)
+Set('max', 0.04)
 Set('direction', 'vertical')
 Set('TickLabels/scale', 1000.0)
 To('..')
