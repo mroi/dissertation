@@ -1,5 +1,5 @@
 # Veusz saved document (version 1.16)
-# Saved at 2013-05-29T13:14:21.965408
+# Saved at 2013-06-02T15:08:36.855981
 
 AddImportPath(u'/Users/Michael/Documents/Forschung/Dissertation/Data/3-Real-Time')
 ImportFileCSV(u'Times_Metrics_Blackswan.log', headermode='none', linked=True, dssuffix=u'_blackswan')
@@ -78,7 +78,7 @@ To('..')
 Add('fit', name='fit1', autoadd=False)
 To('fit1')
 Set('function', u'a*x')
-Set('values', {u'a': 0.017})
+Set('values', {u'a': 0.02})
 Set('xData', u'fit_hungergames')
 Set('yData', u'time_hungergames')
 To('..')
