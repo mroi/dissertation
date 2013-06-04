@@ -5,13 +5,13 @@ function String = accuracy(Mode)
 	Decode_quart = quart(Decode);
 	
 	String = "";
-	String = String + ascii(9) + string(mean(Decode));
-	String = String + ascii(9) + string(mean(Decode) - Decode_quart(1));
-	String = String + ascii(9) + string(Decode_quart(3) - mean(Decode));
+	String = String + ascii(9) + string(median(Decode));
+	String = String + ascii(9) + string(median(Decode) - Decode_quart(1));
+	String = String + ascii(9) + string(Decode_quart(3) - median(Decode));
 endfunction
 
 Result = [];
-Result = [Result; """1.0""" + accuracy("No_Drop")];
+Result = [Result; """No Drop""" + accuracy("No_Drop")];
 Result = [Result; """1.1""" + accuracy("Normal")];
 Result = [Result; """1.2""" + accuracy("More_Drop")];
 

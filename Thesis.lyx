@@ -18505,6 +18505,7 @@ Zoomed View of Prediction Alternatives
 \end_layout
 
 \begin_layout Standard
+\noindent
 Across the test videos, the predictor introduces a runtime overhead of 
 \begin_inset Formula $\PredictionOverhead$
 \end_inset
@@ -18548,6 +18549,10 @@ i5, with full metrics leading to relative errors below
 \end_inset
 
 .
+ We conclude that our choice of metrics allows a hardware-independent prediction
+ of execution times.
+ This benefit would be lost when directly storing decoding time traces in
+ the video bitstream.
 \end_layout
 
 \begin_layout Standard
@@ -18667,6 +18672,7 @@ Prediction Accuracy Influenced by Different Aging Factors
 \end_layout
 
 \begin_layout Standard
+\noindent
 Figure
 \begin_inset space ~
 \end_inset
@@ -18701,7 +18707,13 @@ With the less precise time-only and reduced-metrics options, faster aging
 \end_inset
 
 , I chose this value as the default.
- This factor reduces the weight of past knowledge to 
+ It also constitutes an acceptable compromise for the reduced metrics, which
+ are important if videos are not preprocessed.
+ A 
+\begin_inset Formula $0.01$
+\end_inset
+
+ aging factor reduces the weight of past knowledge to 
 \begin_inset Formula $10\%$
 \end_inset
 
@@ -18732,10 +18744,13 @@ The column contribution threshold
 \end_inset
 
  trades numerical stability against accuracy.
- A small value drops less columns, which should result in more accurate
- predictions in the long term, but can lead to overshoots due to instability
- in the short term.
- A larger value drops more columns, which reduces long-term precision.
+ A small value uses more metrics, which should result in more accurate predictio
+ns in the long term, but can lead to overshoots due to instability in the
+ short term.
+ A larger value ignores more metrics by dropping their corresponding column
+ from the linear system.
+ Dropping more metrics increases numerical robustness, but reduces long-term
+ precision.
 \end_layout
 
 \begin_layout Standard
@@ -18753,8 +18768,16 @@ reference "3-fig:Instability-Problem"
  illustrates an instability problem at the beginning of the Hunger Games
  video: Like every movie trailer, it starts with the typical green MPAA
  rating card.
- With less column dropping, the predictor overfits to those simple frames
- and produces an exaggerated prediction once the actual trailer begins.
+ Without column dropping, the predictor overfits to those simple frames
+ and produces intermittent spikes and a series of exaggerated prediction
+ once the actual trailer begins.
+ Note the logarithmic ordinate of the plot.
+ These overshooting predictions are clearly undesirable and the figure also
+ shows, how a column contribution threshold of 
+\begin_inset Formula $1.1$
+\end_inset
+
+ prevents them.
 \end_layout
 
 \begin_layout Standard
@@ -18776,6 +18799,16 @@ status open
 \begin_inset Caption
 
 \begin_layout Plain Layout
+\begin_inset Argument
+status collapsed
+
+\begin_layout Plain Layout
+Instability Problem at the Start of the Hunger Games Trailer
+\end_layout
+
+\end_inset
+
+
 \begin_inset CommandInset label
 LatexCommand label
 name "3-fig:Instability-Problem"
@@ -18783,6 +18816,23 @@ name "3-fig:Instability-Problem"
 \end_inset
 
 Instability Problem at the Start of the Hunger Games Trailer
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent 
+\end_layout
+
+\end_inset
+
+Note the logarithmic ordinate.
 \end_layout
 
 \end_inset
@@ -18796,17 +18846,16 @@ Instability Problem at the Start of the Hunger Games Trailer
 \end_layout
 
 \begin_layout Standard
-Interestingly the higher column contribution threshold of 
-\begin_inset Formula $1.2$
-\end_inset
-
-, which drops more columns also exhibits some instability.
- I chose a value of 
+\noindent
+A threshold of 
 \begin_inset Formula $1.1$
 \end_inset
 
-, because it performs best for FFplay.
- Again, applications are free to override the default.
+ will drop a metric, if it contributes less than 
+\begin_inset Formula $10\%$
+\end_inset
+
+ improvement to the residual error.
  Figure
 \begin_inset space ~
 \end_inset
@@ -18818,13 +18867,22 @@ reference "3-fig:Prediction-Column"
 
 \end_inset
 
- confirms this choice for the entire Hunger Games trailer.
- The error bars reveal that the lower threshold of 
-\begin_inset Formula $1.05$
+ confirms that higher thresholds will lead to less accurate predictions
+ in the long run.
+ The figure shows the median instead of the mean relative error, because
+ the median is robust against the overshooting outlier predictions.
+ Error bars again indicate the upper and lower quartile.
+ We see that a threshold of 
+\begin_inset Formula $1.2$
 \end_inset
 
- improves long-term accuracy, but the mean error is higher due to the unstable
- outlier predictions.
+ would reduce long-term prediction accuracy, substantiating the choice of
+ 
+\begin_inset Formula $1.1$
+\end_inset
+
+.
+ Again, applications are free to override this default.
 \end_layout
 
 \begin_layout Standard
@@ -18866,6 +18924,84 @@ Prediction Accuracy for Different Column Contribution Thresholds
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Data/3-Real-Time/Prediction_Subsetting.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-fig:Column-Dropping"
+
+\end_inset
+
+Stability of Column Subset
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+The column dropping algorithm comes at the cost of a worst-case time complexity
+ in 
+\begin_inset Formula $\mathcal{O}\bigl(l^{3}\bigr)$
+\end_inset
+
+ for 
+\begin_inset Formula $l$
+\end_inset
+
+ metrics.
+ However, the solver reorders the columns so that a computational cost is
+ only incurred when the state of a column changes from keep to drop or vice
+ versa.
+ If the column state does not wildly fluctuate, the average case runtime
+ of the solver will improve.
+ Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "3-fig:Column-Dropping"
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+unlucky page break
+\end_layout
+
+\end_inset
+
+ demonstrates the stability of the column subset being used by the solver.
+ Black areas denote that the solver uses the column corresponding to this
+ metric, white areas signal dropped columns.
+ We can clearly see a band structure, where a column stays in use for consecutiv
+e invocations of the solver.
+\end_layout
+
+\begin_layout Standard
 \begin_inset Note Greyedout
 status open
 
@@ -18879,10 +19015,6 @@ show stability problems and substantiate choice of estimator parameters
 \end_layout
 
 \begin_deeper
-\begin_layout Itemize
-metrics sub-setting settles
-\end_layout
-
 \begin_layout Itemize
 application-specific predictors can be used instead, but auto-regressive
  predictor is a useful default since it can predict such a dynamic process

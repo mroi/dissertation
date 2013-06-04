@@ -18,6 +18,7 @@ Prediction_Comparison.pdf: Prediction_Comparison.tab
 Prediction_Comparison.tab: $(foreach video,$(CASE_STUDY),$(foreach mode,None Reduced Full,Prediction_$(mode)_$(video).log))
 Prediction_IO.pdf: Prediction_IO.tab
 Prediction_IO.tab: $(foreach video,$(CASE_STUDY),Prediction_IO_$(video).log)
+Prediction_Subsetting.pdf: Prediction_Subsetting.log
 Prediction_Timeline.pdf: $(foreach mode,None Reduced Full,Prediction_$(mode)_Hungergames.log)
 RMS_Admission.pdf: RMS_Admission.tab
 RMS_Admission.tab: RMS_Admission.log
@@ -27,3 +28,9 @@ Values.val: Decoding_Times_Hungergames.log Decoding_Times_Hungergames_Repeat.log
 
 CPU_Load_Player.lyx Prediction_Age.lyx Prediction_Atom.lyx Prediction_Column.lyx Prediction_Comparison.lyx Prediction_IO.lyx RMS_Admission.lyx Times_Relative.lyx:
 	@# ignore
+
+Prediction_Subsetting.pdf: Prediction_Subsetting.vsz
+	veusz --export="$(basename $(realpath $<)).eps" "$(realpath $<)"
+	pstopdf $(basename $<).eps $@
+	rm $(basename $<).eps
+	$(if $(REVIEW),open $@)
