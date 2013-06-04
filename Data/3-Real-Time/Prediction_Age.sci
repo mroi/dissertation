@@ -18,9 +18,9 @@ function String = accuracy(Aging)
 endfunction
 
 Result = [];
-Result = [Result; """0.01""" + accuracy("Quick")];
-Result = [Result; """0.001""" + accuracy("Normal")];
-Result = [Result; """0.0001""" + accuracy("Slow")];
+Result = [Result; """0.1""" + accuracy("Quick")];
+Result = [Result; """0.01""" + accuracy("Normal")];
+Result = [Result; """0.001""" + accuracy("Slow")];
 
 write("Prediction_Age.tab", Result);
 exit;
