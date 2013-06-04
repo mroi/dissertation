@@ -11,9 +11,9 @@ function String = accuracy(Mode)
 endfunction
 
 Result = [];
-Result = [Result; """1.05""" + accuracy("Soft")];
+Result = [Result; """1.0""" + accuracy("No_Drop")];
 Result = [Result; """1.1""" + accuracy("Normal")];
-Result = [Result; """1.2""" + accuracy("Hard")];
+Result = [Result; """1.2""" + accuracy("More_Drop")];
 
 write("Prediction_Column.tab", Result);
 exit;

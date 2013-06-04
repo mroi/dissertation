@@ -13,7 +13,7 @@ Prediction_Age.tab: $(foreach age,Quick Normal Slow,$(foreach mode,None Reduced 
 Prediction_Atom.pdf: Prediction_Atom.tab
 Prediction_Atom.tab: $(foreach video,$(CASE_STUDY),$(foreach mode,None Reduced Full,Prediction_Atom_$(mode)_$(video).log))
 Prediction_Column.pdf: Prediction_Column.tab
-Prediction_Column.tab Prediction_Stability.pdf: $(foreach col,Soft Normal Hard,Prediction_Column_$(col).log)
+Prediction_Column.tab Prediction_Stability.pdf: $(foreach col,No_Drop Normal More_Drop,Prediction_Column_$(col).log)
 Prediction_Comparison.pdf: Prediction_Comparison.tab
 Prediction_Comparison.tab: $(foreach video,$(CASE_STUDY),$(foreach mode,None Reduced Full,Prediction_$(mode)_$(video).log))
 Prediction_IO.pdf: Prediction_IO.tab
