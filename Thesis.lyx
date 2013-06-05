@@ -8196,7 +8196,7 @@ status collapsed
 
 \begin_layout Plain Layout
 
-https://os.inf.tu-dresden.de/~mroi/git/thesis
+https://os.inf.tu-dresden.de/~mroi/git/thesis/lab
 \end_layout
 
 \end_inset
@@ -8222,7 +8222,7 @@ begin{pspicture}(0.45in,0.45in)
 \backslash
 psbarcode{https://os.inf.tu-dresden.de/
 \backslash
-%7Emroi/git/thesis}{width=0.5 height=0.5}{qrcode}
+%7Emroi/git/thesis/lab}{width=0.5 height=0.5}{qrcode}
 \backslash
 end{pspicture}
 \end_layout
@@ -22999,8 +22999,27 @@ type "idx"
 \begin_inset Note Note
 status open
 
-\begin_layout Plain Layout
+\begin_layout Itemize
 check the index terms and their referencing
+\end_layout
+
+\begin_layout Itemize
+inner back cover: Creative Commons badge and URL 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://os.inf.tu-dresden.de/~mroi/git/thesis
+\end_layout
+
+\end_inset
+
+ with QR-code
+\end_layout
+
+\begin_layout Itemize
+last: commit a tarball with all raw log files to dissertation git
 \end_layout
 
 \end_inset
