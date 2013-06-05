@@ -19090,11 +19090,11 @@ The column dropping algorithm comes at the cost of a worst-case time complexity
 \end_inset
 
  metrics.
- However, the solver reorders the columns so that a computational cost is
+ However, the predictor reorders columns so that a computational cost is
  only incurred when the state of a column changes from keep to drop or vice
  versa.
  If the column state does not wildly fluctuate, the average case runtime
- of the solver will improve.
+ of the predictor will improve.
  Figure
 \begin_inset space ~
 \end_inset
@@ -19116,39 +19116,152 @@ unlucky page break
 
 \end_inset
 
- demonstrates the stability of the column subset being used by the solver.
- Black areas denote that the solver uses the column corresponding to this
- metric, white areas signal dropped columns.
- We can clearly see a band structure, where a column stays in use for consecutiv
-e invocations of the solver.
+ demonstrates the stability of the subset of active columns.
+ Shaded areas denote that the predictor uses the column corresponding to
+ this metric, white areas signal dropped columns.
+ We can clearly see a band structure, where a column stays in use for multiple
+ consecutive invocations of the predictor.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+The interface
+\end_layout
+
+\end_inset
+
+ between the 
+\noun on
+Atlas
+\noun default
+-enhanced GCD runtime and the predictor is thin.
+ Apart from housekeeping, it contains a function to train the predictor
+ with a new metrics vector and the corresponding measured execution time.
+ The second important function is to generate a prediction from a metrics
+ vector alone.
+ This modularity allows applications to use a custom predictor, but I think
+ the one presented and evaluated here is a good starting point.
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Full Width
+\begin_inset Flex Emph
+status collapsed
+
+\begin_layout Plain Layout
+The linear auto-regressive predictor
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+linear auto-regressive predictor
+\end_layout
+
+\end_inset
+
+ offers applications a suitable default predictor.
+ It is easy to use for application developers, because it derives execution
+ time predictions from workload metrics
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+workload metrics
+\end_layout
+
+\end_inset
+
+ that are part of the application domain.
+ I demonstrated the accuracy of the resulting predictions: Typical relative
+ errors below 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\backslash
+addfontfeature{Numbers={Lining}}
+\end_layout
+
+\end_inset
+
+10%
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+ can be achieved if deep workload insight is available.
+ Predictions with less workload knowledge are still competitive compared
+ to purely time-based predictions.
+ I have shown the hardware independence of the predictor and the sensitivity
+ of its parameters.
+ Metrics dropping improves prediction stability by automatically selecting
+ relevant metrics, relieving the developer from manual pre-filtering.
+\end_layout
+
+\end_inset
+
+
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\noun on
+Atlas
+\noun default
+ hands execution times from the predictor down to the scheduler.
+ We have to keep in mind that both over- and underestimation is possible,
+ which the kernel scheduler must account for.
+ I also ask the reader to remember the three evaluated prediction options:
+ time only, reduced metrics and full metrics, because they will reappear
+ when I evaluate the overall scheduling behavior.
+\end_layout
+
+\begin_layout Section
+System Scheduler
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Figures/3-Real-Time/Verical_Integration_Scheduler.svg
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 \begin_inset Note Greyedout
 status open
 
-\begin_layout Itemize
-case study: video decoding time
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-show stability problems and substantiate choice of estimator parameters
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-application-specific predictors can be used instead, but auto-regressive
- predictor is a useful default since it can predict such a dynamic process
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-segue by summarizing the nature of the estimates: underestimation possible,
- scheduler must account for this
-\end_layout
-
-\end_deeper
 \begin_layout Itemize
 system scheduler
 \end_layout
