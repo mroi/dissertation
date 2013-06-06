@@ -7,6 +7,7 @@
 % simplified title and author for fancy headers, height-correct the dash
 \renewcommand{\plaintitle}{Practical Real\raisebox{-0.45mm}{-}Time with Look\raisebox{-0.45mm}{-}Ahead Scheduling}
 \renewcommand{\plainauthor}{Michael Roitzsch}
+\hypersetup{pdfauthor={\plainauthor}}
 
 % typesetting tweaks
 \clubpenalty=10000
@@ -179,7 +180,7 @@ End
 \pdf_title "Practical Real-Time with Look-Ahead Scheduling"
 \pdf_author "Michael Roitzsch"
 \pdf_subject "Dissertation"
-\pdf_keywords "Real-Time, Look-Ahead, Multicore, Work Queues, Asynchronous Lambdas"
+\pdf_keywords "Real-Time, Look-Ahead, Work Queues, Asynchronous Lambdas, Deadlines, Adaptive"
 \pdf_bookmarks true
 \pdf_bookmarksnumbered false
 \pdf_bookmarksopen true
