@@ -265,6 +265,23 @@
 	Address = {New York, NY, USA}
 }
 
+@Article{Lawler:LDF,
+	Author = {Eugene L. Lawler},
+	Title = {Optimal Sequencing of a Single Machine Subject to Precedence Constraints},
+	Journal = {Management Science},
+	Volume = {19},
+	Number = {5},
+	Month = {January},
+	Year = {1973},
+	Issn = {0025-1909},
+	Pages = {544-546},
+	Numpages = {3},
+	Url = {http://scholar.google.de/scholar?cluster=651335371625076376},
+	Doi = {http://dx.doi.org/10.1287/mnsc.19.5.544},
+	Publisher = {INFORMS},
+	Address = {Hanover, MD, USA}
+}
+
 @Article{Leslie:Nemesis,
 	Author = {Ian M. Leslie and Derek McAuley and Richard Black and Timothy Roscoe and Paul Barham and David Evers and Robin Fairbairns and Eoin Hyden},
 	Title = {The Design and Implementation of an Operating System to Support Distributed Multimedia Applications},
@@ -467,6 +484,21 @@
 	Note = {From \href{http://thesynchronousblog.wordpress.com/}{\nolinkurl{thesynchronousblog.wordpress.com}} as of March~2012}
 }
 
+@Article{Stoyenko:Tardiness,
+	Author = {Alexander D. Stoyenko and Leonidas Georgiadis},
+	Title = {On Optimal Lateness and Tardiness Scheduling in Real-Time Systems},
+	Journal = {Computing},
+	Year = {1992},
+	Issn = {0010-485X},
+	Volume = {47},
+	Number = {3-4},
+	Pages = {215-234},
+	Doi = {http://dx.doi.org/10.1007/BF02320193},
+	Url = {http://scholar.google.de/scholar?cluster=18396225671360569275},
+	Publisher = {Springer},
+	
+}
+
 @Article{Sutter:FreeLunch,
 	Author = {Herb Sutter},
 	Title = {The Free Lunch Is Over: A Fundamental Turn Toward Concurrency in Software},
@@ -644,6 +676,19 @@
 	Url = {http://retis.sssup.it/~faggioli/papers/RTLW-2009-edf_refined.pdf}
 }
 
+@Conference{Lackorzynski:vCPUs,
+	Author = {Adam Lackorzy\'nski and Alexander Warg and Michael Peter},
+	Title = {Virtual Processors as Kernel Interface},
+	Booktitle = {12\textsuperscript{th} Real-Time Linux Workshop},
+	Series = {RTLWS},
+	Year = {2010},
+	Month = {October},
+	Location = {Nairobi, Kenya},
+	Organization = {OSADL},
+	Numpages = {10},
+	Url = {http://os.inf.tu-dresden.de/papers_ps/rtlws2010_genericvirt.pdf}
+}
+
 @Conference{LeSueur:SlowDownSleep,
 	Author = {Etienne Le Sueur and Gernot Heiser},
 	Title = {Slow Down or Sleep, That Is the Question},
@@ -776,6 +821,15 @@
 	Address = {Heidelberg, Germany}
 }
 
+@InCollection{Linux:Sched_Setscheduler,
+	Title = {{\tt sched\_setscheduler, sched\_getscheduler}~– Set and Get Scheduling Policy/Parameters},
+	Booktitle = {Linux Man Page},
+	Volume = {2},
+	Year = {2012},
+	Url = {http://linux.die.net/man/2/sched_setscheduler},
+	Key = {Zzz Sched_Setscheduler}
+}
+
 @InCollection{Qt:SignalsSlotsThreads,
 	Title = {Threads and QObjects},
 	Booktitle = {Qt~Reference Documentation},
@@ -838,6 +892,16 @@
 	Publisher = {IEEE},
 	Url = {http://pubs.opengroup.org/onlinepubs/9699919799/functions/nice.html},
 	Key = {Zzz Nice}
+}
+
+@InCollection{Unix:Pthread_Cond_Wait,
+	Title = {{\tt pthread\_cond\_timedwait, pthread\_cond\_wait}~– Wait on a Condition},
+	Booktitle = {The Open Group Base Specifications},
+	Volume = {7},
+	Year = {2008},
+	Publisher = {IEEE},
+	Url = {http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_cond_timedwait.html},
+	Key = {Zzz Pthread_Cond_Wait}
 }
 
 @InProceedings{Abeni:CBS,
@@ -1182,6 +1246,24 @@
 	Address = {Washington, DC, USA}
 }
 
+@InProceedings{Calandrino:LITMUSRT,
+	Author = {John M. Calandrino and Hennadiy Leontyev and Aaron Block and {Uma\,Maheswari} C. Devi and James H. Anderson},
+	Title = {LITMUS\textsuperscript{RT}: A Testbed for Empirically Comparing Real-Time Multiprocessor Schedulers},
+	Booktitle = {Proceedings of the 27\textsuperscript{th} IEEE Real-Time Systems Symposium},
+	Series = {RTSS},
+	Year = {2006},
+	Month = {December},
+	Location = {Rio de Janeiro,  Brazil},
+	Isbn = {0-7695-2761-2},
+	Pages = {111-126},
+	Numpages = {16},
+	Url = {http://www.cs.unc.edu/~anderson/papers/rtss06b.pdf},
+	Doi = {http://dx.doi.org/10.1109/RTSS.2006.27},
+	Acmid = {1194409},
+	Publisher = {IEEE},
+	Address = {Washington, DC, USA}
+}
+
 @InProceedings{Card:RealTimeUI,
 	Author = {Stuart K. Card and George G. Robertson and Jock D. Mackinlay},
 	Title = {The Information Visualizer, an Information Workspace},
@@ -1441,6 +1523,42 @@
 	Acmid = {319155},
 	Publisher = {ACM},
 	Address = {New York, NY, USA}
+}
+
+@InProceedings{Ford:Fluke,
+	Author = {Bryan Ford and Mike Hibler and Jay Lepreau and Patrick Tullmann and Godmar Back and Stephen Clawson},
+	Title = {Microkernels Meet Recursive Virtual Machines},
+	Booktitle = {Proceedings of the 2\textsuperscript{nd} USENIX Symposium on Operating Systems Design and Implementation},
+	Series = {OSDI},
+	Year = {1996},
+	Month = {October},
+	Isbn = {1-880446-82-0},
+	Location = {Seattle, WA, USA},
+	Pages = {137-151},
+	Numpages = {15},
+	Url = {http://www.usenix.org/publications/library/proceedings/osdi96/full_papers/hibler/hibler.ps},
+	Doi = {http://dx.doi.org/10.1145/238721.238769},
+	Acmid = {238769},
+	Publisher = {USENIX},
+	Address = {Berkeley, CA, USA}
+}
+
+@InProceedings{Guerra:Gravitational,
+	Author = {Raphael Guerra and Gerhard Fohler},
+	Title = {A Gravitational Task Model for Target Sensitive Real-Time Applications},
+	Booktitle = {Proceedings of the 20\textsuperscript{th} Euromicro Conference on Real-Time Systems},
+	Series = {ECRTS},
+	Year = {2008},
+	Month = {July},
+	Location = {Prague, Czech Republic},
+	Isbn = {978-0-7695-3298-1},
+	Pages = {309-317},
+	Numpages = {9},
+	Url = {http://rts.eit.uni-kl.de/fileadmin/publication_files/Guerra_ECRTS08.pdf},
+	Doi = {http://dx.doi.org/10.1109/ECRTS.2008.25},
+	Acmid = {1445674},
+	Publisher = {IEEE},
+	Address = {Washington, DC, USA}
 }
 
 @InProceedings{Hamann:QAS,
@@ -1793,6 +1911,21 @@
 	Acmid = {2151023},
 	Publisher = {ACM},
 	Address = {New York, NY, USA}
+}
+
+@InProceedings{Lehoczky:Slack,
+	Author = {John P. Lehoczky and Sandra Ramos-Thuel},
+	Title = {An Optimal Algorithm for Scheduling Soft-Aperiodic Tasks in Fixed-Priority Preemptive Systems},
+	Booktitle = {Proceedings of the 13\textsuperscript{th} IEEE Real-Time Systems Symposium},
+	Year = {1992},
+	Month = {December},
+	Location = {Phoenix, AZ, USA},
+	Isbn = {0-8186-3195-3},
+	Pages = {110-123},
+	Numpages = {14},
+	Url = {http://scholar.google.de/scholar?cluster=11000290626226301696},
+	Doi = {http://dx.doi.org/10.1109/REAL.1992.242671},
+	Publisher = {IEEE}
 }
 
 @InProceedings{Lelli:Scalable_EDF,
@@ -2668,6 +2801,16 @@
 	Key = {Zzz OpenMP Application Program Interface}
 }
 
+@MastersThesis{Waechtler:Look-Ahead,
+	Title = {Look-Ahead Scheduling},
+	Author = {Stefan Wächtler},
+	School = {Technische Universität Dresden},
+	Month = {December},
+	Year = {2012},
+	Url = {http://os.inf.tu-dresden.de/papers_ps/waechtler-diplom.pdf},
+	Note = {Master’s Thesis, in German}
+}
+
 @Misc{Molnar:CFS,
 	Author = {Ingo Molnár},
 	Title = {This Is the CFS Scheduler},
@@ -2692,6 +2835,14 @@
 	Year = {2010},
 	Url = {http://channel9.msdn.com/Events/PDC/PDC10/FT13},
 	Howpublished = {Session at Microsoft’s Professional Developers Conference (PDC)}
+}
+
+@PhdThesis{Tia:Slack,
+	Title = {Utilizing Slack Time for Aperiodic and Sporadic Requests Scheduling in Real-Time Systems},
+	Author = {Too Seng Tia},
+	School = {University of Illinois at Urbana-Champaign},
+	Year = {1995},
+	Url = {http://scholar.google.de/scholar?cluster=17777416559408136334}
 }
 
 @TechReport{Bavier:BERT,

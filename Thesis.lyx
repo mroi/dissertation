@@ -19284,185 +19284,1077 @@ System Scheduler
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Greyedout
-status open
-
-\begin_layout Itemize
-system scheduler
-\end_layout
-
-\begin_deeper
-\begin_layout Plain Layout
-The scheduler was implemented by Stefan Wächtler in his master thesis work,
- which I supervised together with Björn Döbel.
-\begin_inset Marginal
-status open
+Multiple applications may independently submit jobs,
+\begin_inset Index idx
+status collapsed
 
 \begin_layout Plain Layout
-\begin_inset Note Greyedout
-status open
-
-\begin_layout Plain Layout
-Hermann: 
-\lang ngerman
-Kann ich das so schreiben?
+job
 \end_layout
 
 \end_inset
 
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-scheduler implemented as a Linux kernel patch to 3.5.4
-\end_layout
-
-\begin_layout Itemize
-related work: Litmus-RT – platform for experimenting with scheduling in
- Linux
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-not suitable, because limited to sporadic task model (check this!)
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-deriving design constraints from job specification
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-job programming model not compatible with fixed task priorities
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-the same thread might execute work of different urgency
-\end_layout
-
-\begin_layout Itemize
-depends on what work the application dispatches when to what queue
-\end_layout
-
-\begin_layout Itemize
-assumption: the urgency of one job remains the same over its lifetime
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-we need dynamic task priorities, but have fixed job priorities, so EDF is
- a good start
-\end_layout
-
-\begin_layout Itemize
-our execution times are only estimates
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-design for underestimation and late jobs
-\end_layout
-
-\begin_layout Itemize
-late jobs should not interfere with honest jobs
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-in real applications, jobs may block
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-contact with the real world makes schedulers complex
+ which compete for execution time.
+ Because we cannot assume applications to trust each other, a privileged
+ management component needs to oversee and enforce the allocation of CPU
+ time.
+ Microkernel research experiments with user-level scheduling primitives
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Corbet:CFS_Complexity"
+after "-2\\baselineskip"
+key "Lackorzynski:vCPUs"
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+manual offset
+\end_layout
+
+\end_inset
+
+ and hierarchical scheduling,
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Ford:Fluke"
+
+\end_inset
+
+ but on commodity operating systems, a single system-wide scheduler lives
+ in the kernel.
+\end_layout
+
+\begin_layout Standard
+The 
+\noun on
+Atlas
+\noun default
+ scheduler comes as a kernel patch to Linux version
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $3.5.7$
+\end_inset
+
+.
+ Stefan Wächtler implemented the scheduler during his master’s thesis work,
+ which I supervised together with Björn Döbel.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Waechtler:Look-Ahead"
+
+\end_inset
+
+ I explain the general design of the scheduler and its properties here.
+ A thorough description and implementation details can be found in Stefan’s
+ thesis.
+\end_layout
+
+\begin_layout Standard
+The scheduler integrates in an otherwise unmodified Ubuntu Linux kernel.
+ We could have used a scheduler testbed such as LITMUS
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+RT
+\end_layout
+
+\end_inset
+
+,
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Calandrino:LITMUSRT"
+
+\end_inset
+
+ but 
+\noun on
+Atlas
+\noun default
+’ aperiodic task model, its custom system call interface and the tight integrati
+on with the Linux default scheduler diminishes the potential simplifications,
+ so we decided to go for vanilla Linux.
+\end_layout
+
+\begin_layout Standard
+I describe the scheduler in three parts: I first provide context and present
+ initial design constraints that derive from the task model.
+ Next, I explain the scheduling algorithm assuming all reported execution
+ times were precise.
+ I later relax this assumption and show how the scheduler accounts for over-
+ and underestimated execution time predictions.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+The Atlas task model
+\end_layout
+
+\end_inset
+
+ allows applications to submit arbitrary jobs 
+\begin_inset Formula $J=(e,d)$
+\end_inset
+
+ to the scheduler.
+ Each job 
+\begin_inset Formula $J$
+\end_inset
+
+ consists of an absolute deadline 
+\begin_inset Formula $d$
+\end_inset
+
+ and an execution time estimate 
+\begin_inset Formula $e$
+\end_inset
+
+.
+ For now, we assume precise execution times.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Revisit Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "3-mar:Architectural-Overview"
+
+\end_inset
+
+ for an overview of the 
+\noun on
+Atlas
+\noun default
+ architecture.
+\end_layout
 
 \end_inset
 
 
 \end_layout
 
-\begin_layout Itemize
-types of blocking: self-suspension, waiting for the real world, waiting
- for someone else’s computation
+\begin_layout Standard
+The order and parameters of jobs submitted to the scheduler depend on what
+ work the applications dispatch when and to what queue.
+ Therefore, deadlines generally do not follow any pattern such as periods
+ and no minimum distance between two deadlines can be assumed.
+ By calling 
+\emph on
+atlas_next,
+\emph default
+ a thread transitions execution from one job to the next and therefore from
+ one deadline to the next.
+ As a consequence, the urgency of the thread relative to other threads changes.
+ Scheduling algorithms for fixed task priorities like Rate-Monotonic Scheduling
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+rate-monotonic scheduling
 \end_layout
 
-\begin_layout Itemize
-the latter type could be predicted and planned, when all work (including
- IO) in the system is scheduled by 
+\end_inset
+
+ are thus unfit for the given task model.
+\end_layout
+
+\begin_layout Standard
+However, the deadline for a job does not change after submission, so the
+ class of dynamic task and fixed job priority algorithms appears attractive.
+ For the uniprocessor case considered here, this class contains algorithms
+ such as Earliest Deadline First,
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+earliest deadline first
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Liu:RMS"
+
+\end_inset
+
+ which is optimal with regard to schedulability.
+ An optimal
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+optimal scheduler
+\end_layout
+
+\end_inset
+
+ algorithm only fails to find a schedule that fulfills all timing constraints
+ if there is no such schedule within the bounds of the class.
+ However, this optimality only holds for independent, preemptible and non-blocki
+ng tasks.
+\end_layout
+
+\begin_layout Standard
+In real applications, jobs may arbitrarily block for different reasons.
+ They may wait for peripherals or for computation results from other jobs,
+ or they may self-suspend
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+self-suspension
+\end_layout
+
+\end_inset
+
+ by just sleeping for a while.
+ FFplay contains all these situations.
+ The input stage waits for the video file to arrive from disk, the output
+ stage sleeps until the next frame is due for display.
+ The producer-consumer queues introduce dependencies: When the output stage
+ wants to display a frame, the decoder stage must have finished preparing
+ the frame, otherwise the output stage blocks on an empty picture queue.
+ Unfortunately, such blocking conditions are only visible to the scheduler
+ circumstantially and potentially too late.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+An example illustrates
+\end_layout
+
+\end_inset
+
+ how the Earliest Deadline First (EDF) algorithm fails to find a feasible
+ schedule when dependencies
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+dependency
+\end_layout
+
+\end_inset
+
+ are involved.
+ Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-mar:EDF-and-LDF"
+
+\end_inset
+
+ depicts a set of three jobs 
+\begin_inset Formula $(e_{i},d_{i})$
+\end_inset
+
+, each with an execution time of 
+\begin_inset Formula $e_{i}=1$
+\end_inset
+
+ and absolute deadlines 
+\begin_inset Formula $d_{A}=4$
+\end_inset
+
+, 
+\begin_inset Formula $d_{B}=2$
+\end_inset
+
+ and 
+\begin_inset Formula $d_{C}=3$
+\end_inset
+
+.
+ Job 
+\begin_inset Formula $B$
+\end_inset
+
+ depends on job 
+\begin_inset Formula $A$
+\end_inset
+
+, meaning 
+\begin_inset Formula $B$
+\end_inset
+
+ can only execute after 
+\begin_inset Formula $A$
+\end_inset
+
+ completes.
+ Imagine 
+\begin_inset Formula $B$
+\end_inset
+
+ calling the synchronization function 
+\begin_inset Flex NoWrap
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+pthread_cond_wait()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Unix:Pthread_Cond_Wait"
+
+\end_inset
+
+ on a condition variable that 
+\begin_inset Formula $A$
+\end_inset
+
+ signals at the end of its execution.
+ This dependency is spelled out in the jobs’ code, but is unknown to the
+ EDF scheduler.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\begin_inset Graphics
+	filename Figures/3-Real-Time/EDF_vs_LDF.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-mar:EDF-and-LDF"
+
+\end_inset
+
+EDF and LDF Scheduling with Dependent Jobs
+\end_layout
+
+\end_inset
+
+
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+According to the EDF algorithm, at time instant zero, job 
+\begin_inset Formula $B$
+\end_inset
+
+ is selected to run, because its deadline is earliest among the present
+ jobs.
+ 
+\begin_inset Formula $B$
+\end_inset
+
+ however blocks immediately on the condition variable.
+ The scheduler decides again and finds 
+\begin_inset Formula $C$
+\end_inset
+
+ to have the earliest deadline among the remaining jobs.
+ 
+\begin_inset Formula $C$
+\end_inset
+
+ runs to completion at which point job 
+\begin_inset Formula $A$
+\end_inset
+
+ is scheduled.
+ It also runs to completion and releases 
+\begin_inset Formula $B$
+\end_inset
+
+, which can finally run, but completes at time instant three and therefore
+ one time unit behind its deadline.
+ Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-mar:EDF-and-LDF"
+
+\end_inset
+
+ shows the schedule graphically.
+\end_layout
+
+\begin_layout Standard
+An optimal algorithm for scheduling jobs with dependencies is the Latest
+ Deadline First
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+latest deadline first
+\end_layout
+
+\end_inset
+
+ (LDF) algorithm.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lawler:LDF"
+
+\end_inset
+
+ It iteratively picks the job with the latest deadline among all leaf jobs
+ in the dependency graph, remembers this job in a list and removes the correspon
+ding node from the graph.
+ It continues until the last job has been picked and then executes the list
+ of remembered jobs in reverse order.
+ The resulting schedule in Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-mar:EDF-and-LDF"
+
+\end_inset
+
+ completes all jobs before their deadline.
+\end_layout
+
+\begin_layout Standard
+The LDF algorithm is optimal with dependent jobs, but requires a-priori
+ knowledge of all dependencies.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+EDF is also optimal with dependent jobs, if it operates on effective deadlines.
+ Calculating effective deadlines equally requires prior knowledge of all
+ dependencies.
+\end_layout
+
+\end_inset
+
+ The 
 \noun on
 Atlas
+\noun default
+ scheduler does not have this knowledge and can only detect at runtime when
+ a job blocks.
+ Even worse, 
+\noun on
+Atlas
+\noun default
+ can only see that job 
+\begin_inset Formula $B$
+\end_inset
+
+ blocks, but not that job 
+\begin_inset Formula $A$
+\end_inset
+
+ is responsible for resolving the blocking condition.
+ Therefore, achieving optimality under arbitrary job dependencies remains
+ an open problem in the 
+\noun on
+Atlas
+\noun default
+ context.
+ Our scheduler contract will have to settle for lesser guarantees.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+The Atlas kernel scheduler
+\end_layout
+
+\end_inset
+
+ combines design cues from three existing algorithms: EDF, LDF, and LRT
+\begin_inset space \thinspace{}
+\end_inset
+
+—
+\begin_inset space \thinspace{}
+\end_inset
+
+the Latest Release Time
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+latest release time
+\end_layout
+
+\end_inset
+
+ scheduler,
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Liu:RealTimeSystems"
+
+\end_inset
+
+ often summarized as “EDF backwards.” I first explain what 
+\noun on
+Atlas
+\noun default
+ does and then analyze the guarantees the scheduler assures.
+\end_layout
+
+\begin_layout Standard
+The kernel scheduler keeps a single global list of submitted jobs, which
+ is ordered by deadline, similar to EDF.
+ Every newly submitted job is inserted into this list, which I call the
+ 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+job list.
+\end_layout
+
+\end_inset
+
+
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+job list
+\end_layout
+
+\end_inset
+
+ Every job is also associated with exactly one real-time task, which corresponds
+ to one specific serial GCD queue in an application.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Recall that I do not consider parallel queues yet.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A job in the list can be in one of four states: 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+running, blocked, ready,
+\end_layout
+
+\end_inset
+
+ or 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+waiting.
+\end_layout
+
+\end_inset
+
+ A job is running, when it currently executes on the CPU.
+ Only a single job can be running.
+ A job waiting for a resource other than the CPU is blocked.
+ A job is ready if it is not running or blocked and is the frontmost job
+ in its associated real-time task.
+ Because blocks in the originating GCD queue are also sorted by deadline,
+ the block corresponding to a ready job executes next in that queue.
+ This way, the scheduler’s job list and the application’s queues stay in
+ sync.
+ Any job not running, ready, or blocked is waiting.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+When asked to make a scheduling decision,
+\end_layout
+
+\end_inset
+
+ the scheduler changes the state of the running job to ready and uses the
+ job list to calculate the 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+available slack
+\end_layout
+
+\end_inset
+
+
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+available slack
+\end_layout
+
+\end_inset
+
+ at the current time instant 
+\begin_inset Formula $t_{now}$
+\end_inset
+
+: Every job 
+\begin_inset Formula $J_{i}$
+\end_inset
+
+ comes with a current per-job slack 
+\begin_inset Formula $s_{i}(t_{now})$
+\end_inset
+
+,
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+slack time
+\end_layout
+
+\end_inset
+
+ which is calculated by adding up all execution times of jobs with equal
+ or earlier deadlines and subtracting the sum from the time remaining until
+ 
+\begin_inset Formula $J_{i}$
+\end_inset
+
+'s absolute deadline:
+\begin_inset Formula 
+\[
+s_{i}(t_{now})=\left(d_{i}-t_{now}\right)-\sum_{\left\{ J_{k}\mid t_{now}<d_{k}\leq d_{i}\right\} }e_{k}
+\]
+
+\end_inset
+
+
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Figures/3-Real-Time/Slack_Calculation.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-mar:Slack-Calculation"
+
+\end_inset
+
+Slack Calculation
+\end_layout
+
+\end_inset
+
+
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-mar:Slack-Calculation"
+
+\end_inset
+
+ visualizes this calculation.
+ The available slack 
+\begin_inset Formula $s(t_{now})$
+\end_inset
+
+ is the minimum of all 
+\begin_inset Formula $s_{i}(t_{now})$
+\end_inset
+
+.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+The actual implementation is optimized and does not continuously recalculate
+ all per-job slacks to find the minimum.
+\end_layout
+
+\end_inset
+
+ The intuition behind available slack is that we can safely delay execution
+ of all pending jobs for another 
+\begin_inset Formula $s(t_{now})$
+\end_inset
+
+ time units without violating any timing constraints.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Tia:Slack"
+
+\end_inset
+
+ The calculation of available slack ensures, that there is still enough
+ time to finish all jobs before their deadline.
+\end_layout
+
+\begin_layout Standard
+If 
+\begin_inset Formula $s(t_{now})$
+\end_inset
+
+ is zero, then some 
+\begin_inset Formula $s_{i}(t_{now})$
+\end_inset
+
+ was zero, meaning we have a job in the system which misses its deadline
+ if we do not choose to run a job now.
+ According to EDF, we select the frontmost ready job from the job list,
+ set its state to running and return it as the job to execute.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Due to latencies in the Linux kernel, 
+\begin_inset Formula $s$
+\end_inset
+
+ may drop below zero, in which case we also run the frontmost ready job.
+ To avoid these situations and reduce the number of context switches, values
+ of 
+\begin_inset Formula $s$
+\end_inset
+
+ below 
+\begin_inset Formula $1\,\mathrm{ms}$
+\end_inset
+
+ are considered to be zero.
+\end_layout
+
+\end_inset
+
+ As in Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-mar:Slack-Calculation"
+
+\end_inset
+
+, this frontmost ready job is not necessarily the job with zero per-job
+ slack.
+\end_layout
+
+\begin_layout Standard
+If 
+\begin_inset Formula $s(t_{now})$
+\end_inset
+
+ is greater than zero, there is no urgent need to run a job now.
+ The scheduler selects no job to run, but programs a timer to decide again
+ after 
+\begin_inset Formula $s(t_{now})$
+\end_inset
+
+ time units, at which point the available slack will be zero.
+ This scheduling strategy is similar to LRT, which also runs work only when
+ the available slack is zero.
+\end_layout
+
+\begin_layout Standard
+Apart from the principal scheduling decision, the other operations of the
+ 
+\noun on
+Atlas
+\noun default
+ scheduler are technical and I briefly list them here:
 \end_layout
 
 \begin_layout Itemize
-we do not consider IO here, but only dependencies among different parts
- of the application
+Before every scheduling decision, the currently running job transitions
+ to the ready state.
+ At this point, the execution time it already consumed is subtracted from
+ its job description to ensure correct slack time calculations.
 \end_layout
 
 \begin_layout Itemize
-video: producer-consumer scenario
-\end_layout
-
-\end_deeper
-\end_deeper
-\begin_layout Itemize
-scheduler design
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-layered design, because timeliness comes above all else (fairness)
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-LRT
+Calling 
+\emph on
+atlas_submit
+\emph default
+ to report a new job forces a scheduling decision.
 \end_layout
 
 \begin_layout Itemize
-EDF recover
+When the running job calls 
+\emph on
+atlas_next,
+\emph default
+ it is removed from the scheduler and a scheduling decision is made.
+ Removing the job causes the next job in the corresponding real-time task
+ to become ready.
 \end_layout
 
 \begin_layout Itemize
-CFS preroll
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-create a virtual LRT schedule using the estimated execution times
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-intuition: solves blocking, when starting job at latest possible instant
- and it still blocks, there's nothing else we can do
+When the running job blocks, its state changes from running to blocked.
+ Unblocking reverts the state to ready.
+ Both events cause a scheduling decision.
 \end_layout
 
 \begin_layout Itemize
-assumes sweet spot at the end of the scheduling window, makes sense for
- video
+If the execution time of a job was underestimated, a timer fires once the
+ reported time is depleted.
+ A similar timer fires when a job has passed its deadline.
+ In both cases, the job is removed from the job list, but remains registered
+ with its real-time task.
+ The job is no longer involved in scheduling decisions, but the next job
+ in the real-time task does not become ready because its predecessor has
+ not yet completed.
+ I discuss this situation later.
+\end_layout
+
+\begin_layout Standard
+From the description of the 
+\noun on
+Atlas
+\noun default
+ scheduling algorithm, we can observe that it is not work conserving:
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+work-conserving scheduler
+\end_layout
+
+\end_inset
+
+ It may not return a job to run although there are ready jobs.
+ In fact, 
+\noun on
+Atlas
+\noun default
+ only runs jobs when the available slack is zero, at which point any further
+ delay would lead to a certain deadline miss.
+ The research community has explored non-work-conserving schedulers to improve
+ CPU response times
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Rosti:NWC_Partitioning"
+
+\end_inset
+
+ or throughput.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Fedorova:SMT_Scheduling"
+
+\end_inset
+
+ Here, the rationale behind this design is threefold:
 \end_layout
 
 \begin_layout Itemize
-task models that express other properties: gravitational task model
+The 
+\noun on
+Atlas
+\noun default
+ task model does not express an arrival time
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+arrival time
+\end_layout
+
+\end_inset
+
+ to the scheduler.
+ Any job with a constraint of not running before a certain time must self-suspen
+d.
+ The FFplay output stage does so because video frames should be displayed
+ neither too early nor too late.
+ 
+\noun on
+Atlas
+\noun default
+ runs jobs as late as possible which helps to minimize such self-suspensions.
+ The hidden assumption is that most deadline-limited work has its execution
+ sweet spot
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+execution sweet spot
+\end_layout
+
+\end_inset
+
+ toward the end of its scheduling window.
+ Other models like the gravitational task model
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+gravitational task model
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Guerra:Gravitational"
+
+\end_inset
+
+ can express execution sweet spots explicitly, 
+\noun on
+Atlas
+\noun default
+ treats it heuristically.
 \end_layout
 
 \begin_layout Itemize
-also helps with late jobs, because slack is moved to the front
+When slack calculation reveals that no real-time job needs to run, we can
+ use the CPU to improve response times for non-real-time work.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lehoczky:Slack"
+
+\end_inset
+
+ I want to run 
+\noun on
+Atlas
+\noun default
+-enabled applications next to unmodified Linux applications, so the scheduler
+ has to expect significant non-real-time load.
+ Part of it may be applications with user interfaces, which run as regular
+ time-shared threads, but expect timely service.
+ Even applications converted to 
+\noun on
+Atlas
+\noun default
+ like FFplay start with a main thread, which acts as the application backbone
+ and orchestrates all real-time work, but is initially not real-time scheduled
+ itself.
+ To solve this chicken-and-egg problem, time not claimed by the 
+\noun on
+Atlas
+\noun default
+ scheduler is handed to Linux’ default CFS
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+completely fair scheduler
 \end_layout
 
-\begin_layout Itemize
-reuse throughput-optimization of existing scheduler (CFS) until some urgent
- job must run
+\end_inset
+
+ scheduler.
+ The LRT-like strategy guarantees that time is donated to CFS as early as
+ possible, until an urgent real-time job must run.
+ Within its time allocation, CFS can apply all its throughput and responsiveness
+ optimizations to improve service to legacy applications.
+ This concept of reaping the benefits of existing schedulers is often applied
+ in real-time research.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Reuther:DAS"
@@ -19473,87 +20365,336 @@ key "Reuther:DAS"
 \end_layout
 
 \begin_layout Itemize
-optimality proof, sustainable?
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Baruah:Sustainability"
+The non-work-conserving scheduling also benefits jobs, which have overrun
+ their announced execution time.
+ They can catch up quickly by using the available slack early.
+ I come back to this point later.
+\end_layout
+
+\begin_layout Standard
+In summary, the 
+\noun on
+Atlas
+\noun default
+ scheduler behaves like a hybrid between EDF and LRT: It executes jobs in
+ deadline order, but delays execution until the available slack is zero.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+What guarantees
+\end_layout
+
+\end_inset
+
+ can we expect from this scheduler? For independent, preemptible and not
+ self-suspending jobs on a single processor, EDF is an optimal algorithm.
+ I prove by contradiction that the 
+\noun on
+Atlas
+\noun default
+ scheduler retains this property:
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Argument
+status collapsed
+
+\begin_layout Plain Layout
+noitemsep
+\end_layout
+
+\end_inset
+
+Assume the 
+\noun on
+Atlas
+\noun default
+ scheduler was not optimal under the given restrictions.
+ Then, a set of independent, preemptible and not self-suspending jobs exists,
+ for which there is a feasible schedule, but 
+\noun on
+Atlas
+\noun default
+ fails to find one.
+\end_layout
+
+\begin_layout Enumerate
+EDF can successfully schedule this job set, because the criteria for EDF
+ optimality are met.
+\end_layout
+
+\begin_layout Enumerate
+Iterate over all jobs in the EDF schedule in descending deadline order.
+ Move each visited job maximally to the right, until it either hits its
+ deadline or collides with the next job in ascending deadline order.
+ Observe that each moved job still completes before its deadline and that
+ jobs are not reordered, because no job moves beyond its successor.
+\end_layout
+
+\begin_layout Enumerate
+In the thus constructed schedule, available slack is zero whenever a job
+ is scheduled to begin execution, i.e., at its release time.
+ We can prove this by induction over all jobs in descending deadline order:
+ Per-job slack and thus available slack is trivially zero at the release
+ of the last job 
+\begin_inset Formula $J_{last}$
+\end_inset
+
+, because its execution starts at 
+\begin_inset Formula $d_{last}-e_{last}$
+\end_inset
+
+.
+ For any other job, the same argument applies if it ends at its deadline.
+ For any job 
+\begin_inset Formula $J_{i}$
+\end_inset
+
+ not ending at its deadline, we know by the induction premise that available
+ slack is zero at the release of 
+\begin_inset Formula $J_{i+1}$
+\end_inset
+
+.
+ Thus, there is some job 
+\begin_inset Formula $J_{\star}$
+\end_inset
+
+ whose per-job slack is zero at the release time 
+\begin_inset Formula $t_{i+1}$
+\end_inset
+
+ of job 
+\begin_inset Formula $J_{i+1}$
+\end_inset
+
+
+\emph on
+:
+\emph default
+ 
+\begin_inset Formula $s_{\star}(t_{i+1})=0$
+\end_inset
+
+.
+ Moving the release time from 
+\begin_inset Formula $t_{i+1}$
+\end_inset
+
+ to 
+\begin_inset Formula $t_{i}$
+\end_inset
+
+ adds 
+\begin_inset Formula $t_{i+1}-t_{i}$
+\end_inset
+
+ time units to the slack of 
+\begin_inset Formula $J_{\star}$
+\end_inset
+
+.
+ But simultaneously, the execution time 
+\begin_inset Formula $e_{i}$
+\end_inset
+
+ of 
+\begin_inset Formula $J_{i}$
+\end_inset
+
+ is subtracted: 
+\begin_inset Formula $s_{\star}(t_{i})=s_{\star}(t_{i+1})+t_{i+1}-t_{i}-e_{i}$
+\end_inset
+
+.
+ By construction there is no gap between the execution of 
+\begin_inset Formula $J_{i}$
+\end_inset
+
+ and its successor 
+\begin_inset Formula $J_{i+1}$
+\end_inset
+
+.
+ Thus, 
+\begin_inset Formula $t_{i+1}-t_{i}=e_{i}$
+\end_inset
+
+, resulting in 
+\begin_inset Formula $s_{\star}(t_{i})=s_{\star}(t_{i+1})=0$
+\end_inset
+
+.
+ Therefore, at the release of job 
+\begin_inset Formula $J_{i}$
+\end_inset
+
+, the per-job slack of 
+\begin_inset Formula $J_{\star}$
+\end_inset
+
+ is still zero and thus the available slack is zero as well, which completes
+ the induction.
+\end_layout
+
+\begin_layout Enumerate
+The constructed schedule runs all jobs in deadline order and only when available
+ slack is zero.
+ The presented 
+\noun on
+Atlas
+\noun default
+ algorithm also runs all jobs in deadline order and only when available
+ slack is zero.
+ Without loss of generality we can assume the same tie-breaking rules in
+ EDF and 
+\noun on
+Atlas
+\noun default
+.
+ Therefore, deadline order is unambiguous and the constructed schedule and
+ the one 
+\noun on
+Atlas
+\noun default
+ finds are identical.
+\end_layout
+
+\begin_layout Enumerate
+The constructed schedule and thus the 
+\noun on
+Atlas
+\noun default
+ schedule are feasible, because no job completes after its deadline, contradicti
+ng the initial assumption and completing the proof.
+\end_layout
+
+\begin_layout Standard
+What remains for discussion are the requirements of EDF optimality: preemption,
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+preemption
+\end_layout
+
+\end_inset
+
+ no self-suspension and independence.
+\end_layout
+
+\begin_layout Description
+Preemption is unproblematic, because all 
+\noun on
+Atlas
+\noun default
+ jobs are fully preemptible, a feature naturally provided by the Linux schedulin
+g infrastructure.
+\end_layout
+
+\begin_layout Description
+Self-Suspension is alleviated by the late execution of jobs as discussed
+ previously.
+ Jobs are still free to shoot themselves in the foot by sleeping past their
+ deadline, but I consider this a programmer error.
+\end_layout
+
+\begin_layout Description
+Dependencies thwart the optimality of EDF, as we have seen by example.
+ LDF however is optimal for dependent jobs.
+ From the way LDF operates, it is easy to show that both algorithms find
+ the same schedule, as long as deadlines never decrease along edges of the
+ dependency graph:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+LDF iteratively picks the latest-deadline job among the leaf jobs in the
+ dependency graph.
+ If deadlines do not decrease along graph edges, the job selected by LDF
+ also has the latest deadline overall, disregarding dependencies, because
+ all non-leaf jobs have earlier deadlines.
+ With compatible tie-breaking to resolve ambiguities, LDF results in the
+ same deadline-ordered task list as EDF.
+\end_layout
+
+\begin_layout Standard
+Because LDF is optimal for all dependent job sets, it is also optimal for
+ job sets with non-decreasing deadlines along dependency edges.
+ EDF results in the same schedule for those job sets and therefore must
+ be optimal as well.
+ Applying the preceding proof shows that 
+\noun on
+Atlas
+\noun default
+ is also optimal for such job sets.
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\noindent
+The limitation that dependent jobs must have a deadline not earlier than
+ their prerequisite job is not difficult in practice.
+ The deadline flow I devised for FFplay follows the flow of data through
+ the player queues, so the output job for a given frame has a later deadline
+ than the matching decode job.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+Leaving the perfect world
+\end_layout
+
+\end_inset
+
+ of nicely arranged deadlines and precise execution times, I now discuss
+ what the scheduler can do for applications that do not behave perfectly.
+ Care must be taken not to break the properties I have shown above.
+ I first talk about over- and underestimated execution times, followed by
+ blocking.
+ 
+\noun on
+Atlas
+\noun default
+ programs High Precision Event Timers
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+High Precision Event Timer: hardware timer used in personal computers (cf.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Flex Emph
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "Wikipedia: High Precision Event Timer"
+target "http://en.wikipedia.org/w/index.php?title=High_Precision_Event_Timer&oldid=556583213"
 
 \end_inset
 
 
 \end_layout
 
-\end_deeper
-\begin_layout Itemize
-we could stop here, because it's optimal
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-policing needed when jobs overrun their execution time
-\end_layout
-
-\begin_layout Itemize
-estimates may be wrong
-\end_layout
-
-\begin_layout Itemize
-blocking may push jobs over deadline
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-EDF recovery layer for jobs delayed by blocking
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-allow jobs behind their deadline but within their reservation to catch up
-\end_layout
-
-\begin_layout Itemize
-only shuffles already assigned reservations, service to CFS not diminished
-\end_layout
-
-\begin_layout Itemize
-minimum tardiness proof?
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-free preroll in CFS
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-the earliest non-blocking job in EDF-order gets to run as part of the CFS
- mix
-\end_layout
-
-\begin_layout Itemize
-not accounted against reservation
-\end_layout
-
-\begin_layout Itemize
-allows for underestimation
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-jobs behind their reservation are called 
-\begin_inset Quotes eld
 \end_inset
 
-late
-\begin_inset Quotes erd
-\end_inset
-
-
+)
 \end_layout
 
-\begin_deeper
-\begin_layout Itemize
-dropped to CFS where they receive no guarantees
+\end_inset
+
+ to police deadline or reserved execution time overruns.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Mercer:CapacityReserve"
@@ -19563,12 +20704,311 @@ key "Mercer:CapacityReserve"
 
 \end_layout
 
-\begin_layout Itemize
-the next job reservation will run in LRT again, like CBS
+\begin_layout Description
+Overestimated
+\begin_inset space \space{}
+\end_inset
+
+Execution
+\begin_inset space \space{}
+\end_inset
+
+Times are the easiest to handle.
+ Whenever a job calls 
+\emph on
+atlas_next
+\emph default
+ early, before the reserved execution time has been consumed, the remaining
+ time becomes available slack.
+\end_layout
+
+\begin_layout Description
+Underestimation is by far the harder problem.
+ Our LRT-inspired schedule comes with the downside that any reservation
+ overrun leads to a certain deadline miss.
+ 
+\noun on
+Atlas
+\noun default
+ mitigates this problem by always making the frontmost ready job eligible
+ for scheduling by the default CFS scheduler.
+ Whenever slack time in 
+\noun on
+Atlas
+\noun default
+ causes CFS to run, it not only time-shares the CPU among all non-real-time
+ threads, but also finds one extra thread from the 
+\noun on
+Atlas
+\noun default
+ world.
+ The time a job receives in CFS is not accounted against the reported execution
+ time estimate, thereby allowing for a free head start,
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+head start
+\end_layout
+
+\end_inset
+
+ albeit with no progress guarantee.
+ If the job even completes in CFS, the next job from 
+\noun on
+Atlas
+\noun default
+’ job list takes its place.
+ If sufficient compute time is available in CFS, this head start mechanism
+ thus transforms the LRT-behavior of 
+\noun on
+Atlas
+\noun default
+ into a classical EDF schedule.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+A job may still overrun its reservation, even with the help of the head
+ start.
+ In this case, 
+\noun on
+Atlas
+\noun default
+ has to protect the remaining jobs to uphold the scheduler guarantees.
+ The infringing job is marked as late and is removed from the 
+\noun on
+Atlas
+\noun default
+ job list.
+ CFS exclusively schedules all late jobs in the slack left over by 
+\noun on
+Atlas.
+
+\noun default
+ Because slack is available early, late jobs get a chance to catch up quickly.
 \end_layout
 
 \end_deeper
+\begin_layout Description
+Blocking can push job completion behind the deadline, for example when a
+ job experienced an unexpected delay while waiting for a peripheral device
+ or a needed result from another job.
+ In order to protect innocent jobs, 
+\noun on
+Atlas
+\noun default
+ has to stop considering the delayed job after its deadline has passed.
+ However, as long as this job has not depleted its reserved execution time,
+ I do not want to drop it to CFS.
+ Instead, I want to allow jobs behind their deadline to consume their remaining
+ reservation with a higher priority than all CFS threads.
+ This policy does not diminish service to CFS, because the total CPU time
+ claimed by 
+\noun on
+Atlas
+\noun default
+ does not change, blocking just distributes it differently.
+ In fact, when a job blocked, CFS has already received extra time earlier.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+The implementation uses a scheduling band between 
+\noun on
+Atlas
+\noun default
+ and CFS to catch such delayed jobs.
+ All jobs within this band have deadlines lying in the past, but the band
+ is still scheduled according to EDF to allow jobs with the highest tardiness
+ to complete first.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Stoyenko:Tardiness"
+
+\end_inset
+
+ Note that the 
+\noun on
+Atlas
+\noun default
+ guarantees are unaffected, because this band only runs when there is available
+ slack.
+\end_layout
+
 \end_deeper
+\begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\begin_inset Graphics
+	filename Figures/3-Real-Time/Scheduler_Layers.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-mar:Linux-Scheduler-Layers"
+
+\end_inset
+
+Linux Scheduler Layers
+\end_layout
+
+\end_inset
+
+
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+The implementation of Atlas
+\end_layout
+
+\end_inset
+
+ within the Linux scheduling infrastructure introduces two new layers between
+ the existing CFS and POSIX real-time bands.
+ Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-mar:Linux-Scheduler-Layers"
+
+\end_inset
+
+ shows the resulting scheduler stack, including the two special layers stop
+ and idle.
+ Linux calls the schedulers in a strict hierarchy, with any lower layer
+ only receiving time not claimed by the upper layers.
+ Consequently, the stop and POSIX real-time layers could take time away
+ from 
+\noun on
+Atlas.
+
+\noun default
+ However, the stop layer is only used by the Linux kernel internally for
+ rare operations during CPU shutdown and access to the POSIX real-time layer
+ can be controlled by way of the 
+\begin_inset Flex NoWrap
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+RLIMIT_RTPRIO
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ resource limit.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Linux:Sched_Setscheduler"
+
+\end_inset
+
+ The placement of the 
+\noun on
+Atlas
+\noun default
+ layer retains the semantics of the POSIX real-time layer.
+ Simultaneous use of both layers would require more sophisticated analysis
+ methods
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Shin:Compositional"
+
+\end_inset
+
+ to determine the guarantees provided by 
+\noun on
+Atlas
+\noun default
+.
+\end_layout
+
+\begin_layout Standard
+Available slack in the 
+\noun on
+Atlas
+\noun default
+ layer automatically passes down to the EDF recovery layer, which catches
+ jobs that overran their deadline due to blocking.
+ When this layer has no jobs to run, the default CFS scheduler executes,
+ but it cooperates with the 
+\noun on
+Atlas
+\noun default
+ layer to implement the head start mechanism.
+\end_layout
+
+\begin_layout Standard
+Although the 
+\noun on
+Atlas
+\noun default
+ task model of aperiodic jobs described by execution time and deadline is
+ simple, we have seen how contact with the real world turns scheduling into
+ a complex topic.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Corbet:CFS_Complexity"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Itemize
+system scheduler
+\end_layout
+
+\begin_deeper
 \begin_layout Itemize
 properties, scheduler contract
 \end_layout
@@ -19597,135 +21037,6 @@ more developer effort improves behavior
 legacy support
 \end_layout
 
-\begin_deeper
-\begin_layout Itemize
-reuses CFS, so any threads not using the system still work
-\end_layout
-
-\begin_layout Itemize
-LRT layer should always leave some room to allow main threads to run
-\end_layout
-
-\begin_layout Itemize
-similar to system reservations in resource kernels
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Rajkumar:ResourceKernels"
-
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Plain Layout
-\begin_inset Flex NewThought
-status collapsed
-
-\begin_layout Plain Layout
-Not all threads
-\end_layout
-
-\end_inset
-
- can be managed transparently by the runtime.
- If threads were only spawned implicitly by dispatching blocks to queues,
- a chicken-and-egg problem would ensue: To dispatch a block, code must be
- executed, thus a thread must be running.
- If this thread started implicitly, a block must have been dispatched.
- Current implementations break this cycle an always-on thread: The first
- thread of each application
-\begin_inset space \thinspace{}
-\end_inset
-
-—
-\begin_inset space \thinspace{}
-\end_inset
-
-called the 
-\begin_inset Flex SmallCaps
-status collapsed
-
-\begin_layout Plain Layout
-main thread
-\end_layout
-
-\end_inset
-
-
-\begin_inset Index idx
-status collapsed
-
-\begin_layout Plain Layout
-main thread
-\end_layout
-
-\end_inset
-
-
-\begin_inset space \thinspace{}
-\end_inset
-
-—
-\begin_inset space \thinspace{}
-\end_inset
-
-does not rely on blocks or queues to run.
- In graphical user interface frameworks, this thread is responsible for
- communicating with the user by updating the display and waiting for input.
- It is not supposed to block because this will render the application unresponsi
-ve.
- Therefore, all non-trivial work should be dispatched to a work queue for
- asynchronous execution.
- The main thread thus represents the backbone of the application, but it
- does no real work itself.
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-Microkernels follow a similar philosophy.
- They mediate between hardware and applications, but do so only in direct
- reaction to a system call or interrupt.
- The quote “a microkernel does no real work” is attributed to Jochen Liedtke.
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Björn dislikes this remark
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-The OpenMP and Galois runtimes similarly distinguish between a singular
- main thread and a pool of worker threads.
- This model is also employed in the large by distributed programming models
- such as Piccolo
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Power:Piccolo"
-
-\end_inset
-
-, where the equivalent to the main thread is the master process.
- It orchestrates workers running on separate machines by dispatching compute
- kernels to them.
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-slip in non-RT work: abuse the scheduler dropping out-of-time jobs to CFS
-\end_layout
-
-\end_deeper
 \begin_layout Itemize
 deadline inheritance on blocking is left for others to analyze
 \end_layout
@@ -19738,14 +21049,7 @@ summarize
 
 \begin_deeper
 \begin_layout Itemize
-developers drive all this machinery by way of one simple API call, mindset:
- 
-\begin_inset Quotes eld
-\end_inset
-
-Do this work.
- Until then.
- Here’s what I know about it.”
+developers drive all this machinery by way of one simple API call
 \end_layout
 
 \begin_layout Itemize
@@ -20141,6 +21445,11 @@ does not target improving the soft-real time workload, thus somewhat orthogonal
 
 \begin_layout Itemize
 could be used to provide isolated hard real-time load in our system
+\end_layout
+
+\begin_layout Itemize
+see also: Total Bandwidth Server (“Efficient Aperiodic Service under Earliest
+ Deadline First”)
 \end_layout
 
 \end_deeper
