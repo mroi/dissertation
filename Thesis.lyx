@@ -21001,64 +21001,146 @@ key "Corbet:CFS_Complexity"
 \end_layout
 
 \begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+The scheduler contract
+\end_layout
+
+\end_inset
+
+ 
+\noun on
+Atlas
+\noun default
+ provides is comprehensible and useful.
+ To receive strong guarantees, submitted execution times must be precise,
+ jobs must not self-suspend, and deadlines must never decrease along dependency
+ edges.
+ Developers can reason about these requirements by analyzing just their
+ own application code, without making assumptions about system context or
+ other applications.
+ In return, 
+\noun on
+Atlas
+\noun default
+ guarantees optimal behavior regarding schedulability: When there is a feasible
+ schedule, all jobs will meet their deadlines.
+\end_layout
+
+\begin_layout Standard
+For imperfect real-time applications, where the developer did not spend
+ the analysis effort or where technical reasons prevent satisfying all requireme
+nts, 
+\noun on
+Atlas
+\noun default
+ employs band-aid mechanisms to uphold good service to that application:
+ Jobs get a free head start in EDF order to remedy wrong execution times.
+ Jobs delayed by blocking or self-suspension can consume their reservation
+ with higher priority than any CFS job.
+ Lastly, 
+\noun on
+Atlas
+\noun default
+ donates its slack time to CFS early, allowing late jobs to catch up quickly
+ and legacy threads to make progress.
+ In all these cases, 
+\noun on
+Atlas
+\noun default
+ ensures that misbehaving jobs never interfere with the timeliness of behaving
+ jobs.
+\end_layout
+
+\begin_layout Full Width
+\begin_inset VSpace defskip
+\end_inset
+
+
+\begin_inset Flex Emph
+status collapsed
+
+\begin_layout Plain Layout
+
+\noun on
+Atlas
+\noun default
+ offers a vertically integrated solution, completely implemented from an
+ asynchronous-lambda-based application runtime and a linear auto-regressive
+ predictor down to the kernel scheduler.
+ On all layers, developers need to reflect only on application-local behavior.
+ Based on a clear contract, the scheduler provides useful timeliness guarantees.
+ The custom GCD runtime mediates between application and scheduler, enabling
+ developers to drive the entire machinery by way of a single function call:
+ 
+\begin_inset Flex NoWrap
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+dispatch_async_atlas
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+FFplay meets all conditions of the scheduler contract but one: We have seen
+ that predictions are precise and I argued that the deadline placement intuitive
+ly follows dependencies.
+ However, the output stage may self-suspend.
+ Frames should not be displayed too early, so this violation is due to technical
+ requirements of the application.
+\end_layout
+
+\begin_layout Standard
+Additionally, all 
+\noun on
+Atlas
+\noun default
+ guarantees collapse when the system is permanently or temporarily overloaded.
+ The scheduler interface does not allow to reject jobs, because I think
+ users and developers would be startled.
+ But thanks to jobs being submitted ahead of time, 
+\noun on
+Atlas
+\noun default
+ should be able to detect overload and notify applications.
+ In the next section, I evaluate this feature and the overall scheduling
+ behavior.
+\end_layout
+
+\begin_layout Section
+Timeliness Experiments
+\end_layout
+
+\begin_layout Standard
 \begin_inset Note Greyedout
 status open
 
 \begin_layout Itemize
-system scheduler
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-properties, scheduler contract
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-when there is a feasible schedule, all behaving jobs meet their deadline
-\end_layout
-
-\begin_layout Itemize
-late jobs do not interfere with the timeliness of independent jobs
-\end_layout
-
-\begin_layout Itemize
-jobs dispatched in EDF-order by preroll, even when execution times are arbitrari
-ly wrong
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-more developer effort improves behavior
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-legacy support
-\end_layout
-
-\begin_layout Itemize
-deadline inheritance on blocking is left for others to analyze
-\end_layout
-
-\end_deeper
-\end_deeper
-\begin_layout Itemize
-summarize
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-developers drive all this machinery by way of one simple API call
-\end_layout
-
-\begin_layout Itemize
-GCD runtime and estimator mediate between application and scheduler
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-details on workloads
+evaluation
 \end_layout
 
 \begin_deeper
@@ -21080,28 +21162,18 @@ CPU-intensive, but fairly constant execution time
 \end_layout
 
 \begin_layout Itemize
-boring for the predictor
+boring for the predictor, look-ahead behaves like a classical periodic task
 \end_layout
 
 \end_deeper
-\end_deeper
 \begin_layout Itemize
-end-to-end evaluation
+scheduler works as intended: job model works, better than static priorities
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
-illustrate that the scheduler works as intended
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-synthetic tasks submitting random real-time jobs with no execution times;
- will get EDF release
-\end_layout
-
-\begin_layout Itemize
-submitting execution times defends against a CPU hogger
+timeliness of bodytrack vs CFS: submitting execution times defends against
+ a CPU hogger
 \end_layout
 
 \begin_layout Itemize
@@ -21125,7 +21197,7 @@ scheduler overhead: see Stefan’s thesis
 
 \end_deeper
 \begin_layout Itemize
-use complex video player to evaluate real application
+use complex video player to evaluate dynamic real application
 \end_layout
 
 \begin_deeper
