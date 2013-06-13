@@ -659,7 +659,7 @@ August 1980 in Dresden.
 
 \lang ngerman
 \begin_inset Tabular
-<lyxtabular version="3" rows="9" columns="2">
+<lyxtabular version="3" rows="8" columns="2">
 <features booktabs="true" tabularvalignment="middle">
 <column alignment="left" valignment="top" width="0pt" special="@{}l">
 <column alignment="left" valignment="top" width="0pt">
@@ -863,41 +863,6 @@ Dezember 2011
 
 \lang ngerman
 Abgabe:
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang ngerman
-\begin_inset Note Greyedout
-status open
-
-\begin_layout Plain Layout
-
-\lang ngerman
-fehlt
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang ngerman
-Verteidigung:
 \end_layout
 
 \end_inset
@@ -3419,6 +3384,16 @@ key "Roitzsch:ATLAS"
 \end_inset
 
 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+BibTeX entry lacks the DOI link
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -5205,28 +5180,16 @@ Lambdas Far and Wide
 \end_layout
 
 \begin_layout Standard
-\begin_inset Marginal
-status open
-
-\begin_layout Plain Layout
-\begin_inset Note Greyedout
-status open
-
-\begin_layout Plain Layout
-Some of the text here went verbatim into the paper on Elastic Manycores.
- Reference here, if it gets accepted somewhere.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
 Asynchronous lambdas combine a programming pattern based on asynchronous
  invocation and a lambda language feature to deliver a unique combination
  of properties.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Voelp:ElasticManycores"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Description
@@ -19325,6 +19288,23 @@ key "Ford:Fluke"
 
  but on commodity operating systems, a single system-wide scheduler lives
  in the kernel.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+not enough room for 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Bovet:LinuxKernel"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -19891,7 +19871,7 @@ job list
 status open
 
 \begin_layout Plain Layout
-Recall that I do not consider parallel queues yet.
+Recall that I do not consider parallel queues here.
 \end_layout
 
 \end_inset
@@ -19925,11 +19905,21 @@ waiting.
  A job waiting for a resource other than the CPU is blocked.
  A job is ready if it is not running or blocked and is the frontmost job
  in its associated real-time task.
- Because blocks in the originating GCD queue are also sorted by deadline,
- the block corresponding to a ready job executes next in that queue.
+ In the originating GCD queue, blocks are also sorted by deadline, so the
+ block corresponding to a ready job executes next in that queue.
  This way, the scheduler’s job list and the application’s queues stay in
  sync.
  Any job not running, ready, or blocked is waiting.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+figure?
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -19963,6 +19953,23 @@ available slack
 
 \end_inset
 
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Literature sometimes uses the term static slack, but usually with schedules
+ based on worst-case execution times.
+ 
+\noun on
+Atlas
+\noun default
+’ job execution times are based on runtime knowledge, so the word “static”
+ is inappropriate.
+\end_layout
+
+\end_inset
+
  at the current time instant 
 \begin_inset Formula $t_{now}$
 \end_inset
@@ -19985,16 +19992,26 @@ slack time
 
 \end_inset
 
- which is calculated by adding up all execution times of jobs with equal
- or earlier deadlines and subtracting the sum from the time remaining until
- 
+ which is the difference between the time remaining until 
 \begin_inset Formula $J_{i}$
 \end_inset
 
-'s absolute deadline:
+'s absolute deadline 
+\begin_inset Formula $d_{i}$
+\end_inset
+
+ and the sum of all execution times of jobs scheduled to run between 
+\begin_inset Formula $t_{now}$
+\end_inset
+
+ and 
+\begin_inset Formula $d_{i}$
+\end_inset
+
+: 
 \begin_inset Formula 
 \[
-s_{i}(t_{now})=\left(d_{i}-t_{now}\right)-\sum_{\left\{ J_{k}\mid t_{now}<d_{k}\leq d_{i}\right\} }e_{k}
+s_{i}(t_{now})=\left(d_{i}-t_{now}\right)-\sum_{\left\{ J_{k}\mid\mathrm{job\: scheduled\: between}\: t_{now}\:\mathrm{and}\: d_{i}\right\} }e_{k}
 \]
 
 \end_inset
@@ -20353,7 +20370,7 @@ completely fair scheduler
  possible, until an urgent real-time job must run.
  Within its time allocation, CFS can apply all its throughput and responsiveness
  optimizations to improve service to legacy applications.
- This concept of reaping the benefits of existing schedulers is often applied
+ Reaping the benefits of existing non-real-time schedulers is a common idea
  in real-time research.
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -20498,16 +20515,16 @@ In the thus constructed schedule, available slack is zero whenever a job
 \end_inset
 
 .
- But simultaneously, the execution time 
-\begin_inset Formula $e_{i}$
-\end_inset
-
- of 
+ But simultaneously, the execution of 
 \begin_inset Formula $J_{i}$
 \end_inset
 
- is subtracted: 
-\begin_inset Formula $s_{\star}(t_{i})=s_{\star}(t_{i+1})+t_{i+1}-t_{i}-e_{i}$
+ is now part of the interval 
+\begin_inset Formula $\left[t_{i},d_{\star}\right]$
+\end_inset
+
+, so we subtract its execution time: 
+\begin_inset Formula $s_{\star}(t_{i})=s_{\star}(t_{i+1})+\left(t_{i+1}-t_{i}\right)-e_{i}$
 \end_inset
 
 .
@@ -20601,6 +20618,11 @@ Self-Suspension is alleviated by the late execution of jobs as discussed
  previously.
  Jobs are still free to shoot themselves in the foot by sleeping past their
  deadline, but I consider this a programmer error.
+ The guarantees 
+\noun on
+Atlas
+\noun default
+ aims to provide collapse in the presence of jobs self-suspending arbitrarily.
 \end_layout
 
 \begin_layout Description
@@ -20719,7 +20741,21 @@ Times are the easiest to handle.
 atlas_next
 \emph default
  early, before the reserved execution time has been consumed, the remaining
- time becomes available slack.
+ time becomes available as additional dynamic slack.
+ 
+\noun on
+Atlas
+\noun default
+ does not donate slack across real-time jobs,
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lin:Backslash"
+
+\end_inset
+
+ all slack goes to CFS instead.
+ Robustness against runaway jobs is one reason for this design decision,
+ which will be further explained during the evaluation.
 \end_layout
 
 \begin_layout Description
@@ -20760,11 +20796,11 @@ Atlas
 \noun default
 ’ job list takes its place.
  If sufficient compute time is available in CFS, this head start mechanism
- thus transforms the LRT-behavior of 
+ thus transforms the LRT-arrangement of 
 \noun on
 Atlas
 \noun default
- into a classical EDF schedule.
+ jobs into a classical EDF release.
 \end_layout
 
 \begin_deeper
@@ -20800,8 +20836,8 @@ Atlas
 \noun default
  has to stop considering the delayed job after its deadline has passed.
  However, as long as this job has not depleted its reserved execution time,
- I do not want to drop it to CFS.
- Instead, I want to allow jobs behind their deadline to consume their remaining
+ we do not want to drop it to CFS.
+ Instead, we allow jobs behind their deadline to consume their remaining
  reservation with a higher priority than all CFS threads.
  This policy does not diminish service to CFS, because the total CPU time
  claimed by 
@@ -20809,7 +20845,7 @@ Atlas
 Atlas
 \noun default
  does not change, blocking just distributes it differently.
- In fact, when a job blocked, CFS has already received extra time earlier.
+ In fact, when a job has blocked, CFS already received extra time earlier.
 \end_layout
 
 \begin_deeper

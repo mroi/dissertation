@@ -1,5 +1,5 @@
 # Veusz saved document (version 1.16)
-# Saved at 2013-05-29T13:17:44.506886
+# Saved at 2013-06-12T21:23:59.662370
 
 AddImportPath(u'/Users/Michael/Documents/Forschung/Dissertation/Data/3-Real-Time')
 ImportFile(u'Background_CFS_nice-0.log', u'time0 interval0', linked=True, ignoretext=True)
@@ -70,7 +70,7 @@ Add('axis', name='y', autoadd=False)
 To('y')
 Set('label', u'Frame Interval (ms)')
 Set('min', 0.0)
-Set('max', 0.2)
+Set('max', 0.25)
 Set('direction', 'vertical')
 Set('TickLabels/scale', 1000.0)
 To('..')
