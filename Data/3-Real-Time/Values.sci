@@ -25,6 +25,9 @@ Times2 = runtimes("After");
 Overhead = geomean(Times2 ./ Times1) - 1;
 Overhead_IQR = iqr(Times2 ./ Times1);
 
+Bodytrack = read("Bodytrack_Alone.log", -1, 5);
+BodytrackTime = mean(Bodytrack(2:$,5));
+
 Result = [];
 format(3);
 Result = [Result; "RMSBestAdmission" + ascii(9) + string(RMS_Best*100) + "\%"];
@@ -34,6 +37,7 @@ format(4);
 Result = [Result; "PreprocessSizeOverhead" + ascii(9) + string(Size*100) + "\%"];
 Result = [Result; "PredictionOverhead" + ascii(9) + string(Overhead*100) + "\%"];
 Result = [Result; "PredictionOverheadIQR" + ascii(9) + string(Overhead_IQR*100) + "\%"];
+Result = [Result; "BodytrackExecutionTime" + ascii(9) + string(BodytrackTime*1000) + "\,\mathrm{ms}"];
 
 write("Values.val", Result);
 exit;
