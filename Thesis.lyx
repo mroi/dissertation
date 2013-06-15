@@ -9604,7 +9604,7 @@ I evaluate
 \noun on
 Atlas
 \noun default
- with user interface updates, video playback, and gesture tracking workloads.
+ with user interaction, video playback, and gesture tracking workloads.
 \begin_inset Newline newline
 \end_inset
 
@@ -19330,8 +19330,8 @@ key "Waechtler:Look-Ahead"
 \end_inset
 
  I explain the general design of the scheduler and its properties here.
- A thorough description and implementation details can be found in Stefan’s
- thesis.
+ A thorough description, implementation details, and overhead analysis can
+ be found in Stefan’s thesis.
 \end_layout
 
 \begin_layout Standard
@@ -20796,11 +20796,11 @@ Atlas
 \noun default
 ’ job list takes its place.
  If sufficient compute time is available in CFS, this head start mechanism
- thus transforms the LRT-arrangement of 
+ thus transforms the non-work-conserving LRT-arrangement of 
 \noun on
 Atlas
 \noun default
- jobs into a classical EDF release.
+ jobs into a classical work-conserving EDF release.
 \end_layout
 
 \begin_deeper
@@ -21172,6 +21172,1121 @@ Timeliness Experiments
 \end_layout
 
 \begin_layout Standard
+The 
+\noun on
+Atlas
+\noun default
+ interface is friendly to developers, but does it provide useful real-time
+ behavior to applications? I answer this question with experiments
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+The test machine is the same as in preceding experiments: a 
+\begin_inset Formula $2.4\,\mathrm{GHz}$
+\end_inset
+
+ Intel Core
+\begin_inset space ~
+\end_inset
+
+i5-
+\begin_inset Formula $520\mathrm{M}$
+\end_inset
+
+ Arrandale with 
+\begin_inset Formula $4\,\mathrm{GiB}$
+\end_inset
+
+ of 
+\begin_inset Formula $1066\,\mathrm{MHz}$
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\mathrm{DDR}3$
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+SDRAM and CPU frequency scaling disabled.
+\end_layout
+
+\end_inset
+
+ using three different workloads: gesture tracking, user interface responsivenes
+s, and the FFplay video player.
+ I show how 
+\noun on
+Atlas
+\noun default
+ satisfies the timing constraints of these applications when the system
+ is not overloaded.
+ Finally, I validate my claim that for an overloaded system, 
+\noun on
+Atlas
+\noun default
+ can anticipate deadline misses before they occur.
+\end_layout
+
+\begin_layout Standard
+In select experiments, I compare the scheduling behavior of 
+\noun on
+Atlas
+\noun default
+ with competing schedulers by running background load next to the real-time
+ application under test.
+ In the following, whenever the term background load is used without further
+ explanation, it refers to ten concurrently running CPU-hogging processes
+ that each execute a tight endless loop.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Their complete source code:
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+int main(void) 
+\backslash
+{ while (1); 
+\backslash
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ Background load is scheduled by the Linux default CFS scheduler.
+\end_layout
+
+\begin_layout Standard
+In all experiments, the 
+\noun on
+Atlas
+\noun default
+ execution time predictor runs with the default aging factor of 
+\begin_inset Formula $0.01$
+\end_inset
+
+ and column contribution threshold of 
+\begin_inset Formula $1.1$
+\end_inset
+
+ as previously established.
+ To account for scheduling overhead, time measurement jitter, and unexpected
+ latencies in the runtime library or the Linux kernel, all job execution
+ times are enlarged by 
+\begin_inset Formula $1\%$
+\end_inset
+
+ before being submitted to the kernel.
+ Otherwise, a job which precisely needs its specified execution time may
+ overrun its deadline because of these overheads and inaccuracies.
+ Oversubscribing all jobs by 
+\begin_inset Formula $1\%$
+\end_inset
+
+ of course leads to an equivalent loss of 
+\begin_inset Formula $1\%$
+\end_inset
+
+ schedulable utilization.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Figures/3-Real-Time/Bodytrack.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-mar:Bodytrack-Result"
+
+\end_inset
+
+Result of the Bodytrack Benchmark
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+Bodytrack
+\end_layout
+
+\end_inset
+
+ is the first evaluation workload.
+ It is part of the Parsec
+\begin_inset space ~
+\end_inset
+
+3.0 benchmark suite
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Bienia:Parsec"
+
+\end_inset
+
+ and implements tracking of a human body’s 
+\begin_inset Formula $\mathrm{3D}$
+\end_inset
+
+ pose from camera images.
+ Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-mar:Bodytrack-Result"
+
+\end_inset
+
+ visualizes the tracking result.
+ Other than commercial systems such as Microsoft Kinect,
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+cf.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Flex Emph
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "Microsoft: Kinect for Windows"
+target "http://www.microsoft.com/en-us/kinectforwindows/"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ Bodytrack performs unassisted tracking with no markers or depth images.
+ I chose this benchmark because gesture tracking is part of an emerging
+ field of user interface research.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Jacob:RBI"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Bodytrack employs an annealed particle filter.
+ With its default parameters of 4000 particles and five annealing layers,
+ the workload is too CPU intensive for useful real-time operation on a single
+ CPU.
+ I therefore reduce the parameters to 750 particles and three annealing
+ layers, resulting in an average execution time of 
+\begin_inset Formula $\BodytrackExecutionTime$
+\end_inset
+
+ per camera image.
+ This time does not fluctuate much across the test set of captured images,
+ so a purely time-based prediction is sufficient.
+ The error bars in Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-mar:Bodytrack-Execution-Time"
+
+\end_inset
+
+ indicate the upper and lower quartile of measured execution time and prediction.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset VSpace defskip
+\end_inset
+
+
+\begin_inset Graphics
+	filename Data/3-Real-Time/Bodytrack_Alone.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-mar:Bodytrack-Execution-Time"
+
+\end_inset
+
+Bodytrack Execution Time
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The original Bodytrack benchmark was not meant to run as a real-time application
+, but using gesture tracking as user input requires deadlines to ensure
+ responsive behavior.
+ I configured the processing of each camera image to finish within 
+\begin_inset Formula $250\,\mathrm{ms}$
+\end_inset
+
+ and modified the Bodytrack code accordingly.
+ No metrics are involved and the modifications touch just 16
+\begin_inset space ~
+\end_inset
+
+lines of code.
+\end_layout
+
+\begin_layout Standard
+Bodytrack now behaves like a classical periodic real-time task: Jobs exhibit
+ constant execution time and one job instance is released at the beginning
+ of a 
+\begin_inset Formula $250\,\mathrm{ms}$
+\end_inset
+
+ period and must complete within that interval.
+ I use this opportunity to compare 
+\noun on
+Atlas
+\noun default
+ against a fixed priority scheduler, which is often used to schedule periodic
+ tasks.
+ Because the application knows it will continuously process frames, it can
+ submit jobs in advance.
+ My modified Bodytrack submits eight jobs ahead of time, providing the scheduler
+ with a two second look-ahead horizon.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Data/3-Real-Time/Bodytrack_Schedule.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-fig:Bodytrack-Scheduling"
+
+\end_inset
+
+Bodytrack Scheduling Behavior
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-fig:Bodytrack-Scheduling"
+
+\end_inset
+
+ shows how 
+\noun on
+Atlas
+\noun default
+ protects the real-time work from competing background load.
+ The first subfigure illustrates the behavior of a Bodytrack run with no
+ concurrent load.
+ The application progresses linearly through the captured image sequence.
+ Every job meets its deadline.
+ The second subfigure demonstrates scheduling behavior of the Linux default
+ CFS scheduler, when Bodytrack competes with background load, which starts
+ 15
+\begin_inset space ~
+\end_inset
+
+seconds into the experiment and stops at time instant 45.
+ Bodytrack’s progress slows down because the background load receives too
+ much CPU time.
+ When the background load recedes, Bodytrack tries to catch up.
+ Scheduling under 
+\noun on
+Atlas
+\noun default
+ avoids this problem.
+ As the third subfigure confirms, 
+\noun on
+Atlas
+\noun default
+ successfully schedules Bodytrack according to its specified timing requirements.
+ Background load throttles as needed.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Data/3-Real-Time/Bodytrack_Fail.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-fig:Bodytrack-Failing"
+
+\end_inset
+
+Bodytrack Failing to an Endless Loop
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Periodic tasks can be scheduled with a traditional fixed priority scheduler
+ such as the POSIX real-time scheduler in Linux.
+ The left part of Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-fig:Bodytrack-Failing"
+
+\end_inset
+
+ demonstrates that prioritizing Bodytrack indeed protects it from background
+ load similarly to 
+\noun on
+Atlas
+\noun default
+.
+ However, when average applications without special vetting or certification
+ are allowed to use real-time scheduling, we have to expect programmer errors.
+ Imagine a bug that causes Bodytrack to fail to an endless loop.
+ With fixed priority scheduling, any runaway real-time application can lock
+ up the entire system.
+\begin_inset CommandInset citation
+LatexCommand cite
+after "-2\\baselineskip"
+key "Nieh:SVR4UNIX_Unacceptable"
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+manual offset
+\end_layout
+
+\end_inset
+
+ The second subfigure of Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-fig:Bodytrack-Failing"
+
+\end_inset
+
+ illustrates, how all background activity comes to a halt.
+ The system becomes unusable at this point.
+\end_layout
+
+\begin_layout Standard
+The third subfigure reveals how 
+\noun on
+Atlas
+\noun default
+ handles these situations gracefully: The real-time application still ceases
+ to make progress, which is expected because 
+\noun on
+Atlas
+\noun default
+ cannot fix the application bug.
+ But background load immediately receives its fair share of the CPU once
+ Bodytrack overruns the time reserved for its job.
+ The system is fully operable, allowing the user or a system service to
+ kill the faulty application.
+ This benefit confirms our design decision not to implement donation of
+ dynamic slack across jobs, but to always pass all slack to CFS.
+ Any failing job may otherwise receive more time by way of slack donation,
+ prolonging the time it is able to prevent service to non-real-time applications.
+ Instead, 
+\noun on
+Atlas
+\noun default
+ demotes jobs overrunning their reservation directly to CFS.
+ Only when they catch up they are promoted to 
+\noun on
+Atlas
+\noun default
+ again.
+\end_layout
+
+\begin_layout Standard
+This design is similar to the time-constrained threads facility
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Apple:TimeConstrainedThread"
+
+\end_inset
+
+ in the Darwin kernel of Apple’s OS
+\begin_inset space ~
+\end_inset
+
+X.
+ It offers ordinary applications an interface to specify a period and an
+ execution time requirement.
+ The kernel however reserves the right to demote threads to best-effort
+ scheduling to defend against denial of service.
+\end_layout
+
+\begin_layout Standard
+In summary, 
+\noun on
+Atlas
+\noun default
+ provides the same scheduling behavior to periodic tasks as a fixed-priority
+ scheduler, but without inheriting its vulnerability against failing jobs.
+ 
+\noun on
+Atlas
+\noun default
+ handles such jobs similarly to Darwin’s time-constrained threads, but without
+ requiring developers to report execution times.
+ Due to the constant execution time of Bodytrack’s jobs, enabling 
+\noun on
+Atlas
+\noun default
+ scheduling was only a matter of reporting the deadline, leaving execution
+ time recognition to the runtime.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Figures/3-Real-Time/UI_Worker.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-mar:User-Interface-Test"
+
+\end_inset
+
+User Interface Test Application
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+Graphical user interface code
+\end_layout
+
+\end_inset
+
+ has timing requirements much different from a classical periodic task.
+ Spontaneous user interaction releases jobs without prior warning and not
+ bound to a period.
+ With the next set of experiments, I evaluate how 
+\noun on
+Atlas
+\noun default
+ handles such jobs.
+ I developed a test application based on GTK+,
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Emph
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "GTK+"
+target "http://www.gtk.org/"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ is a multi-platform toolkit for creating graphical user interfaces.
+\end_layout
+
+\end_inset
+
+ the standard application framework for the GNOME
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Emph
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "GNOME"
+target "https://www.gnome.org/"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ is the standard desktop for the Ubuntu Linux distribution.
+\end_layout
+
+\end_inset
+
+ desktop environment.
+ Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-mar:User-Interface-Test"
+
+\end_inset
+
+ shows the minimal user interface.
+ A click on the only button triggers work that uses the 
+\begin_inset Flex NoWrap
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+strcasestr()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ function to simulate searching a word in a document.
+ For each click, the scanned memory is chosen randomly between 64 and 128
+\begin_inset space \thinspace{}
+\end_inset
+
+MiB.
+ The chosen size is passed as the only workload metric and the work is submitted
+ to execute asynchronously with a deadline of 
+\begin_inset Formula $100\,\mathrm{ms}$
+\end_inset
+
+, a typical time bound where users perceive a system response as immediate.
+\begin_inset CommandInset citation
+LatexCommand cite
+after "-3\\baselineskip"
+key "Card:RealTimeUI"
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+manual offset
+\end_layout
+
+\end_inset
+
+ 
+\noun on
+Atlas
+\noun default
+ scheduling is integrated into the button click handler with just seven
+ lines of code as shown in Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-fig:Pseudocode-ATLAS"
+
+\end_inset
+
+:
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+enlargethispage{1
+\backslash
+baselineskip}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+page size extended
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+double metrics[] = { size };
+\end_layout
+
+\begin_layout Plain Layout
+
+atlas_job_t job = {
+\end_layout
+
+\begin_layout Plain Layout
+
+	.deadline = atlas_now() + 0.1,
+\end_layout
+
+\begin_layout Plain Layout
+
+	.metrics_count = 1,
+\end_layout
+
+\begin_layout Plain Layout
+
+	.metrics = metrics
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+dispatch_async_atlas(queue, job, ^{ scan_document(size); });
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-fig:Pseudocode-ATLAS"
+
+\end_inset
+
+Pseudocode for 
+\noun on
+Atlas
+\noun default
+ Scheduling in Worker
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-mar:Worker-Execution-Time"
+
+\end_inset
+
+ displays the accuracy of the predicted execution times.
+ The test application can be used interactively, but for the experiments,
+ the button is “clicked” programmatically.
+ Two clicks are separated by a randomly chosen interval between 
+\begin_inset Formula $0.5$
+\end_inset
+
+ and 
+\begin_inset Formula $1.5$
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+seconds.
+ The experiments run for five minutes.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Data/3-Real-Time/UI_Worker_Schedule.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-fig:Worker-Makespan"
+
+\end_inset
+
+Worker Makespan Histograms
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-fig:Worker-Makespan"
+
+\end_inset
+
+ demonstrates the benefit of using 
+\noun on
+Atlas
+\noun default
+ by visualizing the job makespan, i.e., the time between release and completion.
+ Makespan lengths below 
+\begin_inset Formula $100\,\mathrm{ms}$
+\end_inset
+
+ meet the specified deadline.
+ The first subfigure shows the worker scheduled by CFS and executing with
+ no concurrent load.
+ All jobs finish before their deadline.
+ We observe the same completion behavior in the second subfigure, where
+ the application is scheduled by 
+\noun on
+Atlas.
+
+\noun default
+ Without background load, 
+\noun on
+Atlas
+\noun default
+-scheduled jobs finish as early as CFS-scheduled work.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Data/3-Real-Time/UI_Worker_Alone.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-mar:Worker-Execution-Time"
+
+\end_inset
+
+Worker Execution Time Prediction
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The third subfigure adds background load.
+ When scheduled by CFS, the competing load causes excessive deadline misses,
+ with jobs taking up to one second to complete.
+ The last subfigure illustrates the 
+\noun on
+Atlas
+\noun default
+ behavior of scheduling real-time work as late as possible, but reliably
+ completing all jobs before their deadline.
+\end_layout
+
+\begin_layout Standard
+This noticeable advantage of 
+\noun on
+Atlas
+\noun default
+ over CFS for spontaneous jobs was not expected, because CFS employs a concept
+ called sleeper fairness
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+sleeper fairness
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Molnar:SleeperFairness"
+
+\end_inset
+
+ to prioritize threads waking from sleep over continuously running background
+ activity.
+ The test application sleeps for long intervals in between its short bursts
+ of activity, so it should receive preferential treatment by CFS.
+ However, we have clearly seen that this heuristic is insufficient and that
+ the 
+\noun on
+Atlas
+\noun default
+ scheduler is better suited to ensure application responsiveness.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+I now turn to FFplay
+\end_layout
+
+\end_inset
+
+ to evaluate the scheduling behavior of 
+\noun on
+Atlas
+\noun default
+ with a complex real-world application with highly dynamic resource requirements.
+\end_layout
+
+\begin_layout Standard
 \begin_inset Note Greyedout
 status open
 
@@ -21180,58 +22295,6 @@ evaluation
 \end_layout
 
 \begin_deeper
-\begin_layout Itemize
-bodytrack
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-unassisted (no markers, no depth pass) tracking of a human in camera images
-\end_layout
-
-\begin_layout Itemize
-other systems like Kinect have more help
-\end_layout
-
-\begin_layout Itemize
-CPU-intensive, but fairly constant execution time
-\end_layout
-
-\begin_layout Itemize
-boring for the predictor, look-ahead behaves like a classical periodic task
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-scheduler works as intended: job model works, better than static priorities
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-timeliness of bodytrack vs CFS: submitting execution times defends against
- a CPU hogger
-\end_layout
-
-\begin_layout Itemize
-real-time task may fail into a while-1-loop
-\end_layout
-
-\begin_layout Itemize
-such runaway jobs lead to locked up system with strict priorities
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Nieh:SVR4UNIX_Unacceptable"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-scheduler overhead: see Stefan’s thesis
-\end_layout
-
-\end_deeper
 \begin_layout Itemize
 use complex video player to evaluate dynamic real application
 \end_layout
@@ -21251,29 +22314,6 @@ no support for IO, only blocking for other CPU jobs works as intended
 
 \begin_layout Itemize
 compare keep-the-queue-filled deadlines with tight deadlines
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-evaluate an interactive application (UI updates, game?) with short horizon
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-experience shows: long work has long deadlines, short work has short deadlines
-\end_layout
-
-\begin_layout Itemize
-handling small bursts is enough for keeping interactive applications responsive
-\end_layout
-
-\begin_layout Itemize
-heavier work can be satisfactorily delayed by quickly showing a progress
- indicator
-\end_layout
-
-\begin_layout Itemize
-this may not work for games or camera-based gesture tracking
 \end_layout
 
 \end_deeper
@@ -21735,28 +22775,6 @@ reservation extends CBS to reclaim slack
 
 \begin_layout Itemize
 no evaluation against freely migrating schedulers such as CFS
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-Darwin time-constrained threads
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-periodic thread with an average and maximum execution time
-\end_layout
-
-\begin_layout Itemize
-accessible for non-root processes
-\end_layout
-
-\begin_layout Itemize
-vague demotion policy to prevent denial of service
-\end_layout
-
-\begin_layout Itemize
-execution time provided directly
 \end_layout
 
 \end_deeper
