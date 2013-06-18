@@ -18216,6 +18216,13 @@ Prediction Accuracy for Input and Output Stages
 \end_inset
 
 
+\begin_inset CommandInset label
+LatexCommand label
+name "3-par:Metrics-Alternatives"
+
+\end_inset
+
+
 \begin_inset Flex NewThought
 status collapsed
 
@@ -21270,9 +21277,24 @@ int main(void)
 
 \end_layout
 
+\begin_layout Plain Layout
+One of the hoggers may be instrumented to track the throughput of background
+ work.
+\end_layout
+
 \end_inset
 
  Background load is scheduled by the Linux default CFS scheduler.
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+completely fair scheduler
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -21290,12 +21312,28 @@ Atlas
 
  as previously established.
  To account for scheduling overhead, time measurement jitter, and unexpected
- latencies in the runtime library or the Linux kernel, all job execution
- times are enlarged by 
+ latencies in the runtime library
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+My libdispatch reimplementation uses ordinary pthread locks at places that
+ could benefit from lock-free synchronization with atomic instructions.
+\end_layout
+
+\end_inset
+
+ or the Linux kernel, all job execution times are enlarged before being
+ submitted to the scheduler.
+ I oversubscribe jobs by 
 \begin_inset Formula $1\%$
 \end_inset
 
- before being submitted to the kernel.
+ of their execution time, or a minimum of 
+\begin_inset Formula $100\,\mu\mathrm{s}$
+\end_inset
+
+.
  Otherwise, a job which precisely needs its specified execution time may
  overrun its deadline because of these overheads and inaccuracies.
  Oversubscribing all jobs by 
@@ -21307,6 +21345,25 @@ Atlas
 \end_inset
 
  schedulable utilization.
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+schedulable utilization
+\end_layout
+
+\end_inset
+
+ The extra 
+\begin_inset Formula $100\,\mu\mathrm{s}$
+\end_inset
+
+ only become a limitation with hundreds of short jobs per second, a scenario
+ which 
+\noun on
+Atlas
+\noun default
+ is currently not optimized for.
 \end_layout
 
 \begin_layout Standard
@@ -21357,12 +21414,32 @@ Bodytrack
 
 \end_inset
 
- is the first evaluation workload.
+ 
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+Bodytrack
+\end_layout
+
+\end_inset
+
+is the first evaluation workload.
  It is part of the Parsec
 \begin_inset space ~
 \end_inset
 
-3.0 benchmark suite
+3.0
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+parsec
+\end_layout
+
+\end_inset
+
+ benchmark suite
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Bienia:Parsec"
@@ -21526,8 +21603,17 @@ Bodytrack now behaves like a classical periodic real-time task: Jobs exhibit
 \noun on
 Atlas
 \noun default
- against a fixed priority scheduler, which is often used to schedule periodic
- tasks.
+ against a fixed priority
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+priority
+\end_layout
+
+\end_inset
+
+ scheduler, which is often used to schedule periodic tasks.
  Because the application knows it will continuously process frames, it can
  submit jobs in advance.
  My modified Bodytrack submits eight jobs ahead of time, providing the scheduler
@@ -21679,22 +21765,20 @@ Atlas
  However, when average applications without special vetting or certification
  are allowed to use real-time scheduling, we have to expect programmer errors.
  Imagine a bug that causes Bodytrack to fail to an endless loop.
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+endless loop
+\end_layout
+
+\end_inset
+
  With fixed priority scheduling, any runaway real-time application can lock
  up the entire system.
 \begin_inset CommandInset citation
 LatexCommand cite
-after "-2\\baselineskip"
 key "Nieh:SVR4UNIX_Unacceptable"
-
-\end_inset
-
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-manual offset
-\end_layout
 
 \end_inset
 
@@ -21745,14 +21829,43 @@ Atlas
 \end_layout
 
 \begin_layout Standard
-This design is similar to the time-constrained threads facility
+This design is similar to the time-constrained threads
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+time-constrained threads
+\end_layout
+
+\end_inset
+
+ facility
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Apple:TimeConstrainedThread"
 
 \end_inset
 
- in the Darwin kernel of Apple’s OS
+ in the XNU kernel
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+XNU
+\end_layout
+
+\end_inset
+
+ kernel
+\end_layout
+
+\end_inset
+
+ of Apple’s OS
 \begin_inset space ~
 \end_inset
 
@@ -21938,18 +22051,7 @@ MiB.
 , a typical time bound where users perceive a system response as immediate.
 \begin_inset CommandInset citation
 LatexCommand cite
-after "-3\\baselineskip"
 key "Card:RealTimeUI"
-
-\end_inset
-
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-manual offset
-\end_layout
 
 \end_inset
 
@@ -21964,24 +22066,13 @@ Atlas
 
 
 \begin_inset CommandInset ref
-LatexCommand ref
+LatexCommand vref
 reference "3-fig:Pseudocode-ATLAS"
 
 \end_inset
 
-:
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-
-\backslash
-enlargethispage{1
-\backslash
-baselineskip}
-\end_layout
-
+.
+\begin_inset Newpage newpage
 \end_inset
 
 
@@ -21989,7 +22080,7 @@ baselineskip}
 status open
 
 \begin_layout Plain Layout
-page size extended
+manual page break
 \end_layout
 
 \end_inset
@@ -22089,7 +22180,7 @@ reference "3-mar:Worker-Execution-Time"
 \end_inset
 
  displays the accuracy of the predicted execution times.
- The test application can be used interactively, but for the experiments,
+ The test application can be used interactively, but in the experiments,
  the button is “clicked” programmatically.
  Two clicks are separated by a randomly chosen interval between 
 \begin_inset Formula $0.5$
@@ -22104,7 +22195,7 @@ reference "3-mar:Worker-Execution-Time"
 \end_inset
 
 seconds.
- The experiments run for five minutes.
+ The experiments run for five minutes each.
 \end_layout
 
 \begin_layout Standard
@@ -22162,7 +22253,15 @@ reference "3-fig:Worker-Makespan"
 \noun on
 Atlas
 \noun default
- by visualizing the job makespan, i.e., the time between release and completion.
+ by visualizing the job makespan
+\begin_inset space \thinspace{}
+\end_inset
+
+—
+\begin_inset space \thinspace{}
+\end_inset
+
+the time spent between release and completion.
  Makespan lengths below 
 \begin_inset Formula $100\,\mathrm{ms}$
 \end_inset
@@ -22181,7 +22280,18 @@ Atlas.
 \noun on
 Atlas
 \noun default
--scheduled jobs finish as early as CFS-scheduled work.
+-scheduled jobs finish as early as CFS-scheduled work thanks to the head
+ start
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+head start
+\end_layout
+
+\end_inset
+
+ mechanism.
 \end_layout
 
 \begin_layout Standard
@@ -22223,7 +22333,7 @@ Worker Execution Time Prediction
 \end_layout
 
 \begin_layout Standard
-The third subfigure adds background load.
+The third and fourth subfigures add background load.
  When scheduled by CFS, the competing load causes excessive deadline misses,
  with jobs taking up to one second to complete.
  The last subfigure illustrates the 
@@ -22279,11 +22389,437 @@ I now turn to FFplay
 
 \end_inset
 
- to evaluate the scheduling behavior of 
+ to evaluate the scheduling behavior with a complex application that exhibits
+ highly dynamic resource requirements.
+ At the beginning of this chapter, I motivated the need for real-time scheduling
+ with an experiment running the Hunger Games video with competing background
+ load.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+see page
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand pageref
+reference "3-fig:Video-Smoothness"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "3-fig:Video-Smoothness-ATLAS"
+
+\end_inset
+
+ repeats this experiment, comparing the original CFS behavior with 
+\noun on
+Atlas.
+
+\noun default
+ Watching a video, the user cares about smooth playback, so the interval
+ between the display instants of two consecutive frames should be a constant
+ 
+\begin_inset Formula $41.7\,\mathrm{ms}$
+\end_inset
+
+, as given by the video speed of 24
+\begin_inset space ~
+\end_inset
+
+frames per second.
+ Visual inspection of playback confirms the smoothness, multiple test viewers
+ were unable to notice any lag.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement t
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Data/3-Real-Time/Background_ATLAS.pdf
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+non-default float placement
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-fig:Video-Smoothness-ATLAS"
+
+\end_inset
+
+Video Smoothness with Competing Background Load
+\end_layout
+
+\end_inset
+
+
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Any remaining jitter is caused by inaccuracies in the prediction of execution
+ times.
+ The next experiment thus compares the three workload metrics alternatives
+ to predict video decoding times:
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+see page
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand pageref
+reference "3-par:Metrics-Alternatives"
+
+\end_inset
+
+ for detailed explanation
+\end_layout
+
+\end_inset
+
+ a time-only prediction relying on previous execution times alone, the reduced
+ metrics option which can handle unmodified video streams, and the full
+ metrics which uses deep workload insight.
+\end_layout
+
+\begin_layout Standard
+Figures
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-fig:Video-Smoothness-Scheduler"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "3-fig:Video-Smoothness-Metrics"
+
+\end_inset
+
+ show the average frame display jitter, which is the time difference between
+ the intended and actual display instants of each frame.
+ Error bars indicate the lower and upper quartile of the jitter.
+ Lower values represent smoother playback.
+ All videos were played with competing background load over the entire duration
+ of the clip except for the first second to avoid unpredictable delays in
+ FFplay’s non-real-time stream format recognition and setup code.
+\end_layout
+
+\begin_layout Standard
+Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-fig:Video-Smoothness-Scheduler"
+
+\end_inset
+
+ highlights the results for scheduling under CFS, which shows unacceptable
+ playback behavior for high resolution videos.
+ All 
 \noun on
 Atlas
 \noun default
- with a complex real-world application with highly dynamic resource requirements.
+ options perform significantly better.
+ Interestingly, CFS is able to successfully schedule the two low resolution
+ videos in the mix, because the fair share of 
+\begin_inset Formula $\nicefrac{1}{11}\approx9\%$
+\end_inset
+
+ CPU time, which FFplay receives against the ten CPU hoggers is sufficient
+ to decode the video.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Data/3-Real-Time/Scheduling_Comparison_All.pdf
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-fig:Video-Smoothness-Scheduler"
+
+\end_inset
+
+Video Smoothness with Different Schedulers
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Data/3-Real-Time/Scheduling_Comparison_ATLAS.pdf
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-fig:Video-Smoothness-Metrics"
+
+\end_inset
+
+Video Smoothness with Different Metrics Options
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-fig:Video-Smoothness-Metrics"
+
+\end_inset
+
+ shows the same values as the previous figure, but removes the CFS bars
+ to zoom in on the 
+\noun on
+Atlas
+\noun default
+ behavior.
+ All metrics options exhibit typical jitter of less than 
+\begin_inset Formula $10\,\mathrm{ms}$
+\end_inset
+
+, but we also see an advantage of the reduced and full workload metrics
+ over a prediction based only on execution times.
+ The reduced metrics, which do not require video preprocessing already cut
+ the average jitter in half compared to time-only prediction.
+ The full metrics further improve the scheduling behavior.
+ They represent an end-to-end design where even workload modifications are
+ justifiable to improve real-time behavior.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Data/3-Real-Time/Scheduling_Histogram.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-mar:Frame-Interval-Metrics"
+
+\end_inset
+
+Histogram of Frame Intervals with Different Metrics Options
+\end_layout
+
+\end_inset
+
+
+\begin_inset VSpace 1cm
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-mar:Frame-Interval-Metrics"
+
+\end_inset
+
+ details the jitter behavior of the metrics alternatives by showing a histogram
+ of the frame interval for the Hunger Games video.
+ The peak has been cropped to focus on the base part of the histogram.
+ We see that the more precise metrics cause frames to group tighter around
+ the intended display time.
+ Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-fig:Time-Profile-Metrics"
+
+\end_inset
+
+ plots the same data along the time axis.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Data/3-Real-Time/Scheduling_Timeline.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-fig:Time-Profile-Metrics"
+
+\end_inset
+
+Time Profile with Different Metrics Options
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+Even with full metrics,
+\end_layout
+
+\end_inset
+
+ the execution time prediction is not precise enough to reliably prevent
+ all jitter.
+ One strategy to improve the situation further is to increase the oversubscripti
+on of job execution times.
+ I propose a default addition of 
+\begin_inset Formula $1\%$
+\end_inset
+
+ or 
+\begin_inset Formula $100\,\mu\mathrm{s}$
+\end_inset
+
+, whichever is more.
 \end_layout
 
 \begin_layout Standard
@@ -22300,18 +22836,6 @@ use complex video player to evaluate dynamic real application
 \end_layout
 
 \begin_deeper
-\begin_layout Itemize
-timeliness against a fair share scheduler
-\end_layout
-
-\begin_layout Itemize
-timeliness against CBS-style reservation?
-\end_layout
-
-\begin_layout Itemize
-no support for IO, only blocking for other CPU jobs works as intended
-\end_layout
-
 \begin_layout Itemize
 compare keep-the-queue-filled deadlines with tight deadlines
 \end_layout
