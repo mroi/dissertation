@@ -2,6 +2,7 @@ include ../Makefile
 
 CASE_STUDY = Blackswan Hungergames Parkrun Rushhour Shore
 
+Background_ATLAS.pdf: Background_ATLAS.log Background_CFS_nice-0.log
 Background_CFS_nice.pdf: Background_CFS_nice-0.log Background_CFS_nice-5.log
 Bodytrack_Alone.pdf: Bodytrack_Alone.tab
 Bodytrack_Alone.tab: Bodytrack_Alone.log
@@ -26,13 +27,18 @@ Prediction_Subsetting.pdf: Prediction_Subsetting.log
 Prediction_Timeline.pdf: $(foreach mode,None Reduced Full,Prediction_$(mode)_Hungergames.log)
 RMS_Admission.pdf: RMS_Admission.tab
 RMS_Admission.tab: RMS_Admission.log
+Scheduling_Comparison_All.pdf: Prediction_Comparison.tab
+Scheduling_Comparison_ATLAS.pdf: Prediction_Comparison.tab
+Scheduling_Comparison.tab: $(foreach video,$(VIDEOS_ALL),$(foreach mode,CFS None Reduced Full,Scheduling_$(mode)_$(video).log))
+Scheduling_Histogram.pdf: $(foreach mode,None Reduced Full,Scheduling_$(mode)_Hungergames.log)
+Scheduling_Timeline.pdf: $(foreach mode,None Reduced Full,Scheduling_$(mode)_Hungergames.log)
 Times_Relative.pdf: Times_Relative.tab
 Times_Relative.tab: $(foreach video,$(CASE_STUDY),Times_Metrics_$(video).log)
 UI_Worker_Alone.pdf: UI_Worker_CFS_Alone.log
 UI_Worker_Schedule.pdf: UI_Worker_ATLAS_Alone.log UI_Worker_ATLAS_Load.log UI_Worker_CFS_Alone.log UI_Worker_CFS_Load.log
 Values.val: Bodytrack_Alone.log Decoding_Times_Hungergames.log Decoding_Times_Hungergames_Repeat.log Preprocess.log RMS_Admission.tab $(foreach video,$(CASE_STUDY),Runtime_After_$(video).log Runtime_Before_$(video).log)
 
-Bodytrack_Alone.lyx CPU_Load_Player.lyx Prediction_Age.lyx Prediction_Atom.lyx Prediction_Column.lyx Prediction_Comparison.lyx Prediction_IO.lyx RMS_Admission.lyx Times_Relative.lyx:
+Bodytrack_Alone.lyx CPU_Load_Player.lyx Prediction_Age.lyx Prediction_Atom.lyx Prediction_Column.lyx Prediction_Comparison.lyx Prediction_IO.lyx RMS_Admission.lyx Scheduling_Comparison.lyx Times_Relative.lyx:
 	@# ignore
 
 Prediction_Subsetting.pdf: Prediction_Subsetting.vsz
