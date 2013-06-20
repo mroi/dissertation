@@ -1,5 +1,5 @@
 # Veusz saved document (version 1.16)
-# Saved at 2013-05-31T07:50:38.652218
+# Saved at 2013-06-20T07:55:20.387004
 
 AddImportPath(u'/Users/Michael/Documents/Forschung/Dissertation/Data/3-Real-Time')
 ImportFile(u'Prediction_Atom.tab', u'video none - + reduced - + full - +', linked=True, ignoretext=True)
@@ -54,7 +54,7 @@ Add('axis', name='y', autoadd=False)
 To('y')
 Set('label', u'Mean Relative Error')
 Set('min', 0.0)
-Set('max', 0.5)
+Set('max', 0.4)
 Set('direction', 'vertical')
 Set('TickLabels/format', u'%Vg%')
 Set('TickLabels/scale', 100.0)

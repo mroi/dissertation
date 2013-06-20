@@ -23,7 +23,7 @@ Result = [];
 Result = [Result; "Black Swan" + relative_time("Blackswan")];
 Result = [Result; "Shore" + relative_time("Shore")];
 Result = [Result; "Park Run" + relative_time("Parkrun")];
-Result = [Result; "Rush Hour" + relative_time("Rushhour")];
+Result = [Result; "Charlie" + relative_time("Charlie")];
 Result = [Result; "Hunger Games" + relative_time("Hungergames")];
 
 write("Times_Relative.tab", Result);

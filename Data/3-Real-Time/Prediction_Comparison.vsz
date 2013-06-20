@@ -1,5 +1,5 @@
 # Veusz saved document (version 1.16)
-# Saved at 2013-05-31T07:50:23.183935
+# Saved at 2013-06-19T12:16:00.337749
 
 AddImportPath(u'/Users/Michael/Documents/Forschung/Dissertation/Data/3-Real-Time')
 ImportFile(u'Prediction_Comparison.tab', u'video none - + reduced - + full - +', linked=True, ignoretext=True)
@@ -54,7 +54,7 @@ Add('axis', name='y', autoadd=False)
 To('y')
 Set('label', u'Mean Relative Error')
 Set('min', 0.0)
-Set('max', 0.5)
+Set('max', 0.55)
 Set('direction', 'vertical')
 Set('TickLabels/format', u'%Vg%')
 Set('TickLabels/scale', 100.0)

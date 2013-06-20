@@ -14358,7 +14358,7 @@ status open
 \begin_inset Tabular
 <lyxtabular version="3" rows="6" columns="7">
 <features booktabs="true" tabularvalignment="middle">
-<column alignment="left" valignment="top" width="2.3cm">
+<column alignment="left" valignment="top" width="2.5cm">
 <column alignment="left" valignment="top" width="4cm">
 <column alignment="right" valignment="top" width="0pt">
 <column alignment="right" valignment="top" width="0">
@@ -14435,7 +14435,11 @@ Encoding
 \begin_inset Text
 
 \begin_layout Plain Layout
-Black Swan (
+Black Swan
+\begin_inset Newline newline
+\end_inset
+
+(
 \begin_inset Flex Emph
 status collapsed
 
@@ -14530,7 +14534,7 @@ x264, CBR,
 </cell>
 </row>
 <row bottomspace="default">
-<cell alignment="center" valignment="top" usebox="none">
+<cell alignment="left" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -14560,7 +14564,7 @@ target "http://www.fastvdo.com/H.264.html"
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" usebox="none">
+<cell alignment="left" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -14614,7 +14618,7 @@ High
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" usebox="none">
+<cell alignment="left" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -14655,7 +14659,7 @@ target "http://media.xiph.org/video/derf/"
 
 \end_inset
 </cell>
-<cell alignment="left" valignment="top" leftline="true" usebox="none">
+<cell alignment="left" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -14709,7 +14713,7 @@ High
 
 \end_inset
 </cell>
-<cell alignment="left" valignment="top" leftline="true" rightline="true" usebox="none">
+<cell alignment="left" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -14728,28 +14732,11 @@ x264, CBR,
 \begin_inset Text
 
 \begin_layout Plain Layout
-Rush Hour
+Charlie
 \begin_inset Newline newline
 \end_inset
 
-(
-\begin_inset Flex Emph
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset CommandInset href
-LatexCommand href
-name "Xiph Test Clip"
-target "http://media.xiph.org/video/derf/"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-)
+(DVB recording)
 \end_layout
 
 \end_inset
@@ -14758,7 +14745,7 @@ target "http://media.xiph.org/video/derf/"
 \begin_inset Text
 
 \begin_layout Plain Layout
-rush-hour in downtown Munich with heat haze
+clip from “Charlie’s Angels” (2000)
 \end_layout
 
 \end_inset
@@ -14767,7 +14754,7 @@ rush-hour in downtown Munich with heat haze
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $1920\!\!\times\!\!1080$
+\begin_inset Formula $1920\!\!\times\!\!1088$
 \end_inset
 
 
@@ -14791,7 +14778,7 @@ rush-hour in downtown Munich with heat haze
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $20\,\mathrm{s}$
+\begin_inset Formula $10\,\mathrm{s}$
 \end_inset
 
 
@@ -14812,15 +14799,7 @@ Main
 \begin_inset Text
 
 \begin_layout Plain Layout
-x264, CRF, rate
-\begin_inset space ~
-\end_inset
-
-factor
-\begin_inset space ~
-\end_inset
-
-23
+by TV station
 \end_layout
 
 \end_inset
@@ -15601,6 +15580,16 @@ reference "3-mar:Relative-Time-Steps"
  contributors, followed by post processing.
  It is therefore most important to find highly correlating metrics for these
  parts.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Interestingly, the Charlie video as encoded by the TV broadcaster does not
+ employ any post processing.
+\end_layout
+
+\end_inset
+
  I now visit each decoding step and illustrate how a domain expert selects
  appropriate workload metrics.
  A detailed correlation breakdown follows after the discussion.
@@ -16267,6 +16256,7 @@ reference "3-mar:Metrics-Post"
 \end_inset
 
 .
+ 
 \begin_inset Float marginfigure
 wide false
 sideways false
@@ -17798,8 +17788,8 @@ reference "3-tab:Test-Clips"
 
 \end_inset
 
- I supplement select experiments with the short and full-length feature
- film listed in Table
+ I supplement select experiments with the short and feature films listed
+ in Table
 \begin_inset space ~
 \end_inset
 
@@ -17826,6 +17816,10 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\begin_inset VSpace bigskip
+\end_inset
+
+
 \begin_inset Tabular
 <lyxtabular version="3" rows="3" columns="7">
 <features booktabs="true" tabularvalignment="middle">
@@ -17906,6 +17900,84 @@ Encoding
 \begin_inset Text
 
 \begin_layout Plain Layout
+Rear Window
+\begin_inset Newline newline
+\end_inset
+
+(DVB recording)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+segment of feature film “Rear Window” (1954)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $1280\!\!\times\!\!720$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $50$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $20\,\mathrm{min}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Main
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+by TV station
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row bottomspace="default">
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 Sintel
 \begin_inset Newline newline
 \end_inset
@@ -17932,7 +18004,7 @@ target "http://media.xiph.org/sintel/"
 
 \end_inset
 </cell>
-<cell alignment="left" valignment="top" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -17941,7 +18013,7 @@ short film “Sintel” (2010), computer animated
 
 \end_inset
 </cell>
-<cell alignment="right" valignment="top" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -17953,7 +18025,7 @@ short film “Sintel” (2010), computer animated
 
 \end_inset
 </cell>
-<cell alignment="right" valignment="top" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -17965,7 +18037,7 @@ short film “Sintel” (2010), computer animated
 
 \end_inset
 </cell>
-<cell alignment="right" valignment="top" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -17977,7 +18049,7 @@ short film “Sintel” (2010), computer animated
 
 \end_inset
 </cell>
-<cell alignment="left" valignment="top" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -17986,7 +18058,7 @@ High
 
 \end_inset
 </cell>
-<cell alignment="left" valignment="top" leftline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -17999,88 +18071,6 @@ factor
 \end_inset
 
 23
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row bottomspace="default">
-<cell alignment="left" valignment="top" bottomline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Dante’s Peak (DVB recording)
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" bottomline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-feature film “Dante’s Peak” (1997), live-action movie
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="right" valignment="top" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $1280\!\!\times\!\!544$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="right" valignment="top" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $24$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="right" valignment="top" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $101\,\mathrm{min}$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Main
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-x264, CRF, rate
-\begin_inset space ~
-\end_inset
-
-factor
-\begin_inset space ~
-\end_inset
-
-20
 \end_layout
 
 \end_inset
