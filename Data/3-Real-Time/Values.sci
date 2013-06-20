@@ -17,12 +17,12 @@ Times = [];
 Times = [Times; read("Runtime_" + Mode + "_Blackswan.log", -1, 1)];
 Times = [Times; read("Runtime_" + Mode + "_Shore.log", -1, 1)];
 Times = [Times; read("Runtime_" + Mode + "_Parkrun.log", -1, 1)];
-Times = [Times; read("Runtime_" + Mode + "_Rushhour.log", -1, 1)];
+Times = [Times; read("Runtime_" + Mode + "_Charlie.log", -1, 1)];
 Times = [Times; read("Runtime_" + Mode + "_Hungergames.log", -1, 1)];
 endfunction
 Times1 = runtimes("Before");
 Times2 = runtimes("After");
-Overhead = geomean(Times2 ./ Times1) - 1;
+Overhead = sum(Times2) / sum(Times1) - 1;
 Overhead_IQR = iqr(Times2 ./ Times1);
 
 Bodytrack = read("Bodytrack_Alone.log", -1, 5);

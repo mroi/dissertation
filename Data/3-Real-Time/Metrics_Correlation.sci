@@ -12,7 +12,7 @@ Log = [];
 Log = [Log; read("Times_Metrics_Blackswan.log", -1, 20)];
 Log = [Log; read("Times_Metrics_Hungergames.log", -1, 20)];
 Log = [Log; read("Times_Metrics_Parkrun.log", -1, 20)];
-Log = [Log; read("Times_Metrics_Rushhour.log", -1, 20)];
+Log = [Log; read("Times_Metrics_Charlie.log", -1, 20)];
 Log = [Log; read("Times_Metrics_Shore.log", -1, 20)];
 
 Result = [""; "t"; "b"; ""; ""; ""; ""; ""; ""; "tb"];

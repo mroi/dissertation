@@ -21,8 +21,9 @@ Result = [];
 Result = [Result; """Black Swan""" + jitter("Blackswan", 24)];
 Result = [Result; """Shore""" + jitter("Shore", 25)];
 Result = [Result; """Park Run""" + jitter("Parkrun", 50)];
-Result = [Result; """Rush Hour""" + jitter("Rushhour", 25)];
+Result = [Result; """Charlie""" + jitter("Charlie", 25)];
 Result = [Result; """Hunger Games""" + jitter("Hungergames", 24)];
+Result = [Result; """Rear Window""" + jitter("Rearwindow", 50)];
 
 write("Scheduling_Comparison.tab", Result);
 exit;

@@ -3,6 +3,9 @@ function String = accuracy(Video)
 	Input  = Log(find((Log(:,1) == 0) & (Log(:,3) ~= 0)), 2:3);
 	Output = Log(find((Log(:,1) == 1) & (Log(:,3) ~= 0)), 2:3);
 	
+	// ignore the last input job - it only detects the EOF and is thus unfairly overpredicted
+	Input = Input(1:(size(Input, 'r') - 1), :);
+	
 	Input = abs(Input(:,1) ./ Input(:,2) - 1);
 	Output = abs(Output(:,1) ./ Output(:,2) - 1);
 	Input_quart  = quart(Input);
@@ -21,7 +24,7 @@ Result = [];
 Result = [Result; """Black Swan""" + accuracy("Blackswan")];
 Result = [Result; """Shore""" + accuracy("Shore")];
 Result = [Result; """Park Run""" + accuracy("Parkrun")];
-Result = [Result; """Rush Hour""" + accuracy("Rushhour")];
+Result = [Result; """Charlie""" + accuracy("Charlie")];
 Result = [Result; """Hunger Games""" + accuracy("Hungergames")];
 
 write("Prediction_IO.tab", Result);
