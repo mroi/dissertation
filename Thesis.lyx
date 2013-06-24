@@ -971,91 +971,6 @@ LatexCommand tableofcontents
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-\begin_inset Newpage cleardoublepage
-\end_inset
-
-
-\end_layout
-
-\begin_layout Full Width
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-
-\backslash
-thispagestyle{empty}
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-
-\backslash
-null
-\end_layout
-
-\end_inset
-
-
-\begin_inset VSpace vfill
-\end_inset
-
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-
-\backslash
-noindent
-\backslash
-nohyphenation 
-\end_layout
-
-\end_inset
-
-
-\shape italic
-\size huge
-
-\begin_inset Note Greyedout
-status open
-
-\begin_layout Plain Layout
-
-\shape italic
-\size huge
-Dedication
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Full Width
-\begin_inset VSpace vfill
-\end_inset
-
-
-\begin_inset VSpace vfill
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 \begin_inset ERT
 status collapsed
 
@@ -1228,8 +1143,8 @@ key "MSDN:PowerEfficiency"
 \end_layout
 
 \begin_layout Standard
-My dissertation is motivated by a need to integrate the non-functional requireme
-nts within applications with system-wide decision-making.
+My dissertation is motivated by a need to integrate non-functional requirements
+ applications desire with system-wide decision-making.
  The following properties exemplify such cooperation opportunities:
 \end_layout
 
@@ -1355,10 +1270,6 @@ target "http://www.qnx.com/company/announcements/power_behind_playbook.html"
 \end_layout
 
 \begin_layout Description
-Quality-Aware
-\begin_inset space \space{}
-\end_inset
-
 Overload
 \begin_inset Index idx
 status collapsed
@@ -1373,7 +1284,7 @@ overload
 \begin_inset space \space{}
 \end_inset
 
-Mitigation: Overload situations occur when all ready applications collectively
+Detection: Overload situations occur when all ready applications collectively
  ask for more computation time than the machine can offer without violating
  any timing constraints.
  Real-time systems avoid such situations statically with an admission
@@ -1396,13 +1307,8 @@ key "Apple:UserControl"
 
 \end_inset
 
- These systems have to handle overload situations dynamically at runtime
- by reducing the resource allotment of a subset of applications.
- This reduction needs global oversight to maintain the system’s fairness
- policy, but applications may want to adapt their service according to a
- local notion of quality.
- Instead of keeping information local for limited management within applications
-, I propose to aggregate knowledge of 
+ These systems have to handle overload situations dynamically at runtime.
+ I propose to aggregate knowledge of 
 \begin_inset Flex SmallCaps
 status collapsed
 
@@ -1502,9 +1408,9 @@ key "Rangan:ThreadMotion"
 status collapsed
 
 \begin_layout Plain Layout
-Non-functional properties such as timeliness and quality-aware overload
- handling benefit from the aggregation of local application knowledge to
- implement a global system-wide policy.
+Non-functional properties such as timeliness and overload handling benefit
+ from the aggregation of local application knowledge to implement a global
+ system-wide policy.
  My mission is to show that a little added developer effort can be augmented
  by a newly designed runtime and lead to closer cooperation with the scheduler,
  enhancing application behavior with respect to non-functional properties.
@@ -1512,8 +1418,8 @@ Non-functional properties such as timeliness and quality-aware overload
  rule it out.
  In this thesis, I demonstrate how communicating application’s timing requiremen
 ts helps overall timeliness, how knowledge on resource requirements enables
- overload detection and how ahead-of-time overload notification improves
- quality when adapting.
+ overload detection and how ahead-of-time notification enables applications
+ to react early.
 \end_layout
 
 \end_inset
@@ -1573,8 +1479,7 @@ scheduler
  work applications want to perform and determine an order to execute that
  work.
  The ordering policy should serve the non-functional properties applications
- expect: It should fulfill timing requirements and handle overload early
- and fairly.
+ expect: It should fulfill timing requirements and handle overload early.
 \end_layout
 
 \begin_layout Standard
@@ -2028,8 +1933,8 @@ In this thesis,
 
 \end_inset
 
- I want to argue that it is beneficial to organize CPU scheduling using
- self-describing jobs similar to peripheral schedulers.
+ I argue that it is beneficial to organize CPU scheduling using self-describing
+ jobs similar to peripheral schedulers.
  Those CPU jobs represent a specific piece of code execution and are consumed
  once the CPU executed them.
  They carry metadata describing the jobs’ urgency and required execution
@@ -2050,8 +1955,7 @@ Driving Insights
 
 \begin_layout Standard
 The walk-through of the problem area shows that the considered non-functional
- properties timeliness and quality-aware overload mitigation are cross-cutting
- concerns.
+ properties timeliness and overload detection are cross-cutting concerns.
  They involve local knowledge from the applications and global policy executed
  by the scheduler.
  Furthermore, many applications act as an execution environment tailored
@@ -2083,51 +1987,6 @@ A vertically integrated solution
 
  spanning from the workload through the application down to the scheduler
  is called for.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float marginfigure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset VSpace -1mm
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename Figures/1-Introduction/Verically_Integrated_Solution.svg
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "1-mar:Vertically-Integrated-Solution"
-
-\end_inset
-
-Vertically Integrated Solution
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -2184,9 +2043,47 @@ reference "1-mar:Vertically-Integrated-Solution"
  by executing the scheduling decisions, or explicitly by the scheduler reporting
  back to an application.
  Overload situations propagate this way, because they require an application-spe
-cific notion of quality to resolve them.
+cific reaction to resolve them.
  The application in turn uses its model of the workload to decide on a quality-a
 ware reaction.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Figures/1-Introduction/Verically_Integrated_Solution.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "1-mar:Vertically-Integrated-Solution"
+
+\end_inset
+
+Vertically Integrated Solution
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -2524,7 +2421,7 @@ timeliness and
 \end_layout
 
 \begin_layout Itemize
-quality-aware overload mitigation.
+overload detection.
 \end_layout
 
 \end_inset
@@ -2573,6 +2470,20 @@ key "StatCounter:OSMarketShare"
  and the ballooning family of smartphones and tablets.
  It does not include servers, although I am confident that my ideas generalize
  to this class of systems due to the large amount of shared technology.
+\begin_inset Newpage newpage
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+manual page break
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -2747,8 +2658,8 @@ admission
 \end_inset
 
  is not appropriate and consequently, the system cannot handle hard deadlines.
- Overload situations may occur and my solution provides methods to handle
- them.
+ Overload situations may occur and my solution provides applications the
+ means to handle them.
  It is up to the application to decide on aborting the job or continuing.
 \end_layout
 
@@ -2840,7 +2751,8 @@ Integration
 
 \end_inset
 
- along the properties dimension and the layers dimension is crucial.
+ across the three layers is necessary, because no layer alone has enough
+ knowledge to provide the desired non-functional property.
  The following Table
 \begin_inset space ~
 \end_inset
@@ -2853,6 +2765,20 @@ reference "1-tab:Overview-Thesis"
 \end_inset
 
  summarizes the thesis goals:
+\begin_inset Newpage newpage
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+manual page break
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -2863,11 +2789,12 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Tabular
-<lyxtabular version="3" rows="6" columns="3">
+<lyxtabular version="3" rows="4" columns="4">
 <features booktabs="true" tabularvalignment="middle">
 <column alignment="left" valignment="top" width="16text%">
-<column alignment="left" valignment="top" width="36text%">
-<column alignment="left" valignment="top" width="36text%">
+<column alignment="left" valignment="top" width="24text%">
+<column alignment="left" valignment="top" width="24text%">
+<column alignment="left" valignment="top" width="24text%">
 <row>
 <cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
 \begin_inset Text
@@ -2882,17 +2809,7 @@ status open
 \begin_inset Text
 
 \begin_layout Plain Layout
-Timeliness
-\begin_inset Index idx
-status collapsed
-
-\begin_layout Plain Layout
-timeliness
-\end_layout
-
-\end_inset
-
-
+Thesis Goal
 \end_layout
 
 \end_inset
@@ -2901,17 +2818,18 @@ timeliness
 \begin_inset Text
 
 \begin_layout Plain Layout
-Overload
-\begin_inset Index idx
-status collapsed
-
-\begin_layout Plain Layout
-overload
+Chapter
 \end_layout
 
 \end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
 
- Mitigation
+\begin_layout Plain Layout
+Enabling Part of 
+\noun on
+Atlas
 \end_layout
 
 \end_inset
@@ -2946,11 +2864,42 @@ derive workload metrics to predict execution times
 
 \end_inset
 </cell>
-<cell alignment="left" valignment="top" leftline="true" rightline="true" usebox="none">
+<cell alignment="left" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-offer degraded processing options
+Chapter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "4-chap:Prediction"
+
+\end_inset
+
+:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "4-chap:Prediction"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Auto-Training
 \end_layout
 
 \end_inset
@@ -2975,11 +2924,42 @@ expose deadlines and execution time estimates ahead of time
 
 \end_inset
 </cell>
-<cell alignment="left" valignment="top" leftline="true" rightline="true" usebox="none">
+<cell alignment="left" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-balance resource and quality impact of load shedding
+Chapter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-chap:Real-Time"
+
+\end_inset
+
+:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "3-chap:Real-Time"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Look-Ahead
 \end_layout
 
 \end_inset
@@ -3014,85 +2994,6 @@ globally order jobs to meet deadlines, detect misses ahead of time
 
 \end_inset
 </cell>
-<cell alignment="left" valignment="top" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-exert back-pressure when anticipating deadline misses
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row topspace="default" bottomspace="default">
-<cell alignment="left" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Enabling Feature
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Timing
-\begin_inset Index idx
-status collapsed
-
-\begin_layout Plain Layout
-timing requirements
-\end_layout
-
-\end_inset
-
- and Resource Requirements
-\begin_inset Index idx
-status collapsed
-
-\begin_layout Plain Layout
-resource requirements
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Scheduler Look-Ahead
-\begin_inset Index idx
-status collapsed
-
-\begin_layout Plain Layout
-look-ahead scheduling
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row bottomspace="default">
-<cell alignment="left" valignment="top" bottomline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Thesis Chapter
-\end_layout
-
-\end_inset
-</cell>
 <cell alignment="left" valignment="top" bottomline="true" usebox="none">
 \begin_inset Text
 
@@ -3104,7 +3005,7 @@ Chapter
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-chap:Real-Time"
+reference "5-chap:Scheduler"
 
 \end_inset
 
@@ -3115,7 +3016,7 @@ reference "3-chap:Real-Time"
 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "3-chap:Real-Time"
+reference "5-chap:Scheduler"
 
 \end_inset
 
@@ -3124,33 +3025,11 @@ reference "3-chap:Real-Time"
 
 \end_inset
 </cell>
-<cell alignment="left" valignment="top" bottomline="true" usebox="none">
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-Chapter
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "4-chap:Adaptivity"
-
-\end_inset
-
-:
-\begin_inset Newline newline
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "4-chap:Adaptivity"
-
-\end_inset
-
-
+Scheduler
 \end_layout
 
 \end_inset
@@ -3195,18 +3074,53 @@ Overview of the Solution Developed in This Thesis
 
 \begin_layout Standard
 \noindent
-Vertical integration across the three layers is necessary, because no layer
- alone has enough knowledge to provide the desired non-functional property.
- Horizontal integration across the properties is necessary to curb complexity
- for the developer and because of the cross-talk between the properties.
+A large body of individual research results is available covering subsets
+ of my three goal components.
+ In this dissertation I provide a comprehensive, end-to-end solution whose
+ design is rooted in the needs of applications.
+ The discussion therefore starts with the application layer in Chapter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-chap:Real-Time"
+
+\end_inset
+
+, continues with workload modeling in Chapter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "4-chap:Prediction"
+
+\end_inset
+
+ and finishes with a matching kernel scheduler in Chapter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "5-chap:Scheduler"
+
+\end_inset
+
+.
+ Chapter
+\begin_inset space ~
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-A large body of individual research results is available covering the six
- intersections of my goals matrix.
- In this dissertation I provide a comprehensive, end-to-end solution and
- I demonstrate improvements over the state of the art in each property lane.
- The scheduling system I present is dubbed 
+The scheduling system I present is dubbed 
 \noun on
 Atlas
 \noun default
@@ -3245,13 +3159,14 @@ Atlas
 
 \end_inset
 
- I will now give an overview of the work within each property lane and summarize
- the key contributions.
- Each lane is discussed in detail in its own chapter.
+ I now give an overview of the work and summarize the key contributions.
+ I want to point out again that the work as presented here only explores
+ scheduling for a single CPU core.
+ I sketch an extension for multiple cores, but I have not implemented it.
 \end_layout
 
 \begin_layout Section
-Timeliness
+Timeliness and Overload
 \end_layout
 
 \begin_layout Standard
@@ -3271,6 +3186,87 @@ key "Rajkumar:ResourceKernels"
  This functional separation must be accompanied by an integration of knowledge:
  Only the application knows its workload and should expose this knowledge
  to the scheduler using appropriate interfaces.
+\end_layout
+
+\begin_layout Standard
+
+\noun on
+Atlas
+\noun default
+ does not enforce an admission process.
+ I think rejecting application launches or new subtasks within an application
+ would be too surprising for the user and the developer.
+ Consequently, the system can experience overload situations.
+ Lacking an admission that can analytically prevent overloads, 
+\noun on
+Atlas
+\noun default
+ instead needs to offer mechanisms that handle overload gracefully.
+\end_layout
+
+\begin_layout Standard
+Overload can occur for two reasons: First, an application can lie about
+ its CPU demand.
+ It announces timing and resource requirements that the scheduler can meet,
+ but at runtime, the application’s jobs run longer than reported.
+ The scheduler handles such situations by ensuring that lying applications
+ never degrade the service of honest applications.
+\end_layout
+
+\begin_layout Standard
+The second overload condition is more interesting: Applications specify
+ their demands correctly, but collectively ask for more CPU resources than
+ available.
+ In such a situation, service degradation is unavoidable.
+ The best the system can do is detect the overload and warn applications
+ so they may apply custom strategies to adapt.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Isovic:QoS_Video"
+
+\end_inset
+
+ Interaction between scheduler and applications is therefore needed.
+\end_layout
+
+\begin_layout Standard
+Developers can implement custom degradation strategies like load-shedding
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+load-shedding
+\end_layout
+
+\end_inset
+
+ or imprecise computation
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+imprecise computation
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lin:Imprecise"
+
+\end_inset
+
+ that take an application-specific notion of quality into account.
+ I published a quality-aware adaptation technique for video playback in
+ the Journal of Visual Communication and Image Representation.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Roitzsch:VideoQuality"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -3447,7 +3443,18 @@ constraint satisfaction problem
 
 \begin_inset CommandInset citation
 LatexCommand cite
+after "-5\\baselineskip"
 key "Schaerf:CSP"
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+manual offset
+\end_layout
 
 \end_inset
 
@@ -3519,7 +3526,7 @@ Atlas
 \end_layout
 
 \begin_layout Standard
-I describe and evaluate the real-time task model and scheduler in Chapter
+I describe the real-time task model in Chapter
 \begin_inset space ~
 \end_inset
 
@@ -3530,312 +3537,36 @@ reference "3-chap:Real-Time"
 
 \end_inset
 
-.
- This chapter also comprehensively explains the fundamental architecture
- of 
-\noun on
-Atlas
-\noun default
-, which the succeeding two chapters build upon.
- I use a complete implementation stack from application runtime down to
- an in-kernel scheduler to experiment with timeliness.
-\end_layout
-
-\begin_layout Section
-Overload Mitigation
-\end_layout
-
-\begin_layout Standard
-
-\noun on
-Atlas
-\noun default
- does not enforce an admission process.
- I think rejecting application launches or new subtasks within an application
- would be too surprising for the user and the developer.
- Consequently, the system can experience overload situations.
- Lacking an admission that can analytically prevent overloads, 
-\noun on
-Atlas
-\noun default
- instead needs to offer mechanisms that handle overload gracefully.
-\end_layout
-
-\begin_layout Standard
-Overload can occur for two reasons: First, an application can lie about
- its CPU demand.
- It announces timing and resource requirements that the scheduler can meet
- with idle computing capacity.
- However, at runtime, the application’s jobs run longer than reported.
- The scheduler handles such situations by ensuring that lying applications
- never degrade the service of honest applications.
-\end_layout
-
-\begin_layout Standard
-The second overload condition is more interesting: Applications specify
- their demands correctly, but collectively ask for more CPU resources than
- available.
- In such a situation, service degradation is unavoidable.
- The best the system can do is control the overload to maximize the quality
- delivered to the user.
- Quality is a workload-specific measure and applications may apply custom
- strategies to adapt to overload.
-\begin_inset CommandInset citation
-LatexCommand cite
-after "-24pt"
-key "Isovic:QoS_Video"
-
-\end_inset
-
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-manual offset
-\end_layout
-
-\end_inset
-
- Interaction between scheduler and applications is therefore needed.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Flex NewThought
-status collapsed
-
-\begin_layout Plain Layout
-I contribute quality-weighted back-pressure
-\end_layout
-
-\end_inset
-
- 
-\begin_inset Index idx
-status collapsed
-
-\begin_layout Plain Layout
-back-pressure
-\end_layout
-
-\end_inset
-
-as a mechanism to communicate overload mitigation from the scheduler to
- applications.
- When the scheduler detects an overload situation, it forcibly reduces the
- CPU time allocated to each application so that the overload is resolved.
- These cutbacks are apportioned according to a quality-weighted policy:
-\begin_inset Index idx
-status collapsed
-
-\begin_layout Plain Layout
-quality-weighted policy
-\end_layout
-
-\end_inset
-
- Applications tell the scheduler how much reduction they can tolerate to
- maintain a minimal acceptable quality.
- This quality threshold resembles probabilistic real-time task models such
- as QRMS.
-\begin_inset CommandInset citation
-LatexCommand cite
-after "-119pt"
-key "Hamann:QRMS"
-
-\end_inset
-
- The scheduler combines this elasticity with the CPU load caused by the
- application to distribute the cutbacks.
- I will evaluate how a fully quality-fair policy compares to a fully resource-fa
-ir policy.
-\end_layout
-
-\begin_layout Standard
-The remaining CPU time assigned to each application is reported back to
- encourage adaptation.
-\begin_inset Index idx
-status collapsed
-
-\begin_layout Plain Layout
-adaptation
-\end_layout
-
-\end_inset
-
- Developers can implement custom degradation strategies like load-shedding
-\begin_inset Index idx
-status collapsed
-
-\begin_layout Plain Layout
-load-shedding
-\end_layout
-
-\end_inset
-
- or imprecise computation
-\begin_inset Index idx
-status collapsed
-
-\begin_layout Plain Layout
-imprecise computation
-\end_layout
-
-\end_inset
-
-
-\begin_inset CommandInset citation
-LatexCommand cite
-after "-127pt"
-key "Lin:Imprecise"
-
-\end_inset
-
- that take an application-specific notion of quality into account.
- I published a quality-aware adaptation technique for video playback in
- the Journal of Visual Communication and Image Representation.
-\begin_inset CommandInset citation
-LatexCommand cite
-after "-108pt"
-key "Roitzsch:VideoQuality"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Flex NewThought
-status collapsed
-
-\begin_layout Plain Layout
-Global management and local adaptation
-\end_layout
-
-\end_inset
-
- to react to overload have been researched independently.
- Scheduler systems such as AQuoSA
-\begin_inset CommandInset citation
-LatexCommand cite
-after "-106pt"
-key "Palopoli:AQuoSA"
-
-\end_inset
-
- or Cooperative Polling
-\begin_inset CommandInset citation
-LatexCommand cite
-after "-54pt"
-key "Krasic:CoopPoll"
-
-\end_inset
-
- manage overload situations by distributing CPU capacity according to an
- inter-application fairness policy.
- AQuoSA applies resource fairness, while Cooperative Polling uses application
- knowledge to establish quality fairness.
- Intra-application adaptation has been investigated for tasks like video
- playback
-\begin_inset CommandInset citation
-LatexCommand cite
-after "-49pt"
-key "Wuest:QoS_Video"
-
-\end_inset
-
- or network servers.
-\begin_inset CommandInset citation
-LatexCommand cite
-after "-11pt"
-key "Welsh:SEDA"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Priority-Progress Adaptation
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Krasic:PriorityProgress"
-
-\end_inset
-
- by Krasic
-\begin_inset space ~
-\end_inset
-
-et
-\begin_inset space ~
-\end_inset
-
-al.
-\begin_inset space \space{}
-\end_inset
-
-is the only work I am aware of that combines global overload mitigation
- with per-application adaptation.
- It does so by exposing a quality measure for each individual job, allowing
- the scheduler to globally order jobs by quality.
- The adaptation strategy to shed low-priority jobs on overload is therefore
- dictated by the scheduling method.
-\end_layout
-
-\begin_layout Standard
-None of the presented research results exploit look-ahead to steer adaptation
- decisions.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Flex NewThought
-status collapsed
-
-\begin_layout Plain Layout
-I claim that look-ahead improves quality
-\end_layout
-
-\end_inset
-
- when mitigating overload.
- Because of its look-ahead characteristic, 
-\noun on
-Atlas
-\noun default
- can detect overload before it occurs.
- Applications receive announcements of resource cutbacks ahead of time,
- including the time when the future deadline miss is anticipated and how
- much CPU capacity remains.
- The applications can then degrade any pending job before the critical deadline
- to satisfy the reduction in CPU time.
- The resulting choice allows trimming jobs with a favorable ratio between
- resource savings and quality impact.
- Additionally, each application can choose the most suitable adaptation
- technique independently.
-\end_layout
-
-\begin_layout Standard
-I validate the claim by comparing overload mitigation with and without look-ahea
-d.
- The flexibility of quality-weighted back-pressure is evaluated with implementat
-ions of different degradation strategies.
- I explain and analyze these overload management and adaptation techniques
- in Chapter
+, discuss the execution time prediction in Chapter
 \begin_inset space ~
 \end_inset
 
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "4-chap:Adaptivity"
+reference "4-chap:Prediction"
+
+\end_inset
+
+ and evaluate the scheduler in Chapter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "5-chap:Scheduler"
 
 \end_inset
 
 .
- The scheduling infrastructure builds on the architecture developed for
- the timeliness experiments.
- The extensions to handle overload are implemented prototypically.
+ These chapters also comprehensively explain the architecture of 
+\noun on
+Atlas
+\noun default
+.
+ I use a complete implementation stack from application runtime down to
+ an in-kernel scheduler to experiment with timeliness and overload detection.
 \end_layout
 
 \begin_layout Section
@@ -3859,7 +3590,7 @@ Atlas
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "5-chap:The-Road-Ahead"
+reference "7-chap:Road-Ahead"
 
 \end_inset
 
@@ -3917,8 +3648,22 @@ video playback
  and throughput applications due to its combination interesting properties:
 \begin_inset CommandInset citation
 LatexCommand cite
-after "-3\\baselineskip"
 key "Baiceanu:VideoScheduling"
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+enlargethispage{1
+\backslash
+baselineskip}
+\end_layout
 
 \end_inset
 
@@ -3927,56 +3672,7 @@ key "Baiceanu:VideoScheduling"
 status open
 
 \begin_layout Plain Layout
-manual offset
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float marginfigure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename Data/1-Introduction/Decoding_Times_Histogram.pdf
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "1-mar:Decoding-Time-Histogram"
-
-\end_inset
-
-Histogram of Sintel-
-\begin_inset Formula $4\mathrm{k}$
-\end_inset
-
- Decoding Times
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset VSpace defskip
-\end_inset
-
-
+page size changed
 \end_layout
 
 \end_inset
@@ -4055,6 +3751,51 @@ Although decoding and displaying video frames are repetitive tasks, they
 \end_layout
 
 \begin_layout Itemize
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Data/1-Introduction/Decoding_Times_Histogram.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "1-mar:Decoding-Time-Histogram"
+
+\end_inset
+
+Histogram of Sintel-
+\begin_inset Formula $4\mathrm{k}$
+\end_inset
+
+ Decoding Times
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
 Video playback can be CPU intensive, especially with high resolutions and
  modern coding schemes.
  Figure
@@ -4092,7 +3833,7 @@ Such video dimensions may not be common today, but they are already used
 
 \begin_inset CommandInset ref
 LatexCommand vref
-reference "3-tab:Film-Clips"
+reference "4-tab:Film-Clips"
 
 \end_inset
 
@@ -4153,6 +3894,10 @@ status open
 \end_inset
 
 
+\begin_inset VSpace defskip
+\end_inset
+
+
 \end_layout
 
 \begin_layout Plain Layout
@@ -4194,9 +3939,8 @@ By showing that
 \noun on
 Atlas
 \noun default
- can support video playback in all these aspects I hope to convince the
- reader that it also handles other applications with a subset of the stated
- properties.
+ can support video playback in these aspects I hope to convince the reader
+ that it also handles other applications with a subset of the stated properties.
  Figure
 \begin_inset space ~
 \end_inset
@@ -4253,6 +3997,31 @@ Typical Properties of Selected Real-Time Applications
 \end_inset
 
 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+enlargethispage{1
+\backslash
+baselineskip}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+page size changed
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -4265,12 +4034,12 @@ Before we dive into the details
 
 \end_inset
 
- of the timeliness and overload mitigation aspects of 
+ of the timeliness and overload detection aspects of 
 \noun on
 Atlas, 
 \noun default
 the next chapter gives an overview of the emerging use of lambdas as the
- programming model for parallel desktop applications.
+ programming model for concurrent desktop applications.
  The intimate vertical integration proposed by 
 \noun on
 Atlas
@@ -7661,24 +7430,9 @@ Media playback is an example for such an operation that is one-shot triggered,
 \end_layout
 
 \begin_layout Standard
-In the next chapter 
-\begin_inset Flex Emph
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "3-chap:Real-Time"
-
-\end_inset
-
-,
-\end_layout
-
-\end_inset
-
- I demonstrate the benefits of reporting future application behavior to
- the scheduler early: it can anticipate deadline misses before they occur.
+In the next chapters I demonstrate the benefits of reporting future application
+ behavior to the scheduler early: it can anticipate deadline misses before
+ they occur.
  I also evaluate the different time horizons of applications.
  Here, I want to emphasize that such ahead-of-time knowledge and introspection
  capabilities are a natural consequence of the programming style of modern
@@ -7726,7 +7480,7 @@ Blocks package execution
  recognize and act upon.
  Individual block instances can be amended with metadata, either manually
  by the developer or automatically by the system through machine learning.
- As I show in the next chapter, metadata can convey timing requirements
+ As I show in the next chapters, metadata can convey timing requirements
  in the form of deadlines and resource requirements in the form of execution
  times.
  When queueing such augmented blocks and exposing the resulting structure,
@@ -7788,7 +7542,7 @@ lambda
 status collapsed
 
 \begin_layout Plain Layout
-unit of parallelism.
+unit of concurrency.
 \end_layout
 
 \end_inset
@@ -8755,7 +8509,7 @@ This video is a representative high definition movie trailer.
 
 \begin_inset CommandInset ref
 LatexCommand vref
-reference "3-tab:Test-Clips"
+reference "4-tab:Test-Clips"
 
 \end_inset
 
@@ -9662,7 +9416,7 @@ Atlas
 
 \begin_layout Standard
 \noindent
-Within this chapter, I restrict all discussions and experiments to a single
+Within this thesis, I restrict all discussions and experiments to a single
  core scenario.
  My evaluation platform is a homogeneous multicore machine, so I always
  pin the relevant threads to the same core.
@@ -9678,7 +9432,7 @@ status collapsed
 \noindent
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "5-chap:The-Road-Ahead"
+reference "7-chap:Road-Ahead"
 
 \end_inset
 
@@ -9703,13 +9457,7 @@ On the following pages,
  I will first motivate the need for real-time programming by explaining
  pervasive time-critical operations.
  I continue with insights on existing scheduler interfaces and their shortcoming
-s, before describing and evaluating the design of 
-\noun on
-Atlas
-\noun default
-.
- The chapter closes with a discussion of previous research results and how
- they relate to 
+s, before describing the design of 
 \noun on
 Atlas
 \noun default
@@ -10171,7 +9919,23 @@ Atlas
 Atlas
 \noun default
  with other points in this solution space follows in a section on related
- work at the end of this chapter.
+ work at the end of the 
+\begin_inset Flex Emph
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "5-chap:Scheduler"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ chapter.
 \end_layout
 
 \begin_layout Standard
@@ -10252,7 +10016,7 @@ This video is a representative high definition movie trailer.
 
 \begin_inset CommandInset ref
 LatexCommand vref
-reference "3-tab:Test-Clips"
+reference "4-tab:Test-Clips"
 
 \end_inset
 
@@ -10270,6 +10034,7 @@ Their complete source code:
 \end_layout
 
 \begin_layout Plain Layout
+\noindent
 \begin_inset listings
 inline true
 status open
@@ -10757,11 +10522,22 @@ This video is CPU intensive to decode.
 
 \begin_inset CommandInset ref
 LatexCommand vref
-reference "3-tab:Film-Clips"
+reference "4-tab:Film-Clips"
 
 \end_inset
 
 .
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Using Sintel here is bullshit, because Atlas cannot schedule this one either.
+ Use Rear Window instead.
 \end_layout
 
 \end_inset
@@ -11134,12 +10910,6 @@ Urgency is the primary criterion for task selection by the scheduler.
  Fairness is strictly a secondary concern.
  I postulate that users do not care about fairness as long as all applications
  meet their timing requirements.
- 
-\noun on
-Atlas
-\noun default
- considers fairness only in overload situations when time constraints are
- jeopardized.
  In underloaded systems, applications may receive disproportionate CPU shares
  to meet deadlines.
 \end_layout
@@ -11156,29 +10926,11 @@ Detection replaces traditional real-time admission, which uses a priori
 Atlas
 \noun default
  will never reject work.
- However, I demonstrate later in this chapter that 
+ However, I demonstrate later in this thesis that 
 \noun on
 Atlas
 \noun default
  can detect overload situations before they occur.
- The chapter 
-\begin_inset Flex Emph
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "4-chap:Adaptivity"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
- discusses how to coordinate workload adaptation to mitigate overload dynamicall
-y.
 \end_layout
 
 \begin_layout Description
@@ -11328,44 +11080,6 @@ key "Roitzsch:ATLAS"
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float marginfigure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename Figures/3-Real-Time/Architectural_Overview.svg
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "3-mar:Architectural-Overview"
-
-\end_inset
-
-Architectural Overview
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 \begin_inset Flex NewThought
 status collapsed
 
@@ -11404,6 +11118,44 @@ Atlas
 \noun default
  interface as seen by the application developer.
  It remembers submitted jobs in a local queue until they have run to completion.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Figures/3-Real-Time/Architectural_Overview.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3-mar:Architectural-Overview"
+
+\end_inset
+
+Architectural Overview
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -11446,14 +11198,14 @@ key "Regehr:HLS"
 
 \begin_layout Standard
 The two interface layers use two different kinds of job descriptions 
-\begin_inset Formula $J'$
-\end_inset
-
- and 
 \begin_inset Formula $J$
 \end_inset
 
-.
+ and 
+\begin_inset Formula $J'$
+\end_inset
+
+ to represent a job in the system.
  I first formalize the task model, before I explain the interface operations
  and their integration into the application runtime.
 \end_layout
@@ -11486,17 +11238,7 @@ Atlas
 \begin_inset Formula $\tau_{i}=\{\, J_{i,j}\mid j=1,\ldots,m\}$
 \end_inset
 
- of aperiodic jobs
-\begin_inset Index idx
-status collapsed
-
-\begin_layout Plain Layout
-aperiodic jobs
-\end_layout
-
-\end_inset
-
-
+ of job
 \begin_inset Index idx
 status collapsed
 
@@ -11506,7 +11248,7 @@ job
 
 \end_inset
 
- 
+ descriptions 
 \begin_inset Formula $J_{i,j}$
 \end_inset
 
@@ -11599,12 +11341,28 @@ workload metrics
  and the deadline as seen by the scheduler.
  From the metrics, the estimator derives approximate execution times.
  It can provide these estimates before the job executes.
- Workload metrics are a tuple of positive real numbers describing the computatio
-nal weight of the workload.
+ Workload metrics are a tuple of non-negative real numbers describing the
+ computational weight of the workload.
  The estimator expects at least a subset of them to correlate positively
  with the execution time.
- Details on the metrics and examples for their use follow later in this
- chapter.
+ Details on the metrics and examples for their use follow in the chapter
+ 
+\begin_inset Flex Emph
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "4-chap:Prediction"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -11636,7 +11394,7 @@ collects job descriptions in local job queues and predicts the per-job execution
 \begin_inset Formula $J'_{i,j}$
 \end_inset
 
- a translated job 
+ a translated job description 
 \begin_inset Formula $J_{i,j}$
 \end_inset
 
@@ -11774,6 +11532,20 @@ next
 \begin_inset Formula $t_{i,j}$
 \end_inset
 
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Claude dislikes the use of 
+\begin_inset Formula $t$
+\end_inset
+
+ for anything but time instants.
+\end_layout
+
+\end_inset
+
  of the just finished job and the metrics vector 
 \begin_inset Formula $\underline{m}_{i,j}$
 \end_inset
@@ -11823,29 +11595,8 @@ cancel(
 cancel
 \emph default
  when the user stops playback midway in the video.
- I do not consider job cancelation in this chapter, but it is important
- for overload mitigation, which I discuss in Chapter
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "4-chap:Adaptivity"
-
-\end_inset
-
-.
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Should we replace “cancel” with “update”?
-\end_layout
-
-\end_inset
-
-
+ Because it only serves such technicalities, I do not consider job cancelation
+ in this work and list it here only for completeness.
 \end_layout
 
 \begin_layout Standard
@@ -12317,6 +12068,10 @@ status open
 \end_inset
 
 
+\begin_inset VSpace smallskip
+\end_inset
+
+
 \end_layout
 
 \begin_layout Plain Layout
@@ -12409,7 +12164,7 @@ status collapsed
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "5-chap:The-Road-Ahead"
+reference "7-chap:Road-Ahead"
 
 \end_inset
 
@@ -12488,32 +12243,28 @@ Atlas
 Atlas
 \noun default
 ’ applicability.
- A detailed explanation on my test workloads and how I adapted them for
+ A detailed explanation of my test workloads and how I adapted them for
  
 \noun on
 Atlas
 \noun default
- follows later in this chapter.
+ follows in the next two chapters.
 \end_layout
 
-\begin_layout Section
+\begin_layout Chapter
+\begin_inset CommandInset label
+LatexCommand label
+name "4-chap:Prediction"
+
+\end_inset
+
 Execution Time Prediction
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float marginfigure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename Figures/3-Real-Time/Verical_Integration_Workload.svg
-
-\end_inset
-
-
-\end_layout
+\begin_inset CommandInset include
+LatexCommand input
+filename "Data/4-Prediction/Values.lyx"
 
 \end_inset
 
@@ -12562,6 +12313,26 @@ estimator
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Figures/4-Prediction/Verical_Integration.svg
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 The developer should choose metrics on a “larger value means more work”
  basis.
  Expected iteration counts of loops or the expected number of times an expensive
@@ -12576,16 +12347,17 @@ The developer should choose metrics on a “larger value means more work”
 \end_layout
 
 \begin_layout Standard
-\begin_inset Flex NewThought
+A 
+\begin_inset Flex SmallCaps
 status collapsed
 
 \begin_layout Plain Layout
-A linear auto-regressive predictor
+linear auto-regressive predictor
 \end_layout
 
 \end_inset
 
- 
+
 \begin_inset Index idx
 status collapsed
 
@@ -12595,7 +12367,7 @@ linear auto-regressive predictor
 
 \end_inset
 
-produces execution time estimates from the metrics.
+ produces execution time estimates from the metrics.
  The problem formalization is based on previous work,
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -12606,6 +12378,10 @@ key "Roitzsch:Predict"
  but the implementation presented here removes the need for an offline training
  phase.
  A new mathematical apparatus continuously updates and stabilizes online.
+\end_layout
+
+\begin_layout Section
+Formalizing the Problem
 \end_layout
 
 \begin_layout Standard
@@ -12997,7 +12773,7 @@ Therefore, the approach to determine
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-mar:Structure-LLSP"
+reference "4-mar:Structure-LLSP"
 
 \end_inset
 
@@ -13038,7 +12814,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Figures/3-Real-Time/LLSP_System.svg
+	filename Figures/4-Prediction/LLSP_System.svg
 
 \end_inset
 
@@ -13051,7 +12827,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-mar:Structure-LLSP"
+name "4-mar:Structure-LLSP"
 
 \end_inset
 
@@ -13115,46 +12891,12 @@ batch computation
  would unboundedly increase over time.
 \end_layout
 
-\begin_layout Standard
-\begin_inset Float marginfigure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename Figures/3-Real-Time/LLSP_Update.svg
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "3-mar:Updating-LLSP"
-
-\end_inset
-
-Updating the Linear Least Squares Solution
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
+\begin_layout Section
+Rotate to Fit
 \end_layout
 
 \begin_layout Standard
-Literature on numerical algorithms however offers updating solutions,
+Literature on numerical algorithms offers updating solutions,
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Schwetlick:Numerics"
@@ -13196,7 +12938,7 @@ key "Schwetlick:Numerics"
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-mar:Updating-LLSP"
+reference "4-mar:Updating-LLSP"
 
 \end_inset
 
@@ -13226,6 +12968,44 @@ givens rotation
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Figures/4-Prediction/LLSP_Update.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "4-mar:Updating-LLSP"
+
+\end_inset
+
+Updating the Linear Least Squares Solution
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -13294,7 +13074,7 @@ Rotating a matrix can align a selected vector with one of the basis vectors,
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-mar:Givens-Rotation"
+reference "4-mar:Givens-Rotation"
 
 \end_inset
 
@@ -13309,7 +13089,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Figures/3-Real-Time/Givens_Rotation.svg
+	filename Figures/4-Prediction/Givens_Rotation.svg
 
 \end_inset
 
@@ -13322,7 +13102,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-mar:Givens-Rotation"
+name "4-mar:Givens-Rotation"
 
 \end_inset
 
@@ -13371,7 +13151,7 @@ Subsequently applying Givens rotations to all subdiagonal elements transforms
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-mar:Structure-LLSP"
+reference "4-mar:Structure-LLSP"
 
 \end_inset
 
@@ -13448,6 +13228,20 @@ time complexity
 \end_inset
 
  nonzero matrix elements.
+\begin_inset Newpage clearpage
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+manual page flush
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -13676,7 +13470,7 @@ An example helps to understand this effect: Two jobs are submitted with
 \end_inset
 
  for the second job.
- The two metrics strongly correlate, so one of them can be considered redundant.
+ The two metrics correlate, so one of them can be considered redundant.
  The measured execution times are 
 \begin_inset Formula $1$
 \end_inset
@@ -13858,6 +13652,44 @@ column contribution threshold
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Figures/4-Prediction/LLSP_Drop.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "4-mar:Dropping-a-Column"
+
+\end_inset
+
+Dropping a Column to Determine Error Contribution
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 Because the rightmost column of 
 \begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)$
 \end_inset
@@ -13871,7 +13703,7 @@ Because the rightmost column of
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-mar:Dropping-a-Column"
+reference "4-mar:Dropping-a-Column"
 
 \end_inset
 
@@ -13894,36 +13726,26 @@ reference "3-mar:Dropping-a-Column"
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float marginfigure
-wide false
-sideways false
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+enlargethispage{-1
+\backslash
+baselineskip}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
 status open
 
 \begin_layout Plain Layout
-\begin_inset Graphics
-	filename Figures/3-Real-Time/LLSP_Drop.svg
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "3-mar:Dropping-a-Column"
-
-\end_inset
-
-Dropping a Column to Determine Error Contribution
-\end_layout
-
-\end_inset
-
-
+page size changed
 \end_layout
 
 \end_inset
@@ -13943,7 +13765,7 @@ Dropping all of the metrics degenerates the matrix to a scalar value equivalent
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-mar:Residual-Error"
+reference "4-mar:Residual-Error"
 
 \end_inset
 
@@ -13975,7 +13797,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Data/3-Real-Time/Residual_Error_Scan.pdf
+	filename Data/4-Prediction/Residual_Error_Scan.pdf
 
 \end_inset
 
@@ -13988,7 +13810,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-mar:Residual-Error"
+name "4-mar:Residual-Error"
 
 \end_inset
 
@@ -14032,7 +13854,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Figures/3-Real-Time/LLSP_Move.svg
+	filename Figures/4-Prediction/LLSP_Move.svg
 
 \end_inset
 
@@ -14045,7 +13867,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-mar:Moving-a-Column"
+name "4-mar:Moving-a-Column"
 
 \end_inset
 
@@ -14076,7 +13898,7 @@ mn.
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-mar:Moving-a-Column"
+reference "4-mar:Moving-a-Column"
 
 \end_inset
 
@@ -14129,16 +13951,8 @@ sideways false
 status open
 
 \begin_layout Plain Layout
-\begin_inset VSpace defskip
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\noindent
 \begin_inset Graphics
-	filename Figures/3-Real-Time/LLSP_Reduced.svg
+	filename Figures/4-Prediction/LLSP_Reduced.svg
 
 \end_inset
 
@@ -14151,7 +13965,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-mar:Reduced-Solution"
+name "4-mar:Reduced-Solution"
 
 \end_inset
 
@@ -14189,7 +14003,7 @@ In the new system
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-mar:Reduced-Solution"
+reference "4-mar:Reduced-Solution"
 
 \end_inset
 
@@ -14302,7 +14116,7 @@ Today’s video formats like the MPEG-
 \begin_layout Standard
 I assume the video player has already adopted the asynchronous lambda style
  using GCD.
- I outlined the necessary changes to FFplay in the previous chapter 
+ I outlined the necessary changes to FFplay in the preceding chapter 
 \begin_inset Flex Emph
 status collapsed
 
@@ -14728,85 +14542,7 @@ x264, CBR,
 </cell>
 </row>
 <row bottomspace="default">
-<cell alignment="left" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Charlie
-\begin_inset Newline newline
-\end_inset
-
-(DVB recording)
-\end_layout
-
-\end_inset
-</cell>
 <cell alignment="left" valignment="top" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-clip from “Charlie’s Angels” (2000)
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="right" valignment="top" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $1920\!\!\times\!\!1088$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="right" valignment="top" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $25$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="right" valignment="top" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $10\,\mathrm{s}$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Main
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-by TV station
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row bottomspace="default">
-<cell alignment="left" valignment="top" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -14836,7 +14572,7 @@ target "http://trailers.apple.com/trailers/lions_gate/thehungergames/"
 
 \end_inset
 </cell>
-<cell alignment="left" valignment="top" bottomline="true" usebox="none">
+<cell alignment="left" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -14849,7 +14585,7 @@ Games” (2012)
 
 \end_inset
 </cell>
-<cell alignment="right" valignment="top" bottomline="true" leftline="true" usebox="none">
+<cell alignment="right" valignment="top" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -14861,7 +14597,7 @@ Games” (2012)
 
 \end_inset
 </cell>
-<cell alignment="right" valignment="top" bottomline="true" leftline="true" usebox="none">
+<cell alignment="right" valignment="top" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -14873,7 +14609,7 @@ Games” (2012)
 
 \end_inset
 </cell>
-<cell alignment="right" valignment="top" bottomline="true" leftline="true" usebox="none">
+<cell alignment="right" valignment="top" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -14885,7 +14621,7 @@ Games” (2012)
 
 \end_inset
 </cell>
-<cell alignment="left" valignment="top" bottomline="true" leftline="true" usebox="none">
+<cell alignment="left" valignment="top" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -14894,7 +14630,7 @@ High
 
 \end_inset
 </cell>
-<cell alignment="left" valignment="top" bottomline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="left" valignment="top" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -14907,6 +14643,84 @@ factor
 \end_inset
 
 23
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row bottomspace="default">
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Charlie
+\begin_inset Newline newline
+\end_inset
+
+(DVB recording)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+clip from “Charlie’s Angels” (2000)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $1920\!\!\times\!\!1088$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $25$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $10\,\mathrm{s}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Main
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+by TV station
 \end_layout
 
 \end_inset
@@ -14929,7 +14743,7 @@ factor
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-tab:Test-Clips"
+name "4-tab:Test-Clips"
 
 \end_inset
 
@@ -14963,7 +14777,7 @@ To demonstrate the metrics selection,
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-tab:Test-Clips"
+reference "4-tab:Test-Clips"
 
 \end_inset
 
@@ -15026,7 +14840,7 @@ ons from mobile video to HD and
 \end_inset
 
 Blu-ray discs.
- All test videos but one have been encoded by me with the x264
+ Three of the test videos have been encoded by me with the x264
 \begin_inset Index idx
 status collapsed
 
@@ -15132,52 +14946,11 @@ FastVDO
 
 \end_inset
 
- encoder.
+ encoder and the Charlie video was recorded directly from the DVB broadcast
+ signal.
  I ignore audio, because its computational load is two orders of magnitude
  smaller than video decoding and its timing requirements are less strict,
  because the audio hardware takes care of sample buffering and timely output.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float marginfigure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset VSpace defskip
-\end_inset
-
-
-\begin_inset Graphics
-	filename Data/3-Real-Time/CPU_Load_Player.pdf
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "3-mar:Relative-Time-Player"
-
-\end_inset
-
-Relative Execution Time of the Player Stages
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -15197,7 +14970,7 @@ Video decoding
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-mar:Relative-Time-Player"
+reference "4-mar:Relative-Time-Player"
 
 \end_inset
 
@@ -15211,7 +14984,7 @@ reference "3-mar:Relative-Time-Player"
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-fig:Decoding-Times"
+reference "4-fig:Decoding-Times"
 
 \end_inset
 
@@ -15224,7 +14997,7 @@ reference "3-fig:Decoding-Times"
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-fig:Decoding-Times-Repeat"
+reference "4-fig:Decoding-Times-Repeat"
 
 \end_inset
 
@@ -15234,6 +15007,44 @@ reference "3-fig:Decoding-Times-Repeat"
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Data/4-Prediction/CPU_Load_Player.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "4-mar:Relative-Time-Player"
+
+\end_inset
+
+Relative Execution Time of the Player Stages
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -15274,7 +15085,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Data/3-Real-Time/Decoding_Times.pdf
+	filename Data/4-Prediction/Decoding_Times.pdf
 
 \end_inset
 
@@ -15291,7 +15102,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-fig:Decoding-Times"
+name "4-fig:Decoding-Times"
 
 \end_inset
 
@@ -15316,7 +15127,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Data/3-Real-Time/Decoding_Times_Repeat.pdf
+	filename Data/4-Prediction/Decoding_Times_Repeat.pdf
 
 \end_inset
 
@@ -15333,7 +15144,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-fig:Decoding-Times-Repeat"
+name "4-fig:Decoding-Times-Repeat"
 
 \end_inset
 
@@ -15428,7 +15239,7 @@ First, we need an overview of the decoding steps and how they fit together.
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-fig:Decoder-Components"
+reference "4-fig:Decoder-Components"
 
 \end_inset
 
@@ -15462,7 +15273,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Figures/3-Real-Time/Decoder_Components.svg
+	filename Figures/4-Prediction/Decoder_Components.svg
 
 \end_inset
 
@@ -15485,7 +15296,7 @@ Decoding Steps
 
 \begin_inset CommandInset label
 LatexCommand label
-name "3-fig:Decoder-Components"
+name "4-fig:Decoder-Components"
 
 \end_inset
 
@@ -15531,7 +15342,7 @@ status open
 
 
 \begin_inset Graphics
-	filename Data/3-Real-Time/Times_Relative.pdf
+	filename Data/4-Prediction/Times_Relative.pdf
 
 \end_inset
 
@@ -15544,7 +15355,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-mar:Relative-Time-Steps"
+name "4-mar:Relative-Time-Steps"
 
 \end_inset
 
@@ -15570,7 +15381,7 @@ Figure
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-mar:Relative-Time-Steps"
+reference "4-mar:Relative-Time-Steps"
 
 \end_inset
 
@@ -15578,21 +15389,82 @@ reference "3-mar:Relative-Time-Steps"
  steps.
  We observe that decompression and temporal prediction are the two heaviest
  contributors, followed by post processing.
- It is therefore most important to find highly correlating metrics for these
- parts.
-\begin_inset Note Note
+\begin_inset Foot
 status open
 
 \begin_layout Plain Layout
+\noindent
 Interestingly, the Charlie video as encoded by the TV broadcaster does not
  employ any post processing.
 \end_layout
 
 \end_inset
 
+ It is therefore most important to find highly correlating metrics for these
+ parts.
  I now visit each decoding step and illustrate how a domain expert selects
  appropriate workload metrics.
  A detailed correlation breakdown follows after the discussion.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Data/4-Prediction/Metrics_Key.pdf
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Data/4-Prediction/Metrics_Parsing.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "4-mar:Metrics-Parsing"
+
+\end_inset
+
+Metrics for Bitstream Parsing
+\end_layout
+
+\end_inset
+
+
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Enumerate
@@ -15637,7 +15509,7 @@ The decoder reads and parses the bitstream representing the next frame and
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-mar:Metrics-Parsing"
+reference "4-mar:Metrics-Parsing"
 
 \end_inset
 
@@ -15645,59 +15517,7 @@ reference "3-mar:Metrics-Parsing"
  matches the execution time of the bitstream parsing step.
  Remember that this step accounts for a small fraction of total decoding
  time.
-\begin_inset Float marginfigure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename Data/3-Real-Time/Metrics_Key.pdf
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset Float marginfigure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename Data/3-Real-Time/Metrics_Parsing.pdf
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "3-mar:Metrics-Parsing"
-
-\end_inset
-
-Metrics for Bitstream Parsing
-\end_layout
-
-\end_inset
-
-
-\begin_inset VSpace defskip
-\end_inset
-
-
-\end_layout
-
+\begin_inset Newpage newpage
 \end_inset
 
 
@@ -15796,7 +15616,7 @@ key "Marpe:CABAC"
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-mar:Metrics-Decompression"
+reference "4-mar:Metrics-Decompression"
 
 \end_inset
 
@@ -15810,7 +15630,24 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Data/3-Real-Time/Metrics_Decompression.pdf
+	filename Data/4-Prediction/Metrics_Key.pdf
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Data/4-Prediction/Metrics_Decompression.pdf
 
 \end_inset
 
@@ -15823,7 +15660,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-mar:Metrics-Decompression"
+name "4-mar:Metrics-Decompression"
 
 \end_inset
 
@@ -15899,7 +15736,7 @@ The two prediction steps try to algorithmically fill the current macroblock
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-mar:Metrics-Spatial"
+reference "4-mar:Metrics-Spatial"
 
 \end_inset
 
@@ -15912,7 +15749,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Data/3-Real-Time/Metrics_Spatial.pdf
+	filename Data/4-Prediction/Metrics_Spatial.pdf
 
 \end_inset
 
@@ -15925,7 +15762,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-mar:Metrics-Spatial"
+name "4-mar:Metrics-Spatial"
 
 \end_inset
 
@@ -16020,11 +15857,50 @@ motion vector
 
 \begin_inset CommandInset ref
 LatexCommand vref
-reference "3-mar:Metrics-Temporal"
+reference "4-mar:Metrics-Temporal"
 
 \end_inset
 
  shows the resulting fit.
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Data/4-Prediction/Metrics_Temporal.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "4-mar:Metrics-Temporal"
+
+\end_inset
+
+Metrics for Temporal Prediction
+\end_layout
+
+\end_inset
+
+
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Enumerate
@@ -16085,7 +15961,7 @@ key "Ahmed:DCT"
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-mar:Metrics-Transform"
+reference "4-mar:Metrics-Transform"
 
 \end_inset
 
@@ -16099,7 +15975,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Data/3-Real-Time/Metrics_Key.pdf
+	filename Data/4-Prediction/Metrics_Key.pdf
 
 \end_inset
 
@@ -16116,7 +15992,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Data/3-Real-Time/Metrics_Temporal.pdf
+	filename Data/4-Prediction/Metrics_Transform.pdf
 
 \end_inset
 
@@ -16129,46 +16005,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-mar:Metrics-Temporal"
-
-\end_inset
-
-Metrics for Temporal Prediction
-\end_layout
-
-\end_inset
-
-
-\begin_inset VSpace defskip
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset Float marginfigure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename Data/3-Real-Time/Metrics_Transform.pdf
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "3-mar:Metrics-Transform"
+name "4-mar:Metrics-Transform"
 
 \end_inset
 
@@ -16251,7 +16088,7 @@ H
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-mar:Metrics-Post"
+reference "4-mar:Metrics-Post"
 
 \end_inset
 
@@ -16264,7 +16101,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Data/3-Real-Time/Metrics_Post.pdf
+	filename Data/4-Prediction/Metrics_Post.pdf
 
 \end_inset
 
@@ -16277,7 +16114,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-mar:Metrics-Post"
+name "4-mar:Metrics-Post"
 
 \end_inset
 
@@ -16423,7 +16260,7 @@ To judge the quality of the selected metrics, Table
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-tab:Metrics-Correlation"
+reference "4-tab:Metrics-Correlation"
 
 \end_inset
 
@@ -16441,15 +16278,6 @@ reference "3-tab:Metrics-Correlation"
 \end_layout
 
 \begin_layout Standard
-The tight correlation with the decoding time for complete frames proves
- that the metrics are well-chosen.
- However, the regression so far relies on perfect a-priori knowledge of
- all metrics and decoding times.
- The predictor in our video player however has to learn this information
- while the video is playing.
-\end_layout
-
-\begin_layout Standard
 \begin_inset Float table
 wide false
 sideways false
@@ -16458,7 +16286,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset include
 LatexCommand input
-filename "Data/3-Real-Time/Metrics_Correlation.lyx"
+filename "Data/4-Prediction/Metrics_Correlation.lyx"
 
 \end_inset
 
@@ -16471,7 +16299,7 @@ filename "Data/3-Real-Time/Metrics_Correlation.lyx"
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-tab:Metrics-Correlation"
+name "4-tab:Metrics-Correlation"
 
 \end_inset
 
@@ -16489,21 +16317,25 @@ Pearson Correlation of Metrics Fitted to Per-Frame Execution Times
 \end_layout
 
 \begin_layout Standard
+The tight correlation with the decoding time for complete frames proves
+ that the metrics are well-chosen.
+ However, the regression so far relies on perfect a-priori knowledge of
+ all metrics and decoding times.
+ The predictor in our video player however has to learn this information
+ while the video is playing.
+\end_layout
+
+\begin_layout Standard
 After analyzing the most time consuming player component in detail, I now
  explain how these insights practically apply to FFplay.
 \end_layout
 
-\begin_layout Standard
-\begin_inset Flex NewThought
-status collapsed
-
-\begin_layout Plain Layout
-The video playback pipeline
+\begin_layout Section
+FFplay Integration
 \end_layout
 
-\end_inset
-
- 
+\begin_layout Standard
+The video playback pipeline
 \begin_inset Index idx
 status collapsed
 
@@ -16513,7 +16345,7 @@ video playback
 
 \end_inset
 
-consists of three stages: the input stage reads the compressed video from
+ consists of three stages: the input stage reads the compressed video from
  disk, the decoder stage converts it to frames, which the output stage displays.
  These stages are connected by queues
 \begin_inset Foot
@@ -16538,7 +16370,7 @@ Figure
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-fig:FFplay-Stage-Structure"
+reference "4-fig:FFplay-Stage-Structure"
 
 \end_inset
 
@@ -16642,7 +16474,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Figures/3-Real-Time/FFplay_Stages.svg
+	filename Figures/4-Prediction/FFplay_Stages.svg
 
 \end_inset
 
@@ -16655,7 +16487,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-fig:FFplay-Stage-Structure"
+name "4-fig:FFplay-Stage-Structure"
 
 \end_inset
 
@@ -16754,7 +16586,7 @@ Figure
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-fig:FFplay-Input-Stage"
+reference "4-fig:FFplay-Input-Stage"
 
 \end_inset
 
@@ -16939,7 +16771,7 @@ void input_stage() {
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-fig:FFplay-Input-Stage"
+name "4-fig:FFplay-Input-Stage"
 
 \end_inset
 
@@ -17011,7 +16843,7 @@ decoder stage
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-fig:FFplay-Decoder-Stage"
+reference "4-fig:FFplay-Decoder-Stage"
 
 \end_inset
 
@@ -17105,7 +16937,7 @@ void decoder_stage() {
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-fig:FFplay-Decoder-Stage"
+name "4-fig:FFplay-Decoder-Stage"
 
 \end_inset
 
@@ -17607,7 +17439,7 @@ The estimator uses the metrics to derive approximate execution times.
 \end_layout
 
 \begin_layout Section
-Look-Ahead Prediction
+Auto-Training Look-Ahead
 \end_layout
 
 \begin_layout Standard
@@ -17644,7 +17476,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Figures/3-Real-Time/Queueing_Gap.svg
+	filename Figures/4-Prediction/Queueing_Gap.svg
 
 \end_inset
 
@@ -17657,7 +17489,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-mar:Queueing-Gap"
+name "4-mar:Queueing-Gap"
 
 \end_inset
 
@@ -17694,7 +17526,7 @@ d in Figure
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-mar:Queueing-Gap"
+reference "4-mar:Queueing-Gap"
 
 \end_inset
 
@@ -17779,7 +17611,7 @@ see Table
 
 \begin_inset CommandInset ref
 LatexCommand vref
-reference "3-tab:Test-Clips"
+reference "4-tab:Test-Clips"
 
 \end_inset
 
@@ -17796,7 +17628,7 @@ reference "3-tab:Test-Clips"
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-tab:Film-Clips"
+reference "4-tab:Film-Clips"
 
 \end_inset
 
@@ -18093,7 +17925,7 @@ factor
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-tab:Film-Clips"
+name "4-tab:Film-Clips"
 
 \end_inset
 
@@ -18134,7 +17966,7 @@ Atlas
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-fig:Prediction-Accuracy-IO"
+reference "4-fig:Prediction-Accuracy-IO"
 
 \end_inset
 
@@ -18152,7 +17984,7 @@ recall Figure
 
 \begin_inset CommandInset ref
 LatexCommand vref
-reference "3-mar:Relative-Time-Steps"
+reference "4-mar:Relative-Time-Steps"
 
 \end_inset
 
@@ -18174,7 +18006,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Data/3-Real-Time/Prediction_IO.pdf
+	filename Data/4-Prediction/Prediction_IO.pdf
 
 \end_inset
 
@@ -18187,7 +18019,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-fig:Prediction-Accuracy-IO"
+name "4-fig:Prediction-Accuracy-IO"
 
 \end_inset
 
@@ -18208,7 +18040,7 @@ Prediction Accuracy for Input and Output Stages
 
 \begin_inset CommandInset label
 LatexCommand label
-name "3-par:Metrics-Alternatives"
+name "4-par:Metrics-Alternatives"
 
 \end_inset
 
@@ -18506,7 +18338,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Data/3-Real-Time/Prediction_Comparison.pdf
+	filename Data/4-Prediction/Prediction_Comparison.pdf
 
 \end_inset
 
@@ -18519,7 +18351,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-fig:Prediction-Accuracy-Decoder"
+name "4-fig:Prediction-Accuracy-Decoder"
 
 \end_inset
 
@@ -18545,12 +18377,22 @@ Figure
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-fig:Prediction-Accuracy-Decoder"
+reference "4-fig:Prediction-Accuracy-Decoder"
 
 \end_inset
 
  shows that workload awareness improves prediction accuracy over a purely
  time-based predictor.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+say something for the Charlie video, explain the high error for time-based
+ prediction of Rear Window: 25fps material as 50fps
+\end_layout
+
+\end_inset
+
  Again, the error bars represent the lower and upper quartile of the per-frame
  relative errors.
  The reduced metrics, which do not require preprocessing or a staged decoder
@@ -18573,7 +18415,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Data/3-Real-Time/Prediction_Timeline.pdf
+	filename Data/4-Prediction/Prediction_Timeline.pdf
 
 \end_inset
 
@@ -18586,7 +18428,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-fig:Prediction-Zoom"
+name "4-fig:Prediction-Zoom"
 
 \end_inset
 
@@ -18612,7 +18454,7 @@ Figure
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-fig:Prediction-Zoom"
+reference "4-fig:Prediction-Zoom"
 
 \end_inset
 
@@ -18630,8 +18472,8 @@ Across the test videos, the predictor introduces a runtime overhead of
 \begin_inset Formula $\PredictionOverheadIQR$
 \end_inset
 
-, meaning that the overhead is smaller than the variability of FFplay’s
- execution time measurements.
+, meaning that the significance of the overhead is smaller than the variability
+ of FFplay’s execution time measurements.
 \end_layout
 
 \begin_layout Standard
@@ -18652,7 +18494,7 @@ D2550 with
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-fig:Prediction-Atom"
+reference "4-fig:Prediction-Atom"
 
 \end_inset
 
@@ -18679,7 +18521,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Data/3-Real-Time/Prediction_Atom.pdf
+	filename Data/4-Prediction/Prediction_Atom.pdf
 
 \end_inset
 
@@ -18692,7 +18534,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-fig:Prediction-Atom"
+name "4-fig:Prediction-Atom"
 
 \end_inset
 
@@ -18757,7 +18599,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Data/3-Real-Time/Prediction_Age.pdf
+	filename Data/4-Prediction/Prediction_Age.pdf
 
 \end_inset
 
@@ -18770,7 +18612,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-fig:Prediction-Aging"
+name "4-fig:Prediction-Aging"
 
 \end_inset
 
@@ -18796,7 +18638,7 @@ Figure
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-fig:Prediction-Aging"
+reference "4-fig:Prediction-Aging"
 
 \end_inset
 
@@ -18877,7 +18719,7 @@ Figure
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-fig:Instability-Problem"
+reference "4-fig:Instability-Problem"
 
 \end_inset
 
@@ -18904,7 +18746,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Data/3-Real-Time/Prediction_Stability.pdf
+	filename Data/4-Prediction/Prediction_Stability.pdf
 
 \end_inset
 
@@ -18927,7 +18769,7 @@ Instability Problem at the Start of the Hunger Games Trailer
 
 \begin_inset CommandInset label
 LatexCommand label
-name "3-fig:Instability-Problem"
+name "4-fig:Instability-Problem"
 
 \end_inset
 
@@ -18979,7 +18821,7 @@ A threshold of
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-fig:Prediction-Column"
+reference "4-fig:Prediction-Column"
 
 \end_inset
 
@@ -19009,7 +18851,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Data/3-Real-Time/Prediction_Column.pdf
+	filename Data/4-Prediction/Prediction_Column.pdf
 
 \end_inset
 
@@ -19022,7 +18864,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-fig:Prediction-Column"
+name "4-fig:Prediction-Column"
 
 \end_inset
 
@@ -19048,7 +18890,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Data/3-Real-Time/Prediction_Subsetting.pdf
+	filename Data/4-Prediction/Prediction_Subsetting.pdf
 
 \end_inset
 
@@ -19061,7 +18903,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-fig:Column-Dropping"
+name "4-fig:Column-Dropping"
 
 \end_inset
 
@@ -19097,7 +18939,7 @@ The column dropping algorithm comes at the cost of a worst-case time complexity
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-fig:Column-Dropping"
+reference "4-fig:Column-Dropping"
 
 \end_inset
 
@@ -19219,6 +19061,16 @@ Atlas
  when I evaluate the overall scheduling behavior.
 \end_layout
 
+\begin_layout Chapter
+\begin_inset CommandInset label
+LatexCommand label
+name "5-chap:Scheduler"
+
+\end_inset
+
+System Scheduler
+\end_layout
+
 \begin_layout Standard
 \begin_inset Float marginfigure
 wide false
@@ -19226,9 +19078,21 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\begin_inset VSpace 4.5cm
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
 \begin_inset Graphics
-	filename Figures/3-Real-Time/Verical_Integration_Scheduler.svg
+	filename Figures/5-Scheduler/Verical_Integration.svg
 
+\end_inset
+
+
+\begin_inset VSpace bigskip
 \end_inset
 
 
@@ -19237,10 +19101,21 @@ status open
 \end_inset
 
 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+The chapter closes with a discussion of previous research results and how
+ they relate to 
+\noun on
+Atlas
+\noun default
+.
 \end_layout
 
-\begin_layout Section
-System Scheduler
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -19261,18 +19136,7 @@ job
  Microkernel research experiments with user-level scheduling primitives
 \begin_inset CommandInset citation
 LatexCommand cite
-after "-2\\baselineskip"
 key "Lackorzynski:vCPUs"
-
-\end_inset
-
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-manual offset
-\end_layout
 
 \end_inset
 
@@ -19285,19 +19149,9 @@ key "Ford:Fluke"
 
  but on commodity operating systems, a single system-wide scheduler lives
  in the kernel.
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-not enough room for 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Bovet:LinuxKernel"
-
-\end_inset
-
-
-\end_layout
 
 \end_inset
 
@@ -19328,7 +19182,7 @@ key "Waechtler:Look-Ahead"
 
  I explain the general design of the scheduler and its properties here.
  A thorough description, implementation details, and overhead analysis can
- be found in Stefan’s thesis.
+ be found in Stefan Wächtler’s thesis.
 \end_layout
 
 \begin_layout Standard
@@ -19367,17 +19221,16 @@ I describe the scheduler in three parts: I first provide context and present
  and underestimated execution time predictions.
 \end_layout
 
-\begin_layout Standard
-\begin_inset Flex NewThought
-status collapsed
-
-\begin_layout Plain Layout
-The Atlas task model
+\begin_layout Section
+Scheduling Job Sets
 \end_layout
 
-\end_inset
-
- allows applications to submit arbitrary jobs 
+\begin_layout Standard
+The 
+\noun on
+Atlas
+\noun default
+ task model allows applications to submit arbitrary jobs 
 \begin_inset Formula $J=(e,d)$
 \end_inset
 
@@ -19435,7 +19288,8 @@ atlas_next,
  a thread transitions execution from one job to the next and therefore from
  one deadline to the next.
  As a consequence, the urgency of the thread relative to other threads changes.
- Scheduling algorithms for fixed task priorities like Rate-Monotonic Scheduling
+ Scheduling algorithms for fixed task priorities like the Rate-Monotonic
+ Scheduling
 \begin_inset Index idx
 status collapsed
 
@@ -19445,7 +19299,7 @@ rate-monotonic scheduling
 
 \end_inset
 
- are thus unfit for the given task model.
+ algorithm are thus unfit for the given task model.
 \end_layout
 
 \begin_layout Standard
@@ -19482,8 +19336,8 @@ optimal scheduler
 
  algorithm only fails to find a schedule that fulfills all timing constraints
  if there is no such schedule within the bounds of the class.
- However, this optimality only holds for independent, preemptible and non-blocki
-ng tasks.
+ However, this optimality only holds for independent and preemptible tasks
+ that do not block on shared resources or critical sections.
 \end_layout
 
 \begin_layout Standard
@@ -19520,8 +19374,17 @@ An example illustrates
 
 \end_inset
 
- how the Earliest Deadline First (EDF) algorithm fails to find a feasible
- schedule when dependencies
+ how the Earliest Deadline First (EDF) algorithm with unmodified deadlines
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+as opposed to EDF with effective deadlines
+\end_layout
+
+\end_inset
+
+ fails to find a feasible schedule when dependencies
 \begin_inset Index idx
 status collapsed
 
@@ -19539,7 +19402,7 @@ dependency
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-mar:EDF-and-LDF"
+reference "5-mar:EDF-and-LDF"
 
 \end_inset
 
@@ -19636,7 +19499,7 @@ status open
 \begin_layout Plain Layout
 \noindent
 \begin_inset Graphics
-	filename Figures/3-Real-Time/EDF_vs_LDF.svg
+	filename Figures/5-Scheduler/EDF_vs_LDF.svg
 
 \end_inset
 
@@ -19649,7 +19512,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-mar:EDF-and-LDF"
+name "5-mar:EDF-and-LDF"
 
 \end_inset
 
@@ -19709,7 +19572,7 @@ According to the EDF algorithm, at time instant zero, job
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-mar:EDF-and-LDF"
+reference "5-mar:EDF-and-LDF"
 
 \end_inset
 
@@ -19747,7 +19610,7 @@ ding node from the graph.
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-mar:EDF-and-LDF"
+reference "5-mar:EDF-and-LDF"
 
 \end_inset
 
@@ -19892,7 +19755,7 @@ running, blocked, ready,
 status collapsed
 
 \begin_layout Plain Layout
-waiting.
+queued.
 \end_layout
 
 \end_inset
@@ -19902,16 +19765,54 @@ waiting.
  A job waiting for a resource other than the CPU is blocked.
  A job is ready if it is not running or blocked and is the frontmost job
  in its associated real-time task.
+ At most one job per task can be in the ready state.
  In the originating GCD queue, blocks are also sorted by deadline, so the
  block corresponding to a ready job executes next in that queue.
  This way, the scheduler’s job list and the application’s queues stay in
  sync.
- Any job not running, ready, or blocked is waiting.
-\begin_inset Note Note
+ Any job not running, ready, or blocked is queued.
+ In each real-time task, all jobs but the frontmost job are queued.
+\end_layout
+
+\begin_layout Section
+Decisions Based on Slack
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
 status open
 
 \begin_layout Plain Layout
-figure?
+\begin_inset Graphics
+	filename Figures/5-Scheduler/Slack_Calculation.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "5-mar:Slack-Calculation"
+
+\end_inset
+
+Slack Calculation
+\end_layout
+
+\end_inset
+
+
+\begin_inset VSpace defskip
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -19920,17 +19821,8 @@ figure?
 \end_layout
 
 \begin_layout Standard
-\begin_inset Flex NewThought
-status collapsed
-
-\begin_layout Plain Layout
-When asked to make a scheduling decision,
-\end_layout
-
-\end_inset
-
- the scheduler changes the state of the running job to ready and uses the
- job list to calculate the 
+When asked to make a scheduling decision, the scheduler uses the job list
+ to calculate the 
 \begin_inset Flex SmallCaps
 status collapsed
 
@@ -20014,45 +19906,6 @@ s_{i}(t_{now})=\left(d_{i}-t_{now}\right)-\sum_{\left\{ J_{k}\mid\mathrm{job\: s
 \end_inset
 
 
-\begin_inset Float marginfigure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename Figures/3-Real-Time/Slack_Calculation.svg
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "3-mar:Slack-Calculation"
-
-\end_inset
-
-Slack Calculation
-\end_layout
-
-\end_inset
-
-
-\begin_inset VSpace defskip
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -20064,7 +19917,7 @@ Figure
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-mar:Slack-Calculation"
+reference "5-mar:Slack-Calculation"
 
 \end_inset
 
@@ -20089,7 +19942,7 @@ The actual implementation is optimized and does not continuously recalculate
 \end_inset
 
  The intuition behind available slack is that we can safely delay execution
- of all pending jobs for another 
+ of all upcoming jobs for another 
 \begin_inset Formula $s(t_{now})$
 \end_inset
 
@@ -20147,7 +20000,7 @@ Due to latencies in the Linux kernel,
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-mar:Slack-Calculation"
+reference "5-mar:Slack-Calculation"
 
 \end_inset
 
@@ -20202,7 +20055,7 @@ atlas_next,
 \emph default
  it is removed from the scheduler and a scheduling decision is made.
  Removing the job causes the next job in the corresponding real-time task
- to become ready.
+ to transition from the queued state to ready.
 \end_layout
 
 \begin_layout Itemize
@@ -20406,7 +20259,7 @@ What guarantees
 
  can we expect from this scheduler? For independent, preemptible and not
  self-suspending jobs on a single processor, EDF is an optimal algorithm.
- I prove by contradiction that the 
+ I prove by schedule transformation that the 
 \noun on
 Atlas
 \noun default
@@ -20423,21 +20276,9 @@ noitemsep
 
 \end_inset
 
-Assume the 
-\noun on
-Atlas
-\noun default
- scheduler was not optimal under the given restrictions.
- Then, a set of independent, preemptible and not self-suspending jobs exists,
- for which there is a feasible schedule, but 
-\noun on
-Atlas
-\noun default
- fails to find one.
-\end_layout
-
-\begin_layout Enumerate
-EDF can successfully schedule this job set, because the criteria for EDF
+Take an arbitrary but fixed set of independent, preemptible and not self-suspend
+ing jobs.
+ EDF can successfully schedule this job set, because the criteria for EDF
  optimality are met.
 \end_layout
 
@@ -20447,6 +20288,16 @@ Iterate over all jobs in the EDF schedule in descending deadline order.
  deadline or collides with the next job in ascending deadline order.
  Observe that each moved job still completes before its deadline and that
  jobs are not reordered, because no job moves beyond its successor.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Claude would like a figure
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Enumerate
@@ -20495,7 +20346,7 @@ In the thus constructed schedule, available slack is zero whenever a job
 \end_inset
 
 .
- Moving the release time from 
+ Moving the time instant under consideration from 
 \begin_inset Formula $t_{i+1}$
 \end_inset
 
@@ -20583,8 +20434,17 @@ The constructed schedule and thus the
 \noun on
 Atlas
 \noun default
- schedule are feasible, because no job completes after its deadline, contradicti
-ng the initial assumption and completing the proof.
+ schedule are feasible, because no job completes after its deadline.
+ The presented transformation therefore generates a feasible 
+\noun on
+Atlas
+\noun default
+ schedule for every feasible EDF schedule.
+ Because EDF is optimal, 
+\noun on
+Atlas
+\noun default
+ is optimal.
 \end_layout
 
 \begin_layout Standard
@@ -20663,18 +20523,14 @@ The limitation that dependent jobs must have a deadline not earlier than
  than the matching decode job.
 \end_layout
 
-\begin_layout Standard
-\begin_inset Flex NewThought
-status collapsed
-
-\begin_layout Plain Layout
-Leaving the perfect world
+\begin_layout Section
+Relaxing the Assumptions
 \end_layout
 
-\end_inset
-
- of nicely arranged deadlines and precise execution times, I now discuss
- what the scheduler can do for applications that do not behave perfectly.
+\begin_layout Standard
+Leaving the perfect world of nicely arranged deadlines and precise execution
+ times, I now discuss what the scheduler can do for applications that do
+ not behave perfectly.
  Care must be taken not to break the properties I have shown above.
  I first talk about over- and underestimated execution times, followed by
  blocking.
@@ -20836,13 +20692,15 @@ Atlas
  we do not want to drop it to CFS.
  Instead, we allow jobs behind their deadline to consume their remaining
  reservation with a higher priority than all CFS threads.
+ If the job overruns its reservation, it is still demoted to CFS.
  This policy does not diminish service to CFS, because the total CPU time
  claimed by 
 \noun on
 Atlas
 \noun default
- does not change, blocking just distributes it differently.
- In fact, when a job has blocked, CFS already received extra time earlier.
+ and therefore the available slack do not change.
+ Blocking just distributes slack time differently: When a job has blocked,
+ CFS already received extra time earlier.
 \end_layout
 
 \begin_deeper
@@ -20865,8 +20723,11 @@ key "Stoyenko:Tardiness"
 \noun on
 Atlas
 \noun default
- guarantees are unaffected, because this band only runs when there is available
- slack.
+ guarantees are unaffected, because this band only runs when 
+\noun on
+Atlas
+\noun default
+ does not select a job to run.
 \end_layout
 
 \end_deeper
@@ -20886,7 +20747,7 @@ status open
 \begin_layout Plain Layout
 \noindent
 \begin_inset Graphics
-	filename Figures/3-Real-Time/Scheduler_Layers.svg
+	filename Figures/5-Scheduler/Scheduler_Layers.svg
 
 \end_inset
 
@@ -20899,7 +20760,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-mar:Linux-Scheduler-Layers"
+name "5-mar:Linux-Scheduler-Layers"
 
 \end_inset
 
@@ -20939,7 +20800,7 @@ The implementation of Atlas
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-mar:Linux-Scheduler-Layers"
+reference "5-mar:Linux-Scheduler-Layers"
 
 \end_inset
 
@@ -20954,8 +20815,8 @@ Atlas.
 
 \noun default
  However, the stop layer is only used by the Linux kernel internally for
- rare operations during CPU shutdown and access to the POSIX real-time layer
- can be controlled by way of the 
+ rare operations during CPU shutdown.
+ Access to the POSIX real-time layer can be controlled by way of the 
 \begin_inset Flex NoWrap
 status collapsed
 
@@ -21043,11 +20904,11 @@ The scheduler contract
 
 \end_inset
 
- 
+ provided by 
 \noun on
 Atlas
 \noun default
- provides is comprehensible and useful.
+ is comprehensible and useful.
  To receive strong guarantees, submitted execution times must be precise,
  jobs must not self-suspend, and deadlines must never decrease along dependency
  edges.
@@ -21164,8 +21025,24 @@ Atlas
  behavior.
 \end_layout
 
-\begin_layout Section
-Timeliness Experiments
+\begin_layout Chapter
+\begin_inset CommandInset label
+LatexCommand label
+name "6-chap:Evaluation"
+
+\end_inset
+
+Improving the State of the Art
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "Data/6-Evaluation/Values.lyx"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -21228,7 +21105,8 @@ Atlas
 \noun on
 Atlas
 \noun default
- can anticipate deadline misses before they occur.
+ can anticipate deadline misses before they occur, thereby helping applications
+ to react to overload early.
 \end_layout
 
 \begin_layout Standard
@@ -21249,6 +21127,7 @@ Their complete source code:
 \end_layout
 
 \begin_layout Plain Layout
+\noindent
 \begin_inset listings
 inline true
 status open
@@ -21268,6 +21147,7 @@ int main(void)
 \end_layout
 
 \begin_layout Plain Layout
+\noindent
 One of the hoggers may be instrumented to track the throughput of background
  work.
 \end_layout
@@ -21316,7 +21196,7 @@ My libdispatch reimplementation uses ordinary pthread locks at places that
  or the Linux kernel, all job execution times are enlarged before being
  submitted to the scheduler.
  I oversubscribe jobs by 
-\begin_inset Formula $1\%$
+\begin_inset Formula $2.5\%$
 \end_inset
 
  of their execution time, or a minimum of 
@@ -21327,11 +21207,11 @@ My libdispatch reimplementation uses ordinary pthread locks at places that
  Otherwise, a job which precisely needs its specified execution time may
  overrun its deadline because of these overheads and inaccuracies.
  Oversubscribing all jobs by 
-\begin_inset Formula $1\%$
+\begin_inset Formula $2.5\%$
 \end_inset
 
  of course leads to an equivalent loss of 
-\begin_inset Formula $1\%$
+\begin_inset Formula $2.5\%$
 \end_inset
 
  schedulable utilization.
@@ -21354,6 +21234,16 @@ schedulable utilization
 Atlas
 \noun default
  is currently not optimized for.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+decide on the final oversubscription
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -21364,7 +21254,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Figures/3-Real-Time/Bodytrack.svg
+	filename Figures/6-Evaluation/Bodytrack.svg
 
 \end_inset
 
@@ -21377,7 +21267,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-mar:Bodytrack-Result"
+name "6-mar:Bodytrack-Result"
 
 \end_inset
 
@@ -21448,7 +21338,7 @@ key "Bienia:Parsec"
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-mar:Bodytrack-Result"
+reference "6-mar:Bodytrack-Result"
 
 \end_inset
 
@@ -21516,7 +21406,7 @@ Bodytrack employs an annealed particle filter.
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-mar:Bodytrack-Execution-Time"
+reference "6-mar:Bodytrack-Execution-Time"
 
 \end_inset
 
@@ -21535,7 +21425,7 @@ status open
 
 
 \begin_inset Graphics
-	filename Data/3-Real-Time/Bodytrack_Alone.pdf
+	filename Data/6-Evaluation/Bodytrack_Alone.pdf
 
 \end_inset
 
@@ -21548,7 +21438,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-mar:Bodytrack-Execution-Time"
+name "6-mar:Bodytrack-Execution-Time"
 
 \end_inset
 
@@ -21618,7 +21508,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Data/3-Real-Time/Bodytrack_Schedule.pdf
+	filename Data/6-Evaluation/Bodytrack_Schedule.pdf
 
 \end_inset
 
@@ -21631,7 +21521,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-fig:Bodytrack-Scheduling"
+name "6-fig:Bodytrack-Scheduling"
 
 \end_inset
 
@@ -21657,7 +21547,7 @@ Figure
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-fig:Bodytrack-Scheduling"
+reference "6-fig:Bodytrack-Scheduling"
 
 \end_inset
 
@@ -21701,7 +21591,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Data/3-Real-Time/Bodytrack_Fail.pdf
+	filename Data/6-Evaluation/Bodytrack_Fail.pdf
 
 \end_inset
 
@@ -21714,7 +21604,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-fig:Bodytrack-Failing"
+name "6-fig:Bodytrack-Failing"
 
 \end_inset
 
@@ -21742,7 +21632,7 @@ Periodic tasks can be scheduled with a traditional fixed priority scheduler
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-fig:Bodytrack-Failing"
+reference "6-fig:Bodytrack-Failing"
 
 \end_inset
 
@@ -21779,7 +21669,7 @@ key "Nieh:SVR4UNIX_Unacceptable"
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-fig:Bodytrack-Failing"
+reference "6-fig:Bodytrack-Failing"
 
 \end_inset
 
@@ -21895,7 +21785,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Figures/3-Real-Time/UI_Worker.svg
+	filename Figures/6-Evaluation/UI_Worker.svg
 
 \end_inset
 
@@ -21908,7 +21798,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-mar:User-Interface-Test"
+name "6-mar:User-Interface-Test"
 
 \end_inset
 
@@ -22003,7 +21893,7 @@ target "https://www.gnome.org/"
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-mar:User-Interface-Test"
+reference "6-mar:User-Interface-Test"
 
 \end_inset
 
@@ -22041,7 +21931,18 @@ MiB.
 , a typical time bound where users perceive a system response as immediate.
 \begin_inset CommandInset citation
 LatexCommand cite
+after "-3\\baselineskip"
 key "Card:RealTimeUI"
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+manual offset
+\end_layout
 
 \end_inset
 
@@ -22057,25 +21958,11 @@ Atlas
 
 \begin_inset CommandInset ref
 LatexCommand vref
-reference "3-fig:Pseudocode-ATLAS"
+reference "6-fig:Pseudocode-ATLAS"
 
 \end_inset
 
 .
-\begin_inset Newpage newpage
-\end_inset
-
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-manual page break
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -22135,7 +22022,7 @@ dispatch_async_atlas(queue, job, ^{ scan_document(size); });
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-fig:Pseudocode-ATLAS"
+name "6-fig:Pseudocode-ATLAS"
 
 \end_inset
 
@@ -22165,7 +22052,7 @@ Figure
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-mar:Worker-Execution-Time"
+reference "6-mar:Worker-Execution-Time"
 
 \end_inset
 
@@ -22196,7 +22083,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Data/3-Real-Time/UI_Worker_Schedule.pdf
+	filename Data/6-Evaluation/UI_Worker_Schedule.pdf
 
 \end_inset
 
@@ -22209,7 +22096,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-fig:Worker-Makespan"
+name "6-fig:Worker-Makespan"
 
 \end_inset
 
@@ -22235,7 +22122,7 @@ Figure
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-fig:Worker-Makespan"
+reference "6-fig:Worker-Makespan"
 
 \end_inset
 
@@ -22292,7 +22179,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Data/3-Real-Time/UI_Worker_Alone.pdf
+	filename Data/6-Evaluation/UI_Worker_Alone.pdf
 
 \end_inset
 
@@ -22305,7 +22192,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-mar:Worker-Execution-Time"
+name "6-mar:Worker-Execution-Time"
 
 \end_inset
 
@@ -22381,9 +22268,19 @@ I now turn to FFplay
 
  to evaluate the scheduling behavior with a complex application that exhibits
  highly dynamic resource requirements.
- At the beginning of this chapter, I motivated the need for real-time scheduling
- with an experiment running the Hunger Games video with competing background
- load.
+ At the beginning of Chapter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3-chap:Real-Time"
+
+\end_inset
+
+, I motivated the need for real-time scheduling with an experiment running
+ the Hunger Games video with competing background load.
 \begin_inset Foot
 status open
 
@@ -22411,7 +22308,7 @@ reference "3-fig:Video-Smoothness"
 
 \begin_inset CommandInset ref
 LatexCommand vref
-reference "3-fig:Video-Smoothness-ATLAS"
+reference "6-fig:Video-Smoothness-ATLAS"
 
 \end_inset
 
@@ -22437,24 +22334,13 @@ frames per second.
 
 \begin_layout Standard
 \begin_inset Float figure
-placement t
 wide true
 sideways false
 status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Data/3-Real-Time/Background_ATLAS.pdf
-
-\end_inset
-
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-non-default float placement
-\end_layout
+	filename Data/6-Evaluation/Background.pdf
 
 \end_inset
 
@@ -22467,7 +22353,7 @@ non-default float placement
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-fig:Video-Smoothness-ATLAS"
+name "6-fig:Video-Smoothness-ATLAS"
 
 \end_inset
 
@@ -22489,8 +22375,8 @@ Video Smoothness with Competing Background Load
 \end_layout
 
 \begin_layout Standard
-Any remaining jitter is caused by inaccuracies in the prediction of execution
- times.
+Inaccuracies in the prediction of execution times are the primary source
+ of the remaining jitter.
  The next experiment thus compares the three workload metrics alternatives
  to predict video decoding times:
 \begin_inset Foot
@@ -22504,7 +22390,7 @@ see page
 
 \begin_inset CommandInset ref
 LatexCommand pageref
-reference "3-par:Metrics-Alternatives"
+reference "4-par:Metrics-Alternatives"
 
 \end_inset
 
@@ -22526,14 +22412,14 @@ Figures
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-fig:Video-Smoothness-Scheduler"
+reference "6-fig:Video-Smoothness-Scheduler"
 
 \end_inset
 
  and 
 \begin_inset CommandInset ref
 LatexCommand vref
-reference "3-fig:Video-Smoothness-Metrics"
+reference "6-fig:Video-Smoothness-Metrics"
 
 \end_inset
 
@@ -22554,7 +22440,7 @@ Figure
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-fig:Video-Smoothness-Scheduler"
+reference "6-fig:Video-Smoothness-Scheduler"
 
 \end_inset
 
@@ -22582,7 +22468,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Data/3-Real-Time/Scheduling_Comparison_All.pdf
+	filename Data/6-Evaluation/Scheduling_Comparison_All.pdf
 
 \end_inset
 
@@ -22592,7 +22478,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-fig:Video-Smoothness-Scheduler"
+name "6-fig:Video-Smoothness-Scheduler"
 
 \end_inset
 
@@ -22617,7 +22503,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Data/3-Real-Time/Scheduling_Comparison_ATLAS.pdf
+	filename Data/6-Evaluation/Scheduling_Comparison_ATLAS.pdf
 
 \end_inset
 
@@ -22627,7 +22513,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-fig:Video-Smoothness-Metrics"
+name "6-fig:Video-Smoothness-Metrics"
 
 \end_inset
 
@@ -22653,7 +22539,7 @@ Figure
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-fig:Video-Smoothness-Metrics"
+reference "6-fig:Video-Smoothness-Metrics"
 
 \end_inset
 
@@ -22664,13 +22550,14 @@ Atlas
 \noun default
  behavior.
  All metrics options exhibit typical jitter of less than 
-\begin_inset Formula $10\,\mathrm{ms}$
+\begin_inset Formula $20\,\mathrm{ms}$
 \end_inset
 
 , but we also see an advantage of the reduced and full workload metrics
  over a prediction based only on execution times.
- The reduced metrics, which do not require video preprocessing already cut
- the average jitter in half compared to time-only prediction.
+ The reduced metrics, which do not require video preprocessing cut the average
+ jitter in half compared to time-only prediction for all but the Charlie
+ video.
  The full metrics further improve the scheduling behavior.
  They represent an end-to-end design where even workload modifications are
  justifiable to improve real-time behavior.
@@ -22684,7 +22571,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Data/3-Real-Time/Scheduling_Histogram.pdf
+	filename Data/6-Evaluation/Scheduling_Histogram.pdf
 
 \end_inset
 
@@ -22697,7 +22584,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-mar:Frame-Interval-Metrics"
+name "6-mar:Frame-Interval-Metrics"
 
 \end_inset
 
@@ -22726,7 +22613,7 @@ Figure
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-mar:Frame-Interval-Metrics"
+reference "6-mar:Frame-Interval-Metrics"
 
 \end_inset
 
@@ -22742,7 +22629,7 @@ reference "3-mar:Frame-Interval-Metrics"
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "3-fig:Time-Profile-Metrics"
+reference "6-fig:Time-Profile-Metrics"
 
 \end_inset
 
@@ -22757,7 +22644,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Data/3-Real-Time/Scheduling_Timeline.pdf
+	filename Data/6-Evaluation/Scheduling_Timeline.pdf
 
 \end_inset
 
@@ -22770,7 +22657,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "3-fig:Time-Profile-Metrics"
+name "6-fig:Time-Profile-Metrics"
 
 \end_inset
 
@@ -22785,6 +22672,50 @@ Time Profile with Different Metrics Options
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+Two videos
+\end_layout
+
+\end_inset
+
+ require more explanation: The Charlie clip does not benefit as much from
+ the more detailed metrics.
+ Remember that prediction accuracy was also less affected by the choice
+ of metrics compared to the other videos,
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+see Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "4-fig:Prediction-Accuracy-Decoder"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ because the broadcast encoder creates a rather uniform video.
+ Therefore, we cannot expect better scheduling behavior with the more detailed
+ metrics.
+\end_layout
+
+\begin_layout Standard
+Both the Charlie and the Rear Window videos stand out because of their more
+ pronounced overall jitter.
 \end_layout
 
 \begin_layout Standard
@@ -23799,497 +23730,7 @@ key "Reuther:DAS"
 \begin_layout Chapter
 \begin_inset CommandInset label
 LatexCommand label
-name "4-chap:Adaptivity"
-
-\end_inset
-
-Adapt to Handle Overload
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Greyedout
-status open
-
-\begin_layout Itemize
-our 
-\begin_inset Quotes eld
-\end_inset
-
-no admission
-\begin_inset Quotes erd
-\end_inset
-
- policy requires us to deal with overloads when the work does not fit within
- the deadlines
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-but only when overloaded: timeliness first, fairness only when overloaded
-\end_layout
-
-\begin_layout Itemize
-decouple urgency (timing requirements) and importance (utility)
-\end_layout
-
-\begin_layout Itemize
-
-\noun on
-Atlas
-\noun default
- flexibility stems from admitting on job-level instead of task-level
-\end_layout
-
-\begin_layout Itemize
-job admission does not reject, but inform
-\end_layout
-
-\begin_layout Itemize
-applications decide how to react, because only they know how to adapt
-\end_layout
-
-\begin_layout Itemize
-no central one-size-fits-all job dropping or deadline tardiness
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-load shedding is an old concept
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Lampson:HintsDesign"
-
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-\begin_inset Quotes eld
-\end_inset
-
-shed load to control demand, rather than allowing the system to become overloade
-d.
-\begin_inset Quotes erd
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-do not waste work by learning after the fact that you missed the deadline
-\end_layout
-
-\begin_layout Itemize
-Robert Morris idea: red button next to terminal, push when dissatisfied,
- system must raise your QoS or throw you off
-\end_layout
-
-\begin_layout Itemize
-this old idea already argued for quality-aware adaptation, not just load-aware
-\end_layout
-
-\begin_layout Itemize
-when overloaded, real-time applications become brittle and show bi-modal
- fairness
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Krasic:PriorityProgress"
-
-\end_inset
-
-
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-quality-aware adaptation is application-specific
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-some work just needs to be done, no discussion, no adaptation possible
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-I would argue this is the common case
-\end_layout
-
-\begin_layout Itemize
-we can only hope to compensate by using the most efficient compute resource
- and organize it the most efficient way
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-some applications can make quality/resource trade-offs according to application-
-specific notion of quality
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-video is one example
-\end_layout
-
-\begin_layout Itemize
-however, quality per invested CPU time is varying: with resource-fairness,
- quality would be varying
-\end_layout
-
-\begin_layout Itemize
-application knowledge needed, however applications can lie to unfairly degrade
- others
-\end_layout
-
-\begin_layout Itemize
-combine resource-fairness and quality-fairness
-\end_layout
-
-\begin_layout Itemize
-this also applies to resources other than CPU time, like network bandwidth
- for streaming
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-better behavior for more developer effort
-\end_layout
-
-\begin_layout Itemize
-look-ahead enables choosing the part to degrade amongst many options, compared
- to forcibly degrade the job at hand
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-end-to-end solution
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-workload: offer different processing paths, trading resources and quality
-\end_layout
-
-\begin_layout Itemize
-application: under given resource constraints, find a quality-optimal path
- through this lattice of options
-\end_layout
-
-\begin_layout Itemize
-system: distribute computing resource cutbacks in a quality-fair fashion
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-backpressure needs to be quality-fair, not resource-fair, but the quality
- scale is application specific and does not compare
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-global quality-scheduling too complex, resort to balanced backpressure and
- per-application adaptivity
-\end_layout
-
-\begin_layout Itemize
-needs help from the applications: provide percentage of missed deadlines
- relative to the maximum quality case, that represents the bare minimum
- quality users will accept
-\end_layout
-
-\begin_layout Itemize
-backpressure will be distributed amongst adaptive applications weighted
- by this minimum quality
-\end_layout
-
-\begin_layout Itemize
-assumption: linear quality drop from meeting all deadlines down to that
- percentage
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-could also use time-utility functions to optimize
-\end_layout
-
-\begin_layout Itemize
-could also include heuristics like less degradation for the frontmost applicatio
-n
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-use of percentage of missed deadlines as quality parameter inspired by QRMS
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Hamann:QRMS"
-
-\end_inset
-
-
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-describe fallback decoding path for video
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Roitzsch:VideoQuality"
-
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-decoding time estimate already given, quality estimate needed
-\end_layout
-
-\begin_layout Itemize
-greedy solution for (constrained) bin-packing: order jobs by quality/resource
- ratio
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-end-to-end evaluation
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-compare reduction policy in scheduler: quality-based vs.
- fairness-based
-\end_layout
-
-\begin_layout Itemize
-compare to ad-hoc adaptation using a low water-mark in the video player
- queue
-\end_layout
-
-\begin_layout Itemize
-compare to fully clairvoyant oracle that calculates truly quality-optimal
- execution
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-discuss related work
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-other fairness-policies can be integrated into my system as well
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-relative or absolute shares for temporal isolation, like CBS
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-task models that allow for deadline misses
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-(m,k)-firm tasks
-\end_layout
-
-\begin_layout Itemize
-imprecise computation
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Lin:Imprecise"
-
-\end_inset
-
-
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-scheduling systems that control overload
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-overload handling with adaptive reservations
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Abeni:AdaptiveReservations"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-real-rate scheduling reduces allocations weighted by an importance value
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Steere:RealRate"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-virtual time for progress fairness
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Krasic:CoopPoll"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-application notifications using execution time estimates
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Nieh:SMART"
-
-\end_inset
-
-, but no look-ahead
-\end_layout
-
-\begin_layout Itemize
-BERT
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Bavier:BERT"
-
-\end_inset
-
-: no strict task admission, but overload mitigation; job-shedding, when
- latest release time is in the past
-\end_layout
-
-\begin_layout Itemize
-resource kernels
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Rajkumar:ResourceKernels"
-
-\end_inset
-
-: user-level QoS expected to be more useful than stacked schedulers
-\end_layout
-
-\begin_layout Itemize
-expose application-internal settings and QoS expectations for global management
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Hoffmann:PowerDial"
-
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-also based on training phase
-\end_layout
-
-\end_deeper
-\end_deeper
-\begin_layout Itemize
-overload notification
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-inject language exceptions on deadline overruns: post-mortem, no look-ahead
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-application-specific adaptation
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-load-shedding queues in network servers
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Welsh:SEDA"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-reducing video quality
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Isovic:QoS_Video,Wuest:QoS_Video"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-other sources for adaptive video
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-SVC
-\end_layout
-
-\begin_layout Itemize
-adaptive streaming protocols: application propagates back-pressure even
- to the server
-\end_layout
-
-\end_deeper
-\end_deeper
-\begin_layout Itemize
-prioritize work and skip the low priorities when congested
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Krasic:PriorityProgress"
-
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-simple quality-aware scheme
-\end_layout
-
-\begin_layout Itemize
-global priority-monotonic ordering of video frames
-\end_layout
-
-\begin_layout Itemize
-unclear how much of the fairness benefits stem from the priority sorting
- or just from global queueing
-\end_layout
-
-\end_deeper
-\end_deeper
-\end_inset
-
-
-\end_layout
-
-\begin_layout Chapter
-\begin_inset CommandInset label
-LatexCommand label
-name "5-chap:The-Road-Ahead"
+name "7-chap:Road-Ahead"
 
 \end_inset
 
@@ -24353,7 +23794,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "1-mar:Parallel-Execution-Alternatives"
+name "7-mar:Parallel-Execution-Alternatives"
 
 \end_inset
 
@@ -24409,7 +23850,7 @@ parallel speedup
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "1-mar:Parallel-Execution-Alternatives"
+reference "7-mar:Parallel-Execution-Alternatives"
 
 \end_inset
 
@@ -24526,22 +23967,6 @@ key "Iyer:Anticipatory"
 
  These solutions do not exploit knowledge of timing requirements, resource
  requirements or the benefit of look-ahead.
-\end_layout
-
-\begin_layout Plain Layout
-I present and discuss parallel speedup estimation and the non-work-conserving
- scheduler in Chapter
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "4-chap:Parallelism"
-
-\end_inset
-
-.
 \end_layout
 
 \end_deeper
@@ -25526,6 +24951,498 @@ employs gossiping to establish global system view without a central authority
 \begin_layout Itemize
 ad-hoc solution for my approach: assume that lambdas within the same job
  are more likely to talk to each other, place closer together
+\end_layout
+
+\end_deeper
+\end_deeper
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Chapter
+Adapt to Handle Overload
+\end_layout
+
+\begin_layout Plain Layout
+This reduction needs global oversight to maintain the system’s fairness
+ policy, but applications may want to adapt their service according to a
+ local notion of quality.
+ Instead of keeping information local for limited management within applications
+, 
+\end_layout
+
+\begin_layout Itemize
+our 
+\begin_inset Quotes eld
+\end_inset
+
+no admission
+\begin_inset Quotes erd
+\end_inset
+
+ policy requires us to deal with overloads when the work does not fit within
+ the deadlines
+\end_layout
+
+\begin_layout Itemize
+but only when overloaded: timeliness first, fairness only when overloaded
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+decouple urgency (timing requirements) and importance (utility)
+\end_layout
+
+\begin_layout Itemize
+
+\noun on
+Atlas
+\noun default
+ flexibility stems from admitting on job-level instead of task-level
+\end_layout
+
+\begin_layout Itemize
+job admission does not reject, but inform
+\end_layout
+
+\begin_layout Itemize
+applications decide how to react, because only they know how to adapt
+\end_layout
+
+\begin_layout Itemize
+no central one-size-fits-all job dropping or deadline tardiness
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+load shedding is an old concept
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lampson:HintsDesign"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset Quotes eld
+\end_inset
+
+shed load to control demand, rather than allowing the system to become overloade
+d.
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+do not waste work by learning after the fact that you missed the deadline
+\end_layout
+
+\begin_layout Itemize
+Robert Morris idea: red button next to terminal, push when dissatisfied,
+ system must raise your QoS or throw you off
+\end_layout
+
+\begin_layout Itemize
+this old idea already argued for quality-aware adaptation, not just load-aware
+\end_layout
+
+\begin_layout Itemize
+when overloaded, real-time applications become brittle and show bi-modal
+ fairness
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Krasic:PriorityProgress"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+quality-aware adaptation is application-specific
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+some work just needs to be done, no discussion, no adaptation possible
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+I would argue this is the common case
+\end_layout
+
+\begin_layout Itemize
+we can only hope to compensate by using the most efficient compute resource
+ and organize it the most efficient way
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+some applications can make quality/resource trade-offs according to application-
+specific notion of quality
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+video is one example
+\end_layout
+
+\begin_layout Itemize
+however, quality per invested CPU time is varying: with resource-fairness,
+ quality would be varying
+\end_layout
+
+\begin_layout Itemize
+application knowledge needed, however applications can lie to unfairly degrade
+ others
+\end_layout
+
+\begin_layout Itemize
+combine resource-fairness and quality-fairness
+\end_layout
+
+\begin_layout Itemize
+this also applies to resources other than CPU time, like network bandwidth
+ for streaming
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+better behavior for more developer effort
+\end_layout
+
+\begin_layout Itemize
+look-ahead enables choosing the part to degrade amongst many options, compared
+ to forcibly degrade the job at hand
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+end-to-end solution
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+workload: offer different processing paths, trading resources and quality
+\end_layout
+
+\begin_layout Itemize
+application: under given resource constraints, find a quality-optimal path
+ through this lattice of options
+\end_layout
+
+\begin_layout Itemize
+system: distribute computing resource cutbacks in a quality-fair fashion
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+backpressure needs to be quality-fair, not resource-fair, but the quality
+ scale is application specific and does not compare
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+global quality-scheduling too complex, resort to balanced backpressure and
+ per-application adaptivity
+\end_layout
+
+\begin_layout Itemize
+needs help from the applications: provide percentage of missed deadlines
+ relative to the maximum quality case, that represents the bare minimum
+ quality users will accept
+\end_layout
+
+\begin_layout Itemize
+backpressure will be distributed amongst adaptive applications weighted
+ by this minimum quality
+\end_layout
+
+\begin_layout Itemize
+assumption: linear quality drop from meeting all deadlines down to that
+ percentage
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+could also use time-utility functions to optimize
+\end_layout
+
+\begin_layout Itemize
+could also include heuristics like less degradation for the frontmost applicatio
+n
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+use of percentage of missed deadlines as quality parameter inspired by QRMS
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Hamann:QRMS"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+describe fallback decoding path for video
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Roitzsch:VideoQuality"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+decoding time estimate already given, quality estimate needed
+\end_layout
+
+\begin_layout Itemize
+greedy solution for (constrained) bin-packing: order jobs by quality/resource
+ ratio
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+end-to-end evaluation
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+compare reduction policy in scheduler: quality-based vs.
+ fairness-based
+\end_layout
+
+\begin_layout Itemize
+compare to ad-hoc adaptation using a low water-mark in the video player
+ queue
+\end_layout
+
+\begin_layout Itemize
+compare to fully clairvoyant oracle that calculates truly quality-optimal
+ execution
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+discuss related work
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+other fairness-policies can be integrated into my system as well
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+relative or absolute shares for temporal isolation, like CBS
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+task models that allow for deadline misses
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+(m,k)-firm tasks
+\end_layout
+
+\begin_layout Itemize
+imprecise computation
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lin:Imprecise"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+scheduling systems that control overload
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+overload handling with adaptive reservations
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Abeni:AdaptiveReservations"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+real-rate scheduling reduces allocations weighted by an importance value
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Steere:RealRate"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+virtual time for progress fairness
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Krasic:CoopPoll"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+application notifications using execution time estimates
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Nieh:SMART"
+
+\end_inset
+
+, but no look-ahead
+\end_layout
+
+\begin_layout Itemize
+BERT
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Bavier:BERT"
+
+\end_inset
+
+: no strict task admission, but overload mitigation; job-shedding, when
+ latest release time is in the past
+\end_layout
+
+\begin_layout Itemize
+resource kernels
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Rajkumar:ResourceKernels"
+
+\end_inset
+
+: user-level QoS expected to be more useful than stacked schedulers
+\end_layout
+
+\begin_layout Itemize
+expose application-internal settings and QoS expectations for global management
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Hoffmann:PowerDial"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+also based on training phase
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Itemize
+overload notification
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+inject language exceptions on deadline overruns: post-mortem, no look-ahead
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+application-specific adaptation
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+load-shedding queues in network servers
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Welsh:SEDA"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+reducing video quality
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Isovic:QoS_Video,Wuest:QoS_Video"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+other sources for adaptive video
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+SVC
+\end_layout
+
+\begin_layout Itemize
+adaptive streaming protocols: application propagates back-pressure even
+ to the server
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Itemize
+prioritize work and skip the low priorities when congested
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Krasic:PriorityProgress"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+simple quality-aware scheme
+\end_layout
+
+\begin_layout Itemize
+global priority-monotonic ordering of video frames
+\end_layout
+
+\begin_layout Itemize
+unclear how much of the fairness benefits stem from the priority sorting
+ or just from global queueing
 \end_layout
 
 \end_deeper
