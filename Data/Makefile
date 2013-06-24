@@ -1,6 +1,9 @@
 VEUSZ = $(wildcard *.vsz)
 SCILAB = $(wildcard *.sci)
 
+VIDEOS_SELECT = Blackswan Charlie Hungergames Parkrun Shore
+VIDEOS_ALL = $(VIDEOS_SELECT) Rearwindow Sintel
+
 .PHONY: all clean force
 
 all:: $(VEUSZ:.vsz=.pdf) $(SCILAB:.sci=.lyx)

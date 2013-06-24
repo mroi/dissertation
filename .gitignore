@@ -5,7 +5,7 @@
 /Data/*/*.pdf
 /Data/*/*.tab
 /Data/*/Values.val
-/Data/3-Real-Time/Prediction_Atom_*.log
+/Data/4-Prediction/Prediction_Atom_*.log
 /Statusvortrag.key
 /Thesis.pdf
 /Workbench
