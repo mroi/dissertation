@@ -1,5 +1,5 @@
 # Veusz saved document (version 1.16)
-# Saved at 2013-06-17T09:27:40.273111
+# Saved at 2013-06-27T07:28:42.171731
 
 AddImportPath(u'/Users/Michael/Documents/Forschung/Dissertation/Data/6-Evaluation')
 ImportFile(u'Scheduling_Comparison.tab', u'video cfs - + none - + reduced - + full - +', linked=True, ignoretext=True)
@@ -54,6 +54,7 @@ Add('axis', name='y', autoadd=False)
 To('y')
 Set('label', u'Mean Display Jitter (ms)')
 Set('min', 0.0)
+Set('autoRange', u'+2%')
 Set('direction', 'vertical')
 Set('TickLabels/scale', 1000.0)
 To('..')

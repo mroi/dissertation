@@ -15,6 +15,7 @@
 \relpenalty=9999
 \binoppenalty=9999
 \hyphenation{Atlas}
+\hyphenation{off-line}
 
 % font setup: disable Hoefler swashes, set math fonts
 \usepackage{mathspec}
@@ -371,7 +372,7 @@ frontmatter
 \end_layout
 
 \begin_layout Author
-Michael Roitzsch – born August 15, 1980
+Michael Roitzsch
 \end_layout
 
 \begin_layout Title
@@ -1361,7 +1362,7 @@ Cores: Single-core performance is leveling off, so processor manufacturers
  cores.
 \begin_inset CommandInset citation
 LatexCommand cite
-after "-6\\baselineskip"
+after "-5\\baselineskip"
 key "Sutter:FreeLunch"
 
 \end_inset
@@ -1381,13 +1382,13 @@ manual offset
  work.
  Users only perceive core usage indirectly, timeliness and responsive behavior
  under overload are directly observable.
- For that reason I want to focus on these two properties.
+ For that reason I want to focus on the former two properties.
  But processors are a global resource, so assigning work to cores requires
  system-wide control.
  Therefore, I hint at extensions of my work toward contention-
 \begin_inset CommandInset citation
 LatexCommand cite
-after "-10\\baselineskip"
+after "-9\\baselineskip"
 key "Zhuravlev:DIO"
 
 \end_inset
@@ -1479,7 +1480,7 @@ scheduler
  work applications want to perform and determine an order to execute that
  work.
  The ordering policy should serve the non-functional properties applications
- expect: It should fulfill timing requirements and handle overload early.
+ expect: It should fulfill timing requirements and detect overload early.
 \end_layout
 
 \begin_layout Standard
@@ -1489,6 +1490,14 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\begin_inset VSpace 14pt
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
 \begin_inset Graphics
 	filename Figures/1-Introduction/Interaction_Application_Scheduler.svg
 
@@ -1535,7 +1544,7 @@ Every device in a computer system
  code.
  Consequently, every devices follows a different policy for ordering its
  work and thus needs its own dedicated scheduler.
- However, this thesis focuses exclusively on scheduling a single CPU
+ This thesis focuses exclusively on scheduling a single CPU
 \begin_inset Foot
 status open
 
@@ -2079,6 +2088,10 @@ Vertically Integrated Solution
 \end_inset
 
 
+\begin_inset VSpace 152pt
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -2538,55 +2551,6 @@ Similarly, I do not consider offline scheduling, where a precomputed schedule
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float marginfigure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\noindent
-\begin_inset Graphics
-	filename Figures/1-Introduction/Deadline_Types.svg
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset VSpace smallskip
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "1-mar:Deadline-Types"
-
-\end_inset
-
-Types of Real-Time Deadlines
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset VSpace defskip
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
 Real-time literature
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -2642,6 +2606,52 @@ reference "1-mar:Deadline-Types"
  Deadlines may be missed, but with predictable consequences.
  Jobs missing a firm deadline are aborted, whereas results arriving after
  a soft deadline are still useful.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\begin_inset Graphics
+	filename Figures/1-Introduction/Deadline_Types.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "1-mar:Deadline-Types"
+
+\end_inset
+
+Types of Real-Time Deadlines
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -3112,11 +3122,6 @@ reference "5-chap:Scheduler"
 \end_inset
 
 .
- Chapter
-\begin_inset space ~
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -3201,7 +3206,7 @@ Atlas
 \noun on
 Atlas
 \noun default
- instead needs to offer mechanisms that handle overload gracefully.
+ instead offers mechanisms to handle overload gracefully.
 \end_layout
 
 \begin_layout Standard
@@ -3376,16 +3381,6 @@ th
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Roitzsch:ATLAS"
-
-\end_inset
-
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-BibTeX entry lacks the DOI link
-\end_layout
 
 \end_inset
 
@@ -3757,6 +3752,10 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\begin_inset VSpace 0pt
+\end_inset
+
+
 \begin_inset Graphics
 	filename Data/1-Introduction/Decoding_Times_Histogram.pdf
 
@@ -4802,7 +4801,7 @@ Callback
 Version illustrates the stack ripping problem: What used to be a continuous
  control flow representing a single conceptual job is now broken across
  two functions.
- The programmer must explicitly deliver local state from the first function,
+ The programmer must explicitly transfer local state from the first function,
  if the second function needs access to it.
  After registering 
 \begin_inset Flex NoWrap
@@ -8191,6 +8190,14 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\begin_inset VSpace 108pt
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
 \begin_inset Graphics
 	filename Figures/2-Anatomy/Terminology.svg
 
@@ -8212,6 +8219,10 @@ name "2-mar:Job-Terminology"
 Terminology for the Course of Events Concerning a Job
 \end_layout
 
+\end_inset
+
+
+\begin_inset VSpace defskip
 \end_inset
 
 
@@ -9649,7 +9660,7 @@ User interface code
 
 \end_inset
 
- is of the second type.
+ is of the interaction-driven type.
  Timing requirements are driven by usability
 \begin_inset Index idx
 status collapsed
@@ -9687,10 +9698,11 @@ key "Card:RealTimeUI"
 \end_layout
 
 \begin_layout Standard
-When a user explores an application by scrolling through data views or operating
- controls, visual feedback like updating the scroll view or rendering a
- button in pressed state should feel immediate, giving the user confidence
- that he is in charge.
+Users explore applications by scrolling through data views or operating
+ controls.
+ Visual feedback like updating the scroll view or rendering a button in
+ pressed state should feel immediate, giving the user confidence that he
+ is in charge.
  Interface changes may involve updating data representations, revealing
  interface panels, or opening popup-windows.
  The user perceives those changes as immediate, if the response time stays
@@ -9831,7 +9843,8 @@ B, while another order satisfies both deadlines.
 B first.
  To make this decision, it needs prior knowledge on both jobs’ deadlines
  and execution times.
- How applications can communicate their timing and resource requirements
+ The design of the scheduler determines how applications communicate their
+ timing and resource requirements
 \begin_inset Index idx
 status collapsed
 
@@ -9841,8 +9854,7 @@ resource requirements
 
 \end_inset
 
- to the system and what guarantees they receive in return are important
- aspects of scheduler design.
+ to the system and what guarantees they receive in return.
 \end_layout
 
 \begin_layout Standard
@@ -9894,7 +9906,7 @@ Existing solutions
 \end_inset
 
  cover a spectrum from strictly regulated to loosely managed platforms.
- As pictured in Figure
+ As depicted in Figure
 \begin_inset space ~
 \end_inset
 
@@ -10198,8 +10210,8 @@ Only the root user is allowed to run applications with negative nice levels.
 \end_inset
 
  The situation improves, but video quality is still not satisfying.
- Choosing the perfect nice level would require global knowledge of all threads
- in the system and their execution behavior.
+ To choose the perfect nice level, the FFplay developer would need global
+ knowledge of all threads in the system and their execution behavior.
  Therefore, nice levels are an inadequate interface to specify application
  timing requirements, because they rely on information an individual application
  does not have.
@@ -10509,7 +10521,7 @@ reference "3-mar:RMS-Below-Worst-Case"
 
 \end_inset
 
- plots the expected deadline misses for the Sintel video
+ plots the expected deadline misses for the Rear Window video
 \begin_inset Foot
 status open
 
@@ -10531,23 +10543,13 @@ reference "4-tab:Film-Clips"
 
 \end_inset
 
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Using Sintel here is bullshit, because Atlas cannot schedule this one either.
- Use Rear Window instead.
-\end_layout
-
-\end_inset
-
  over the execution time reserved per period.
- The period is a constant 
-\begin_inset Formula $p\!=\!41.7\,\mathrm{ms}$
+ The video plays at 50 frames per second, so the period is a constant 
+\begin_inset Formula $p\!=\!20\,\mathrm{ms}$
 \end_inset
 
-, so the execution time directly corresponds to a CPU reservation 
+.
+ The execution time directly corresponds to a CPU reservation 
 \begin_inset Formula $\:\nicefrac{e}{p}$
 \end_inset
 
@@ -10555,8 +10557,8 @@ Using Sintel here is bullshit, because Atlas cannot schedule this one either.
  Buffering in the player is disregarded, because the task model disallows
  overlapping scheduling windows.
  The right end of the graph shows a worst-case admission, which would result
- in no deadline misses, but its required CPU share of almost 
-\begin_inset Formula $200\%$
+ in no deadline misses, but its required CPU share of more than 
+\begin_inset Formula $150\%$
 \end_inset
 
  is impossible to accommodate on a single CPU.
@@ -10564,8 +10566,7 @@ Using Sintel here is bullshit, because Atlas cannot schedule this one either.
 \begin_inset Formula $100\%$
 \end_inset
 
- are infeasible, so even the highest possible reservation only guarantees
- 
+ are infeasible, so even dedicating the entire CPU will miss 
 \begin_inset Formula $\RMSBestAdmission$
 \end_inset
 
@@ -10611,6 +10612,22 @@ Atlas
 \noun default
  to accommodate jobs dynamically according to their actual need, thus improving
  support for highly dynamic applications like video decoding.
+ I show in Chapter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "6-chap:Evaluation"
+
+\end_inset
+
+ how 
+\noun on
+Atlas
+\noun default
+ successfully schedules playback of the Rear Window video.
 \end_layout
 
 \begin_layout Standard
@@ -10786,7 +10803,7 @@ overload
 \noun on
 Atlas
 \noun default
-’ task model and programming interface shall be flexible and insightful.
+’ task model and programming interface shall be flexible and expressive.
 \begin_inset Newline newline
 \end_inset
 
@@ -10885,24 +10902,6 @@ workload metrics
 
  to the estimator, which uses machine learning to infer execution time predictio
 ns.
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-This aspect inspired the “
-\noun on
-At
-\noun default
-” when naming 
-\noun on
-Atlas
-\noun default
- the Auto-Training Look-Ahead Scheduler.
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Description
@@ -11163,8 +11162,16 @@ The per-application estimator also forwards all its jobs to the system-wide
  scheduler, which queues them for execution.
  Because I think the estimator interface is simpler, developers should not
  need to use the scheduler interface directly.
- However, direct access to the scheduler is not prohibitive for functionality
- or security.
+ However, direct access to the scheduler is possible and not harmful for
+ system security.
+ In the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "5-chap:Scheduler"
+
+\end_inset
+
+ chapter I explain how the scheduler can deal with lying applications.
 \end_layout
 
 \begin_layout Standard
@@ -11532,20 +11539,6 @@ next
 \begin_inset Formula $t_{i,j}$
 \end_inset
 
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Claude dislikes the use of 
-\begin_inset Formula $t$
-\end_inset
-
- for anything but time instants.
-\end_layout
-
-\end_inset
-
  of the just finished job and the metrics vector 
 \begin_inset Formula $\underline{m}_{i,j}$
 \end_inset
@@ -11640,7 +11633,7 @@ atlas_submit
  system call to pass the estimated execution time and the application-provided
  deadline to the kernel.
  The kernel also receives the thread identifier of the submission target.
- This information is necessary, because a thread can submit new jobs to
+ This information is necessary, because a thread can submit new jobs for
  threads other than itself.
  This is useful for producer-consumer scenarios, where the producer thread
  will submit jobs for the consumer thread.
@@ -12012,7 +12005,7 @@ Atlas
 \begin_inset Formula $J'_{i,j}$
 \end_inset
 
- with the given deadline and metrics.
+ with the given absolute deadline and metrics.
  The dispatch queue corresponds to the task 
 \begin_inset Formula $\tau_{i}$
 \end_inset
@@ -12051,7 +12044,7 @@ reference "3-fig:Job-Lifetime"
 
  summarizes the lifetime of a job from initial submission to final execution.
  The interplay between asynchronous runtime, estimator, and system-wide
- scheduler ensure, that the timely release of jobs in the kernel translates
+ scheduler ensures, that the timely release of jobs in the kernel translates
  to timely processing of the application workload.
 \end_layout
 
@@ -12133,6 +12126,17 @@ dispatch_async_atlas
 .
  The correct execution time estimator is chosen automatically based on the
  identity of the block.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Blocks internally contain a function pointer to the associated anonymous
+ function.
+ This pointer is used to identify the block
+\end_layout
+
+\end_inset
+
  This separation allows developers to freely organize queues and blocks
  to fit the application.
 \end_layout
@@ -12157,7 +12161,8 @@ Atlas
 \begin_layout Itemize
 Other than the official GCD library, my reimplementation of the queueing
  infrastructure only supports independent serial queues.
- I indicate an extension for parallel queues in the chapter 
+ Parallel queues are not implemented, although I indicate an extension in
+ the chapter 
 \begin_inset Flex Emph
 status collapsed
 
@@ -12377,7 +12382,8 @@ key "Roitzsch:Predict"
 
  but the implementation presented here removes the need for an offline training
  phase.
- A new mathematical apparatus continuously updates and stabilizes online.
+ Instead, the mathematical apparatus continuously updates and stabilizes
+ online.
 \end_layout
 
 \begin_layout Section
@@ -12613,7 +12619,7 @@ key "Stoer:Numerics"
 \end_inset
 
  matrix 
-\begin_inset Formula $Q$
+\begin_inset Formula $\mathcal{Q}$
 \end_inset
 
  and a real 
@@ -12625,7 +12631,7 @@ key "Stoer:Numerics"
 \end_inset
 
 , such that 
-\begin_inset Formula $M=QR$
+\begin_inset Formula $M=\mathcal{Q}R$
 \end_inset
 
  holds.
@@ -12656,13 +12662,13 @@ with
 
  upper triangular matrix.
  Similarly dividing the 
-\begin_inset Formula $Q$
+\begin_inset Formula $\mathcal{Q}$
 \end_inset
 
 -transformed vector of measured execution times
 \begin_inset Formula 
 \[
-\underline{c}:=Q^{T}\underline{t}=\begin{pmatrix}\underline{\hat{c}}\\
+\underline{c}:=\mathcal{Q}^{T}\underline{t}=\begin{pmatrix}\underline{\hat{c}}\\
 \underline{c_{R}}
 \end{pmatrix}\begin{array}{l}
 \left\} \; l\right.\\
@@ -12673,7 +12679,7 @@ with
 \end_inset
 
 and applying the orthogonality of 
-\begin_inset Formula $Q$
+\begin_inset Formula $\mathcal{Q}$
 \end_inset
 
  yields a solution for the linear least square problem:
@@ -12744,9 +12750,9 @@ status open
  can be unified into one step:
 \begin_inset Formula 
 \begin{gather*}
-R=Q^{T}M\quad\mathrm{and}\quad\underline{c}=Q^{T}\underline{t}\\
+R=\mathcal{Q}^{T}M\quad\mathrm{and}\quad\underline{c}=\mathcal{Q}^{T}\underline{t}\\
 \mathrm{iff}\\
-\left(R,\underline{c}\right)=Q^{T}\left(M,\underline{t}\right)
+\left(R,\underline{c}\right)=\mathcal{Q}^{T}\left(M,\underline{t}\right)
 \end{gather*}
 
 \end_inset
@@ -13392,6 +13398,7 @@ aging factor
 \end_inset
 
  in the updating predictor.
+ Possible values range from zero to one, typical values are close to zero.
  Before adding a new row 
 \begin_inset Formula $\bigl(\underline{m}_{j},t_{j}\bigr)$
 \end_inset
@@ -14731,6 +14738,16 @@ by TV station
 \end_inset
 
 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+move Charlie to the end
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Plain Layout
@@ -15709,7 +15726,7 @@ nopagebreak
 \begin_inset Newline newline
 \end_inset
 
-The two prediction steps try to algorithmically fill the current macroblock
+Both prediction steps try to algorithmically fill the current macroblock
  by extrapolating from already decoded pixels of either the same frame or
  a previous frame.
  The bitstream only stores the residual error between prediction and actual
@@ -15831,10 +15848,20 @@ motion vector
  In addition, bi-predicted macroblocks target two reference frames.
  They employ two motion vectors for each sub-block and can apply arbitrary
  weighting factors to the contributions.
- The key idea to untangle these options is to count memory accesses to the
- reference frames.
+ The key idea to untangle these options is to consider memory accesses to
+ the reference frames.
  The filter operations for full, half and quarter pixel vectors read different
- amounts of reference pixels.
+ amounts of reference pixels according to the filter taps in the 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+H
+\end_layout
+
+\end_inset
+
+.264 standard.
  Treating bi-predicted blocks as two blocks and rectangular sub-blocks as
  two smaller square blocks, we count reference pixel accesses for three
  sub-block sizes: 4
@@ -15966,8 +15993,8 @@ reference "4-mar:Metrics-Transform"
 \end_inset
 
  illustrates how the sub-block occurrence counts fit execution time.
- The remaining imprecision is inconsequential, because this step has a small
- influence on overall decoding time.
+ The remaining imprecision indicates a non-linear component, which we ignore
+ because this step has a small influence on overall decoding time.
 \begin_inset Float marginfigure
 wide false
 sideways false
@@ -16163,15 +16190,15 @@ noitemsep
 
 \end_inset
 
-number of pixels per frame
+number of pixels per frame,
 \end_layout
 
 \begin_layout Itemize
-number of CABAC-compressed bits
+number of CABAC-compressed bits,
 \end_layout
 
 \begin_layout Itemize
-number of CAVLC-compressed bits
+number of CAVLC-compressed bits,
 \end_layout
 
 \begin_layout Itemize
@@ -16179,7 +16206,7 @@ number of spatial sub-blocks of size 4
 \begin_inset Formula $\times$
 \end_inset
 
-4
+4,
 \end_layout
 
 \begin_layout Itemize
@@ -16187,7 +16214,7 @@ number of spatial sub-blocks of size 8
 \begin_inset Formula $\times$
 \end_inset
 
-8
+8,
 \end_layout
 
 \begin_layout Itemize
@@ -16195,7 +16222,7 @@ number of spatial sub-blocks of size 16
 \begin_inset Formula $\times$
 \end_inset
 
-16
+16,
 \end_layout
 
 \begin_layout Itemize
@@ -16203,7 +16230,7 @@ reference frame accesses for temporal sub-blocks of size 4
 \begin_inset Formula $\times$
 \end_inset
 
-4
+4,
 \end_layout
 
 \begin_layout Itemize
@@ -16211,7 +16238,7 @@ reference frame accesses for temporal sub-blocks of size 8
 \begin_inset Formula $\times$
 \end_inset
 
-8
+8,
 \end_layout
 
 \begin_layout Itemize
@@ -16219,11 +16246,11 @@ reference frame accesses for temporal sub-blocks of size 16
 \begin_inset Formula $\times$
 \end_inset
 
-16
+16,
 \end_layout
 
 \begin_layout Itemize
-number of PCM-encoded macroblocks
+number of PCM-encoded macroblocks,
 \end_layout
 
 \begin_layout Itemize
@@ -16231,7 +16258,7 @@ number of block transforms of size 4
 \begin_inset Formula $\times$
 \end_inset
 
-4
+4,
 \end_layout
 
 \begin_layout Itemize
@@ -16239,11 +16266,11 @@ number of block transforms of size 8
 \begin_inset Formula $\times$
 \end_inset
 
-8
+8, and
 \end_layout
 
 \begin_layout Itemize
-number of deblocked edges
+number of deblocked edges.
 \end_layout
 
 \end_inset
@@ -16572,8 +16599,8 @@ Due to their small execution time relative to decoding, no metrics are supplied
 Atlas
 \noun default
  estimator for the input jobs.
- The decoder jobs carry the thirteen metrics discussed above, which the
- input stage obtains by parsing the video bitstream.
+ The decoder jobs carry metrics as discussed above, which the input stage
+ obtains by parsing the video bitstream.
  Below, I evaluate design alternatives for the metrics and their extraction
  and the consequences for prediction accuracy.
 \end_layout
@@ -17384,7 +17411,7 @@ Atlas
  into a complex real-time application.
  Unlike the classical periodic task model, deadlines can be placed arbitrarily.
  Unlike priority-based schedulers, no knowledge of surrounding applications
- and their priorities was needed.
+ and their priorities is needed.
  
 \begin_inset VSpace defskip
 \end_inset
@@ -18076,7 +18103,7 @@ time only
 \end_inset
 
  and it serves as a lower bound.
- No other prediction should be worse.
+ The other predictions I present should not be worse.
 \end_layout
 
 \begin_layout Standard
@@ -18233,8 +18260,8 @@ or effort and resulting prediction accuracy.
  This alternative demonstrates, how good predictions can get when designers
  are willing to apply an end-to-end approach and are able to engineer the
  data format of their application to support a desired non-functional property.
- But clearly, a middle ground between the full-metrics and time-only approaches
- is needed.
+ But a middle ground between the full-metrics and time-only approaches is
+ needed.
 \end_layout
 
 \begin_layout Standard
@@ -18507,10 +18534,10 @@ i5, with full metrics leading to relative errors of less than
 \end_inset
 
 .
- We conclude that our choice of metrics allows a hardware-independent prediction
- of execution times.
- Directly storing decoding time traces in the video bitstream would undo
- this benefit.
+ If the target hardware was known and fixed, embedding a decoding time trace
+ into the video would solve the prediction problem.
+ However, workload metrics allow a hardware-independent prediction of execution
+ times.
 \end_layout
 
 \begin_layout Standard
@@ -18830,7 +18857,12 @@ reference "4-fig:Prediction-Column"
  The figure shows the median instead of the mean relative error, because
  the median is robust against the overshooting outlier predictions.
  Error bars again indicate the upper and lower quartile.
- We see that a threshold of 
+ A threshold of 
+\begin_inset Formula $1.1$
+\end_inset
+
+ performs close to the no-drop case, but without its instability.
+ A threshold of 
 \begin_inset Formula $1.2$
 \end_inset
 
@@ -19105,12 +19137,8 @@ status open
 status open
 
 \begin_layout Plain Layout
-The chapter closes with a discussion of previous research results and how
- they relate to 
-\noun on
-Atlas
-\noun default
-.
+mention unfairness and how I ignore it? or do I delay this discussion to
+ related work?
 \end_layout
 
 \end_inset
@@ -19659,17 +19687,13 @@ Atlas
  Our scheduler contract will have to settle for lesser guarantees.
 \end_layout
 
-\begin_layout Standard
-\begin_inset Flex NewThought
-status collapsed
-
-\begin_layout Plain Layout
-The Atlas kernel scheduler
+\begin_layout Section
+Decisions Based on Slack
 \end_layout
 
-\end_inset
-
- combines design cues from three existing algorithms: EDF, LDF, and LRT
+\begin_layout Standard
+The Atlas kernel scheduler combines design cues from three existing algorithms:
+ EDF, LDF, and LRT
 \begin_inset space \thinspace{}
 \end_inset
 
@@ -19740,7 +19764,16 @@ Recall that I do not consider parallel queues here.
 \end_layout
 
 \begin_layout Standard
-A job in the list can be in one of four states: 
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+A job in the list
+\end_layout
+
+\end_inset
+
+ can be in one of four states: 
 \begin_inset Flex SmallCaps
 status collapsed
 
@@ -19772,10 +19805,6 @@ queued.
  sync.
  Any job not running, ready, or blocked is queued.
  In each real-time task, all jobs but the frontmost job are queued.
-\end_layout
-
-\begin_layout Section
-Decisions Based on Slack
 \end_layout
 
 \begin_layout Standard
@@ -19821,8 +19850,16 @@ Slack Calculation
 \end_layout
 
 \begin_layout Standard
-When asked to make a scheduling decision, the scheduler uses the job list
- to calculate the 
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+When asked to make a scheduling decision,
+\end_layout
+
+\end_inset
+
+ the scheduler uses the job list to calculate the 
 \begin_inset Flex SmallCaps
 status collapsed
 
@@ -19955,6 +19992,11 @@ key "Tia:Slack"
 
  The calculation of available slack ensures, that there is still enough
  time to finish all jobs before their deadline.
+ For reasons I motivate after this formal description, 
+\noun on
+Atlas
+\noun default
+ only picks a job when the available slack is zero.
 \end_layout
 
 \begin_layout Standard
@@ -20077,7 +20119,17 @@ If the execution time of a job was underestimated, a timer fires once the
 \end_layout
 
 \begin_layout Standard
-From the description of the 
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+work-conserving schedulers
+\end_layout
+
+\end_inset
+
+ always execute when jobs are ready.
+ From the description of the 
 \noun on
 Atlas
 \noun default
@@ -20219,8 +20271,8 @@ completely fair scheduler
  The LRT-like strategy guarantees that time is donated to CFS as early as
  possible, until an urgent real-time job must run.
  Within its time allocation, CFS can apply all its throughput and responsiveness
- optimizations to improve service to legacy applications.
- Reaping the benefits of existing non-real-time schedulers is a common idea
+ optimizations to improve service to non-real-time applications.
+ Reaping the benefits of existing non-real-time schedulers is a known idea
  in real-time research.
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -20235,7 +20287,7 @@ key "Reuther:DAS"
 The non-work-conserving scheduling also benefits jobs, which have overrun
  their announced execution time.
  They can catch up quickly by using the available slack early.
- I come back to this point later.
+ I return to this point later.
 \end_layout
 
 \begin_layout Standard
@@ -20331,6 +20383,20 @@ In the thus constructed schedule, available slack is zero whenever a job
 
  whose per-job slack is zero at the release time 
 \begin_inset Formula $t_{i+1}$
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+use 
+\begin_inset Formula $r$
+\end_inset
+
+ for release time
+\end_layout
+
 \end_inset
 
  of job 
@@ -20539,33 +20605,9 @@ Leaving the perfect world of nicely arranged deadlines and precise execution
 Atlas
 \noun default
  programs High Precision Event Timers
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-High Precision Event Timer: hardware timer used in personal computers (cf.
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset Flex Emph
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset CommandInset href
-LatexCommand href
-name "Wikipedia: High Precision Event Timer"
-target "http://en.wikipedia.org/w/index.php?title=High_Precision_Event_Timer&oldid=556583213"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-)
-\end_layout
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Intel_HPET"
 
 \end_inset
 
@@ -20878,23 +20920,6 @@ Atlas
 \end_layout
 
 \begin_layout Standard
-Although the 
-\noun on
-Atlas
-\noun default
- task model of aperiodic jobs described by execution time and deadline is
- simple, we have seen how contact with the real world turns scheduling into
- a complex topic.
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Corbet:CFS_Complexity"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 \begin_inset Flex NewThought
 status collapsed
 
@@ -20939,7 +20964,7 @@ Atlas
 Atlas
 \noun default
  donates its slack time to CFS early, allowing late jobs to catch up quickly
- and legacy threads to make progress.
+ and non-real-time threads to make progress.
  In all these cases, 
 \noun on
 Atlas
@@ -21032,13 +21057,38 @@ name "6-chap:Evaluation"
 
 \end_inset
 
-Improving the State of the Art
+Timely Service
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+not happy with the title yet
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand input
 filename "Data/6-Evaluation/Values.lyx"
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+The chapter closes with a discussion of previous research results and how
+ they relate to 
+\noun on
+Atlas
+\noun default
+.
+\end_layout
 
 \end_inset
 
@@ -21181,8 +21231,19 @@ Atlas
 \end_inset
 
  as previously established.
- To account for scheduling overhead, time measurement jitter, and unexpected
- latencies in the runtime library
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+To account for scheduling overhead,
+\end_layout
+
+\end_inset
+
+ time measurement jitter, and unexpected latencies in the runtime library
 \begin_inset Foot
 status open
 
@@ -21199,11 +21260,14 @@ My libdispatch reimplementation uses ordinary pthread locks at places that
 \begin_inset Formula $2.5\%$
 \end_inset
 
- of their execution time, or a minimum of 
-\begin_inset Formula $100\,\mu\mathrm{s}$
+ of their execution time as motivated by micro-benchmarks in Stefan Wächtler’s
+ master’s thesis.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Waechtler:Look-Ahead"
+
 \end_inset
 
-.
  Otherwise, a job which precisely needs its specified execution time may
  overrun its deadline because of these overheads and inaccuracies.
  Oversubscribing all jobs by 
@@ -21224,26 +21288,21 @@ schedulable utilization
 
 \end_inset
 
- The extra 
-\begin_inset Formula $100\,\mu\mathrm{s}$
+ Short jobs with execution times below 
+\begin_inset Formula $1\,\mathrm{ms}$
 \end_inset
 
- only become a limitation with hundreds of short jobs per second, a scenario
- which 
+ receive a minimum oversubscription of 
+\begin_inset Formula $25\,\mu\mathrm{s}$
+\end_inset
+
+.
+ This extra time becomes a limitation only with hundreds of short jobs per
+ second, a scenario which 
 \noun on
 Atlas
 \noun default
  is currently not optimized for.
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-decide on the final oversubscription
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -21284,28 +21343,12 @@ Result of the Bodytrack Benchmark
 
 \end_layout
 
+\begin_layout Section
+Bodytrack
+\end_layout
+
 \begin_layout Standard
-\begin_inset Flex NewThought
-status collapsed
-
-\begin_layout Plain Layout
-Bodytrack
-\end_layout
-
-\end_inset
-
- 
-\begin_inset Index idx
-status collapsed
-
-\begin_layout Plain Layout
-Bodytrack
-\end_layout
-
-\end_inset
-
-is the first evaluation workload.
- It is part of the Parsec
+The first evaluation workload is part of the Parsec
 \begin_inset space ~
 \end_inset
 
@@ -21319,14 +21362,24 @@ parsec
 
 \end_inset
 
- benchmark suite
+ benchmark suite.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Bienia:Parsec"
 
 \end_inset
 
- and implements tracking of a human body’s 
+ Bodytrack
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+Bodytrack
+\end_layout
+
+\end_inset
+
+ implements tracking of a human body’s 
 \begin_inset Formula $\mathrm{3D}$
 \end_inset
 
@@ -21456,9 +21509,17 @@ Bodytrack Execution Time
 \end_layout
 
 \begin_layout Standard
-The original Bodytrack benchmark was not meant to run as a real-time application
-, but using gesture tracking as user input requires deadlines to ensure
- responsive behavior.
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+The original Bodytrack benchmark
+\end_layout
+
+\end_inset
+
+ was not meant to run as a real-time application, but using gesture tracking
+ as user input requires deadlines to ensure responsive behavior.
  I configured the processing of each camera image to finish within 
 \begin_inset Formula $250\,\mathrm{ms}$
 \end_inset
@@ -21623,8 +21684,18 @@ Bodytrack Failing to an Endless Loop
 
 \begin_layout Standard
 \noindent
-Periodic tasks can be scheduled with a traditional fixed priority scheduler
- such as the POSIX real-time scheduler in Linux.
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+Periodic tasks can be scheduled
+\end_layout
+
+\end_inset
+
+ with a traditional fixed priority scheduler such as the POSIX real-time
+ scheduler in Linux.
  The left part of Figure
 \begin_inset space ~
 \end_inset
@@ -21750,7 +21821,7 @@ XNU
 \end_inset
 
 X.
- It offers ordinary applications an interface to specify a period and an
+ XNU offers ordinary applications an interface to specify a period and an
  execution time requirement.
  The kernel however reserves the right to demote threads to best-effort
  scheduling to defend against denial of service.
@@ -21767,7 +21838,7 @@ Atlas
 \noun on
 Atlas
 \noun default
- handles such jobs similarly to Darwin’s time-constrained threads, but without
+ handles such jobs similarly to XNU’s time-constrained threads, but without
  requiring developers to report execution times.
  Due to the constant execution time of Bodytrack’s jobs, enabling 
 \noun on
@@ -21775,6 +21846,10 @@ Atlas
 \noun default
  scheduling was only a matter of reporting the deadline, leaving execution
  time recognition to the runtime.
+\end_layout
+
+\begin_layout Section
+User Interface Responsiveness
 \end_layout
 
 \begin_layout Standard
@@ -21816,16 +21891,8 @@ User Interface Test Application
 \end_layout
 
 \begin_layout Standard
-\begin_inset Flex NewThought
-status collapsed
-
-\begin_layout Plain Layout
-Graphical user interface code
-\end_layout
-
-\end_inset
-
- has timing requirements much different from a classical periodic task.
+Graphical user interface code has timing requirements much different from
+ a classical periodic task.
  Spontaneous user interaction releases jobs without prior warning and not
  bound to a period.
  With the next set of experiments, I evaluate how 
@@ -22256,18 +22323,13 @@ Atlas
  scheduler is better suited to ensure application responsiveness.
 \end_layout
 
-\begin_layout Standard
-\begin_inset Flex NewThought
-status collapsed
-
-\begin_layout Plain Layout
-I now turn to FFplay
+\begin_layout Section
+Smooth Video Playback
 \end_layout
 
-\end_inset
-
- to evaluate the scheduling behavior with a complex application that exhibits
- highly dynamic resource requirements.
+\begin_layout Standard
+I now turn to FFplay to evaluate the scheduling behavior with a complex
+ application that exhibits highly dynamic resource requirements.
  At the beginning of Chapter
 \begin_inset space ~
 \end_inset
@@ -22375,8 +22437,16 @@ Video Smoothness with Competing Background Load
 \end_layout
 
 \begin_layout Standard
-Inaccuracies in the prediction of execution times are the primary source
- of the remaining jitter.
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+Inaccuracies in the prediction
+\end_layout
+
+\end_inset
+
+ of execution times are the primary source of the remaining jitter.
  The next experiment thus compares the three workload metrics alternatives
  to predict video decoding times:
 \begin_inset Foot
