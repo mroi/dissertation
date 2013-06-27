@@ -1,5 +1,5 @@
 # Veusz saved document (version 1.16)
-# Saved at 2013-06-17T13:52:23.913322
+# Saved at 2013-06-27T12:47:28.683986
 
 AddImportPath(u'/Users/Michael/Documents/Forschung/Dissertation/Data/6-Evaluation')
 ImportFile(u'Scheduling_Full_Hungergames.log', u'time_full interval_full', linked=True, ignoretext=True)
@@ -101,6 +101,12 @@ To('bar1')
 Set('lengths', (u'dummy', u'dummy', u'dummy'))
 Set('posn', u'0')
 Set('keys', (u'time', u'reduced', u'full'))
+To('..')
+Add('label', name='label1', autoadd=False)
+To('label1')
+Set('label', u'\u25c2\u200aclipped')
+Set('xPos', [0.23])
+Set('yPos', [0.93])
 To('..')
 To('..')
 To('..')

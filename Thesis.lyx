@@ -4066,7 +4066,7 @@ name "2-chap:Anatomy"
 
 \end_inset
 
-Anatomy of a Modern Desktop Application
+Anatomy of a Desktop Application
 \end_layout
 
 \begin_layout Standard
@@ -12342,17 +12342,26 @@ The developer should choose metrics on a “larger value means more work”
  basis.
  Expected iteration counts of loops or the expected number of times an expensive
  function is called are good candidates.
- Metrics vectors for different instances of the same block must be compatible,
+ Research within the performance profiling community uses similar workload
+ metrics to characterize computational complexity of algorithms.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Goldsmith:TrendProf"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Metrics vectors for different instances of the same block must be compatible,
  that is, the same metric must be delivered in the same vector element.
  Accordingly, the vectors also deliver the same number of metrics 
 \begin_inset Formula $l_{i}$
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Standard
-A 
+ A 
 \begin_inset Flex SmallCaps
 status collapsed
 
@@ -15199,7 +15208,18 @@ workload metrics
  Intuitively, each metric should grow linearly with part of the computation.
  For example, if the computation involves a loop, the number of iterations
  is a good metric candidate.
- In the video case, the metrics should be acquired from the bitstream, because
+ I resort to a manual analysis here, but tool support is conceivable.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Zaparanuks:AlgoProf"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In the video case, the metrics should be acquired from the bitstream, because
  the decoding times strongly depend on the video and because the predictor
  needs access to the metrics of a frame before decoding begins.
  Metrics only available after decoding has finished are not helpful for
@@ -21057,17 +21077,7 @@ name "6-chap:Evaluation"
 
 \end_inset
 
-Timely Service
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-not happy with the title yet
-\end_layout
-
-\end_inset
-
-
+State-of-the-Art Timely Service
 \end_layout
 
 \begin_layout Standard
@@ -22328,20 +22338,25 @@ Smooth Video Playback
 \end_layout
 
 \begin_layout Standard
-I now turn to FFplay to evaluate the scheduling behavior with a complex
- application that exhibits highly dynamic resource requirements.
- At the beginning of Chapter
-\begin_inset space ~
-\end_inset
+I now turn to FFplay to evaluate the scheduling behavior of a complex applicatio
+n that exhibits highly dynamic resource requirements.
+ At the beginning of the chapter 
+\begin_inset Flex Emph
+status collapsed
 
-
+\begin_layout Plain Layout
 \begin_inset CommandInset ref
-LatexCommand ref
+LatexCommand nameref
 reference "3-chap:Real-Time"
 
 \end_inset
 
-, I motivated the need for real-time scheduling with an experiment running
+,
+\end_layout
+
+\end_inset
+
+ I motivated the need for real-time scheduling with an experiment running
  the Hunger Games video with competing background load.
 \begin_inset Foot
 status open
@@ -22390,6 +22405,11 @@ Atlas.
 \end_inset
 
 frames per second.
+ 
+\noun on
+Atlas
+\noun default
+ achieves this target almost perfectly.
  Visual inspection of playback confirms the smoothness, multiple test viewers
  were unable to notice any lag.
 \end_layout
@@ -22437,16 +22457,9 @@ Video Smoothness with Competing Background Load
 \end_layout
 
 \begin_layout Standard
-\begin_inset Flex NewThought
-status collapsed
-
-\begin_layout Plain Layout
-Inaccuracies in the prediction
-\end_layout
-
-\end_inset
-
- of execution times are the primary source of the remaining jitter.
+\noindent
+Inaccuracies in the prediction of execution times are the primary source
+ of the remaining jitter.
  The next experiment thus compares the three workload metrics alternatives
  to predict video decoding times:
 \begin_inset Foot
@@ -22475,29 +22488,20 @@ reference "4-par:Metrics-Alternatives"
 \end_layout
 
 \begin_layout Standard
-Figures
-\begin_inset space ~
-\end_inset
+\begin_inset Flex NewThought
+status collapsed
 
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "6-fig:Video-Smoothness-Scheduler"
+\begin_layout Plain Layout
+All following figures
+\end_layout
 
 \end_inset
 
- and 
-\begin_inset CommandInset ref
-LatexCommand vref
-reference "6-fig:Video-Smoothness-Metrics"
-
-\end_inset
-
- show the average frame display jitter, which is the time difference between
- the intended and actual display instants of each frame.
- Error bars indicate the lower and upper quartile of the jitter.
- Lower values represent smoother playback.
- All videos were played with competing background load over the entire duration
+ compare the mean frame display jitter, which is the average time difference
+ between the intended and actual display instants of each frame.
+ Error bars indicate the lower and upper quartiles of the jitter.
+ Lower values therefore represent smoother playback.
+ All videos are played with competing background load over the entire duration
  of the clip except for the first second to avoid unpredictable delays in
  FFplay’s non-real-time stream format recognition and setup code.
 \end_layout
@@ -22514,7 +22518,7 @@ reference "6-fig:Video-Smoothness-Scheduler"
 
 \end_inset
 
- highlights the results for scheduling under CFS, which shows unacceptable
+ demonstrates the results for scheduling under CFS, which shows unacceptable
  playback behavior for high resolution videos.
  All 
 \noun on
@@ -22527,7 +22531,7 @@ Atlas
 \end_inset
 
  CPU time, which FFplay receives against the ten CPU hoggers is sufficient
- to decode the video.
+ to decode these videos.
 \end_layout
 
 \begin_layout Standard
@@ -22572,6 +22576,10 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\begin_inset VSpace 5pt
+\end_inset
+
+
 \begin_inset Graphics
 	filename Data/6-Evaluation/Scheduling_Comparison_ATLAS.pdf
 
@@ -22601,6 +22609,48 @@ Video Smoothness with Different Metrics Options
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset VSpace 15pt
+\end_inset
+
+
+\begin_inset Graphics
+	filename Data/6-Evaluation/Decoding_Times.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "6-fig:Decoding-Time-Histograms"
+
+\end_inset
+
+Decoding Time Histograms
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \noindent
 Figure
 \begin_inset space ~
@@ -22613,7 +22663,7 @@ reference "6-fig:Video-Smoothness-Metrics"
 
 \end_inset
 
- shows the same values as the previous figure, but removes the CFS bars
+ shows the same values as the preceding figure, but removes the CFS bars
  to zoom in on the 
 \noun on
 Atlas
@@ -22628,7 +22678,11 @@ Atlas
  The reduced metrics, which do not require video preprocessing cut the average
  jitter in half compared to time-only prediction for all but the Charlie
  video.
- The full metrics further improve the scheduling behavior.
+ The full metrics further improve the scheduling behavior, down to 
+\begin_inset Formula $5\,\mathrm{ms}$
+\end_inset
+
+ jitter.
  They represent an end-to-end design where even workload modifications are
  justifiable to improve real-time behavior.
 \end_layout
@@ -22661,10 +22715,6 @@ name "6-mar:Frame-Interval-Metrics"
 Histogram of Frame Intervals with Different Metrics Options
 \end_layout
 
-\end_inset
-
-
-\begin_inset VSpace 1cm
 \end_inset
 
 
@@ -22713,6 +22763,10 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\begin_inset VSpace 15pt
+\end_inset
+
+
 \begin_inset Graphics
 	filename Data/6-Evaluation/Scheduling_Timeline.pdf
 
@@ -22745,17 +22799,9 @@ Time Profile with Different Metrics Options
 \end_layout
 
 \begin_layout Standard
-\begin_inset Flex NewThought
-status collapsed
-
-\begin_layout Plain Layout
-Two videos
-\end_layout
-
-\end_inset
-
- require more explanation: The Charlie clip does not benefit as much from
- the more detailed metrics.
+\noindent
+Two videos require closer inspection: The Charlie clip does not benefit
+ as much from the more detailed metrics.
  Remember that prediction accuracy was also less affected by the choice
  of metrics compared to the other videos,
 \begin_inset Foot
@@ -22784,8 +22830,153 @@ reference "4-fig:Prediction-Accuracy-Decoder"
 \end_layout
 
 \begin_layout Standard
-Both the Charlie and the Rear Window videos stand out because of their more
+The Charlie and the Rear Window videos also stand out because of their more
  pronounced overall jitter.
+ Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "6-fig:Decoding-Time-Histograms"
+
+\end_inset
+
+ shows histograms of the per-frame decoding times in milliseconds, the dotted
+ line marks the frame interval and thus the relative deadline for frame
+ decoding.
+ We see that the Charlie and Rear Window videos exhibit the highest load,
+ thus limiting the chances for blocked or delayed jobs to catch up.
+ 
+\noun on
+Atlas
+\noun default
+ is still able to schedule these videos with typical display jitter of less
+ than 
+\begin_inset Formula $10\,\mathrm{ms}$
+\end_inset
+
+ for the reduced and full metrics.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+Apart from the metrics alternatives,
+\end_layout
+
+\end_inset
+
+ three other factors influence the jitter behavior: the amount of background
+ load, the job oversubscription and the placement of internal deadlines
+ within FFplay.
+ I briefly explore these influences using the Hunger Games video as an example.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Data/6-Evaluation/Scheduling_Load.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "6-fig:Smoothness-Background-Load"
+
+\end_inset
+
+Video Smoothness Depending on Background Load
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "6-fig:Smoothness-Background-Load"
+
+\end_inset
+
+ depicts the frame jitter with different levels of background load.
+ Five CPU hoggers allow for dramatically better scheduling behavior than
+ ten, even the less precise time-only and reduced metrics achieve unrecognizable
+ display jitter of less than 
+\begin_inset Formula $1\,\mathrm{ms}$
+\end_inset
+
+.
+ CFS jitter with five hoggers is still disruptive, the result is off the
+ scale at 
+\begin_inset Formula $\CFSLightLoadJitter$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Compared to ten CPU hoggers, five of them leave more breathing room in the
+ CFS portions that run when 
+\noun on
+Atlas
+\noun default
+ recognizes available slack.
+ Delayed jobs recover faster and the head start
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+head start
+\end_layout
+
+\end_inset
+
+ becomes more beneficial, leading to better scheduling behavior.
+ This result validates the design decision of combining the non-work-conserving
+ 
+\noun on
+Atlas
+\noun default
+ real-time layer with a CFS head start and catch-up mechanism.
+\end_layout
+
+\begin_layout Standard
+To approach a situation with infinite background load, the implementation
+ of the 
+\noun on
+Atlas
+\noun default
+ kernel scheduler allows to completely disable CFS head start.
+ The results do not significantly diverge from the ten hoggers case, indicating
+ that systems with more background load will not diminish playback smoothness.
 \end_layout
 
 \begin_layout Standard
@@ -22802,12 +22993,12 @@ Even with full metrics,
  all jitter.
  One strategy to improve the situation further is to increase the oversubscripti
 on of job execution times.
- I propose a default addition of 
-\begin_inset Formula $1\%$
+ I use a default addition of 
+\begin_inset Formula $2.5\%$
 \end_inset
 
  or 
-\begin_inset Formula $100\,\mu\mathrm{s}$
+\begin_inset Formula $25\,\mu\mathrm{s}$
 \end_inset
 
 , whichever is more.
@@ -22866,10 +23057,22 @@ discuss clusters first and then provide details for each cluster
 
 \end_deeper
 \begin_layout Itemize
-figure out where these fit in, maybe move to earlier discussions
+fixed-priority approaches: strongest guarantees possible, minimal implementation
 \end_layout
 
 \begin_deeper
+\begin_layout Itemize
+view shared with Nemesis
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Leslie:Nemesis"
+
+\end_inset
+
+: fixed priorities require full analysis of the system to determine the
+ priorities
+\end_layout
+
 \begin_layout Itemize
 resource kernels
 \begin_inset CommandInset citation
@@ -22888,7 +23091,11 @@ similar insight into task model: requirements state explicitly, execution
 \end_layout
 
 \begin_layout Itemize
-otherwise very close to periodic tasks
+end-to-end design
+\end_layout
+
+\begin_layout Itemize
+otherwise very close to periodic tasks, priority inheritance
 \end_layout
 
 \begin_layout Itemize
@@ -22896,57 +23103,6 @@ decouple different resources with buffering
 \end_layout
 
 \end_deeper
-\begin_layout Itemize
-ARTIFACT
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Sasinowski:ARTIFACT"
-
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-ubiquitous priorities, MPEG execution model hard, load-shedding (forward
- reference to adaptivity)
-\end_layout
-
-\end_deeper
-\end_deeper
-\begin_layout Itemize
-fixed-priority approaches: strongest guarantees possible, minimal implementation
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-expose scheduler implementation to user-land, other task models would be
- implemented on top
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-microkernel bottom-up paradigm
-\end_layout
-
-\begin_layout Itemize
-used in practice: QNX in the BlackBerry PlayBook
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-view shared with Nemesis
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Leslie:Nemesis"
-
-\end_inset
-
-: fixed priorities require full analysis of the system to determine the
- priorities
-\end_layout
-
 \begin_layout Itemize
 periodic tasks with probabilistic admission
 \begin_inset CommandInset citation
@@ -23113,6 +23269,33 @@ could be used to provide isolated hard real-time load in our system
 \begin_layout Itemize
 see also: Total Bandwidth Server (“Efficient Aperiodic Service under Earliest
  Deadline First”)
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+IRIS
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Marzario:IRIS"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+use spare capacity on intermittent overload
+\end_layout
+
+\begin_layout Itemize
+CBS suffers from deadline aging: overrunning jobs will consume future budget
+ and thus postpone deadline
+\end_layout
+
+\begin_layout Itemize
+intuition: non-work-conserving algorithm, introduce budget recharging time,
+ forced inactivity period
 \end_layout
 
 \end_deeper
@@ -23394,6 +23577,32 @@ key "Stoica:ProportionalShareRT"
 \end_inset
 
 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+SFQ
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Goyal:SFQ"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+recognized the need for different scheduling for real-time multimedia
+\end_layout
+
+\begin_layout Itemize
+proposed hierarchical partitioning of CPU bandwidth with different leaf-schedule
+rs
+\end_layout
+
+\begin_layout Itemize
+partitioning is share-based, no global management of deadlines
 \end_layout
 
 \end_deeper
@@ -23716,6 +23925,7 @@ future work: device IO
 propagate deadlines to device queues when jobs issue IO requests
 \end_layout
 
+\begin_deeper
 \begin_layout Itemize
 helps anticipatory schedulers
 \begin_inset CommandInset citation
@@ -23727,6 +23937,7 @@ key "Iyer:Anticipatory"
 
 \end_layout
 
+\end_deeper
 \begin_layout Itemize
 propagate future jobs to devices for prefetching
 \begin_inset CommandInset citation
@@ -23746,6 +23957,23 @@ asynchronous device access and queue-ahead of upcoming jobs: provides the
 \begin_deeper
 \begin_layout Itemize
 fostered by GCD dispatch sources and Boost.Asio
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+graphics output: ARTIFACT
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Sasinowski:ARTIFACT"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+ubiquitous priorities
 \end_layout
 
 \end_deeper
