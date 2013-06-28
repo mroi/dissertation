@@ -2483,7 +2483,18 @@ key "StatCounter:OSMarketShare"
  and the ballooning family of smartphones and tablets.
  It does not include servers, although I am confident that my ideas generalize
  to this class of systems due to the large amount of shared technology.
-\begin_inset Newpage newpage
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+enlargethispage{-1
+\backslash
+baselineskip}
+\end_layout
+
 \end_inset
 
 
@@ -2491,7 +2502,7 @@ key "StatCounter:OSMarketShare"
 status open
 
 \begin_layout Plain Layout
-manual page break
+page size changed
 \end_layout
 
 \end_inset
@@ -3399,6 +3410,31 @@ Atlas
  against.
  However, a formal usability analysis of the programming interface is not
  part of this thesis.
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+enlargethispage{1
+\backslash
+baselineskip}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+page size changed
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -7930,7 +7966,7 @@ https://os.inf.tu-dresden.de/~mroi/git/thesis/lab
 \end_inset
 
 
-\begin_inset VSpace 1cm
+\begin_inset VSpace 20pt
 \end_inset
 
 
@@ -7944,7 +7980,7 @@ status open
 
 
 \backslash
-hfill
+noindent
 \backslash
 begin{pspicture}(0.45in,0.45in)
 \backslash
@@ -9731,7 +9767,8 @@ Whenever an operation runs longer than one second, the application should
  show a progress indicator.
  Otherwise, users start to wonder whether they accidentally missed the button
  and may click again.
- After ten seconds, users get bored waiting and switch to a different task.
+ After about ten seconds, users get bored waiting and switch to a different
+ task.
 \end_layout
 
 \begin_layout Standard
@@ -9774,6 +9811,14 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\begin_inset VSpace 105pt
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
 \begin_inset Graphics
 	filename Figures/3-Real-Time/Order_Matters.svg
 
@@ -9864,6 +9909,14 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\begin_inset VSpace 11pt
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
 \begin_inset Graphics
 	filename Figures/3-Real-Time/Solution_Spectrum.svg
 
@@ -9938,7 +9991,7 @@ status collapsed
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "5-chap:Scheduler"
+reference "6-chap:Evaluation"
 
 \end_inset
 
@@ -9983,7 +10036,7 @@ completely fair scheduler
 
 \end_inset
 
- (CFS) is the default scheduler on Linux
+ is the default scheduler on Linux
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Jones:InsideCFS"
@@ -10130,6 +10183,10 @@ status open
 \end_inset
 
 
+\begin_inset VSpace smallskip
+\end_inset
+
+
 \end_layout
 
 \begin_layout Plain Layout
@@ -10210,7 +10267,7 @@ Only the root user is allowed to run applications with negative nice levels.
 \end_inset
 
  The situation improves, but video quality is still not satisfying.
- To choose the perfect nice level, the FFplay developer would need global
+ To choose the perfect nice level, the developer of FFplay would need global
  knowledge of all threads in the system and their execution behavior.
  Therefore, nice levels are an inadequate interface to specify application
  timing requirements, because they rely on information an individual application
@@ -10258,6 +10315,14 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\begin_inset VSpace 65pt
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
 \begin_inset Graphics
 	filename Figures/3-Real-Time/Periodic_Task.svg
 
@@ -10841,7 +10906,18 @@ deadline
  Black-box heuristics may improve unmodified applications,
 \begin_inset CommandInset citation
 LatexCommand cite
+after "-1\\baselineskip"
 key "Cucinotta:Self-Tuning"
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+manual offset
+\end_layout
 
 \end_inset
 
@@ -10970,6 +11046,14 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\begin_inset VSpace 96pt
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
 \begin_inset Graphics
 	filename Figures/3-Real-Time/Verical_Integration_Overview.svg
 
@@ -11126,6 +11210,14 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
 \begin_inset Graphics
 	filename Figures/3-Real-Time/Architectural_Overview.svg
 
@@ -11165,9 +11257,18 @@ The per-application estimator also forwards all its jobs to the system-wide
  However, direct access to the scheduler is possible and not harmful for
  system security.
  In the 
+\begin_inset Flex Emph
+status collapsed
+
+\begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "5-chap:Scheduler"
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -11348,7 +11449,7 @@ workload metrics
  and the deadline as seen by the scheduler.
  From the metrics, the estimator derives approximate execution times.
  It can provide these estimates before the job executes.
- Workload metrics are a tuple of non-negative real numbers describing the
+ Workload metrics are a vector of non-negative real numbers describing the
  computational weight of the workload.
  The estimator expects at least a subset of them to correlate positively
  with the execution time.
@@ -11449,7 +11550,7 @@ Atlas
 \begin_inset Formula $\underline{m}_{i,j}$
 \end_inset
 
- and its internal training state to predict the job's execution time 
+ and its internal training state to predict the job’s execution time 
 \begin_inset Formula $e_{i,j}$
 \end_inset
 
@@ -11707,9 +11808,21 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\begin_inset VSpace 50pt
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
 \begin_inset Graphics
 	filename Figures/3-Real-Time/Verical_Integration_Application.svg
 
+\end_inset
+
+
+\begin_inset VSpace defskip
 \end_inset
 
 
@@ -11726,7 +11839,7 @@ Integration of the
 Atlas
 \noun default
  primitives with an asynchronous lambda runtime helps to reduce the development
- overhead of adding real-time support to such modern desktop applications.
+ overhead of adding real-time support to modern desktop applications.
  Therefore, I implement a subset of the Grand Central Dispatch
 \begin_inset Index idx
 status collapsed
@@ -11876,14 +11989,24 @@ the size of the metrics vector, and
 
 \begin_layout Itemize
 an array holding the metrics.
+\begin_inset Newpage newpage
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+manual page break
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 The signature of the resulting new function is:
-\begin_inset VSpace defskip
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -11960,6 +12083,10 @@ dispatch_async_atlas(dispatch_queue_t queue,
 
 \end_layout
 
+\end_inset
+
+
+\begin_inset VSpace bigskip
 \end_inset
 
 
@@ -12061,7 +12188,7 @@ status open
 \end_inset
 
 
-\begin_inset VSpace smallskip
+\begin_inset VSpace bigskip
 \end_inset
 
 
@@ -12139,6 +12266,20 @@ Blocks internally contain a function pointer to the associated anonymous
 
  This separation allows developers to freely organize queues and blocks
  to fit the application.
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+manual page break
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -12253,7 +12394,73 @@ Atlas
 \noun on
 Atlas
 \noun default
- follows in the next two chapters.
+ follows in the next chapters.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+In this chapter,
+\end_layout
+
+\end_inset
+
+ I motivated the 
+\noun on
+Atlas
+\noun default
+ design from the application’s point of view.
+ The interface strives for simplicity to foster its adoption as a comprehensive
+ real-time substrate.
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Full Width
+\begin_inset Flex Emph
+status collapsed
+
+\begin_layout Plain Layout
+Asynchronous lambdas are gaining traction because of their benefits for
+ parallel programming.
+ 
+\noun on
+Atlas
+\noun default
+ builds on this trend by extending it: With asynchronous lambdas, the applicatio
+n dispatches blocks, which the runtime later executes on an automatic background
+ thread.
+ By passing additional job information with blocks, the 
+\noun on
+Atlas
+\noun default
+ task model aims for a developer mindset of telling the runtime: “Do this
+ work.
+ Until then.
+ Here’s what I know about it.” Deadlines specify the time constraint, workload
+ metrics describe the resource requirements.
+ Both are part of the application domain and can be obtained by developers
+ with local reasoning.
+ No global system knowledge is needed.
+\end_layout
+
+\end_inset
+
+
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Next, I explain how applications model their workload and how workload metrics
+ enable the estimator to predict job execution times.
 \end_layout
 
 \begin_layout Chapter
@@ -12318,26 +12525,6 @@ estimator
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float marginfigure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename Figures/4-Prediction/Verical_Integration.svg
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 The developer should choose metrics on a “larger value means more work”
  basis.
  Expected iteration counts of loops or the expected number of times an expensive
@@ -12397,6 +12584,34 @@ key "Roitzsch:Predict"
 
 \begin_layout Section
 Formalizing the Problem
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset VSpace 120pt
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\begin_inset Graphics
+	filename Figures/4-Prediction/Verical_Integration.svg
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -13243,20 +13458,6 @@ time complexity
 \end_inset
 
  nonzero matrix elements.
-\begin_inset Newpage clearpage
-\end_inset
-
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-manual page flush
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Section
@@ -13739,34 +13940,6 @@ reference "4-mar:Dropping-a-Column"
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-
-\backslash
-enlargethispage{-1
-\backslash
-baselineskip}
-\end_layout
-
-\end_inset
-
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-page size changed
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -15554,10 +15727,6 @@ reference "4-mar:Metrics-Parsing"
  matches the execution time of the bitstream parsing step.
  Remember that this step accounts for a small fraction of total decoding
  time.
-\begin_inset Newpage newpage
-\end_inset
-
-
 \end_layout
 
 \begin_layout Enumerate
@@ -17465,6 +17634,16 @@ Atlas
  Both are part of the application domain and can be obtained by developers
  with local reasoning.
  No global system knowledge is needed.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+used this text earlier, change here
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -19130,7 +19309,7 @@ sideways false
 status open
 
 \begin_layout Plain Layout
-\begin_inset VSpace 4.5cm
+\begin_inset VSpace 120pt
 \end_inset
 
 
@@ -21077,7 +21256,7 @@ name "6-chap:Evaluation"
 
 \end_inset
 
-State-of-the-Art Timely Service
+Timely Service
 \end_layout
 
 \begin_layout Standard
