@@ -28,7 +28,7 @@
      inkscape:cx="64.278375"
      inkscape:cy="124.80686"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="g3308"
      showgrid="true"
      units="cm"
      inkscape:window-width="1203"
@@ -442,7 +442,7 @@
              id="tspan3159"
              x="125.83037"
              y="871.65222"
-             style="font-size:8px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:center;text-anchor:middle;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light">waiting</tspan></text>
+             style="font-size:8px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:center;text-anchor:middle;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light">queued</tspan></text>
       </g>
       <g
          id="g3292">
@@ -480,7 +480,7 @@
              y="871.65222"
              x="86.853989"
              id="tspan3155"
-             sodipodi:role="line">waiting</tspan></text>
+             sodipodi:role="line">queued</tspan></text>
       </g>
       <g
          id="g3284">

@@ -19399,7 +19399,7 @@ sideways false
 status open
 
 \begin_layout Plain Layout
-\begin_inset VSpace 120pt
+\begin_inset VSpace 132pt
 \end_inset
 
 
@@ -19422,17 +19422,6 @@ status open
 \end_inset
 
 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-mention unfairness and how I ignore it? or do I delay this discussion to
- related work?
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -19450,7 +19439,17 @@ job
  Because we cannot assume applications to trust each other, a privileged
  management component needs to oversee and enforce the allocation of CPU
  time.
- Microkernel research experiments with user-level scheduling primitives
+ Microkernel
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+microkernel
+\end_layout
+
+\end_inset
+
+ research explores user-level scheduling primitives
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Lackorzynski:vCPUs"
@@ -19464,8 +19463,27 @@ key "Ford:Fluke"
 
 \end_inset
 
- but on commodity operating systems, a single system-wide scheduler lives
- in the kernel.
+ but on commodity operating systems, a single system-wide scheduler
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+scheduler
+\end_layout
+
+\end_inset
+
+ lives in the kernel.
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+kernel
+\end_layout
+
+\end_inset
+
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Bovet:LinuxKernel"
@@ -19476,19 +19494,57 @@ key "Bovet:LinuxKernel"
 \end_layout
 
 \begin_layout Standard
-The 
+In this chapter, I motivate the design of the 
 \noun on
 Atlas
 \noun default
- scheduler comes as a kernel patch to Linux version
+ scheduler and explain, how it derives from the application task model.
+ I describe properties of the scheduler contract and prove a key guarantee
+ the scheduler provides.
+ 
+\noun on
+Atlas
+\noun default
+ does not perform a formal admission,
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+admission
+\end_layout
+
+\end_inset
+
+ because it never rejects jobs.
+ It also does not consider fairness between applications.
+ The scheduler services applications to meet their timing requirements,
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+timing requirements
+\end_layout
+
+\end_inset
+
+ even if that involves unevenly distributed service.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+The Atlas scheduler
+\end_layout
+
+\end_inset
+
+ comes as a kernel patch to Linux version
 \begin_inset space ~
 \end_inset
 
-
-\begin_inset Formula $3.5.7$
-\end_inset
-
-.
+3.5.7.
  Stefan Wächtler implemented the scheduler during his master’s thesis work,
  which I supervised together with Björn Döbel.
 \begin_inset CommandInset citation
@@ -19497,9 +19553,8 @@ key "Waechtler:Look-Ahead"
 
 \end_inset
 
- I explain the general design of the scheduler and its properties here.
- A thorough description, implementation details, and overhead analysis can
- be found in Stefan Wächtler’s thesis.
+ I explain the general design here, a thorough description, implementation
+ details, and overhead analysis can be found in Stefan Wächtler’s thesis.
 \end_layout
 
 \begin_layout Standard
@@ -19514,6 +19569,34 @@ RT
 \end_inset
 
 ,
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+LITMUS
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+RT
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Calandrino:LITMUSRT"
@@ -19660,17 +19743,7 @@ optimal scheduler
 \begin_layout Standard
 In real applications, jobs may arbitrarily block for different reasons.
  They may wait for peripherals or for computation results from other jobs,
- or they may self-suspend
-\begin_inset Index idx
-status collapsed
-
-\begin_layout Plain Layout
-self-suspension
-\end_layout
-
-\end_inset
-
- by just sleeping for a while.
+ or they may self-suspend by just sleeping for a while.
  FFplay contains all these situations.
  The input stage waits for the video file to arrive from disk, the output
  stage sleeps until the next frame is due for display.
@@ -19787,7 +19860,18 @@ pthread_cond_wait()
 
 \begin_inset CommandInset citation
 LatexCommand cite
+after "-3\\baselineskip"
 key "Unix:Pthread_Cond_Wait"
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+manual offset
+\end_layout
 
 \end_inset
 
@@ -19839,7 +19923,7 @@ EDF and LDF Scheduling with Dependent Jobs
 \end_inset
 
 
-\begin_inset VSpace defskip
+\begin_inset VSpace bigskip
 \end_inset
 
 
@@ -19981,8 +20065,12 @@ Decisions Based on Slack
 \end_layout
 
 \begin_layout Standard
-The Atlas kernel scheduler combines design cues from three existing algorithms:
- EDF, LDF, and LRT
+The 
+\noun on
+Atlas
+\noun default
+ kernel scheduler combines design cues from three existing algorithms: EDF,
+ LDF, and LRT
 \begin_inset space \thinspace{}
 \end_inset
 
@@ -20016,7 +20104,7 @@ Atlas
 
 \begin_layout Standard
 The kernel scheduler keeps a single global list of submitted jobs, which
- is ordered by deadline, similar to EDF.
+ it orders by deadline, similar to EDF.
  Every newly submitted job is inserted into this list, which I call the
  
 \begin_inset Flex SmallCaps
@@ -20127,7 +20215,7 @@ Slack Calculation
 \end_inset
 
 
-\begin_inset VSpace defskip
+\begin_inset VSpace bigskip
 \end_inset
 
 
@@ -20139,7 +20227,7 @@ Slack Calculation
 \end_layout
 
 \begin_layout Standard
-\begin_inset Flex SmallCaps
+\begin_inset Flex NewThought
 status collapsed
 
 \begin_layout Plain Layout
@@ -20179,7 +20267,7 @@ Literature sometimes uses the term static slack, but usually with schedules
 \noun on
 Atlas
 \noun default
-’ job execution times are based on runtime knowledge, so the word “static”
+ estimates job execution times based on runtime knowledge, so the word “static”
  is inappropriate.
 \end_layout
 
@@ -20211,7 +20299,7 @@ slack time
 \begin_inset Formula $J_{i}$
 \end_inset
 
-'s absolute deadline 
+’s absolute deadline 
 \begin_inset Formula $d_{i}$
 \end_inset
 
@@ -20315,7 +20403,7 @@ Due to latencies in the Linux kernel,
 \begin_inset Formula $s$
 \end_inset
 
- below 
+ less than 
 \begin_inset Formula $1\,\mathrm{ms}$
 \end_inset
 
@@ -20330,7 +20418,7 @@ Due to latencies in the Linux kernel,
 
 
 \begin_inset CommandInset ref
-LatexCommand ref
+LatexCommand vref
 reference "5-mar:Slack-Calculation"
 
 \end_inset
@@ -20443,13 +20531,25 @@ Atlas
  CPU response times
 \begin_inset CommandInset citation
 LatexCommand cite
+after "-76pt"
 key "Rosti:NWC_Partitioning"
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+manual offset
+\end_layout
 
 \end_inset
 
  or throughput.
 \begin_inset CommandInset citation
 LatexCommand cite
+after "-2\\baselineskip"
 key "Fedorova:SMT_Scheduling"
 
 \end_inset
@@ -20475,7 +20575,7 @@ arrival time
  to the scheduler.
  Any job with a constraint of not running before a certain time must self-suspen
 d.
- The FFplay output stage does so because video frames should be displayed
+ The FFplay output stage does so because it wants to display video frames
  neither too early nor too late.
  
 \noun on
@@ -20624,21 +20724,57 @@ ing jobs.
 \end_layout
 
 \begin_layout Enumerate
-Iterate over all jobs in the EDF schedule in descending deadline order.
- Move each visited job maximally to the right, until it either hits its
- deadline or collides with the next job in ascending deadline order.
- Observe that each moved job still completes before its deadline and that
- jobs are not reordered, because no job moves beyond its successor.
-\begin_inset Note Note
+\begin_inset Float marginfigure
+wide false
+sideways false
 status open
 
 \begin_layout Plain Layout
-Claude would like a figure
+\begin_inset Graphics
+	filename Figures/5-Scheduler/Transformation.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "5-mar:Schedule-Transformation"
+
+\end_inset
+
+Schedule Transformation
 \end_layout
 
 \end_inset
 
 
+\end_layout
+
+\end_inset
+
+Iterate over all jobs in the EDF schedule in descending deadline order.
+ Move each visited job maximally to the right, until it either hits its
+ deadline or collides with the next job in ascending deadline order.
+ Observe that each moved job still completes before its deadline and that
+ jobs are not reordered, because no job moves beyond its successor.
+ Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "5-mar:Schedule-Transformation"
+
+\end_inset
+
+ illustrates the schedule transformation.
 \end_layout
 
 \begin_layout Enumerate
@@ -20671,21 +20807,7 @@ In the thus constructed schedule, available slack is zero whenever a job
 \end_inset
 
  whose per-job slack is zero at the release time 
-\begin_inset Formula $t_{i+1}$
-\end_inset
-
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-use 
-\begin_inset Formula $r$
-\end_inset
-
- for release time
-\end_layout
-
+\begin_inset Formula $r_{i+1}$
 \end_inset
 
  of job 
@@ -20697,20 +20819,20 @@ use
 :
 \emph default
  
-\begin_inset Formula $s_{\star}(t_{i+1})=0$
+\begin_inset Formula $s_{\star}(r_{i+1})=0$
 \end_inset
 
 .
  Moving the time instant under consideration from 
-\begin_inset Formula $t_{i+1}$
+\begin_inset Formula $r_{i+1}$
 \end_inset
 
  to 
-\begin_inset Formula $t_{i}$
+\begin_inset Formula $r_{i}$
 \end_inset
 
  adds 
-\begin_inset Formula $t_{i+1}-t_{i}$
+\begin_inset Formula $r_{i+1}-r_{i}$
 \end_inset
 
  time units to the slack of 
@@ -20723,11 +20845,11 @@ use
 \end_inset
 
  is now part of the interval 
-\begin_inset Formula $\left[t_{i},d_{\star}\right]$
+\begin_inset Formula $\left[r_{i},d_{\star}\right]$
 \end_inset
 
 , so we subtract its execution time: 
-\begin_inset Formula $s_{\star}(t_{i})=s_{\star}(t_{i+1})+\left(t_{i+1}-t_{i}\right)-e_{i}$
+\begin_inset Formula $s_{\star}(r_{i})=s_{\star}(r_{i+1})+\left(r_{i+1}-r_{i}\right)-e_{i}$
 \end_inset
 
 .
@@ -20741,11 +20863,11 @@ use
 
 .
  Thus, 
-\begin_inset Formula $t_{i+1}-t_{i}=e_{i}$
+\begin_inset Formula $r_{i+1}-r_{i}=e_{i}$
 \end_inset
 
 , resulting in 
-\begin_inset Formula $s_{\star}(t_{i})=s_{\star}(t_{i+1})=0$
+\begin_inset Formula $s_{\star}(r_{i})=s_{\star}(r_{i+1})=0$
 \end_inset
 
 .
@@ -20826,8 +20948,17 @@ g infrastructure.
 \end_layout
 
 \begin_layout Description
-Self-Suspension is alleviated by the late execution of jobs as discussed
- previously.
+Self-Suspension
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+self-suspension
+\end_layout
+
+\end_inset
+
+ is alleviated by the late execution of jobs as discussed previously.
  Jobs are still free to shoot themselves in the foot by sleeping past their
  deadline, but I consider this a programmer error.
  The guarantees 
@@ -20939,7 +21070,7 @@ key "Lin:Backslash"
 
  all slack goes to CFS instead.
  Robustness against runaway jobs is one reason for this design decision,
- which will be further explained during the evaluation.
+ which I explain further during the evaluation.
 \end_layout
 
 \begin_layout Description
@@ -21069,7 +21200,8 @@ sideways false
 status open
 
 \begin_layout Plain Layout
-\begin_inset VSpace defskip
+\noindent
+\begin_inset VSpace -1pt
 \end_inset
 
 
@@ -21101,10 +21233,6 @@ Linux Scheduler Layers
 \end_inset
 
 
-\begin_inset VSpace defskip
-\end_inset
-
-
 \end_layout
 
 \end_inset
@@ -21117,11 +21245,15 @@ Linux Scheduler Layers
 status collapsed
 
 \begin_layout Plain Layout
-The implementation of Atlas
+The implementation of
 \end_layout
 
 \end_inset
 
+ 
+\noun on
+Atlas
+\noun default
  within the Linux scheduling infrastructure introduces two new layers between
  the existing CFS and POSIX real-time bands.
  Figure
@@ -21244,8 +21376,8 @@ nts,
 \noun on
 Atlas
 \noun default
- employs band-aid mechanisms to uphold good service to that application:
- Jobs get a free head start in EDF order to remedy wrong execution times.
+ employs band-aid mechanisms to uphold good service: Jobs get a free head
+ start in EDF order to remedy wrong execution times.
  Jobs delayed by blocking or self-suspension can consume their reservation
  with higher priority than any CFS job.
  Lastly, 
@@ -21275,9 +21407,9 @@ status collapsed
 \noun on
 Atlas
 \noun default
- offers a vertically integrated solution, completely implemented from an
- asynchronous-lambda-based application runtime and a linear auto-regressive
- predictor down to the kernel scheduler.
+ offers a vertically integrated solution, fully implemented from an asynchronous
+-lambda-based application runtime and a linear auto-regressive predictor
+ down to the kernel scheduler.
  On all layers, developers need to reflect only on application-local behavior.
  Based on a clear contract, the scheduler provides useful timeliness guarantees.
  The custom GCD runtime mediates between application and scheduler, enabling
@@ -21334,8 +21466,8 @@ Atlas
 \noun on
 Atlas
 \noun default
- should be able to detect overload and notify applications.
- In the next section, I evaluate this feature and the overall scheduling
+ is able to detect overload and notify applications.
+ In the next chapter, I evaluate this feature and the overall scheduling
  behavior.
 \end_layout
 
@@ -23608,6 +23740,16 @@ Trying to fix this, we run the worker in the fixed priority POSIX real-time
  cannot know that the user will run an application mix where his program
  requires higher priority.
  Offering priorities as an interface can lead to priority inflation,
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+priority inflation
+\end_layout
+
+\end_inset
+
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Duda:BVT"
