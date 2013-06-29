@@ -23,8 +23,8 @@ Result = [];
 Result = [Result; """Black Swan""" + accuracy("Blackswan")];
 Result = [Result; """Shore""" + accuracy("Shore")];
 Result = [Result; """Park Run""" + accuracy("Parkrun")];
-Result = [Result; """Charlie""" + accuracy("Charlie")];
 Result = [Result; """Hunger Games""" + accuracy("Hungergames")];
+Result = [Result; """Charlie""" + accuracy("Charlie")];
 if ~isdef("Prefix") then
 	Result = [Result; """Rear Window""" + accuracy("Rearwindow")];
 	Result = [Result; """Sintel""" + accuracy("Sintel")];

@@ -12484,6 +12484,34 @@ filename "Data/4-Prediction/Values.lyx"
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset VSpace 120pt
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\begin_inset Graphics
+	filename Figures/4-Prediction/Verical_Integration.svg
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 
 \noun on
 Atlas
@@ -12541,7 +12569,7 @@ key "Goldsmith:TrendProf"
 \end_layout
 
 \begin_layout Standard
-Metrics vectors for different instances of the same block must be compatible,
+Metrics vectors for different instances of the same job must be compatible,
  that is, the same metric must be delivered in the same vector element.
  Accordingly, the vectors also deliver the same number of metrics 
 \begin_inset Formula $l_{i}$
@@ -12587,39 +12615,11 @@ Formalizing the Problem
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float marginfigure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset VSpace 120pt
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\noindent
-\begin_inset Graphics
-	filename Figures/4-Prediction/Verical_Integration.svg
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 
 \noun on
 Atlas
 \noun default
- maintains an independent estimator state for each kind of block submitted
+ maintains an independent estimator state for each kind of GCD block submitted
  with 
 \begin_inset Flex NoWrap
 status collapsed
@@ -13034,6 +13034,31 @@ reference "4-mar:Structure-LLSP"
 \end_inset
 
 .
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+enlargethispage{1
+\backslash
+baselineskip}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+page size changed
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -13064,6 +13089,10 @@ name "4-mar:Structure-LLSP"
 Structure of the Linear Least Squares Solution
 \end_layout
 
+\end_inset
+
+
+\begin_inset VSpace 30pt
 \end_inset
 
 
@@ -13137,7 +13166,7 @@ key "Schwetlick:Numerics"
 \begin_inset Formula $\bigl(\hat{R},\underline{\hat{c}}\bigr)^{\left(n\right)}$
 \end_inset
 
-, which solves a linear least square problem 
+, which solves a linear least squares problem 
 \begin_inset Formula $\bigl(M,\underline{t}\bigr)^{\left(n\right)}$
 \end_inset
 
@@ -13274,11 +13303,11 @@ Rotating a matrix can align a selected vector with one of the basis vectors,
 \begin_inset Formula $j$
 \end_inset
 
- (
-\begin_inset Formula $i\neq j$
+ 
+\begin_inset Formula $(i\neq j)$
 \end_inset
 
-), only the rows 
+, only the rows 
 \begin_inset Formula $i$
 \end_inset
 
@@ -13318,6 +13347,14 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\begin_inset VSpace 2pt
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
 \begin_inset Graphics
 	filename Figures/4-Prediction/Givens_Rotation.svg
 
@@ -13386,6 +13423,31 @@ reference "4-mar:Structure-LLSP"
 \end_inset
 
 .
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+enlargethispage{1
+\backslash
+baselineskip}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+page size changed
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -13637,7 +13699,7 @@ The alternative implementation of emphasizing the new row with a scalar
 
  It reduces the influence of the previous knowledge and allows the solution
  to remain flexible and lean towards the newly acquired row.
- The scalar multiplication has a time complexity of 
+ The scalar multiplication has a time complexity in 
 \begin_inset Formula $\mathcal{O}\bigl(l^{2}\bigr)$
 \end_inset
 
@@ -13875,6 +13937,14 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\begin_inset VSpace 70pt
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
 \begin_inset Graphics
 	filename Figures/4-Prediction/LLSP_Drop.svg
 
@@ -13935,7 +14005,7 @@ reference "4-mar:Dropping-a-Column"
 \end_inset
 
  Givens rotations, each affecting one element.
- The time complexity of this step is 
+ The time complexity of this step is in 
 \begin_inset Formula $\mathcal{O}\bigl(l\bigr)$
 \end_inset
 
@@ -13945,7 +14015,7 @@ reference "4-mar:Dropping-a-Column"
 \begin_layout Standard
 Dropping all of the metrics degenerates the matrix to a scalar value equivalent
  to the standard deviation of the measured execution times, the upper bound
- for the residual error of the linear least square solution.
+ for the residual error of the linear least squares solution.
  The complete scan yields a series of non-decreasing residual error values
  as illustrated in Figure
 \begin_inset space ~
@@ -14042,6 +14112,14 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\begin_inset VSpace 40pt
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
 \begin_inset Graphics
 	filename Figures/4-Prediction/LLSP_Move.svg
 
@@ -14102,13 +14180,14 @@ reference "4-mar:Moving-a-Column"
 \end_inset
 
 .
+ Stabilization is an integral part of every training step.
  The predictor remembers the column permutation, because new rows that are
  added to the system and solution coefficients derived from it must be equally
  permuted.
 \end_layout
 
 \begin_layout Standard
-The worst-case time complexity of this reorganization is 
+The worst-case time complexity of this reorganization is in 
 \begin_inset Formula $\mathcal{O}\bigl(l^{3}\bigr)$
 \end_inset
 
@@ -14131,44 +14210,6 @@ The worst-case time complexity of this reorganization is
  wildly between keeping and dropping.
  The video decoding case study shows that the column selection settles,
  which reduces the average case time complexity.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float marginfigure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename Figures/4-Prediction/LLSP_Reduced.svg
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "4-mar:Reduced-Solution"
-
-\end_inset
-
-Reduced Solution with Three out of Five Metrics
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -14204,6 +14245,48 @@ reference "4-mar:Reduced-Solution"
  stems from the subset of significant metrics, so it is expected to produce
  a more stable prediction.
  The following case study examines and confirms this proposition.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float marginfigure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Figures/4-Prediction/LLSP_Reduced.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "4-mar:Reduced-Solution"
+
+\end_inset
+
+Reduced Solution with Three out of Five Metrics
+\end_layout
+
+\end_inset
+
+
+\begin_inset VSpace 70pt
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -14920,16 +15003,6 @@ by TV station
 \end_inset
 
 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-move Charlie to the end
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Plain Layout
@@ -14969,7 +15042,7 @@ To demonstrate the metrics selection,
 
 \end_inset
 
- I selected the five demo videos in Table
+ I picked the five demo videos in Table
 \begin_inset space ~
 \end_inset
 
@@ -15236,6 +15309,10 @@ name "4-mar:Relative-Time-Player"
 Relative Execution Time of the Player Stages
 \end_layout
 
+\end_inset
+
+
+\begin_inset VSpace 32pt
 \end_inset
 
 
@@ -15515,6 +15592,10 @@ Decoding Steps
 \end_inset
 
 
+\begin_inset VSpace smallskip
+\end_inset
+
+
 \begin_inset ERT
 status collapsed
 
@@ -15599,22 +15680,20 @@ reference "4-mar:Relative-Time-Steps"
  steps.
  We observe that decompression and temporal prediction are the two heaviest
  contributors, followed by post processing.
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-\noindent
-Interestingly, the Charlie video as encoded by the TV broadcaster does not
- employ any post processing.
-\end_layout
-
-\end_inset
-
  It is therefore most important to find highly correlating metrics for these
  parts.
- I now visit each decoding step and illustrate how a domain expert selects
+ Interestingly, the Charlie video as encoded by the TV broadcaster does
+ not employ any post processing.
+\end_layout
+
+\begin_layout Standard
+I now visit each decoding step and illustrate how a domain expert selects
  appropriate workload metrics.
  A detailed correlation breakdown follows after the discussion.
+\begin_inset VSpace bigskip
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -15625,6 +15704,14 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\begin_inset VSpace bigskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
 \begin_inset Graphics
 	filename Data/4-Prediction/Metrics_Key.pdf
 
@@ -15727,6 +15814,20 @@ reference "4-mar:Metrics-Parsing"
  matches the execution time of the bitstream parsing step.
  Remember that this step accounts for a small fraction of total decoding
  time.
+\begin_inset Newpage newpage
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+manual page break
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Enumerate
@@ -16052,7 +16153,7 @@ H
 
 .264 standard.
  Treating bi-predicted blocks as two blocks and rectangular sub-blocks as
- two smaller square blocks, we count reference pixel accesses for three
+ two smaller square blocks, we infer reference pixel accesses for three
  sub-block sizes: 4
 \begin_inset Formula $\times$
 \end_inset
@@ -16190,6 +16291,10 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\begin_inset VSpace -70pt
+\end_inset
+
+
 \begin_inset Graphics
 	filename Data/4-Prediction/Metrics_Key.pdf
 
@@ -16533,7 +16638,8 @@ Pearson Correlation of Metrics Fitted to Per-Frame Execution Times
 \end_layout
 
 \begin_layout Standard
-The tight correlation with the decoding time for complete frames proves
+\noindent
+The strong correlation with the decoding time for complete frames proves
  that the metrics are well-chosen.
  However, the regression so far relies on perfect a-priori knowledge of
  all metrics and decoding times.
@@ -16547,6 +16653,12 @@ After analyzing the most time consuming player component in detail, I now
 \end_layout
 
 \begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "4-sec:FFplay-Integration"
+
+\end_inset
+
 FFplay Integration
 \end_layout
 
@@ -16579,6 +16691,49 @@ These queues contain application data and should not be confused with GCD’s
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Figures/4-Prediction/FFplay_Stages.svg
+
+\end_inset
+
+
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "4-fig:FFplay-Stage-Structure"
+
+\end_inset
+
+FFplay Stage Structure
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
 Figure
 \begin_inset space ~
 \end_inset
@@ -16682,44 +16837,6 @@ Atlas
  scheduling:
 \end_layout
 
-\begin_layout Standard
-\begin_inset Float figure
-wide true
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename Figures/4-Prediction/FFplay_Stages.svg
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "4-fig:FFplay-Stage-Structure"
-
-\end_inset
-
-FFplay Stage Structure
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Description
 The
 \begin_inset space \space{}
@@ -16790,8 +16907,8 @@ Atlas
  estimator for the input jobs.
  The decoder jobs carry metrics as discussed above, which the input stage
  obtains by parsing the video bitstream.
- Below, I evaluate design alternatives for the metrics and their extraction
- and the consequences for prediction accuracy.
+ At the end of this chapter I evaluate design alternatives for the metrics
+ and their extraction and the consequences for prediction accuracy.
 \end_layout
 
 \begin_layout Standard
@@ -16864,7 +16981,6 @@ job
  given in the second argument.
 \end_layout
 
-\end_deeper
 \begin_layout Standard
 \begin_inset Float figure
 wide false
@@ -16893,17 +17009,7 @@ void input_stage() {
 
 \begin_layout Plain Layout
 
-		.deadline = frame_timer + frame_interval,
-\end_layout
-
-\begin_layout Plain Layout
-
-		.metrics_count = 0,
-\end_layout
-
-\begin_layout Plain Layout
-
-		.metrics = NULL
+		.deadline = frame_timer + frame_interval
 \end_layout
 
 \begin_layout Plain Layout
@@ -17008,6 +17114,7 @@ Atlas
 
 \end_layout
 
+\end_deeper
 \begin_layout Description
 The
 \begin_inset space \space{}
@@ -17063,9 +17170,10 @@ reference "4-fig:FFplay-Decoder-Stage"
 
 \end_inset
 
- lists the resulting pseudo-code.
+ lists the resulting pseudo-code:
 \end_layout
 
+\begin_deeper
 \begin_layout Standard
 \begin_inset Float figure
 wide false
@@ -17114,17 +17222,7 @@ void decoder_stage() {
 
 \begin_layout Plain Layout
 
-		.deadline = frame_timer + picture_queue->length * frame_interval,
-\end_layout
-
-\begin_layout Plain Layout
-
-		.metrics_count = 0,
-\end_layout
-
-\begin_layout Plain Layout
-
-		.metrics = NULL
+		.deadline = frame_timer + picture_queue->length * frame_interval
 \end_layout
 
 \begin_layout Plain Layout
@@ -17174,6 +17272,7 @@ Atlas
 
 \end_layout
 
+\end_deeper
 \begin_layout Description
 The
 \begin_inset space \space{}
@@ -17283,16 +17382,10 @@ Atlas
 , I include results with later intermediate deadlines, allowing the queues
  to deplete in high load situations.
  
-\begin_inset Note Greyedout
-status open
-
-\begin_layout Plain Layout
-Tease the (hopefully positive) result here.
-\end_layout
-
-\end_inset
-
-
+\noun on
+Atlas
+\noun default
+ provides smooth playback with both deadline placements.
 \end_layout
 
 \begin_layout Standard
@@ -17342,7 +17435,7 @@ libavcodec
 
 \end_inset
 
-, which handles frame reordering in an internal pipeline.
+ library, which handles frame reordering in an internal pipeline.
  There are pipeline ramp-up and ramp-down effects at the beginning and end
  of a video, but in its steady state, the decoder emits one decoded frame
  for each delivered bitstream packet.
@@ -17521,6 +17614,7 @@ CLOCK_THREAD_CPUTIME_ID
 
  flavor.
  This thread-specific clock only ticks, when the corresponding thread executes.
+ The estimator internally performs time measurements with this clock.
 \end_layout
 
 \begin_layout Itemize
@@ -17601,62 +17695,12 @@ Atlas
  Unlike the classical periodic task model, deadlines can be placed arbitrarily.
  Unlike priority-based schedulers, no knowledge of surrounding applications
  and their priorities is needed.
- 
-\begin_inset VSpace defskip
-\end_inset
-
-
-\end_layout
-
-\begin_layout Full Width
-\begin_inset Flex Emph
-status collapsed
-
-\begin_layout Plain Layout
-Asynchronous lambdas are gaining traction because of their benefits for
- parallel programming.
- 
+ Unlike task models based on execution times, 
 \noun on
 Atlas
 \noun default
- builds on this trend by extending it: With asynchronous lambdas, the applicatio
-n dispatches blocks, which the runtime later executes on an automatic background
- thread.
- By passing additional job information with blocks, the 
-\noun on
-Atlas
-\noun default
- task model aims for a developer mindset of telling the runtime: “Do this
- work.
- Until then.
- Here’s what I know about it.” Deadlines specify the time constraint, workload
- metrics describe the resource requirements.
- Both are part of the application domain and can be obtained by developers
- with local reasoning.
- No global system knowledge is needed.
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-used this text earlier, change here
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset VSpace defskip
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The estimator uses the metrics to derive approximate execution times.
+ is independent of the user’s hardware.
+ The estimator uses the metrics to derive approximate execution times.
  But to be useful for look-ahead scheduling, we want the estimator to operate
  predictively.
  It needs to provide execution times of submitted, but not yet executed
@@ -17820,7 +17864,7 @@ target "http://www.intel.com/technology/turboboost/"
 
 \end_inset
 
-) was disabled.
+) is disabled.
 \end_layout
 
 \end_inset
@@ -17874,7 +17918,7 @@ sideways false
 status open
 
 \begin_layout Plain Layout
-\begin_inset VSpace bigskip
+\begin_inset VSpace 18pt
 \end_inset
 
 
@@ -18142,7 +18186,7 @@ factor
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset VSpace 15pt
+\begin_inset VSpace 17pt
 \end_inset
 
 
@@ -18456,11 +18500,11 @@ key "Golomb:RLE"
 \begin_layout Standard
 The full metrics with stream preprocessing serve as an upper bound for implement
 or effort and resulting prediction accuracy.
- This alternative demonstrates, how good predictions can get when designers
- are willing to apply an end-to-end approach and are able to engineer the
- data format of their application to support a desired non-functional property.
- But a middle ground between the full-metrics and time-only approaches is
- needed.
+ This option demonstrates, how good predictions can get when designers are
+ willing to apply an end-to-end approach and are able to engineer the data
+ format of their application to support a desired non-functional property.
+ But a middle ground between the full metrics and the time-only approach
+ is needed.
 \end_layout
 
 \begin_layout Standard
@@ -18484,7 +18528,7 @@ height_special "totalheight"
 status open
 
 \begin_layout Plain Layout
-\begin_inset VSpace -8pt
+\begin_inset VSpace -14pt
 \end_inset
 
 
@@ -18509,6 +18553,31 @@ the number of bits of the compressed frame, and
 
 \begin_layout Itemize
 the frame type (I, P, or B).
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+enlargethispage{1
+\backslash
+baselineskip}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+page size changed
 \end_layout
 
 \end_inset
@@ -18609,18 +18678,8 @@ reference "4-fig:Prediction-Accuracy-Decoder"
 
  shows that workload awareness improves prediction accuracy over a purely
  time-based predictor.
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-say something for the Charlie video, explain the high error for time-based
- prediction of Rear Window: 25fps material as 50fps
-\end_layout
-
-\end_inset
-
  Again, the error bars represent the lower and upper quartile of the per-frame
- relative errors.
+ relative prediction errors.
  The reduced metrics, which do not require preprocessing or a staged decoder
  provide a good middle ground, whereas the full set of metrics offers the
  highest precision, with typical relative errors of less than 
@@ -18631,6 +18690,33 @@ say something for the Charlie video, explain the high error for time-based
  The convincing results indicate that the prediction provides accurate estimates
  for short clips and full-length features, regardless of the encoding profile
  and video resolution being used.
+\end_layout
+
+\begin_layout Standard
+The Shore and Charlie clips exhibit the smallest improvement of metrics-based
+ over time-only prediction.
+ Both videos were encoded by third parties and compared to the x264 material,
+ their bitstreams are rather uniform.
+ Hence, a prediction based on previous execution times alone sufficiently
+ approximates their behavior.
+\end_layout
+
+\begin_layout Standard
+In contrast, the Rear Window video is badly predicted by the time-only option.
+ It was captured from a DVB station broadcasting at 50
+\begin_inset space ~
+\end_inset
+
+frames per second, but the presented movie features only 25
+\begin_inset space ~
+\end_inset
+
+frames per second.
+ Therefore, every other frame is identical to its predecessor, resulting
+ in large decoding time variations between the even- and odd-numbered frames.
+ The time-based predictor blindly averages these jumps, resulting in a high
+ prediction error.
+ The reduced and full metrics improve accuracy significantly.
 \end_layout
 
 \begin_layout Standard
@@ -18735,8 +18821,8 @@ i5, with full metrics leading to relative errors of less than
 .
  If the target hardware was known and fixed, embedding a decoding time trace
  into the video would solve the prediction problem.
- However, workload metrics allow a hardware-independent prediction of execution
- times.
+ In contrast, workload metrics allow a hardware-independent prediction of
+ execution times.
 \end_layout
 
 \begin_layout Standard
@@ -18818,6 +18904,26 @@ column contribution threshold
 \end_layout
 
 \begin_layout Standard
+Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "4-fig:Prediction-Aging"
+
+\end_inset
+
+ demonstrates how the aging factor affects prediction accuracy for the Hunger
+ Games video.
+ The factor determines, how quickly the predictor discards old knowledge
+ and adapts to new application behavior.
+ A larger factor means quicker adaption, while a smaller factor preserves
+ historic data longer.
+\end_layout
+
+\begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
@@ -18857,26 +18963,6 @@ Prediction Accuracy Influenced by Different Aging Factors
 
 \begin_layout Standard
 \noindent
-Figure
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "4-fig:Prediction-Aging"
-
-\end_inset
-
- demonstrates how the aging factor affects prediction accuracy for the Hunger
- Games video.
- The factor determines, how quickly the predictor discards old knowledge
- and adapts to new application behavior.
- A larger factor means quicker adaption, while a smaller factor preserves
- historic data longer.
-\end_layout
-
-\begin_layout Standard
 With the less precise time-only and reduced-metrics options, faster aging
  improves the prediction.
  This result is expected, because these metrics rely on the moving average
@@ -18885,7 +18971,7 @@ With the less precise time-only and reduced-metrics options, faster aging
  However, for the full-metrics option, quick aging diminishes prediction
  accuracy.
  These metrics already cover the complete application behavior and therefore
- benefit from more knowledge aggregating in the predictor.
+ profit from more knowledge aggregating in the predictor.
  Because the benefit for the full-metrics prediction levels off at 
 \begin_inset Formula $0.01$
 \end_inset
@@ -19004,6 +19090,10 @@ Instability Problem at the Start of the Hunger Games Trailer
 \end_inset
 
 
+\begin_inset VSpace smallskip
+\end_inset
+
+
 \begin_inset ERT
 status collapsed
 
@@ -19105,7 +19195,7 @@ Prediction Accuracy for Different Column Contribution Thresholds
 \end_inset
 
 
-\begin_inset VSpace 1cm
+\begin_inset VSpace 64pt
 \end_inset
 
 
@@ -19262,7 +19352,7 @@ status collapsed
 \end_inset
 
  can be achieved if deep workload insight is available.
- Predictions with less workload knowledge are still competitive compared
+ Predictions with reduced workload knowledge are still competitive compared
  to purely time-based predictions.
  I have shown the hardware independence of the predictor and the sensitivity
  of its parameters.
@@ -21282,6 +21372,16 @@ Atlas
 \end_inset
 
 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+swap Hunger Games and Charlie
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -22636,8 +22736,8 @@ Video Smoothness with Competing Background Load
 \begin_layout Standard
 \noindent
 Visual inspection of playback confirms the smoothness.
- I asked a group of twelve human viewers to judge playback smoothness of
- the 
+ I asked a group of twelve human viewers to blindly judge playback smoothness
+ of the 
 \noun on
 Atlas
 \noun default
