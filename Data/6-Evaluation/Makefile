@@ -6,6 +6,12 @@ Bodytrack_Alone.tab: Bodytrack_Alone.log
 Bodytrack_Fail.pdf: Bodytrack_ATLAS_Fail.log Bodytrack_ATLAS_Fail_Background.log Bodytrack_RT.log Bodytrack_RT_Background.log Bodytrack_RT_Fail.log Bodytrack_RT_Fail_Background.log
 Bodytrack_Schedule.pdf: Bodytrack_Alone.log Bodytrack_ATLAS.log Bodytrack_ATLAS_Background.log Bodytrack_CFS.log Bodytrack_CFS_Background.log
 Decoding_Times.pdf: $(foreach video,$(filter-out Sintel,$(VIDEOS_ALL)),Decoding_Times_$(video).log)
+Multiple.pdf: Multiple_FFplay.tab Multiple_ATLAS_Worker.tab Multiple_CFS_Worker.tab Multiple_RT1_Worker.tab Multiple_RT2_Worker.tab
+Multiple_ATLAS_Worker.tab: $(foreach video,Blackswan Parkrun Shore,Multiple_ATLAS_Worker_$(video).log)
+Multiple_CFS_Worker.tab: $(foreach video,Blackswan Parkrun Shore,Multiple_CFS_Worker_$(video).log)
+Multiple_RT1_Worker.tab: $(foreach video,Blackswan Parkrun Shore,Multiple_RT1_Worker_$(video).log)
+Multiple_RT2_Worker.tab: $(foreach video,Blackswan Parkrun Shore,Multiple_RT2_Worker_$(video).log)
+Multiple_FFplay.tab: $(foreach mode,CFS ATLAS RT1 RT2,$(foreach video,Blackswan Parkrun Shore,Multiple_$(mode)_FFplay_$(video).log))
 Scheduling_Comparison_All.pdf: Scheduling_Comparison.tab
 Scheduling_Comparison_ATLAS.pdf: Scheduling_Comparison.tab
 Scheduling_Comparison.tab: $(foreach video,$(filter-out Sintel,$(VIDEOS_ALL)),$(foreach mode,CFS None Reduced Full,Scheduling_$(mode)_$(video).log))
@@ -21,5 +27,8 @@ UI_Worker_Alone.pdf: UI_Worker_CFS_Alone.log
 UI_Worker_Schedule.pdf: UI_Worker_ATLAS_Alone.log UI_Worker_ATLAS_Load.log UI_Worker_CFS_Alone.log UI_Worker_CFS_Load.log
 Values.val: Bodytrack_Alone.log Scheduling_Load_Light_CFS.log
 
-Bodytrack_Alone.lyx Scheduling_Comparison.lyx Scheduling_Deadline.lyx Scheduling_Load.lyx Scheduling_Oversubscribe.lyx:
+Bodytrack_Alone.lyx Multiple_ATLAS_Worker.lyx Multiple_CFS_Worker.lyx Multiple_FFplay.lyx Multiple_RT1_Worker.lyx Multiple_RT2_Worker.lyx Scheduling_Comparison.lyx Scheduling_Deadline.lyx Scheduling_Load.lyx Scheduling_Oversubscribe.lyx:
 	@# ignore
+
+Multiple_ATLAS_Worker.tab Multiple_CFS_Worker.tab Multiple_RT1_Worker.tab Multiple_RT2_Worker.tab:
+	cat $^ > $@
