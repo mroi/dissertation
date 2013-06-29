@@ -37,6 +37,7 @@ Values.lyx: Values.val ../val2lyx.pl
 
 %.log: force
 	! test -L $@ || $(MAKE) -C "$(shell dirname "`readlink $@`")" "$(shell basename "`readlink $@`")"
+	test -r $@
 
 clean::
 	rm -f *.pdf *.tab *.val
