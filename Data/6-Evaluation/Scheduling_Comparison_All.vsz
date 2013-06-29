@@ -1,5 +1,5 @@
 # Veusz saved document (version 1.16)
-# Saved at 2013-06-17T08:55:16.944082
+# Saved at 2013-06-29T14:44:00.486271
 
 AddImportPath(u'/Users/Michael/Documents/Forschung/Dissertation/Data/6-Evaluation')
 ImportFile(u'Scheduling_Comparison.tab', u'video cfs - + none - + reduced - + full - +', linked=True, ignoretext=True)
@@ -60,7 +60,6 @@ To('..')
 Add('key', name='key1', autoadd=False)
 To('key1')
 Set('horzPosn', u'left')
-Set('vertManual', 0.6)
 To('..')
 Add('bar', name='bar1', autoadd=False)
 To('bar1')
