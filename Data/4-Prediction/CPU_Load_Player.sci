@@ -21,8 +21,8 @@ Result = [];
 Result = [Result; "Black Swan" + cpu_load("Blackswan")];
 Result = [Result; "Shore" + cpu_load("Shore")];
 Result = [Result; "Park Run" + cpu_load("Parkrun")];
-Result = [Result; "Charlie" + cpu_load("Charlie")];
 Result = [Result; "Hunger Games" + cpu_load("Hungergames")];
+Result = [Result; "Charlie" + cpu_load("Charlie")];
 
 write("CPU_Load_Player.tab", Result);
 exit;

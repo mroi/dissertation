@@ -24,8 +24,8 @@ Result = [];
 Result = [Result; """Black Swan""" + accuracy("Blackswan")];
 Result = [Result; """Shore""" + accuracy("Shore")];
 Result = [Result; """Park Run""" + accuracy("Parkrun")];
-Result = [Result; """Charlie""" + accuracy("Charlie")];
 Result = [Result; """Hunger Games""" + accuracy("Hungergames")];
+Result = [Result; """Charlie""" + accuracy("Charlie")];
 
 write("Prediction_IO.tab", Result);
 exit;
