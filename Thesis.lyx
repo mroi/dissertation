@@ -21489,31 +21489,6 @@ filename "Data/6-Evaluation/Values.lyx"
 \end_inset
 
 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-The chapter closes with a discussion of previous research results and how
- they relate to 
-\noun on
-Atlas
-\noun default
-.
-\end_layout
-
-\end_inset
-
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-swap Hunger Games and Charlie
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -21578,6 +21553,12 @@ Atlas
 \noun default
  can anticipate deadline misses before they occur, thereby helping applications
  to react to overload early.
+ The chapter closes with a discussion of previous research results and how
+ they relate to 
+\noun on
+Atlas
+\noun default
+.
 \end_layout
 
 \begin_layout Standard
@@ -21733,6 +21714,14 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\begin_inset VSpace 0pt
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
 \begin_inset Graphics
 	filename Figures/6-Evaluation/Bodytrack.svg
 
@@ -21754,6 +21743,10 @@ name "6-mar:Bodytrack-Result"
 Result of the Bodytrack Benchmark
 \end_layout
 
+\end_inset
+
+
+\begin_inset VSpace defskip
 \end_inset
 
 
@@ -22266,7 +22259,7 @@ Atlas
 Atlas
 \noun default
  scheduling was only a matter of reporting the deadline, leaving execution
- time recognition to the runtime.
+ time recognition entirely to the runtime.
 \end_layout
 
 \begin_layout Section
@@ -22280,6 +22273,14 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\begin_inset VSpace 27pt
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
 \begin_inset Graphics
 	filename Figures/6-Evaluation/UI_Worker.svg
 
@@ -22524,6 +22525,10 @@ Atlas
 \end_inset
 
 
+\begin_inset VSpace 17pt
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -22533,40 +22538,20 @@ Atlas
 
 \begin_layout Standard
 \noindent
-Figure
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "6-mar:Worker-Execution-Time"
-
-\end_inset
-
- displays the accuracy of the predicted execution times.
- The test application can be used interactively, but in the experiments,
- the button is “clicked” programmatically.
- Two clicks are separated by a randomly chosen interval between 
-\begin_inset Formula $0.5$
-\end_inset
-
- and 
-\begin_inset Formula $1.5$
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-seconds.
- The experiments run for five minutes each.
 \begin_inset Float marginfigure
 wide false
 sideways false
 status open
 
 \begin_layout Plain Layout
+\begin_inset VSpace 23pt
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
 \begin_inset Graphics
 	filename Data/6-Evaluation/UI_Worker_Alone.pdf
 
@@ -22599,15 +22584,59 @@ Worker Execution Time Prediction
 \end_layout
 
 \begin_layout Standard
+\noindent
+Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "6-mar:Worker-Execution-Time"
+
+\end_inset
+
+ displays the accuracy of the predicted execution times.
+ The worker application can be used interactively, but in the experiments,
+ the button is “clicked” programmatically.
+ Two clicks are separated by a randomly chosen interval between 
+\begin_inset Formula $0.5$
+\end_inset
+
+ and 
+\begin_inset Formula $1.5$
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+seconds.
+ The experiments run for five minutes each.
+\end_layout
+
+\begin_layout Standard
 \begin_inset Float figure
 wide true
 sideways false
 status open
 
 \begin_layout Plain Layout
+\begin_inset VSpace 23pt
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
 \begin_inset Graphics
 	filename Data/6-Evaluation/UI_Worker_Schedule.pdf
 
+\end_inset
+
+
+\begin_inset VSpace -10pt
 \end_inset
 
 
@@ -22731,7 +22760,7 @@ key "Molnar:SleeperFairness"
 
  to prioritize threads waking from sleep over continuously running background
  activity.
- The test application sleeps for long intervals in between its short bursts
+ The worker application sleeps for long intervals in between its short bursts
  of activity, so it should receive preferential treatment by CFS.
  However, we have clearly seen that this heuristic is insufficient and that
  the 
@@ -22884,7 +22913,7 @@ Atlas
 \begin_layout Standard
 Inaccuracies in the prediction of execution times are the primary source
  of the remaining jitter.
- The next experiment thus compares the three workload metrics alternatives
+ The next experiment thus compares the three workload metric alternatives
  to predict video decoding times:
 \begin_inset Foot
 status open
@@ -22944,18 +22973,6 @@ reference "6-fig:Video-Smoothness-Scheduler"
 
  demonstrates the results for scheduling under CFS, which shows unacceptable
  playback behavior for high resolution videos.
- All 
-\noun on
-Atlas
-\noun default
- options perform significantly better.
- Interestingly, CFS is able to successfully schedule the two low resolution
- videos in the mix, because the fair share of 
-\begin_inset Formula $\nicefrac{1}{11}\approx9\%$
-\end_inset
-
- CPU time, which FFplay receives against the ten CPU hoggers is sufficient
- to decode these videos.
 \end_layout
 
 \begin_layout Standard
@@ -23076,6 +23093,22 @@ Decoding Time Histograms
 
 \begin_layout Standard
 \noindent
+All 
+\noun on
+Atlas
+\noun default
+ options perform significantly better.
+ Interestingly, CFS is able to successfully schedule the two low resolution
+ videos in the mix, because the fair share of 
+\begin_inset Formula $\nicefrac{1}{11}\approx9\%$
+\end_inset
+
+ CPU time, which FFplay receives against the ten CPU hoggers is sufficient
+ to decode these videos.
+\end_layout
+
+\begin_layout Standard
+\noindent
 Figure
 \begin_inset space ~
 \end_inset
@@ -23116,6 +23149,13 @@ Atlas
 wide false
 sideways false
 status open
+
+\begin_layout Plain Layout
+\begin_inset VSpace -8pt
+\end_inset
+
+
+\end_layout
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -23187,10 +23227,6 @@ sideways false
 status open
 
 \begin_layout Plain Layout
-\begin_inset VSpace 15pt
-\end_inset
-
-
 \begin_inset Graphics
 	filename Data/6-Evaluation/Scheduling_Timeline.pdf
 
@@ -23226,7 +23262,7 @@ Time Profile with Different Metrics Options
 \noindent
 Two videos require closer inspection: The Charlie clip does not benefit
  as much from the more detailed metrics.
- Remember that prediction accuracy was also less affected by the choice
+ Remember that its prediction accuracy was also less affected by the choice
  of metrics compared to the other videos,
 \begin_inset Foot
 status open
@@ -23282,6 +23318,31 @@ Atlas
 \end_inset
 
  for the reduced and full metrics.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+enlargethispage{1
+\backslash
+baselineskip}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+page size changed
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -23339,6 +23400,7 @@ Video Smoothness Depending on Background Load
 \end_layout
 
 \begin_layout Standard
+\noindent
 Figure
 \begin_inset space ~
 \end_inset
@@ -23400,7 +23462,13 @@ Atlas
 \noun default
  kernel scheduler allows to completely disable CFS head start.
  The results do not significantly diverge from the ten hoggers case, indicating
- that systems with more background load will not diminish playback smoothness.
+ that systems with more background load will not further diminish playback
+ smoothness.
+\end_layout
+
+\begin_layout Standard
+The remaining FFplay experiments revert to the default ten CPU hoggers as
+ their background load.
 \end_layout
 
 \begin_layout Standard
@@ -23469,6 +23537,7 @@ Video Smoothness Depending on Job Oversubscription
 \end_layout
 
 \begin_layout Standard
+\noindent
 Figure
 \begin_inset space ~
 \end_inset
@@ -23620,7 +23689,7 @@ Atlas
 
 \begin_layout Standard
 Two of these three applications come with timing constraints.
- The user interface worker requires between 
+ The user interface worker approximately requires between 
 \begin_inset Formula $45$
 \end_inset
 
@@ -23668,8 +23737,8 @@ reference "6-mar:Worker-Execution-Time"
 \begin_layout Standard
 In the experiment, I run the user interface application, FFplay, and the
  CPU hogger in different scheduling configurations.
- I present the FFplay results as display jitter for each of the three videos
- played.
+ As before, I present the FFplay results by mean display jitter for each
+ of the three videos played.
  The timeliness of the user interface jobs is evaluated by showing histograms
  of job makespan.
  Figure
@@ -23688,6 +23757,7 @@ reference "6-fig:Multiple-Worker-FFplay"
 
 \begin_layout Standard
 \begin_inset Float figure
+placement t
 wide true
 sideways false
 status open
@@ -23695,6 +23765,16 @@ status open
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename Data/6-Evaluation/Multiple.pdf
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+non-default float placement
+\end_layout
 
 \end_inset
 
@@ -23725,8 +23805,9 @@ User Interface Worker Competing with FFplay
 \end_layout
 
 \begin_layout Standard
+\noindent
 The first configuration schedules all applications by CFS.
- The first set of FFplay results show smooth playback, but the fair distribution
+ The first FFplay results show smooth playback, but the fair distribution
  of CPU time between all three applications leaves the user interface worker
  with two little time to meet its timing requirements.
  The first histogram shows the majority of jobs finish behind their deadline.
@@ -23763,7 +23844,7 @@ key "Duda:BVT"
 \begin_layout Standard
 Consequently, the developer of FFplay may also consider his application
  more important, resulting in the third configuration: FFplay receives the
- high-priority treatment and runs smooth again, but the user interface deadlines
+ high-priority treatment and runs smooth, but the user interface deadlines
  are again violated.
 \end_layout
 
@@ -23810,31 +23891,432 @@ reference "6-fig:Decoding-Time-Histograms"
 \end_inset
 
 
+\begin_inset Newpage clearpage
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+manual page flush
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Forecasting Deadline Misses
+\end_layout
+
+\begin_layout Standard
+By submitting jobs before they are due for execution, applications provide
+ the scheduler with look-ahead
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+look-ahead scheduling
+\end_layout
+
+\end_inset
+
+ knowledge.
+ This foresight enables 
+\noun on
+Atlas
+\noun default
+ to anticipate deadline misses before they occur.
+ I examine this capability using the Sintel video, which has so far been
+ absent from the video smoothness evaluation, because it heavily overloads
+ the system.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+see Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "1-mar:Decoding-Time-Histogram"
+
+\end_inset
+
+ for a decoding time histogram of the Sintel clip
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\noun on
+Atlas
+\noun default
+ should be able to detect this overload before it occurs.
+ More so, it should additionally tell applications, how far behind the deadline
+ jobs are expected to complete.
+ This information is available in the scheduler’s job list,
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+job list
+\end_layout
+
+\end_inset
+
+ because it aggregates all submitted jobs with their predicted execution
+ times.
+ Cumulating those times and comparing with the deadlines results in expected
+ job tardiness.
+ Unfortunately, this forecast will aggregate a number of errors: all inaccuracie
+s in the predicted execution times and any blocking delay, clock jitter
+ or scheduling overhead will accumulate in the completion prognosis.
+\end_layout
+
+\begin_layout Standard
+Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "6-fig:Completion-Forecast"
+
+\end_inset
+
+ illustrates that the forecast is still remarkably accurate.
+ These scatter plots were generated by extracting expected job completion
+ times for every job in the scheduler’s job list whenever 
+\emph on
+atlas_submit
+\emph default
+ or 
+\emph on
+atlas_next
+\emph default
+ is called.
+ Any forecasted completion is remembered and compared with the true completion
+ time when its job finishes.
+ The forecasted completion then results in a dot in the figure whose y-coordinat
+e represents the error between forecasted and measured completion time.
+ The x-coordinate marks, how early the forecast was generated relative to
+ the job’s actual completion instant.
+ A good completion forecast happens early and with low error.
+ Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "6-fig:Completion-Forecast"
+
+\end_inset
+
+ shows that many forecasts are available up to half a second before job
+ completion.
+ The forecast horizon is limited by the length of FFplay’s internal queues.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Data/6-Evaluation/Miss-Detect_Scatter.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "6-fig:Completion-Forecast"
+
+\end_inset
+
+Completion Forecast for the Sintel Video
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Figures
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "6-fig:Completion-Histogram"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "6-fig:Completion-Forecast-Error"
+
+\end_inset
+
+ reinterpret the same data to focus on the behavior along each of the axes.
+ Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "6-fig:Completion-Histogram"
+
+\end_inset
+
+ presents histograms of the forecast error, disregarding the time the forecast
+ was available.
+ Because of the point density, the error distribution is not not well visible
+ in the scatter plot.
+ In the histograms we see that forecasts are well within a 
+\begin_inset Formula $\pm20\,\mathrm{ms}$
+\end_inset
+
+ error range for the reduced and full metrics.
+ Time-only prediction is less accurate.
+\begin_inset Newpage newpage
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+manual page break
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Data/6-Evaluation/Miss-Detect_Histogram.pdf
+
+\end_inset
+
+
+\begin_inset VSpace -5pt
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "6-fig:Completion-Histogram"
+
+\end_inset
+
+Histograms of Completion Forecast Error
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset VSpace 17pt
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\begin_inset Graphics
+	filename Data/6-Evaluation/Miss-Detect_Forecast.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "6-fig:Completion-Forecast-Error"
+
+\end_inset
+
+Completion Forecast Error Relative to Forecast Horizon
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "6-fig:Completion-Forecast-Error"
+
+\end_inset
+
+ illustrates, how forecast accuracy changes depending on the time to job
+ completion.
+ Dots depict the mean forecast error, the lower and upper quartiles are
+ given by error lines.
+ As expected, forecast accuracy for a job improves, the closer we get to
+ this job’s completion instant.
+ To generate the forecast for a job, predicted execution times of all preceding
+ jobs are cumulated.
+ The fewer such jobs we have to consider, the lower the error we aggregate
+ from inaccurate execution time predictions.
+ The figure shows that the reduced and full metrics allow forecasts up to
+ half a second before job completion with typical errors under 
+\begin_inset Formula $35\,\mathrm{ms}$
+\end_inset
+
+, which is less than the video’s frame interval of 
+\begin_inset Formula $41.7\,\mathrm{ms}$
+\end_inset
+
+.
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Full Width
+\begin_inset Flex Emph
+status collapsed
+
+\begin_layout Plain Layout
+Using 
+\noun on
+Atlas,
+\noun default
+ applications contribute their local knowledge to the system-wide scheduler.
+ I have shown how the scheduler uses this information to provide timely
+ service.
+ 
+\noun on
+Atlas
+\noun default
+ successfully schedules recurring and spontaneous work and is therefore
+ applicable to a diverse set of applications.
+ I evaluated a gesture tracker and a responsive user interface.
+ Unlike a priority-based scheduler, 
+\noun on
+Atlas
+\noun default
+ is not vulnerable to failing applications and not subject to priority inflation.
+ Applications with precise execution time predictions will always meet their
+ deadline, applications with complex behavior benefit from band-aid mechanisms
+ like head start, blocking delay recovery, and quick catch-up for late jobs.
+ I demonstrated how 
+\noun on
+Atlas
+\noun default
+ schedules video playback with display jitter below 5
+\begin_inset space \thinspace{}
+\end_inset
+
+ms when competing against aggressive background load.
+ 
+\noun on
+Atlas
+\noun default
+ transparently mediates between the timing requirements of multiple real-time
+ applications and can accurately forecast deadline misses up to half a second
+ before they occur.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace defskip
+\end_inset
+
+I now compare these benefits with existing research work to substantiate
+ that 
+\noun on
+Atlas
+\noun default
+ improves the state of the art in scheduling.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Note Greyedout
 status open
 
-\begin_layout Itemize
-evaluation
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-system can predict deadline misses, even though it does not have implicit
- clairvoyance from periods
-\end_layout
-
-\begin_layout Itemize
-“applications report local knowledge, 
-\noun on
-Atlas
-\noun default
- transparently mediates between multiple applications”
-\end_layout
-
-\end_deeper
 \begin_layout Itemize
 discuss related work in detail
 \end_layout
