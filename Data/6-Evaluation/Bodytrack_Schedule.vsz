@@ -1,5 +1,5 @@
 # Veusz saved document (version 1.16)
-# Saved at 2013-06-15T11:00:45.808709
+# Saved at 2013-06-30T20:22:08.354254
 
 AddImportPath(u'/Users/Michael/Documents/Forschung/Dissertation/Data/6-Evaluation')
 ImportFile(u'Bodytrack_ATLAS_Background.log', u'cpuhog_atlas throughput_atlas', linked=True, ignoretext=True)
@@ -56,7 +56,7 @@ Set('topMargin', u'0.5cm')
 Add('axis', name='x', autoadd=False)
 Add('axis', name=u'y1', autoadd=False)
 To(u'y1')
-Set('label', u'Bodytrack Progress')
+Set('label', u'Bodytrack Progress (Images)')
 Set('direction', 'vertical')
 To('..')
 Add('xy', name='xy1', autoadd=False)
