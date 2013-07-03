@@ -7,9 +7,9 @@ Bodytrack_Fail.pdf: Bodytrack_ATLAS_Fail.log Bodytrack_ATLAS_Fail_Background.log
 Bodytrack_Schedule.pdf: Bodytrack_Alone.log Bodytrack_ATLAS.log Bodytrack_ATLAS_Background.log Bodytrack_CFS.log Bodytrack_CFS_Background.log
 Decoding_Times.pdf: $(foreach video,$(filter-out Sintel,$(VIDEOS_ALL)),Decoding_Times_$(video).log)
 Miss-Detect_Forecast.pdf: Miss-Detect_Forecast.tab
-Miss-Detect_Forecast.tab: $(foreach mode,None Reduced Full,$(Miss-Detect_$(mode).log))
-Miss-Detect_Histogram.pdf: $(foreach mode,None Reduced Full,$(Miss-Detect_$(mode).log))
-Miss-Detect_Scatter.pdf: $(foreach mode,None Reduced Full,$(Miss-Detect_$(mode).log))
+Miss-Detect_Forecast.tab: $(foreach mode,None Reduced Full,Miss-Detect_$(mode).log)
+Miss-Detect_Histogram.pdf: $(foreach mode,None Reduced Full,Miss-Detect_$(mode).log)
+Miss-Detect_Scatter.pdf: $(foreach mode,None Reduced Full,Miss-Detect_$(mode).log)
 Multiple.pdf: Multiple_FFplay.tab Multiple_ATLAS_Worker.tab Multiple_CFS_Worker.tab Multiple_RT1_Worker.tab Multiple_RT2_Worker.tab
 Multiple_ATLAS_Worker.tab: $(foreach video,Blackswan Parkrun Shore,Multiple_ATLAS_Worker_$(video).log)
 Multiple_CFS_Worker.tab: $(foreach video,Blackswan Parkrun Shore,Multiple_CFS_Worker_$(video).log)

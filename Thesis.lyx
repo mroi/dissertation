@@ -1438,7 +1438,7 @@ Developing a modern application
 
 \end_inset
 
- is already a complex undertaking, because users expect intricate features
+ is already a complex undertaking, because users expect intricate features,
  and applications have to handle new failure cases by connecting with the
  cloud.
  To face non-functional properties on top of that, developers need to rely
@@ -1542,7 +1542,7 @@ Every device in a computer system
  has a different notion of work: sending and receiving network packets,
  reading and writing storage requests or the execution of graphics shader
  code.
- Consequently, every devices follows a different policy for ordering its
+ Consequently, every device follows a different policy for ordering its
  work and thus needs its own dedicated scheduler.
  This thesis focuses exclusively on scheduling a single CPU
 \begin_inset Foot
@@ -4113,11 +4113,11 @@ Atlas
 , I envision a tight integration of application, runtime libraries and the
  CPU scheduler.
  The following pages explain the programming style of modern desktop application
-s and motivate, how 
+s, demonstrate how 
 \noun on
 Atlas
 \noun default
- complements this style and what benefits the combination offers.
+ complements this style and motivate the benefits this combination offers.
  Apart from guiding ideas framed in the context of real-world programming,
  I do not claim a distinct scientific contribution, but rather give an understan
 ding of my target applications and explain basic terminology.
@@ -11808,7 +11808,7 @@ sideways false
 status open
 
 \begin_layout Plain Layout
-\begin_inset VSpace 50pt
+\begin_inset VSpace 40pt
 \end_inset
 
 
@@ -11822,7 +11822,7 @@ status open
 \end_inset
 
 
-\begin_inset VSpace defskip
+\begin_inset VSpace bigskip
 \end_inset
 
 
@@ -19648,7 +19648,6 @@ Atlas
 \end_inset
 
 .
- For now, we assume precise execution times.
 \begin_inset Foot
 status open
 
@@ -19673,7 +19672,7 @@ Atlas
 
 \end_inset
 
-
+ For now, we assume precise execution times.
 \end_layout
 
 \begin_layout Standard
@@ -23319,7 +23318,7 @@ Atlas
 
  for the reduced and full metrics.
 \begin_inset ERT
-status open
+status collapsed
 
 \begin_layout Plain Layout
 
@@ -23455,20 +23454,20 @@ Atlas
 \end_layout
 
 \begin_layout Standard
-To approach a situation with infinite background load, the implementation
- of the 
+To simulate a situation where excessive background load clogs CFS head start,
+ the implementation of the 
 \noun on
 Atlas
 \noun default
- kernel scheduler allows to completely disable CFS head start.
+ kernel scheduler allows to completely disable it.
+ Jobs still catch up in CFS.
  The results do not significantly diverge from the ten hoggers case, indicating
- that systems with more background load will not further diminish playback
- smoothness.
+ that less effective head start will not further diminish playback smoothness.
 \end_layout
 
 \begin_layout Standard
-The remaining FFplay experiments revert to the default ten CPU hoggers as
- their background load.
+The remaining FFplay experiments revert to the default ten CPU hoggers with
+ head start enabled.
 \end_layout
 
 \begin_layout Standard
@@ -23689,12 +23688,12 @@ Atlas
 
 \begin_layout Standard
 Two of these three applications come with timing constraints.
- The user interface worker approximately requires between 
-\begin_inset Formula $45$
+ The user interface worker requires between 
+\begin_inset Formula $\UIWorkerTimeMin$
 \end_inset
 
  and 
-\begin_inset Formula $85\,\mathrm{ms}$
+\begin_inset Formula $\UIWorkerTimeMax\,\mathrm{ms}$
 \end_inset
 
  of execution time
@@ -23724,11 +23723,11 @@ reference "6-mar:Worker-Execution-Time"
 
  scheduling window.
  Its jobs therefore cause bursts of CPU load from 
-\begin_inset Formula $45$
+\begin_inset Formula $\UIWorkerTimeMin$
 \end_inset
 
  to 
-\begin_inset Formula $85\%$
+\begin_inset Formula $\UIWorkerTimeMax\%$
 \end_inset
 
 .
@@ -23960,7 +23959,7 @@ reference "1-mar:Decoding-Time-Histogram"
 \noun on
 Atlas
 \noun default
- should be able to detect this overload before it occurs.
+ should be able to detect this overload ahead of time.
  More so, it should additionally tell applications, how far behind the deadline
  jobs are expected to complete.
  This information is available in the scheduler’s job list,
@@ -24025,7 +24024,6 @@ reference "6-fig:Completion-Forecast"
 
  shows that many forecasts are available up to half a second before job
  completion.
- The forecast horizon is limited by the length of FFplay’s internal queues.
 \end_layout
 
 \begin_layout Standard
@@ -24068,60 +24066,19 @@ Completion Forecast for the Sintel Video
 
 \begin_layout Standard
 \noindent
-Figures
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "6-fig:Completion-Histogram"
-
-\end_inset
-
- and 
-\begin_inset CommandInset ref
-LatexCommand vref
-reference "6-fig:Completion-Forecast-Error"
-
-\end_inset
-
- reinterpret the same data to focus on the behavior along each of the axes.
- Figure
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "6-fig:Completion-Histogram"
-
-\end_inset
-
- presents histograms of the forecast error, disregarding the time the forecast
- was available.
- Because of the point density, the error distribution is not not well visible
- in the scatter plot.
- In the histograms we see that forecasts are well within a 
-\begin_inset Formula $\pm20\,\mathrm{ms}$
-\end_inset
-
- error range for the reduced and full metrics.
- Time-only prediction is less accurate.
-\begin_inset Newpage newpage
-\end_inset
-
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-manual page break
-\end_layout
-
-\end_inset
-
-
+The forecast horizon is limited by the length of FFplay’s video queue.
+ 
+\noun on
+Atlas
+\noun default
+ also cannot accurately forecast completion times of jobs that self-suspend,
+ because the suspension unexpectedly delays the completion beyond the aggregate
+ execution times from the job list.
+ Therefore, my forecasting evaluation disregards the output stage and focusses
+ on decode jobs instead.
+ Because decode jobs are by far the major time consumers in FFplay, this
+ is where the application would most likely employ overload management.
+ Thus, accurately forecasting decode job misses is useful.
 \end_layout
 
 \begin_layout Standard
@@ -24214,6 +24171,60 @@ Completion Forecast Error Relative to Forecast Horizon
 
 \begin_layout Standard
 \noindent
+Figures
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "6-fig:Completion-Histogram"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "6-fig:Completion-Forecast-Error"
+
+\end_inset
+
+ reinterpret the same data from Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "6-fig:Completion-Forecast"
+
+\end_inset
+
+ to demonstrate the behavior along each of the axes.
+ Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "6-fig:Completion-Histogram"
+
+\end_inset
+
+ presents histograms of the forecast error, disregarding the time the forecast
+ was available.
+ Because of the point density, the error distribution is not well visible
+ in the scatter plot.
+ In the histograms we see that forecasts are well within a 
+\begin_inset Formula $\pm20\,\mathrm{ms}$
+\end_inset
+
+ error range for the reduced and full metrics.
+ Time-only prediction is less accurate.
+\end_layout
+
+\begin_layout Standard
 Figure
 \begin_inset space ~
 \end_inset
@@ -24278,7 +24289,23 @@ Atlas
  Applications with precise execution time predictions will always meet their
  deadline, applications with complex behavior benefit from band-aid mechanisms
  like head start, blocking delay recovery, and quick catch-up for late jobs.
- I demonstrated how 
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent 
+\end_layout
+
+\end_inset
+
+I demonstrated how 
 \noun on
 Atlas
 \noun default
@@ -24313,392 +24340,542 @@ Atlas
  improves the state of the art in scheduling.
 \end_layout
 
+\begin_layout Section
+Related Work
+\end_layout
+
 \begin_layout Standard
-\begin_inset Note Greyedout
-status open
+In Chapter
+\begin_inset space ~
+\end_inset
 
-\begin_layout Itemize
-discuss related work in detail
-\end_layout
 
-\begin_deeper
-\begin_layout Itemize
-explore the spectrum introduced above, compare approaches to describe timing
- and resource requirements
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-frame this in a two-dimensional map instead? flexible/weak – rigid/strong;
- fluid flow – individual jobs
-\end_layout
-
-\begin_layout Itemize
-discuss clusters first and then provide details for each cluster
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-fixed-priority approaches: strongest guarantees possible, minimal implementation
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-view shared with Nemesis
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Leslie:Nemesis"
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "3-chap:Real-Time"
 
 \end_inset
 
-: fixed priorities require full analysis of the system to determine the
- priorities
+, I introduced the dichotomy of scheduler interfaces: Systems that provide
+ strong guarantees are typically hard to use for developers because they
+ force applications into rigid task models or ask for information that is
+ hard to obtain.
+ The simplest scheduler interfaces support all kinds of applications without
+ restrictions and operate with little or no parameters, but provide weak
+ guarantees in return.
 \end_layout
 
-\begin_layout Itemize
-resource kernels
+\begin_layout Standard
+
+\noun on
+Atlas
+\noun default
+ wants to strike a balance between both extremes by combining some of their
+ key benefits:
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+figure
+\end_layout
+
+\end_inset
+
+ The interface is designed from the application’s perspective and only asks
+ for local knowledge, but jobs still receive useful timeliness guarantees.
+ 
+\noun on
+Atlas
+\noun default
+ does not perform a formal admission to prevent overload, but can detect
+ and report deadline misses before they occur.
+\end_layout
+
+\begin_layout Standard
+In the following, I highlight clusters of solutions within the spectrum
+ of scheduler research and I discuss representative work from each cluster.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+The periodic task model
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+periodic task model
+\end_layout
+
+\end_inset
+
+is the foundation for scheduling algorithms based on fixed or dynamic task
+ priorities like the classical Rate-Monotonic Scheduling
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+rate-monotonic scheduling
+\end_layout
+
+\end_inset
+
+ or Earliest Deadline First
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+earliest deadline first
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Liu:RMS"
+
+\end_inset
+
+ algorithms.
+ They target strong guarantees and thus require worst-case execution times
+ and independent tasks to safely exclude deadline misses.
+ Similar to 
+\noun on
+Atlas,
+\noun default
+ applications specify their timing constraints and a central component calculate
+s a schedule and enforces it.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Rajkumar:ResourceKernels"
 
 \end_inset
 
- separate concerns top-down: applications specify, scheduler manages time
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-similar insight into task model: requirements state explicitly, execution
- time is not portable, calibrate automatically
-\end_layout
-
-\begin_layout Itemize
-end-to-end design
-\end_layout
-
-\begin_layout Itemize
-otherwise very close to periodic tasks, priority inheritance
-\end_layout
-
-\begin_layout Itemize
-decouple different resources with buffering
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-periodic tasks with probabilistic admission
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Hamann:QAS,Hamann:QRMS"
-
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-more flexible resource requirements than strict periodic tasks, probabilistic
- admission
-\end_layout
-
-\begin_layout Itemize
-higher utilization, but still using period for timing requirements
-\end_layout
-
-\begin_layout Itemize
-QRMS runs on top of fixed priority scheduling
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-RT in Linux
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-SCHED_RR, SCHED_FIFO
-\end_layout
-
-\begin_layout Itemize
-RT-patch adds SCHED_DEADLINE, previously SCHED_EDF
+ The actual job dispatching by the kernel scheduler is driven by priorities
+ or deadlines and intentionally simple to allow formal analysis.
+ Fixed-priority scheduling is available in Linux as part of the POSIX real-time
+ scheduling classes.
+ A kernel patch
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Faggioli:SCHED_EDF"
 
 \end_inset
 
-
+ adds deadline-based scheduling.
 \end_layout
 
-\begin_layout Itemize
-only for root processes
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+Softening the strict periodic model
 \end_layout
 
-\begin_layout Itemize
-no look-ahead
+\end_inset
+
+ simplifies its use, but may come at the price of sacrificing some guarantees.
+ Event stream
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+event stream
 \end_layout
 
-\end_deeper
-\begin_layout Itemize
-event streams
+\end_inset
+
+ systems
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Albers:EventStreams"
 
 \end_inset
 
+ allow for periodic jobs with jitter or bursty behavior, but still focus
+ on strong analysis rather than easy programming.
+\end_layout
+
+\begin_layout Standard
+Worst-case execution times lead to pessimistic planning of jobs.
+ Using execution time distributions instead of a single worst-case value
+ enables more realistic modeling of task execution, but weakens hard deadlines
+ to probabilistic guarantees.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Hamann:QAS"
+
+\end_inset
+
+ Instead of meeting every deadline, the system only promises a percentage.
+ 
+\noun on
+Atlas
+\noun default
+ takes this idea further: Instead of using an aggregated execution time
+ profile for all jobs in a task, it schedules every job according to its
+ individually estimated execution time.
+\end_layout
+
+\begin_layout Standard
+The Resource Kernel
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+resource kernel
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Rajkumar:ResourceKernels"
+
+\end_inset
+
+ architecture starts with a periodic task model, but enhances it to improve
+ practicality.
+ Like 
+\noun on
+Atlas,
+\noun default
+ this end-to-end design starts with an application interface and extends
+ to kernel mechanisms.
+ Priority inheritance handles inter-task dependencies, reservations mitigate
+ overruns of the reported execution time.
+ But jobs are still bound to the limits of the underlying periodic task
+ model.
+\end_layout
+
+\begin_layout Section
+Reservation Approaches
+\end_layout
+
+\begin_layout Standard
+To be usable in interactive systems and for complex multimedia applications,
+ schedulers must integrate hard and soft real-time as well as best effort
+ work.
+ RBED
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+RBED
+\end_layout
+
+\end_inset
+
 
 \end_layout
 
-\begin_deeper
-\begin_layout Itemize
-allow periodic jobs with jitter and sporadic jobs
-\end_layout
+\end_inset
 
-\begin_layout Itemize
-still targets strong analysis rather than easy programming
-\end_layout
 
-\end_deeper
-\end_deeper
-\begin_layout Itemize
-reservation approaches: focus on isolation
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-integration of hard real-time, soft real-time and best effort: RBED
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Brandt:RBED"
 
 \end_inset
 
+ is a scheduling system that enables such integration while still preserving
+ strong guarantees for hard deadlines.
+ It is based on an underlying EDF scheduler, which it combines with a resource
+ allocator to protect against overload.
+ To support applications that do not precisely fit the periodic task model,
+ RBED calculates safe relaxation bounds to adapt task parameters to the
+ actual needs of the application.
+ RBED offers developers the system calls 
+\begin_inset Flex NoWrap
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+set_rbed_scheduler()
+\end_layout
+
+\end_inset
+
 
 \end_layout
 
-\begin_deeper
-\begin_layout Itemize
-focus in integration while preserving strong guarantees
+\end_inset
+
+ and 
+\begin_inset Flex NoWrap
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+rbed_deadline_met()
 \end_layout
 
-\begin_layout Itemize
-underlying hard real-time EDF scheduler, resource allocator on top protects
- EDF scheduler from overload
+\end_inset
+
+
 \end_layout
 
-\begin_layout Itemize
-key insight: separate resource management from resource dispatching
+\end_inset
+
+ to describe timing needs.
+ They are conceptually similar to 
+\emph on
+atlas_submit
+\emph default
+ and 
+\emph on
+atlas_next,
+\emph default
+ but specify resource requirements with worst-case execution times.
 \end_layout
 
-\begin_layout Itemize
-starts with periodic task model and calculates relaxation bounds for parameters
- that keep the schedule feasible
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+The Constant Bandwidth Server (CBS)
 \end_layout
 
-\begin_layout Itemize
-applications can submit jobs with parameters within those bounds
-\end_layout
+\end_inset
 
-\begin_layout Itemize
-set_rbed_scheduler() and rbed_deadline_met() calls similar to submit/next
-\end_layout
 
-\end_deeper
-\begin_layout Itemize
-Constant Bandwidth Server
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Abeni:CBS"
 
 \end_inset
 
+ 
+\begin_inset Index idx
+status collapsed
 
+\begin_layout Plain Layout
+constant bandwidth server
 \end_layout
 
-\begin_deeper
-\begin_layout Itemize
-employs EDF as the fundamental scheduler
+\end_inset
+
+is another influential approach to relax the limitations of the periodic
+ task model.
+ It wraps tasks with varying execution times in a server to make scheduling
+ behavior more robust if task parameters are not exact.
+ The underlying kernel scheduler is EDF with policing of reserved execution
+ times.
+ The focus is still on temporally isolating those imperfect soft real-time
+ loads from concurrent hard real-time load.
+ Therefore, deadline assignment is managed by the server, not the application.
 \end_layout
 
-\begin_layout Itemize
-provides temporal isolation: protect hard real-time tasks from the messy
- soft real-time tasks
+\begin_layout Standard
+CBS provides applications with the illusion of a dedicated slower processor
+ by supplying a virtual fluid flow of CPU time instead of catering each
+ job individually.
+ 
+\noun on
+Atlas
+\noun default
+ is not designed for hard real-time work and therefore can allow applications
+ to freely manage their own deadlines.
+ Jobs are serviced as first-class citizens.
 \end_layout
 
-\begin_layout Itemize
-different world view: illusion of a dedicated slower processor
-\end_layout
+\begin_layout Standard
+The basic CBS mechanism has been extended and enhanced in many different
+ directions.
+ IRIS
+\begin_inset Index idx
+status collapsed
 
-\begin_layout Itemize
-fluid flow allocation contradicts the job style, more amenable to threads
-\end_layout
+\begin_layout Plain Layout
+\begin_inset Flex SmallCaps
+status collapsed
 
-\begin_layout Itemize
-server manages the deadlines (assignment, postponing), not the application
-\end_layout
-
-\begin_layout Itemize
-does not target improving the soft-real time workload, thus somewhat orthogonal
- to this work
-\end_layout
-
-\begin_layout Itemize
-could be used to provide isolated hard real-time load in our system
-\end_layout
-
-\begin_layout Itemize
-see also: Total Bandwidth Server (“Efficient Aperiodic Service under Earliest
- Deadline First”)
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
+\begin_layout Plain Layout
 IRIS
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Marzario:IRIS"
 
 \end_inset
 
+ and BASH
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+BASH
+\end_layout
+
+\end_inset
+
 
 \end_layout
 
-\begin_deeper
-\begin_layout Itemize
-use spare capacity on intermittent overload
-\end_layout
+\end_inset
 
-\begin_layout Itemize
-CBS suffers from deadline aging: overrunning jobs will consume future budget
- and thus postpone deadline
-\end_layout
 
-\begin_layout Itemize
-intuition: non-work-conserving algorithm, introduce budget recharging time,
- forced inactivity period
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-slack reclamation
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Caccamo:SlackReclaiming"
 
 \end_inset
 
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-similar to 
+ distribute spare capacity to handle reservation overruns.
+ These approaches share the same goal as the 
 \noun on
 Atlas
 \noun default
- EDF-headstart
+ interaction with CFS, but they function differently.
+ The modified CBS schedulers direct slack time to overrunning jobs but keep
+ them scheduled by EDF.
+ 
+\noun on
+Atlas
+\noun default
+ demotes misbehaving jobs straight to CFS, but also donates all slack time
+ to CFS, which can assign this time at its own discretion.
+ By reusing CFS this way, 
+\noun on
+Atlas
+\noun default
+ keeps the system operable when real-time jobs fail into endless loops.
 \end_layout
 
-\begin_layout Itemize
-they: server is EDF-scheduled, picks slack time; here: slack time handed
- to CFS, picks next EDF-job
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+To handle dynamic applications
 \end_layout
 
-\end_deeper
-\begin_layout Itemize
+\end_inset
+
+ with varying execution time requirements, Abeni
+\begin_inset space ~
+\end_inset
+
+et
+\begin_inset space ~
+\end_inset
+
+al.
+\begin_inset space ~
+\end_inset
+
+introduced adaptive reservations
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
 adaptive reservations
+\end_layout
+
+\end_inset
+
+ to CBS.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Abeni:AdaptiveReservations"
 
 \end_inset
 
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-similarities: no worst-case planning, because it is wasteful; no focus on
- preventing every single deadline violation
-\end_layout
-
-\begin_layout Itemize
-overload handling instead of admission
-\end_layout
-
-\begin_layout Itemize
-two layer approach: dedicated controller per task like estimator
-\end_layout
-
-\begin_layout Itemize
-dynamic bandwidth adaptation to workload as an afterthought
-\end_layout
-
-\begin_layout Itemize
-control remembers the past and predicts from there, chaotic jumps are eased
- after they occurred
-\end_layout
-
-\begin_layout Itemize
-
-\noun on
-Atlas
-\noun default
- can preconceive jumps from metrics and predict much tighter
-\end_layout
-
-\begin_layout Itemize
-both control and 
-\noun on
-Atlas
-\noun default
- assume that extrapolation from past behavior works
-\end_layout
-
-\begin_layout Itemize
-my predictor can be used in a reservation-based system
-\end_layout
-
-\begin_layout Itemize
-finishing work until the deadline matters, abstracting from the application's
- work pattern using reservations makes this harder to accomplish and requires
- more complexity in control layer
-\end_layout
-
-\begin_layout Itemize
-CBS covers the real temporal behavior of the application, now we try to
- recreate that in the control layer
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-slack reclaiming added to CBS
+ Together with a matching slack reclaiming mechanism,
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Palopoli:FeedbackReclaiming"
 
 \end_inset
 
+ this work resulted in the quality-of-service platform AQuoSA,
+\begin_inset Index idx
+status collapsed
 
+\begin_layout Plain Layout
+AQuoSA
 \end_layout
 
-\begin_deeper
-\begin_layout Itemize
-results in AQuoSA
+\end_inset
+
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Palopoli:AQuoSA"
 
 \end_inset
 
- system
+ which was evaluated using video playback as an example for a dynamic real-time
+ load.
+ Similar to 
+\noun on
+Atlas,
+\noun default
+ AQuoSA dismisses worst-case planning, because it is wasteful.
+ Consequently, overload cannot be prevented by admission, but needs to be
+ handled at runtime.
 \end_layout
 
-\end_deeper
-\begin_layout Itemize
-workload insight for video
+\begin_layout Standard
+AQuoSA employs a dedicated controller per real-time task, which adjusts
+ task parameters at runtime.
+ A system-wide scheduler mediates between all tasks in the system.
+ This two-layer architecture is similar to the division of responsibilities
+ between the 
+\noun on
+Atlas
+\noun default
+ estimator and the kernel scheduler.
+ However, the AQuoSA controller offers no interface for workload knowledge
+ and only predicts from past execution times, much like the time-only metrics
+ alternative I evaluated.
+ Using workload knowledge, 
+\noun on
+Atlas
+\noun default
+ can preconceive resource requirements of future jobs.
+ A controller based on execution time alone can only react post-mortem,
+ after it has seen the requirements change.
+ However, 
+\noun on
+Atlas
+\noun default
+ is not the first work recognizing the advantages of workload insight for
+ scheduling video.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Ditze:MPEG_Utilization"
@@ -24708,150 +24885,139 @@ key "Ditze:MPEG_Utilization"
 
 \end_layout
 
-\begin_deeper
-\begin_layout Itemize
-repeatedly run admission with some granularity like GOPs
-\end_layout
-
-\begin_layout Itemize
-do not plan for global worst-case, but for the worst-case within the admission
- window
-\end_layout
-
-\begin_layout Itemize
-peak notification embedded in user-data fields of video stream
-\end_layout
-
-\begin_layout Itemize
-
-\noun on
-Atlas
-\noun default
- takes this idea to the max an predicts not just peaks but every job and
- reserves time not for a GOP-sized admission window, but for individual
- jobs
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-AIRS
+\begin_layout Standard
+Further CBS extensions combine it with a multicore scheduler based on EDF
+ with windowed migration.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Kato:AIRS"
 
 \end_inset
 
-
+ Multicore support is an area of future work for 
+\noun on
+Atlas.
 \end_layout
 
-\begin_deeper
-\begin_layout Itemize
-CBS-based reservations combined with EDF-WM multicore scheduler
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+All mentioned CBS variants
 \end_layout
 
-\begin_layout Itemize
-reservation extends CBS to reclaim slack
-\end_layout
+\end_inset
 
-\begin_layout Itemize
-no evaluation against freely migrating schedulers such as CFS
-\end_layout
+ require the developer to modify their application and report a period and
+ CPU time reservation to the scheduler.
+ Cucinotta
+\begin_inset space ~
+\end_inset
 
-\end_deeper
-\begin_layout Itemize
-Self-tuning scheduler
+et
+\begin_inset space ~
+\end_inset
+
+al.
+\begin_inset space ~
+\end_inset
+
+present a solution for unmodified programs.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Cucinotta:Self-Tuning"
 
 \end_inset
 
+ They target applications with internal timing constraints that are not
+ expressed through a defined interface.
+ The developed Legacy Feedback Scheduler
+\begin_inset Index idx
+status collapsed
 
+\begin_layout Plain Layout
+legacy feedback scheduler
 \end_layout
 
-\begin_deeper
-\begin_layout Itemize
-treat existing real-time application as black box: 
-\begin_inset Quotes eld
 \end_inset
 
-applications that are characterized by some temporal constraints, but are
- not developed using a specific API
-\begin_inset Quotes erd
+ (LFS++) samples the application’s system call behavior to automatically
+ infer the period and execution time.
+\end_layout
+
+\begin_layout Standard
+
+\noun on
+Atlas
+\noun default
+ exploits workload knowledge to improve scheduling, so applications have
+ to cooperate and use the provided interface.
+ However, this interface is inspired by the current programming trend of
+ asynchronous lambdas.
+ For applications built on this paradigm, the changes to enable 
+\noun on
+Atlas
+\noun default
+ scheduling are small.
+\end_layout
+
+\begin_layout Section
+Fair Processor Sharing
+\end_layout
+
+\begin_layout Standard
+On the other end of the spectrum, fair-share schedulers offer simple interfaces
+ at the price of weaker guarantees.
+ The easiest interface is no interface and indeed, fair-share systems are
+ designed to provide good average application behavior when developers do
+ nothing.
+ Historically, these schedulers are rooted in the days of time-sharing systems,
+ where fairness between multiple simultaneous users was desired.
+\end_layout
+
+\begin_layout Standard
+The Linux default CFS
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+completely fair scheduler
+\end_layout
+
 \end_inset
 
-
-\end_layout
-
-\begin_layout Itemize
-insight: applications have real-time behavior but do not expose it, I modify
- applications and allow them to expose this
-\end_layout
-
-\begin_layout Itemize
-estimate period and execution time by looking at its outside behavior
-\end_layout
-
-\begin_layout Itemize
-study in this paper: choosing the wrong scheduling period causes deadline
- misses or over-allocation, so schedulers that decouple scheduling period
- from application period can be inefficient
-\end_layout
-
-\end_deeper
-\end_deeper
-\begin_layout Itemize
-fair processor sharing: minimal interface
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-historical context: fairness between users time-sharing system
-\end_layout
-
-\begin_layout Itemize
-good average application behavior when developers do nothing
-\end_layout
-
-\begin_layout Itemize
-starts with no interface to expose anything
-\end_layout
-
-\begin_layout Itemize
-virtual time approaches, like CFS
+ scheduler
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Molnar:CFS"
 
 \end_inset
 
- in Linux
+ follows this tradition and is a fair-share scheduler based on virtual time.
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+virtual time
 \end_layout
 
-\begin_layout Itemize
-research approaches start out as fair sharing and add twists
+\end_inset
+
+ I have demonstrated that CFS is inadequate for applications with timing
+ constraints.
+ Many research approaches start with virtual-time-based fair-share schedulers
+ and extend them to support other guarantees than just fairness.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Bavier:VirtualTime"
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Itemize
-while coming from the other end, it overlaps with reservation approaches
- in the spectrum:
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-sharing based on cycle rates with slack reclaiming similar to CBS work
-\end_layout
-
-\begin_layout Itemize
-timing guarantees for virtual-time based algorithms are possible by showing
- bounded deadline overrun
+ While initially starting at the other end of the spectrum, the resulting
+ solutions overlap with the reservation-based approaches.
+ Careful policing of sharing weights ensures real-time guarantees for virtual-ti
+me-based algorithms.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Stoica:ProportionalShareRT"
@@ -24861,450 +25027,509 @@ key "Stoica:ProportionalShareRT"
 
 \end_layout
 
-\end_deeper
-\begin_layout Itemize
-SFQ
+\begin_layout Standard
+Goyal
+\begin_inset space ~
+\end_inset
+
+et
+\begin_inset space ~
+\end_inset
+
+al.
+\begin_inset space ~
+\end_inset
+
+recognized the need for different scheduling regimes next to fair sharing
+ in order to support multimedia applications.
+ Start-Time Fair Queuing
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+start-time fair queuing
+\end_layout
+
+\end_inset
+
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Goyal:SFQ"
 
 \end_inset
 
-
+ proposes an architecture for hierarchical partitioning of CPU bandwidth.
+ Different leaf-schedulers service applications with different timeliness
+ requirements.
+ However, the partitioning of CPU capacity is based on sharing weights,
+ not on a global management of deadlines as conducted by the 
+\noun on
+Atlas
+\noun default
+ scheduler.
 \end_layout
 
-\begin_deeper
-\begin_layout Itemize
-recognized the need for different scheduling for real-time multimedia
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+To express task urgency,
 \end_layout
 
-\begin_layout Itemize
-proposed hierarchical partitioning of CPU bandwidth with different leaf-schedule
-rs
+\end_inset
+
+ the Borrowed-Virtual-Time
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+borrowed-virtual-time
 \end_layout
 
-\begin_layout Itemize
-partitioning is share-based, no global management of deadlines
-\end_layout
+\end_inset
 
-\end_deeper
-\begin_layout Itemize
-BVT
+ (BVT) scheduler
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Duda:BVT"
 
 \end_inset
 
- adds a warp to express dispatch priority
+ introduces the warp value as a task parameter.
+ While the sharing weight parameter determines the long-term CPU allocation,
+ warp controls the short-term dispatch order of tasks.
+ Unfortunately, the warp value bears some disadvantageous similarities to
+ priorities: Because it is not a parameter inherent to an individual application
+, deciding on the right value requires knowledge of the warp values of surroundi
+ng applications.
+ Similar to priority inflation, global policing would be needed to prevent
+ warp value inflation.
 \end_layout
 
-\begin_deeper
-\begin_layout Itemize
-many task parameters (CPU share, warp time, warp time limit, warp time requireme
-nt) require global knowledge, some dimensionless, not inherent to application
-\end_layout
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
 
-\begin_layout Itemize
-warp time is a priority, admission control needed to control the assignment
- of warp parameters
+\begin_layout Plain Layout
+Deadlines describe timing requirements
 \end_layout
-
-\end_deeper
-\begin_layout Itemize
-BERT
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Bavier:BERT"
 
 \end_inset
 
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-virtual-clock-based scheduler combines of EDF and proportional share: tasks
- receive a share of cycles before a given deadline
-\end_layout
-
-\begin_layout Itemize
-tasks reserve time according to a feedback estimator
-\end_layout
-
-\begin_layout Itemize
-feedback is coarse grained (in the order of seconds) and only aligns allocation
- and actual use in the long term
-\end_layout
-
-\begin_layout Itemize
-
-\noun on
-Atlas
-\noun default
- aims for precise allocation of every job
-\end_layout
-
-\begin_layout Itemize
-on load spikes, cycles are stolen from lower priorities; similar to CBS
- with adaptive reservations
-\end_layout
-
-\begin_layout Itemize
-strict priorities for stealing
-\end_layout
-
-\begin_layout Itemize
-stealing in BERT in unbounded, no guarantees for the lower priority tasks
-\end_layout
-
-\begin_layout Itemize
-
-\noun on
-Atlas
-\noun default
- uses CFS preroll to gain extra cycles without harming any guarantees
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-BEST
+ more naturally and without the need for context knowledge.
+ The BEST scheduler
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Banachowski:BEST"
 
 \end_inset
 
+ auto-detects periods by observing when processes enter the ready queue.
+ It assigns deadlines accordingly and schedules jobs by EDF.
+\end_layout
+
+\begin_layout Standard
+The BERT
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+BERT
+\end_layout
+
+\end_inset
+
 
 \end_layout
 
-\begin_deeper
-\begin_layout Itemize
-auto-detection of periods by observing when process enters ready queue
+\end_inset
+
+ scheduler
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Bavier:BERT"
+
+\end_inset
+
+ extends a virtual-time algorithm with deadline handling to guarantee that
+ a task receives a certain share of CPU cycles and that it receives them
+ before a given deadline.
+ Tasks reserve execution time according to an estimator observing its behavior.
+ This estimator operates at a granularity in the order of seconds and adjusts
+ CPU reservation in the long term.
+ 
+\noun on
+Atlas
+\noun default
+ aims for a precise allocation of every individual job.
+ When a job overruns its reservation, BERT will steal cycles from lower-priority
+ tasks.
+ 
+\noun on
+Atlas
+\noun default
+ demotes overrunning jobs to CFS to protect the guarantees of behaving jobs.
 \end_layout
 
-\begin_layout Itemize
-assign deadlines based on periods, schedule by EDF
-\end_layout
-
-\begin_layout Itemize
-period detection should be problematic for multithreaded producer-consumer
- setups
-\end_layout
-
-\begin_layout Itemize
-evaluation covers single-threaded applications only
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
+\begin_layout Standard
 Real-Rate Scheduling
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+real-rate scheduling
+\end_layout
+
+\end_inset
+
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Steere:RealRate"
 
 \end_inset
 
-
+ similarly proposes a task model based on shares and periods, both managed
+ by a feedback controller at runtime.
+ Applications can expose progress hints to the controller, for example buffer
+ fill levels in a producer-consumer scenario.
+ 
+\noun on
+Atlas
+\noun default
+ shares the underlying idea of exploiting workload information to help schedulin
+g.
 \end_layout
 
-\begin_deeper
-\begin_layout Itemize
-task model based on period and proportion
+\begin_layout Standard
+\begin_inset Flex NewThought
+status collapsed
+
+\begin_layout Plain Layout
+Fair-share scheduling
 \end_layout
 
-\begin_layout Itemize
-estimate both by a feedback loop at runtime
-\end_layout
+\end_inset
 
-\begin_layout Itemize
-adapt CPU-share according to application-exposed progress hints
-\end_layout
+ primarily regulates the overall interaction of different loads.
+ Servicing the timing requirements of individual applications comes second.
+ Leslie
+\begin_inset space ~
+\end_inset
 
-\begin_layout Itemize
-for example buffer fill level in producer-consumer-scenario
-\end_layout
+et
+\begin_inset space ~
+\end_inset
 
-\end_deeper
-\begin_layout Itemize
-Nemesis
+al.
+\begin_inset space ~
+\end_inset
+
+point out that the performance available to an application depends on the
+ load of other applications.
+ Like priorities, shares require global knowledge to determine the service
+ a task receives.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Leslie:Nemesis"
 
 \end_inset
 
+ The above research approaches try to retrofit timing requirements into
+ the fair-share concept.
+ 
+\noun on
+Atlas
+\noun default
+ puts time constraints of applications first and considers fairness a secondary
+ goal.
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+enlargethispage{1
+\backslash
+baselineskip}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+page size changed
+\end_layout
+
+\end_inset
+
 
 \end_layout
 
-\begin_deeper
-\begin_layout Itemize
-criticism of virtual processors (fair sharing): performance of each virtual
- processor depends on load on other virtual processors
+\begin_layout Section
+Lightweight Specification
 \end_layout
 
-\begin_layout Itemize
-both fixed priorities and virtual processors require global knowledge to
- predict their behavior
+\begin_layout Standard
+
+\noun on
+Atlas
+\noun default
+ postulates that applications should explicitly specify their real-time
+ requirements, but with local parameters that are easy to obtain for developers.
+ Other scheduling architectures share similar goals and therefore come close
+ to 
+\noun on
+Atlas
+\noun default
+ in the spectrum of solutions.
+ Compared to reservation approaches, such systems do not ask for execution
+ times, because they are hardware-dependent.
+ Other than fair-share approaches, these systems do not rely on sharing
+ weights, because they require contextual knowledge of the surrounding load.
 \end_layout
 
-\begin_layout Itemize
-basic idea: free developer from determining resource requirements
-\end_layout
-
-\begin_layout Itemize
-use feedback control
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-like reservations, virtual time put isolation first and application’s timing
- requirements second
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-some of the above work tries to retrofit timing requirements into the fair
- sharing concept
-\end_layout
-
-\begin_layout Itemize
-my approach: put applications first, consider fairness only on overload
-\end_layout
-
-\begin_layout Itemize
-without global coordination, applications should specify timing requirements
- directly, not as relative importance using weights or shares
-\end_layout
-
-\end_deeper
-\end_deeper
-\begin_layout Itemize
-whole-system approaches: lightweight specification
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
+\begin_layout Standard
 SMART
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex SmallCaps
+status collapsed
+
+\begin_layout Plain Layout
+SMART
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Nieh:SMART"
 
 \end_inset
 
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-deadlines from application, priorities and relative shares configured by
- user
-\end_layout
-
-\begin_layout Itemize
-respects timing until system is overloaded
-\end_layout
-
-\begin_layout Itemize
-when overloaded, only shares are guaranteed, which are context-sensitive
-\end_layout
-
-\begin_layout Itemize
-rationale for fairness: responsiveness under overload
-\end_layout
-
-\begin_layout Itemize
-for 
+ is a scheduler for multimedia and other real-time scenarios.
+ Applications specify their timing needs with deadlines.
+ These are respected by the system unless it is fully loaded.
+ User-configurable CPU shares become effective, when the system is loaded.
+ The scheduler behaves like a hybrid between a deadline-based and a fair-share
+ system.
+ CPU-hogging background activity is therefore able to throttle real-time
+ work.
+ The rationale behind the fairness part is to keep non-real-time interactive
+ applications responsive when the system is loaded.
+ 
 \noun on
 Atlas
 \noun default
-, the LRT-band always comes first; responsiveness is real-time and should
- be expressed by deadline
+ strictly prefers real-time jobs over best-effort work.
+ To maintain application responsiveness, user interface code should express
+ its time constraints and 
+\noun on
+Atlas
+\noun default
+ will satisfy them as I have shown.
 \end_layout
 
-\begin_layout Itemize
-in the presence of a compute-bound non-real-time application, the system
- is immediately overloaded
-\end_layout
-
-\begin_layout Itemize
-a background calculation without time constraints can squeeze down real-time
- applications
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
+\begin_layout Standard
 Redline
+\begin_inset Index idx
+status collapsed
+
+\begin_layout Plain Layout
+redline
+\end_layout
+
+\end_inset
+
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Yang:Redline"
 
 \end_inset
 
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-\begin_inset CommandInset href
-LatexCommand href
-name "Redline Slides"
-target "http://os.inf.tu-dresden.de/local/dropscon/archive/2008-12-03-Michael-Redline.pdf"
-
+ is a comprehensive approach to scheduling that needs no modification of
+ applications, but relies on simple specifications provided in external
+ text files.
+ The Redline example specification for mplayer
+\begin_inset space \thinspace{}
 \end_inset
 
+—
+\begin_inset space \thinspace{}
+\end_inset
 
+another Linux video player
+\begin_inset space \thinspace{}
+\end_inset
+
+—
+\begin_inset space \thinspace{}
+\end_inset
+
+statically reserves 
+\begin_inset Formula $5\,\mathrm{ms}$
+\end_inset
+
+ of CPU time every 
+\begin_inset Formula $30\,\mathrm{ms}$
+\end_inset
+
+.
+ Even though Redline will dynamically adapt the actual CPU budget at runtime,
+ this fixed specification does not adequately address the high variability
+ of decoder load.
+ 
+\noun on
+Atlas
+\noun default
+ automatically infers workload-aware task parameters that not only capture,
+ but anticipate execution time variations.
+ Apart from CPU, Redline also manages disk and memory, while 
+\noun on
+Atlas
+\noun default
+ deals with CPU scheduling only.
 \end_layout
 
-\begin_layout Itemize
-also no modifications to applications
-\end_layout
-
-\begin_layout Itemize
-manual annotation with period and fixed execution time
-\end_layout
-
-\begin_layout Itemize
-will adapt parameters at runtime using feedback
-\end_layout
-
-\begin_layout Itemize
-uses EDF scheduler
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-coop_poll
+\begin_layout Standard
+Another scheduling infrastructure that targets high-throughput applications
+ with timing constraints is Cooperative Polling.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Krasic:CoopPoll"
 
 \end_inset
 
+ Krasic
+\begin_inset space ~
+\end_inset
+
+et
+\begin_inset space ~
+\end_inset
+
+al.
+\begin_inset space ~
+\end_inset
+
+share my view that applications should be modified to expose their timing
+ needs to the scheduler, but that the model needs to be simple for developers.
+ Scheduling is split between an application component and the kernel.
+ The interface primitives are similar to 
+\noun on
+Atlas.
+
+\noun default
+ Cooperative polling however lacks a facility to provide execution times
+ to the scheduler.
+ CPU usage is decided by the scheduler according to a fairness policy.
+ Because the 
+\noun on
+Atlas
+\noun default
+ scheduler knows execution time estimates, it can detect future deadline
+ misses before they occur.
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+enlargethispage{1
+\backslash
+baselineskip}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+page size changed
+\end_layout
+
+\end_inset
+
+
+\begin_inset VSpace defskip
+\end_inset
+
 
 \end_layout
 
-\begin_deeper
-\begin_layout Itemize
-uses application insight, no black-box approach, applications explicitly
- expose knowledge
-\end_layout
+\begin_layout Full Width
+\begin_inset Flex Emph
+status collapsed
 
-\begin_layout Itemize
-propagates application's task descriptions down to the kernel, but without
- look-ahead
+\begin_layout Plain Layout
+Individual aspects of 
+\noun on
+Atlas
+\noun default
+ have been investigated in previous research endeavors, but 
+\noun on
+Atlas
+\noun default
+ is first to explore them in combination: The periodic task model requires
+ applications to operate with a minimum job separation and constant execution
+ times.
+ 
+\noun on
+Atlas
+\noun default
+ enables flexible submission of individual jobs with freely positioned deadlines.
+ Reservation approaches employ feedback control to handle dynamic applications,
+ but task parameters are only changed reactively.
+ 
+\noun on
+Atlas
+\noun default
+ uses workload insight to anticipate resource requirements and to service
+ each job according to its actual need.
+ Lightweight specification architectures combine useful timing guarantees
+ with developer ease-of-use.
+ The 
+\noun on
+Atlas
+\noun default
+ programming model is equally simple, but provides the scheduler with enough
+ information to forecast deadline misses.
 \end_layout
-
-\end_deeper
-\end_deeper
-\end_deeper
-\begin_layout Itemize
-future work: device IO
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-propagate deadlines to device queues when jobs issue IO requests
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-helps anticipatory schedulers
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Iyer:Anticipatory"
 
 \end_inset
 
 
 \end_layout
 
-\end_deeper
-\begin_layout Itemize
-propagate future jobs to devices for prefetching
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Patterson:InformedPrefetching"
-
+\begin_layout Standard
+\begin_inset VSpace defskip
 \end_inset
 
-
-\end_layout
-
-\begin_layout Itemize
-asynchronous device access and queue-ahead of upcoming jobs: provides the
- same look-ahead for device IO
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-fostered by GCD dispatch sources and Boost.Asio
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-graphics output: ARTIFACT
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Sasinowski:ARTIFACT"
-
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-ubiquitous priorities
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-devices become smart and self-schedule: manage the queue themselves
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-example: interrupt rate limiting, low-latency packet override and another
- rate limiting for the low-latency override in Intel 82576 network card
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Intel_NIC"
-
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-submit code directly to such smart devices, run the scheduler on the device
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Nightingale:Helios"
-
-\end_inset
-
-
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-Dynamic Active Subset helps
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Reuther:DAS"
-
-\end_inset
-
-
-\end_layout
-
-\end_deeper
-\end_deeper
-\end_inset
-
-
+The next chapter concludes the thesis and provides an outlook for future
+ research directions.
 \end_layout
 
 \begin_layout Chapter
@@ -25315,6 +25540,502 @@ name "7-chap:Road-Ahead"
 \end_inset
 
 The Road Ahead
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Chapter
+Adapt to Handle Overload
+\end_layout
+
+\begin_layout Plain Layout
+This reduction needs global oversight to maintain the system’s fairness
+ policy, but applications may want to adapt their service according to a
+ local notion of quality.
+ Instead of keeping information local for limited management within applications
+, 
+\end_layout
+
+\begin_layout Itemize
+SIGXCPU
+\end_layout
+
+\begin_layout Itemize
+our 
+\begin_inset Quotes eld
+\end_inset
+
+no admission
+\begin_inset Quotes erd
+\end_inset
+
+ policy requires us to deal with overloads when the work does not fit within
+ the deadlines
+\end_layout
+
+\begin_layout Itemize
+but only when overloaded: timeliness first, fairness only when overloaded
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+decouple urgency (timing requirements) and importance (utility)
+\end_layout
+
+\begin_layout Itemize
+
+\noun on
+Atlas
+\noun default
+ flexibility stems from admitting on job-level instead of task-level
+\end_layout
+
+\begin_layout Itemize
+job admission does not reject, but inform
+\end_layout
+
+\begin_layout Itemize
+applications decide how to react, because only they know how to adapt
+\end_layout
+
+\begin_layout Itemize
+no central one-size-fits-all job dropping or deadline tardiness
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+load shedding is an old concept
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lampson:HintsDesign"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset Quotes eld
+\end_inset
+
+shed load to control demand, rather than allowing the system to become overloade
+d.
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+do not waste work by learning after the fact that you missed the deadline
+\end_layout
+
+\begin_layout Itemize
+Robert Morris idea: red button next to terminal, push when dissatisfied,
+ system must raise your QoS or throw you off
+\end_layout
+
+\begin_layout Itemize
+this old idea already argued for quality-aware adaptation, not just load-aware
+\end_layout
+
+\begin_layout Itemize
+when overloaded, real-time applications become brittle and show bi-modal
+ fairness
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Krasic:PriorityProgress"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+quality-aware adaptation is application-specific
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+some work just needs to be done, no discussion, no adaptation possible
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+I would argue this is the common case
+\end_layout
+
+\begin_layout Itemize
+we can only hope to compensate by using the most efficient compute resource
+ and organize it the most efficient way
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+some applications can make quality/resource trade-offs according to application-
+specific notion of quality
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+video is one example
+\end_layout
+
+\begin_layout Itemize
+however, quality per invested CPU time is varying: with resource-fairness,
+ quality would be varying
+\end_layout
+
+\begin_layout Itemize
+application knowledge needed, however applications can lie to unfairly degrade
+ others
+\end_layout
+
+\begin_layout Itemize
+combine resource-fairness and quality-fairness
+\end_layout
+
+\begin_layout Itemize
+this also applies to resources other than CPU time, like network bandwidth
+ for streaming
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+better behavior for more developer effort
+\end_layout
+
+\begin_layout Itemize
+look-ahead enables choosing the part to degrade amongst many options, compared
+ to forcibly degrade the job at hand
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+end-to-end solution
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+workload: offer different processing paths, trading resources and quality
+\end_layout
+
+\begin_layout Itemize
+application: under given resource constraints, find a quality-optimal path
+ through this lattice of options
+\end_layout
+
+\begin_layout Itemize
+system: distribute computing resource cutbacks in a quality-fair fashion
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+backpressure needs to be quality-fair, not resource-fair, but the quality
+ scale is application specific and does not compare
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+global quality-scheduling too complex, resort to balanced backpressure and
+ per-application adaptivity
+\end_layout
+
+\begin_layout Itemize
+needs help from the applications: provide percentage of missed deadlines
+ relative to the maximum quality case, that represents the bare minimum
+ quality users will accept
+\end_layout
+
+\begin_layout Itemize
+backpressure will be distributed amongst adaptive applications weighted
+ by this minimum quality
+\end_layout
+
+\begin_layout Itemize
+assumption: linear quality drop from meeting all deadlines down to that
+ percentage
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+could also use time-utility functions to optimize
+\end_layout
+
+\begin_layout Itemize
+could also include heuristics like less degradation for the frontmost applicatio
+n
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+use of percentage of missed deadlines as quality parameter inspired by QRMS
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Hamann:QRMS"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+describe fallback decoding path for video
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Roitzsch:VideoQuality"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+decoding time estimate already given, quality estimate needed
+\end_layout
+
+\begin_layout Itemize
+greedy solution for (constrained) bin-packing: order jobs by quality/resource
+ ratio
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+end-to-end evaluation
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+compare reduction policy in scheduler: quality-based vs.
+ fairness-based
+\end_layout
+
+\begin_layout Itemize
+compare to ad-hoc adaptation using a low water-mark in the video player
+ queue
+\end_layout
+
+\begin_layout Itemize
+compare to fully clairvoyant oracle that calculates truly quality-optimal
+ execution
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+discuss related work
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+other fairness-policies can be integrated into my system as well
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+relative or absolute shares for temporal isolation, like CBS
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+task models that allow for deadline misses
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+(m,k)-firm tasks
+\end_layout
+
+\begin_layout Itemize
+imprecise computation
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lin:Imprecise"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+scheduling systems that control overload
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+overload handling with adaptive reservations
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Abeni:AdaptiveReservations"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+real-rate scheduling reduces allocations weighted by an importance value
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Steere:RealRate"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+virtual time for progress fairness
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Krasic:CoopPoll"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+application notifications using execution time estimates
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Nieh:SMART"
+
+\end_inset
+
+, but no look-ahead
+\end_layout
+
+\begin_layout Itemize
+BERT
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Bavier:BERT"
+
+\end_inset
+
+: no strict task admission, but overload mitigation; job-shedding, when
+ latest release time is in the past
+\end_layout
+
+\begin_layout Itemize
+resource kernels
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Rajkumar:ResourceKernels"
+
+\end_inset
+
+: user-level QoS expected to be more useful than stacked schedulers
+\end_layout
+
+\begin_layout Itemize
+expose application-internal settings and QoS expectations for global management
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Hoffmann:PowerDial"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+also based on training phase
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Itemize
+overload notification
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+inject language exceptions on deadline overruns: post-mortem, no look-ahead
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+application-specific adaptation
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+load-shedding queues in network servers
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Welsh:SEDA"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+reducing video quality
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Isovic:QoS_Video,Wuest:QoS_Video"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+other sources for adaptive video
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+SVC
+\end_layout
+
+\begin_layout Itemize
+adaptive streaming protocols: application propagates back-pressure even
+ to the server
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Itemize
+prioritize work and skip the low priorities when congested
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Krasic:PriorityProgress"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+simple quality-aware scheme
+\end_layout
+
+\begin_layout Itemize
+global priority-monotonic ordering of video frames
+\end_layout
+
+\begin_layout Itemize
+unclear how much of the fairness benefits stem from the priority sorting
+ or just from global queueing
+\end_layout
+
+\end_deeper
+\end_deeper
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -26538,239 +27259,91 @@ ad-hoc solution for my approach: assume that lambdas within the same job
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
 \begin_inset Note Note
 status open
 
-\begin_layout Chapter
-Adapt to Handle Overload
-\end_layout
-
-\begin_layout Plain Layout
-This reduction needs global oversight to maintain the system’s fairness
- policy, but applications may want to adapt their service according to a
- local notion of quality.
- Instead of keeping information local for limited management within applications
-, 
+\begin_layout Itemize
+future work: device IO
 \end_layout
 
 \begin_layout Itemize
-our 
-\begin_inset Quotes eld
-\end_inset
-
-no admission
-\begin_inset Quotes erd
-\end_inset
-
- policy requires us to deal with overloads when the work does not fit within
- the deadlines
-\end_layout
-
-\begin_layout Itemize
-but only when overloaded: timeliness first, fairness only when overloaded
+propagate deadlines to device queues when jobs issue IO requests
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
-decouple urgency (timing requirements) and importance (utility)
-\end_layout
-
-\begin_layout Itemize
-
-\noun on
-Atlas
-\noun default
- flexibility stems from admitting on job-level instead of task-level
-\end_layout
-
-\begin_layout Itemize
-job admission does not reject, but inform
-\end_layout
-
-\begin_layout Itemize
-applications decide how to react, because only they know how to adapt
-\end_layout
-
-\begin_layout Itemize
-no central one-size-fits-all job dropping or deadline tardiness
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-load shedding is an old concept
+helps anticipatory schedulers
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Lampson:HintsDesign"
+key "Iyer:Anticipatory"
 
 \end_inset
 
 
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
-\begin_inset Quotes eld
-\end_inset
-
-shed load to control demand, rather than allowing the system to become overloade
-d.
-\begin_inset Quotes erd
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-do not waste work by learning after the fact that you missed the deadline
-\end_layout
-
-\begin_layout Itemize
-Robert Morris idea: red button next to terminal, push when dissatisfied,
- system must raise your QoS or throw you off
-\end_layout
-
-\begin_layout Itemize
-this old idea already argued for quality-aware adaptation, not just load-aware
-\end_layout
-
-\begin_layout Itemize
-when overloaded, real-time applications become brittle and show bi-modal
- fairness
+propagate future jobs to devices for prefetching
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Krasic:PriorityProgress"
+key "Patterson:InformedPrefetching"
 
 \end_inset
 
 
 \end_layout
 
-\end_deeper
 \begin_layout Itemize
-quality-aware adaptation is application-specific
+asynchronous device access and queue-ahead of upcoming jobs: provides the
+ same look-ahead for device IO
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
-some work just needs to be done, no discussion, no adaptation possible
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-I would argue this is the common case
-\end_layout
-
-\begin_layout Itemize
-we can only hope to compensate by using the most efficient compute resource
- and organize it the most efficient way
+fostered by GCD dispatch sources and Boost.Asio
 \end_layout
 
 \end_deeper
 \begin_layout Itemize
-some applications can make quality/resource trade-offs according to application-
-specific notion of quality
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-video is one example
-\end_layout
-
-\begin_layout Itemize
-however, quality per invested CPU time is varying: with resource-fairness,
- quality would be varying
-\end_layout
-
-\begin_layout Itemize
-application knowledge needed, however applications can lie to unfairly degrade
- others
-\end_layout
-
-\begin_layout Itemize
-combine resource-fairness and quality-fairness
-\end_layout
-
-\begin_layout Itemize
-this also applies to resources other than CPU time, like network bandwidth
- for streaming
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-better behavior for more developer effort
-\end_layout
-
-\begin_layout Itemize
-look-ahead enables choosing the part to degrade amongst many options, compared
- to forcibly degrade the job at hand
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-end-to-end solution
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-workload: offer different processing paths, trading resources and quality
-\end_layout
-
-\begin_layout Itemize
-application: under given resource constraints, find a quality-optimal path
- through this lattice of options
-\end_layout
-
-\begin_layout Itemize
-system: distribute computing resource cutbacks in a quality-fair fashion
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-backpressure needs to be quality-fair, not resource-fair, but the quality
- scale is application specific and does not compare
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-global quality-scheduling too complex, resort to balanced backpressure and
- per-application adaptivity
-\end_layout
-
-\begin_layout Itemize
-needs help from the applications: provide percentage of missed deadlines
- relative to the maximum quality case, that represents the bare minimum
- quality users will accept
-\end_layout
-
-\begin_layout Itemize
-backpressure will be distributed amongst adaptive applications weighted
- by this minimum quality
-\end_layout
-
-\begin_layout Itemize
-assumption: linear quality drop from meeting all deadlines down to that
- percentage
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-could also use time-utility functions to optimize
-\end_layout
-
-\begin_layout Itemize
-could also include heuristics like less degradation for the frontmost applicatio
-n
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-use of percentage of missed deadlines as quality parameter inspired by QRMS
+graphics output: ARTIFACT
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Hamann:QRMS"
+key "Sasinowski:ARTIFACT"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+ubiquitous priorities
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+devices become smart and self-schedule: manage the queue themselves
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+example: interrupt rate limiting, low-latency packet override and another
+ rate limiting for the low-latency override in Intel 82576 network card
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Intel_NIC"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+submit code directly to such smart devices, run the scheduler on the device
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Nightingale:Helios"
 
 \end_inset
 
@@ -26779,250 +27352,14 @@ key "Hamann:QRMS"
 
 \end_deeper
 \begin_layout Itemize
-describe fallback decoding path for video
+Dynamic Active Subset helps
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Roitzsch:VideoQuality"
+key "Reuther:DAS"
 
 \end_inset
 
 
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-decoding time estimate already given, quality estimate needed
-\end_layout
-
-\begin_layout Itemize
-greedy solution for (constrained) bin-packing: order jobs by quality/resource
- ratio
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-end-to-end evaluation
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-compare reduction policy in scheduler: quality-based vs.
- fairness-based
-\end_layout
-
-\begin_layout Itemize
-compare to ad-hoc adaptation using a low water-mark in the video player
- queue
-\end_layout
-
-\begin_layout Itemize
-compare to fully clairvoyant oracle that calculates truly quality-optimal
- execution
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-discuss related work
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-other fairness-policies can be integrated into my system as well
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-relative or absolute shares for temporal isolation, like CBS
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-task models that allow for deadline misses
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-(m,k)-firm tasks
-\end_layout
-
-\begin_layout Itemize
-imprecise computation
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Lin:Imprecise"
-
-\end_inset
-
-
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-scheduling systems that control overload
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-overload handling with adaptive reservations
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Abeni:AdaptiveReservations"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-real-rate scheduling reduces allocations weighted by an importance value
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Steere:RealRate"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-virtual time for progress fairness
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Krasic:CoopPoll"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-application notifications using execution time estimates
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Nieh:SMART"
-
-\end_inset
-
-, but no look-ahead
-\end_layout
-
-\begin_layout Itemize
-BERT
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Bavier:BERT"
-
-\end_inset
-
-: no strict task admission, but overload mitigation; job-shedding, when
- latest release time is in the past
-\end_layout
-
-\begin_layout Itemize
-resource kernels
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Rajkumar:ResourceKernels"
-
-\end_inset
-
-: user-level QoS expected to be more useful than stacked schedulers
-\end_layout
-
-\begin_layout Itemize
-expose application-internal settings and QoS expectations for global management
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Hoffmann:PowerDial"
-
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-also based on training phase
-\end_layout
-
-\end_deeper
-\end_deeper
-\begin_layout Itemize
-overload notification
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-inject language exceptions on deadline overruns: post-mortem, no look-ahead
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-application-specific adaptation
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-load-shedding queues in network servers
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Welsh:SEDA"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-reducing video quality
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Isovic:QoS_Video,Wuest:QoS_Video"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-other sources for adaptive video
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-SVC
-\end_layout
-
-\begin_layout Itemize
-adaptive streaming protocols: application propagates back-pressure even
- to the server
-\end_layout
-
-\end_deeper
-\end_deeper
-\begin_layout Itemize
-prioritize work and skip the low priorities when congested
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Krasic:PriorityProgress"
-
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-simple quality-aware scheme
-\end_layout
-
-\begin_layout Itemize
-global priority-monotonic ordering of video frames
-\end_layout
-
-\begin_layout Itemize
-unclear how much of the fairness benefits stem from the priority sorting
- or just from global queueing
 \end_layout
 
 \end_deeper
@@ -27037,45 +27374,10 @@ unclear how much of the fairness benefits stem from the priority sorting
 status open
 
 \begin_layout Itemize
-changing paradigm of computing, future: always on, always connected
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-smartphones, tablets and the cloud usher in a new era
-\end_layout
-
-\begin_layout Itemize
-mobile computing, but still with responsiveness and smooth video demanded
- by users
-\end_layout
-
-\begin_layout Itemize
-battery and energy constraints added to the problem space
-\end_layout
-
-\begin_layout Itemize
-\begin_inset Quotes eld
-\end_inset
-
-energy is the new speed
-\begin_inset Quotes erd
-\end_inset
-
-
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
 the individual components have gotten new attention in the recent past
 \end_layout
 
 \begin_deeper
-\begin_layout Itemize
-timeliness: increased importance of responsiveness for touch UIs, tighter
- and stricter deadlines
-\end_layout
-
 \begin_layout Itemize
 placement: heterogeneous manycores
 \begin_inset CommandInset citation
@@ -27085,10 +27387,6 @@ key "DeVuyst:HeterogeneousISA,Chen:SchedulingHeterogeneous"
 \end_inset
 
 
-\end_layout
-
-\begin_layout Itemize
-adaptivity: energy management
 \end_layout
 
 \end_deeper
@@ -27341,31 +27639,6 @@ key "LeSueur:SlowDownSleep"
 \end_inset
 
 
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-end-to-end solution: this is only a rough sketch
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-workload: energy-aware encoding of video
-\end_layout
-
-\begin_layout Itemize
-we get the three swim lanes again, but with a different metric and intention
-\end_layout
-
-\begin_layout Itemize
-application: maintain energy model (enhances real-time), code for specialized
- hardware ISA (enables placement), adapt to save energy (enhances adaptivity)
-\end_layout
-
-\begin_layout Itemize
-system: collect and act on energy metrics (enhances real-time), outsource
- to specialized hardware (enhances placement), backpressure based on energy
- intent (enhances adaptivity)
 \end_layout
 
 \end_deeper
