@@ -1,5 +1,5 @@
 # Veusz saved document (version 1.16)
-# Saved at 2013-07-01T08:23:03.011542
+# Saved at 2013-07-03T07:32:56.724829
 
 AddImportPath(u'/Users/Michael/Documents/Forschung/Dissertation/Data/6-Evaluation')
 ImportFile(u'Miss-Detect_Forecast.tab', u'time none - + reduced - + full - +', linked=True, ignoretext=True)
@@ -86,6 +86,7 @@ Set('match', u'../graph1/x')
 To('..')
 Add('axis', name='y', autoadd=False)
 To('y')
+Set('autoRange', u'exact')
 Set('direction', 'vertical')
 Set('otherPosition', 1.0)
 Set('match', u'../graph1/y')
@@ -118,6 +119,7 @@ To('..')
 Add('axis', name='y', autoadd=False)
 To('y')
 Set('label', u'Mean Forecast Error (ms)')
+Set('autoRange', u'exact')
 Set('direction', 'vertical')
 Set('otherPosition', 1.0)
 Set('match', u'../graph1/y')
