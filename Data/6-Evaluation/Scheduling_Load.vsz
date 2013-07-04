@@ -1,5 +1,5 @@
 # Veusz saved document (version 1.16)
-# Saved at 2013-06-30T20:41:35.828417
+# Saved at 2013-07-03T15:57:33.090211
 
 AddImportPath(u'/Users/Michael/Documents/Forschung/Dissertation/Data/6-Evaluation')
 ImportFile(u'Scheduling_Load.tab', u'load cfs - + none - + reduced - + full - +', linked=True, ignoretext=True)
@@ -121,7 +121,7 @@ Set('BarFill/fills', [('solid', u'#405a82', False)])
 To('..')
 Add('label', name='label1', autoadd=False)
 To('label1')
-Set('label', u'\u25c2\u200aclipped')
+Set('label', u'\u25c2\u200a31\u200ams, clipped')
 Set('xPos', [0.15])
 Set('yPos', [0.93])
 To('..')
