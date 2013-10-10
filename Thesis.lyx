@@ -70,7 +70,7 @@
 \fancyfoot[LE,RO]{
 \begin{picture}(0,0)
 \color{gray}
-\put(49,-60){\rule{10mm}{305mm}}
+\put(49,-65){\rule{10mm}{305mm}}
 \end{picture}
 }}}
 \newcommand{\nochapteredge}{
@@ -162,7 +162,7 @@ End
 \fontencoding global
 \font_roman Hoefler Text
 \font_sans Gill Sans
-\font_typewriter Menlo
+\font_typewriter Menlo Regular
 \font_default_family default
 \use_non_tex_fonts true
 \font_sc false
@@ -226,33 +226,11 @@ End
 \begin_body
 
 \begin_layout Standard
-\begin_inset ERT
-status collapsed
+\begin_inset External
+	template PDFPages
+	filename Figures/Cover.pdf
+	extra LaTeX "pages={1}"
 
-\begin_layout Plain Layout
-
-
-\backslash
-thispagestyle{empty}
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-
-\backslash
-null
-\end_layout
-
-\end_inset
-
-
-\begin_inset Newpage clearpage
 \end_inset
 
 
@@ -654,7 +632,7 @@ August 1980 in Dresden.
 
 \lang ngerman
 \begin_inset Tabular
-<lyxtabular version="3" rows="8" columns="2">
+<lyxtabular version="3" rows="9" columns="2">
 <features booktabs="true" tabularvalignment="middle">
 <column alignment="left" valignment="top" width="0pt" special="@{}l">
 <column alignment="left" valignment="top" width="0pt">
@@ -878,6 +856,34 @@ Juli 2013
 \end_inset
 </cell>
 </row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang ngerman
+Verteidigung:
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang ngerman
+19.
+\begin_inset space ~
+\end_inset
+
+September 2013
+\end_layout
+
+\end_inset
+</cell>
+</row>
 </lyxtabular>
 
 \end_inset
@@ -904,11 +910,11 @@ noindent
 
 \end_inset
 
-Dresden, 4.
+Dresden, 1.
 \begin_inset space ~
 \end_inset
 
-Juli 2013
+Oktober 2013
 \end_layout
 
 \begin_layout Chapter*
@@ -26383,6 +26389,31 @@ nochapteredge
 \end_inset
 
 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+newgeometry{asymmetric,left=24.8mm,top=27.4mm,textheight=50
+\backslash
+baselineskip}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+page size changed
+\end_layout
+
+\end_inset
+
+
 \begin_inset FloatList figure
 
 \end_inset
@@ -26391,6 +26422,19 @@ nochapteredge
 \end_layout
 
 \begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+restoregeometry
+\end_layout
+
+\end_inset
+
+
 \begin_inset FloatList margintable
 
 \end_inset
@@ -26399,6 +26443,48 @@ nochapteredge
 \begin_inset CommandInset index_print
 LatexCommand printindex
 type "idx"
+
+\end_inset
+
+
+\begin_inset Newpage cleardoublepage
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+thispagestyle{empty}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+null
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newpage clearpage
+\end_inset
+
+
+\begin_inset External
+	template PDFPages
+	filename Figures/Cover.pdf
+	extra LaTeX "pages={2}"
 
 \end_inset
 
