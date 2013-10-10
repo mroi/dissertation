@@ -5,6 +5,7 @@ all:
 	@echo "  check   text consistency checks"
 	@echo "  style   highlight weak style in the text"
 	@echo "  pdf     compile PDF version"
+	@echo "  print   compile PDF version for print"
 	@echo "  epub    compile EPUB version"
 
 check:
@@ -16,6 +17,8 @@ style: Thesis-stylight.pdf
 	open $<
 
 pdf: ../Thesis.pdf
+
+print: Thesis-print.pdf
 
 epub: Thesis.epub
 
@@ -36,6 +39,16 @@ Thesis.tex: ../Thesis.lyx
 
 ../Thesis.pdf: ../Thesis.lyx
 	lyx --export pdf4 $<
+
+Thesis-print.pdf: ../Thesis.pdf empty.pdf
+	pdfopt $< $@-1  # PoDoFo otherwise barks about problems in the PDF
+	podofopages $@-1 $@-2 --delete 0 --delete 118  # delete cover pages
+	podofomerge empty.pdf $@-2 $@-3  # add empty front cover page
+	podofomerge $@-3 empty.pdf $@-4  # add empty back cover page
+	podofobox $@-4 $@-5 media -850 -850 61228 85890  # add 3mm margins with bleed
+	podofobox $@-5 $@-6 bleed -850 -850 61228 85890  # add bleed box
+	podofobox $@-6 $@ trim 0 0 59528 84189  # add trim box
+	rm $@-[1-6]
 
 Thesis.epub: epub/Thesis.ncx epub/Thesis.xhtml
 	rm -f $@
@@ -67,6 +80,9 @@ epub/Thesis.xhtml: ../Thesis.lyx
 ../Thesis.lyx: force
 	$(MAKE) -C ../Data
 
+%.pdf: %.tex
+	pdflatex $<
+	rm $*.aux $*.log
+
 clean:
-	rm -f Thesis-stylight.pdf
-	rm -f Thesis.epub
+	rm -f *.pdf *.epub
