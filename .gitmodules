@@ -1,3 +1,4 @@
 [submodule "Workbench"]
 	path = Workbench
 	url = os:pub/atlas.git
+	branch = dissertation
