@@ -8,10 +8,11 @@ while (<>) {
 }
 
 print <<EOF;
-\\lyxformat 413
+\\lyxformat 474
 \\begin_document
 \\begin_header
 \\textclass tufte-book
+\\use_default_options true
 \\inputencoding utf8-plain
 \\end_header
 
