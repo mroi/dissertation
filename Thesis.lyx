@@ -2060,7 +2060,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Figures/1-Introduction/Verically_Integrated_Solution.svg
+	filename Figures/1-Introduction/Vertically_Integrated_Solution.svg
 
 \end_inset
 
@@ -11050,7 +11050,7 @@ status open
 \begin_layout Plain Layout
 \noindent
 \begin_inset Graphics
-	filename Figures/3-Real-Time/Verical_Integration_Overview.svg
+	filename Figures/3-Real-Time/Vertical_Integration_Overview.svg
 
 \end_inset
 
@@ -11812,7 +11812,7 @@ status open
 \begin_layout Plain Layout
 \noindent
 \begin_inset Graphics
-	filename Figures/3-Real-Time/Verical_Integration_Application.svg
+	filename Figures/3-Real-Time/Vertical_Integration_Application.svg
 
 \end_inset
 
@@ -12494,7 +12494,7 @@ status open
 \begin_layout Plain Layout
 \noindent
 \begin_inset Graphics
-	filename Figures/4-Prediction/Verical_Integration.svg
+	filename Figures/4-Prediction/Vertical_Integration.svg
 
 \end_inset
 
@@ -19403,7 +19403,7 @@ status open
 \begin_layout Plain Layout
 \noindent
 \begin_inset Graphics
-	filename Figures/5-Scheduler/Verical_Integration.svg
+	filename Figures/5-Scheduler/Vertical_Integration.svg
 
 \end_inset
 
