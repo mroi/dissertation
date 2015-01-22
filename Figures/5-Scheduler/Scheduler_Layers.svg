@@ -9,11 +9,12 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="148.81889"
-   height="124.01575"
-   id="svg4582"
+   width="4.2cm"
+   height="3.5cm"
+   id="svg2"
    version="1.1"
-   inkscape:version="0.48.2 r9819"
+   viewBox="0 0 148.81889 124.01575"
+   inkscape:version="0.91+devel+osxmenu r12894"
    sodipodi:docname="Scheduler_Layers.svg">
   <defs
      id="defs4584">
@@ -39,17 +40,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="3.7958889"
-     inkscape:cx="98.057632"
-     inkscape:cy="70.866142"
-     inkscape:document-units="px"
-     inkscape:current-layer="g5341"
+     inkscape:zoom="4.3391667"
+     inkscape:cx="79.370075"
+     inkscape:cy="66.141732"
+     inkscape:document-units="mm"
+     inkscape:current-layer="svg2"
      showgrid="true"
      units="cm"
      inkscape:window-width="1174"
      inkscape:window-height="737"
-     inkscape:window-x="60"
-     inkscape:window-y="0"
+     inkscape:window-x="75"
+     inkscape:window-y="23"
      inkscape:window-maximized="0">
     <inkscape:grid
        type="xygrid"
@@ -58,9 +59,9 @@
        visible="true"
        enabled="true"
        snapvisiblegridlinesonly="true"
-       units="cm"
-       spacingx="0.1cm"
-       spacingy="0.1cm" />
+       units="mm"
+       spacingx="1mm"
+       spacingy="1mm" />
   </sodipodi:namedview>
   <metadata
      id="metadata4587">
@@ -70,185 +71,179 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
   <g
-     inkscape:label="Ebene 1"
-     inkscape:groupmode="layer"
-     id="layer1"
-     transform="translate(0,-928.34513)">
-    <g
-       id="g4598"
-       transform="translate(0,7.0866134)">
-      <rect
-         transform="translate(0,910.62859)"
-         y="116.92914"
-         x="0"
-         height="17.716532"
-         width="124.01575"
-         id="rect4592"
-         style="fill:#a1aabb;stroke:none" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text4594"
-         y="1040.4238"
-         x="61.670959"
-         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-         xml:space="preserve"><tspan
-           style="font-size:12px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;text-anchor:middle;fill:#ffffff;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Bold"
-           y="1040.4238"
-           x="61.670959"
-           id="tspan4596"
-           sodipodi:role="line">Idle</tspan></text>
-    </g>
-    <g
-       id="g4603"
-       transform="translate(0,-14.173229)"
-       style="fill:#48494b">
-      <rect
-         style="fill:#48494b;stroke:none"
-         id="rect4605"
-         width="124.01575"
-         height="17.716532"
-         x="0"
-         y="116.92914"
-         transform="translate(0,910.62859)" />
-      <text
-         xml:space="preserve"
-         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"
+     transform="translate(0,-921.25852)"
+     id="g4598">
+    <rect
+       style="fill:#a1aabb;stroke:none"
+       id="rect4592"
+       width="124.01575"
+       height="17.716532"
+       x="0"
+       y="116.92914"
+       transform="translate(0,910.62859)" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       x="61.670959"
+       y="1040.4238"
+       id="text4594"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4596"
          x="61.670959"
          y="1040.4238"
-         id="text4607"
-         sodipodi:linespacing="125%"><tspan
-           sodipodi:role="line"
-           id="tspan4609"
-           x="61.670959"
-           y="1040.4238"
-           style="font-size:12px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;text-anchor:middle;fill:#ffffff;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Bold">CFS</tspan></text>
-    </g>
-    <g
-       style="fill:#48494b"
-       transform="translate(0,-35.433074)"
-       id="g4611">
-      <rect
-         transform="translate(0,910.62859)"
-         y="116.92914"
-         x="0"
-         height="17.716532"
-         width="124.01575"
-         id="rect4613"
-         style="fill:#5d7fbb;stroke:none" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text4615"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12px;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold';text-align:center;text-anchor:middle;fill:#ffffff">Idle</tspan></text>
+  </g>
+  <g
+     style="fill:#48494b"
+     transform="translate(0,-942.51836)"
+     id="g4603">
+    <rect
+       transform="translate(0,910.62859)"
+       y="116.92914"
+       x="0"
+       height="17.716532"
+       width="124.01575"
+       id="rect4605"
+       style="fill:#48494b;stroke:none" />
+    <text
+       sodipodi:linespacing="125%"
+       id="text4607"
+       y="1040.4238"
+       x="61.670959"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12px;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold';text-align:center;text-anchor:middle;fill:#ffffff"
          y="1040.4238"
          x="61.670959"
-         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"
-         xml:space="preserve"><tspan
-           style="font-size:12px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;text-anchor:middle;fill:#ffffff;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Bold"
-           y="1040.4238"
-           x="61.670959"
-           id="tspan4617"
-           sodipodi:role="line">EDF Recovery</tspan></text>
-    </g>
-    <g
-       id="g5341"
-       transform="translate(-4.8818898e-6,10.629927)">
-      <path
-         sodipodi:nodetypes="cssssc"
-         inkscape:connector-curvature="0"
-         id="path4643"
-         d="m 120.47245,967.3215 c 0,0 3.54331,0 7.08662,0 3.5433,0 7.08661,3.5433 7.08661,7.08661 0,7.08661 -1e-5,24.80318 -1e-5,31.88979 0,3.5433 -3.54331,7.0866 -7.08661,7.0866 -1.1811,0 -3.54331,0 -3.54331,0"
-         style="fill:none;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow2Mend)" />
-      <text
-         transform="matrix(0,1,-1,0,0,0)"
-         sodipodi:linespacing="125%"
-         id="text5337"
-         y="-138.18898"
+         id="tspan4609"
+         sodipodi:role="line">CFS</tspan></text>
+  </g>
+  <g
+     id="g4611"
+     transform="translate(0,-963.7782)"
+     style="fill:#48494b">
+    <rect
+       style="fill:#5d7fbb;stroke:none"
+       id="rect4613"
+       width="124.01575"
+       height="17.716532"
+       x="0"
+       y="116.92914"
+       transform="translate(0,910.62859)" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none"
+       x="61.670959"
+       y="1040.4238"
+       id="text4615"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4617"
+         x="61.670959"
+         y="1040.4238"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12px;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold';text-align:center;text-anchor:middle;fill:#ffffff">EDF Recovery</tspan></text>
+  </g>
+  <g
+     transform="translate(-4.8818898e-6,-917.7152)"
+     id="g5341">
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow2Mend)"
+       d="m 120.47245,967.3215 c 0,0 3.54331,0 7.08662,0 3.5433,0 7.08661,3.5433 7.08661,7.08661 0,7.08661 -1e-5,24.80318 -1e-5,31.88979 0,3.5433 -3.54331,7.0866 -7.08661,7.0866 -1.1811,0 -3.54331,0 -3.54331,0"
+       id="path4643"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssssc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+       x="990.77246"
+       y="-138.18898"
+       id="text5337"
+       sodipodi:linespacing="125%"
+       transform="rotate(90)"><tspan
+         sodipodi:role="line"
+         id="tspan5339"
          x="990.77246"
-         style="font-size:40px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-         xml:space="preserve"><tspan
-           style="font-size:12px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:center;text-anchor:middle;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light"
-           y="-138.18898"
-           x="990.77246"
-           id="tspan5339"
-           sodipodi:role="line">head start</tspan></text>
-    </g>
-    <g
-       id="g4619"
-       transform="translate(0,-56.692909)"
-       style="fill:#48494b">
-      <rect
-         style="fill:#5d7fbb;stroke:none"
-         id="rect4621"
-         width="124.01575"
-         height="17.716532"
-         x="0"
-         y="116.92914"
-         transform="translate(0,910.62859)" />
-      <text
-         xml:space="preserve"
-         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"
-         x="61.670959"
-         y="1040.4238"
-         id="text4623"
-         sodipodi:linespacing="125%"><tspan
-           sodipodi:role="line"
-           id="tspan4625"
-           x="61.670959"
-           y="1040.4238"
-           style="font-size:12px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;text-anchor:middle;fill:#ffffff;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Bold">ATLAS</tspan></text>
-    </g>
-    <g
-       style="fill:#48494b"
-       transform="translate(0,-77.952742)"
-       id="g4627">
-      <rect
-         transform="translate(0,910.62859)"
-         y="116.92914"
-         x="0"
-         height="17.716532"
-         width="124.01575"
-         id="rect4629"
-         style="fill:#48494b;stroke:none" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text4631"
+         y="-138.18898"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:12px;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Light';text-align:center;text-anchor:middle">head start</tspan></text>
+  </g>
+  <g
+     style="fill:#48494b"
+     transform="translate(0,-985.03804)"
+     id="g4619">
+    <rect
+       transform="translate(0,910.62859)"
+       y="116.92914"
+       x="0"
+       height="17.716532"
+       width="124.01575"
+       id="rect4621"
+       style="fill:#5d7fbb;stroke:none" />
+    <text
+       sodipodi:linespacing="125%"
+       id="text4623"
+       y="1040.4238"
+       x="61.670959"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12px;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold';text-align:center;text-anchor:middle;fill:#ffffff"
          y="1040.4238"
          x="61.670959"
-         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"
-         xml:space="preserve"><tspan
-           style="font-size:12px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;text-anchor:middle;fill:#ffffff;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Bold"
-           y="1040.4238"
-           x="61.670959"
-           id="tspan4633"
-           sodipodi:role="line">POSIX Real-Time</tspan></text>
-    </g>
-    <g
-       id="g4635"
-       transform="translate(0,-99.212575)">
-      <rect
-         style="fill:#a1aabb;stroke:none"
-         id="rect4637"
-         width="124.01575"
-         height="17.716532"
-         x="0"
-         y="116.92914"
-         transform="translate(0,910.62859)" />
-      <text
-         xml:space="preserve"
-         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         id="tspan4625"
+         sodipodi:role="line">ATLAS</tspan></text>
+  </g>
+  <g
+     id="g4627"
+     transform="translate(0,-1006.2979)"
+     style="fill:#48494b">
+    <rect
+       style="fill:#48494b;stroke:none"
+       id="rect4629"
+       width="124.01575"
+       height="17.716532"
+       x="0"
+       y="116.92914"
+       transform="translate(0,910.62859)" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none"
+       x="61.670959"
+       y="1040.4238"
+       id="text4631"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4633"
          x="61.670959"
          y="1040.4238"
-         id="text4639"
-         sodipodi:linespacing="125%"><tspan
-           sodipodi:role="line"
-           id="tspan4641"
-           x="61.670959"
-           y="1040.4238"
-           style="font-size:12px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;text-anchor:middle;fill:#ffffff;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Bold">Stop</tspan></text>
-    </g>
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12px;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold';text-align:center;text-anchor:middle;fill:#ffffff">POSIX Real-Time</tspan></text>
+  </g>
+  <g
+     transform="translate(0,-1027.5577)"
+     id="g4635">
+    <rect
+       transform="translate(0,910.62859)"
+       y="116.92914"
+       x="0"
+       height="17.716532"
+       width="124.01575"
+       id="rect4637"
+       style="fill:#a1aabb;stroke:none" />
+    <text
+       sodipodi:linespacing="125%"
+       id="text4639"
+       y="1040.4238"
+       x="61.670959"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12px;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold';text-align:center;text-anchor:middle;fill:#ffffff"
+         y="1040.4238"
+         x="61.670959"
+         id="tspan4641"
+         sodipodi:role="line">Stop</tspan></text>
   </g>
 </svg>

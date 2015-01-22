@@ -9,11 +9,12 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="566.92914"
-   height="70.866142"
+   width="16cm"
+   height="2cm"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.2 r9819"
+   viewBox="0 0 566.92914 70.866142"
+   inkscape:version="0.91+devel+osxmenu r12894"
    sodipodi:docname="FFplay_Design.svg">
   <defs
      id="defs4">
@@ -39,10 +40,10 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.8567357"
-     inkscape:cx="288.15268"
-     inkscape:cy="30.111688"
-     inkscape:document-units="px"
+     inkscape:zoom="1.8669661"
+     inkscape:cx="302.3622"
+     inkscape:cy="37.795276"
+     inkscape:document-units="mm"
      inkscape:current-layer="svg2"
      showgrid="true"
      units="cm"
@@ -53,7 +54,7 @@
      inkscape:window-width="1249"
      inkscape:window-height="751"
      inkscape:window-x="92"
-     inkscape:window-y="0"
+     inkscape:window-y="23"
      inkscape:window-maximized="0">
     <inkscape:grid
        type="xygrid"
@@ -241,9 +242,9 @@
        id="text3118"
        y="953.14832"
        x="7.0866141"
-       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
        xml:space="preserve"><tspan
-         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:12px;line-height:125%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Light';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1"
          y="953.14832"
          x="7.0866141"
          id="tspan3120"
@@ -294,7 +295,7 @@
      id="g3262">
     <text
        xml:space="preserve"
-       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:end;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light"
+       style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:12px;line-height:125%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Light';text-align:end;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none"
        x="28.346458"
        y="949.00482"
        id="text3266"
@@ -303,11 +304,11 @@
          id="tspan3268"
          x="28.346458"
          y="949.00482"
-         style="font-size:8px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light">video queue</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:8px;line-height:125%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Light';text-align:start;writing-mode:lr-tb;text-anchor:start">video queue</tspan><tspan
          sodipodi:role="line"
          x="28.346458"
          y="959.00482"
-         style="font-size:8px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Gill Sans;-inkscape-font-specification:Gill Sans Light"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:8px;line-height:125%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Light';text-align:start;writing-mode:lr-tb;text-anchor:start"
          id="tspan3292">compressed packets</tspan></text>
     <g
        id="g3759">

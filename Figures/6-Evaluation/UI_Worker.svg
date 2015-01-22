@@ -10,11 +10,12 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="159.44882"
-   height="63.779526"
+   width="4.5cm"
+   height="1.8cm"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.2 r9819"
+   viewBox="0 0 159.44882 63.779526"
+   inkscape:version="0.91+devel+osxmenu r12894"
    sodipodi:docname="UI_Worker.svg">
   <defs
      id="defs4">
@@ -39,15 +40,15 @@
      inkscape:zoom="4.5061483"
      inkscape:cx="79.724411"
      inkscape:cy="33.99905"
-     inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:document-units="mm"
+     inkscape:current-layer="svg2"
      showgrid="true"
      units="cm"
      inkscape:snap-grids="true"
-     inkscape:window-width="1401"
-     inkscape:window-height="697"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-width="998"
+     inkscape:window-height="566"
+     inkscape:window-x="86"
+     inkscape:window-y="23"
      inkscape:window-maximized="0">
     <inkscape:grid
        type="xygrid"
@@ -56,9 +57,9 @@
        visible="true"
        enabled="true"
        snapvisiblegridlinesonly="true"
-       units="cm"
-       spacingx="0.1cm"
-       spacingy="0.1cm" />
+       units="mm"
+       spacingx="1mm"
+       spacingy="1mm" />
   </sodipodi:namedview>
   <metadata
      id="metadata7">
@@ -72,19 +73,15 @@
       </cc:Work>
     </rdf:RDF>
   </metadata>
-  <g
-     inkscape:label="Ebene 1"
-     inkscape:groupmode="layer"
-     id="layer1"
-     transform="translate(0,-988.58135)">
-    <image
-       y="988.84601"
-       x="0"
-       id="image3105"
-       xlink:href="file:///Users/Michael/Documents/Forschung/Dissertation/Figures/6-Evaluation/UI_Worker.png"
-       height="63.514885"
-       width="159.44882"
-       mask="none"
-       clip-path="url(#clipPath2987)" />
-  </g>
+  <image
+     sodipodi:absref="/Users/Michael/Documents/Forschung/Dissertation/Figures/6-Evaluation/UI_Worker.png"
+     xlink:href="UI_Worker.png"
+     transform="translate(0,-988.58135)"
+     clip-path="url(#clipPath2987)"
+     mask="none"
+     width="159.44882"
+     height="63.514885"
+     id="image3105"
+     x="0"
+     y="988.84601" />
 </svg>

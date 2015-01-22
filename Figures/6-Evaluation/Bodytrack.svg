@@ -10,11 +10,12 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="159.44882"
-   height="120.47243"
+   width="4.5cm"
+   height="3.4cm"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.2 r9819"
+   viewBox="0 0 159.44882 120.47243"
+   inkscape:version="0.91+devel+osxmenu r12894"
    sodipodi:docname="Bodytrack.svg">
   <defs
      id="defs4">
@@ -39,17 +40,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="4.9765187"
-     inkscape:cx="79.724411"
-     inkscape:cy="112.20599"
-     inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:zoom="4.5446077"
+     inkscape:cx="85.03937"
+     inkscape:cy="64.25197"
+     inkscape:document-units="mm"
+     inkscape:current-layer="svg2"
      showgrid="true"
      units="cm"
-     inkscape:window-width="1147"
+     inkscape:window-width="1050"
      inkscape:window-height="747"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-x="97"
+     inkscape:window-y="23"
      inkscape:window-maximized="0">
     <inkscape:grid
        type="xygrid"
@@ -58,9 +59,9 @@
        visible="true"
        enabled="true"
        snapvisiblegridlinesonly="true"
-       units="cm"
-       spacingx="0.1cm"
-       spacingy="0.1cm" />
+       units="mm"
+       spacingx="1mm"
+       spacingy="1mm" />
   </sodipodi:namedview>
   <metadata
      id="metadata7">
@@ -74,19 +75,14 @@
       </cc:Work>
     </rdf:RDF>
   </metadata>
-  <g
-     inkscape:label="Ebene 1"
-     inkscape:groupmode="layer"
-     id="layer1"
-     transform="translate(0,-931.88842)">
-    <image
-       y="-1052.361"
-       x="-177.16536"
-       id="image3158"
-       xlink:href="file:///Users/Michael/Documents/Forschung/Dissertation/Figures/6-Evaluation/Bodytrack.bmp"
-       height="132.87401"
-       width="177.16536"
-       transform="matrix(-1.8,0,0,-1.8,-159.44882,-841.8886)"
-       clip-path="url(#clipPath2986)" />
-  </g>
+  <image
+     sodipodi:absref="/Users/Michael/Documents/Forschung/Dissertation/Figures/6-Evaluation/Bodytrack.bmp"
+     xlink:href="Bodytrack.bmp"
+     clip-path="url(#clipPath2986)"
+     transform="matrix(-1.8,0,0,-1.8,-159.44882,-1773.777)"
+     width="177.16536"
+     height="132.87401"
+     id="image3158"
+     x="-177.16536"
+     y="-1052.361" />
 </svg>
