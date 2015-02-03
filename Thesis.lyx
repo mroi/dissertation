@@ -49,9 +49,6 @@
 % do not indent the bibliography
 \setlength{\bibhang}{0pt}
 
-% QR-code generator used for some URLs
-\usepackage{pst-barcode}
-
 % repeat tufte caption definition because it gets garbled by hyperref
 \long\def\@caption#1[#2]#3{\par%
 \addcontentsline{\csname ext@#1\endcsname}{#1}%
@@ -7980,23 +7977,13 @@ https://os.inf.tu-dresden.de/~mroi/git/thesis
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
+\begin_inset space \hfill{}
+\end_inset
 
 
-\backslash
-noindent
-\backslash
-begin{pspicture}(0.45in,0.45in)
-\backslash
-psbarcode{https://os.inf.tu-dresden.de/
-\backslash
-%7Emroi/git/thesis}{width=0.5 height=0.5}{qrcode}
-\backslash
-end{pspicture}
-\end_layout
+\begin_inset Graphics
+	filename Figures/QR-Code.svg
+	width 1.2cm
 
 \end_inset
 
