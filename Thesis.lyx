@@ -17,6 +17,9 @@
 \hyphenation{Atlas}
 \hyphenation{off-line}
 
+% text width tweak to fix layout with CoreText-based XeTeX
+\setlength{\textwidth}{107.088mm}
+
 % font setup: disable Hoefler swashes, set math fonts
 \usepackage{mathspec}
 \setmainfont[ItalicFeatures={Contextuals={NoLineInitial,NoLineFinal}}]{Hoefler Text}
@@ -233,6 +236,25 @@ End
 \end_header
 
 \begin_body
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+This document was originally built with a XeTeX/Mac version using the Carbon/AAT
+ framework.
+ After updating to a newer version of XeTeX/Mac, which uses Cocoa/CoreText
+ for type setting, the layout changes.
+ The text width tweak in the preamble fixes most of the annoying layout
+ differences.
+ Some subtle changes to the official PDF version of the thesis may remain.
+\end_layout
+
+\end_inset
+
+
+\end_layout
 
 \begin_layout Standard
 \begin_inset External
@@ -10094,17 +10116,23 @@ Their complete source code:
 
 \begin_layout Plain Layout
 \noindent
-\begin_inset listings
-inline true
+\begin_inset Flex Code
 status open
 
 \begin_layout Plain Layout
 
-int main(void) 
-\backslash
-{ while (1); 
-\backslash
-}
+\series bold
+int
+\series default
+ main(
+\series bold
+void
+\series default
+) { 
+\series bold
+while
+\series default
+ (1); }
 \end_layout
 
 \end_inset
@@ -11337,7 +11365,7 @@ Atlas
 \end_inset
 
  is a set 
-\begin_inset Formula $\tau_{i}=\{\, J_{i,j}\mid j=1,\ldots,m\}$
+\begin_inset Formula $\tau_{i}=\{\,J_{i,j}\mid j=1,\ldots,m\}$
 \end_inset
 
  of job
@@ -12863,8 +12891,8 @@ key "Stoer:Numerics"
 R=\begin{pmatrix}\hat{R}\\
 0
 \end{pmatrix}\begin{array}{l}
-\left\} \; l\right.\\
-\left\} \; k-l\right.
+\left\} \;l\right.\\
+\left\} \;k-l\right.
 \end{array}
 \]
 
@@ -12889,8 +12917,8 @@ with
 \underline{c}:=\mathcal{Q}^{T}\underline{t}=\begin{pmatrix}\underline{\hat{c}}\\
 \underline{c_{R}}
 \end{pmatrix}\begin{array}{l}
-\left\} \; l\right.\\
-\left\} \; k-l\right.
+\left\} \;l\right.\\
+\left\} \;k-l\right.
 \end{array}
 \]
 
@@ -13768,7 +13796,7 @@ x_{1} & + & x_{2} & = & 1\\
 \end_inset
 
 The solution is 
-\begin_inset Formula $x_{1}=-999,\: x_{2}=1000$
+\begin_inset Formula $x_{1}=-999,\:x_{2}=1000$
 \end_inset
 
 .
@@ -20307,7 +20335,7 @@ slack time
 : 
 \begin_inset Formula 
 \[
-s_{i}(t_{now})=\left(d_{i}-t_{now}\right)-\sum_{\left\{ J_{k}\mid\mathrm{job\: scheduled\: between}\: t_{now}\:\mathrm{and}\: d_{i}\right\} }e_{k}
+s_{i}(t_{now})=\left(d_{i}-t_{now}\right)-\sum_{\left\{ J_{k}\mid\mathrm{job\:scheduled\:between}\:t_{now}\:\mathrm{and}\:d_{i}\right\} }e_{k}
 \]
 
 \end_inset
@@ -21573,17 +21601,23 @@ Their complete source code:
 
 \begin_layout Plain Layout
 \noindent
-\begin_inset listings
-inline true
+\begin_inset Flex Code
 status open
 
 \begin_layout Plain Layout
 
-int main(void) 
-\backslash
-{ while (1); 
-\backslash
-}
+\series bold
+int
+\series default
+ main(
+\series bold
+void
+\series default
+) { 
+\series bold
+while
+\series default
+ (1); }
 \end_layout
 
 \end_inset
@@ -22265,14 +22299,53 @@ Atlas
 \noun on
 Atlas
 \noun default
- handles such jobs similarly to XNU’s time-constrained threads, but without
- requiring developers to report execution times.
+ handles such jobs 
+\begin_inset Flex NoWrap
+status open
+
+\begin_layout Plain Layout
+similarly to
+\end_layout
+
+\end_inset
+
+ XNU’s time-constrained threads, but without requiring developers to report
+ execution times.
  Due to the constant execution time of Bodytrack’s jobs, enabling 
 \noun on
 Atlas
 \noun default
- scheduling was only a matter of reporting the deadline, leaving execution
- time recognition entirely to the runtime.
+ scheduling was 
+\begin_inset Flex NoWrap
+status open
+
+\begin_layout Plain Layout
+only a matter of reporting
+\end_layout
+
+\end_inset
+
+ the deadline, leaving execution time recognition 
+\begin_inset Flex NoWrap
+status open
+
+\begin_layout Plain Layout
+entirely to the runtime
+\end_layout
+
+\end_inset
+
+.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Line-wrap restrictions ensure consistent layout across XeTeX/Mac-versions.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section

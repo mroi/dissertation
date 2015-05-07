@@ -664,17 +664,24 @@ Their complete source code:
 
 \begin_layout Plain Layout
 \noindent
-\begin_inset listings
-inline true
+\begin_inset Flex Code
 status open
 
 \begin_layout Plain Layout
+\noindent
 
-int main(void) 
-\backslash
-{ while (1); 
-\backslash
-}
+\series bold
+int
+\series default
+ main(
+\series bold
+void
+\series default
+) { 
+\series bold
+while
+\series default
+ (1); }
 \end_layout
 
 \end_inset
@@ -2281,7 +2288,7 @@ at the current time instant
 : 
 \begin_inset Formula 
 \[
-s_{i}(t_{now})=\left(d_{i}-t_{now}\right)-\sum_{\left\{ J_{k}\mid\mathrm{job\: scheduled\: between}\: t_{now}\:\mathrm{and}\: d_{i}\right\} }e_{k}
+s_{i}(t_{now})=\left(d_{i}-t_{now}\right)-\sum_{\left\{ J_{k}\mid\mathrm{job\:scheduled\:between}\:t_{now}\:\mathrm{and}\:d_{i}\right\} }e_{k}
 \]
 
 \end_inset
