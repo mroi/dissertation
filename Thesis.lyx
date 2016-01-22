@@ -248,7 +248,15 @@ This document was originally built with a XeTeX/Mac version using the Carbon/AAT
  for type setting, the layout changes.
  The text width tweak in the preamble fixes most of the annoying layout
  differences.
- Some subtle changes to the official PDF version of the thesis may remain.
+ Some subtle changes to the 
+\begin_inset CommandInset href
+LatexCommand href
+name "official PDF version"
+target "http://nbn-resolving.de/urn:nbn:de:bsz:14-qucosa-125346"
+
+\end_inset
+
+ of the thesis may remain.
 \end_layout
 
 \end_inset
