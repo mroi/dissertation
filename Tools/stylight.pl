@@ -85,7 +85,7 @@ $biw = "as to whether|different than|is due to\
 	|\\. however|\\. therefore|\\. moreover|\\. additionally|. also,?\
 	|one can|one has|one should\
 	|the author|the authors|the reader\
-	|this is|these are|this means that\
+	|this is|this was|these are|this means that\
 	|in order to|will likely be|some|thing|very|a lot of\
 	|actually|in fact|truly|really\
 	|center on|centers on|centered on|focus on|focuss?es on|focused on\
@@ -100,7 +100,7 @@ $last_word = "";
 while (<STDIN>) {
 	s/(^|\s)($weasels)($|\s)/$1\\hl{$2}$3/g;
 	s/(^|\s)(am|are|were|being|is|been|was|be)((\s|not)+)(\w+ed|$irregulars)($|\s)/$1\\hl{$2$3$5}$6/g;
-	s/(^|\s)($biw)($|\s)/$1\\hl{$2}$3/g;
+	s/(^|\s)($biw)($|\s)/$1\\hl{$2}$3/gi;
 	
 	@words = split(/(\W+)/);
 	foreach $word (@words) {
