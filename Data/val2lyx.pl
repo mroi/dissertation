@@ -8,7 +8,7 @@ while (<>) {
 }
 
 print <<EOF;
-\\lyxformat 474
+\\lyxformat 508
 \\begin_document
 \\begin_header
 \\textclass tufte-book

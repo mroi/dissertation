@@ -1,7 +1,9 @@
-#LyX 2.1 created this file. For more info see http://www.lyx.org/
-\lyxformat 474
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
 \begin_document
 \begin_header
+\save_transient_properties true
+\origin unavailable
 \textclass tufte-book
 \begin_preamble
 % simplified title and author for fancy headers, height-correct the dash
@@ -114,7 +116,6 @@ logicalmkup
 \maintain_unincluded_children false
 \begin_local_layout
 Format 49
-
 Style EpigraphQuote
 Category	FrontMatter
 LatexType	Command
@@ -125,7 +126,6 @@ Family	Sans
 Shape	Smallcaps
 EndFont
 End
-
 Style EpigraphSource
 Category	FrontMatter
 LatexType	Command
@@ -136,7 +136,6 @@ Family	Sans
 Shape	Smallcaps
 EndFont
 End
-
 Style Verleger
 Category	FrontMatter
 LatexType	Command
@@ -148,7 +147,6 @@ Font
 Size	Large
 EndFont
 End
-
 InsetLayout Flex:NoWrap
 LyxType	charstyle
 LabelString	NoWrap
@@ -163,16 +161,16 @@ End
 \language_package default
 \inputencoding utf8-plain
 \fontencoding global
-\font_roman Hoefler Text
-\font_sans Gill Sans
-\font_typewriter Menlo
-\font_math auto
+\font_roman "default" "Hoefler Text"
+\font_sans "default" "Gill Sans"
+\font_typewriter "default" "Menlo"
+\font_math "auto" "auto"
 \font_default_family default
 \use_non_tex_fonts true
 \font_sc false
 \font_osf false
-\font_sf_scale 100
-\font_tt_scale 83
+\font_sf_scale 100 100
+\font_tt_scale 100 83
 \graphics default
 \default_output_format pdf4
 \output_sync 0
@@ -242,9 +240,11 @@ End
 status open
 
 \begin_layout Plain Layout
-This document was originally built with a XeTeX/Mac version using the Carbon/AAT
+This document was originally built with a Xe\SpecialChar TeX
+/Mac version using the Carbon/AAT
  framework.
- After updating to a newer version of XeTeX/Mac, which uses Cocoa/CoreText
+ After updating to a newer version of Xe\SpecialChar TeX
+/Mac, which uses Cocoa/CoreText
  for type setting, the layout changes.
  The text width tweak in the preamble fixes most of the annoying layout
  differences.
@@ -672,7 +672,7 @@ August 1980 in Dresden.
 \lang ngerman
 \begin_inset Tabular
 <lyxtabular version="3" rows="9" columns="2">
-<features rotate="0" booktabs="true" tabularvalignment="middle">
+<features booktabs="true" tabularvalignment="middle">
 <column alignment="left" valignment="top" width="0pt" special="@{}l">
 <column alignment="left" valignment="top" width="0pt">
 <row>
@@ -2448,6 +2448,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -2731,6 +2736,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -2845,7 +2855,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset Tabular
 <lyxtabular version="3" rows="4" columns="4">
-<features rotate="0" booktabs="true" tabularvalignment="middle">
+<features booktabs="true" tabularvalignment="middle">
 <column alignment="left" valignment="top" width="16text%">
 <column alignment="left" valignment="top" width="24text%">
 <column alignment="left" valignment="top" width="24text%">
@@ -4473,7 +4483,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset Tabular
 <lyxtabular version="3" rows="2" columns="4">
-<features rotate="0" tabularvalignment="middle">
+<features tabularvalignment="middle">
 <column alignment="center" valignment="top" width="22text%" special="@{}>{\centering}p{101pt}">
 <column alignment="center" valignment="top" width="110pt">
 <column alignment="center" valignment="top" width="102pt">
@@ -5126,6 +5136,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -5205,7 +5220,7 @@ status open
 \noindent
 \begin_inset Tabular
 <lyxtabular version="3" rows="11" columns="6">
-<features rotate="0" booktabs="true" tabularvalignment="middle">
+<features booktabs="true" tabularvalignment="middle">
 <column alignment="left" valignment="top" width="0pt">
 <column alignment="left" valignment="top">
 <column alignment="center" valignment="top" width="0pt">
@@ -8780,7 +8795,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset Tabular
 <lyxtabular version="3" rows="2" columns="3">
-<features rotate="0" tabularvalignment="middle">
+<features tabularvalignment="middle">
 <column alignment="center" valignment="top" width="32col%" special="@{}>{\centering}p{0.32\columnwidth}">
 <column alignment="center" valignment="top" width="0pt">
 <column alignment="left" valignment="top" width="35col%">
@@ -9298,7 +9313,17 @@ filename "Data/3-Real-Time/Values.lyx"
 status collapsed
 
 \begin_layout Plain Layout
-Many of today’s applications
+Many of
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Flex SmallCaps
+status open
+
+\begin_layout Plain Layout
+today’s applications
 \end_layout
 
 \end_inset
@@ -9350,6 +9375,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -9551,6 +9581,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -12052,6 +12087,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -13568,6 +13608,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -14473,7 +14518,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset Tabular
 <lyxtabular version="3" rows="6" columns="7">
-<features rotate="0" booktabs="true" tabularvalignment="middle">
+<features booktabs="true" tabularvalignment="middle">
 <column alignment="left" valignment="top" width="2.5cm">
 <column alignment="left" valignment="top" width="4cm">
 <column alignment="right" valignment="top" width="0pt">
@@ -16498,6 +16543,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -17954,7 +18004,7 @@ status open
 
 \begin_inset Tabular
 <lyxtabular version="3" rows="3" columns="7">
-<features rotate="0" booktabs="true" tabularvalignment="middle">
+<features booktabs="true" tabularvalignment="middle">
 <column alignment="left" valignment="top" width="2.5cm">
 <column alignment="left" valignment="top" width="4cm">
 <column alignment="right" valignment="top" width="0pt">
@@ -18555,6 +18605,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -22348,7 +22403,8 @@ entirely to the runtime
 status open
 
 \begin_layout Plain Layout
-Line-wrap restrictions ensure consistent layout across XeTeX/Mac-versions.
+Line-wrap restrictions ensure consistent layout across Xe\SpecialChar TeX
+/Mac-versions.
 \end_layout
 
 \end_inset
@@ -25697,6 +25753,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout

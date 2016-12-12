@@ -10,7 +10,7 @@ my $rows = @table - 1;
 my $columns = @{$table[0]} - 1;
 
 print <<EOF;
-\\lyxformat 474
+\\lyxformat 508
 \\begin_document
 \\begin_header
 \\textclass tufte-book
@@ -24,7 +24,7 @@ print <<EOF;
 \\begin_inset Tabular
 
 <lyxtabular version="3" rows="$rows" columns="$columns">
-<features rotate="0" booktabs="true" tabularvalignment="middle">
+<features booktabs="true" tabularvalignment="middle">
 EOF
 
 for my $col (1 .. $#{$table[0]}) {

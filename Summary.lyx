@@ -1,7 +1,9 @@
-#LyX 2.1 created this file. For more info see http://www.lyx.org/
-\lyxformat 474
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
 \begin_document
 \begin_header
+\save_transient_properties true
+\origin unavailable
 \textclass tufte-handout
 \begin_preamble
 % simplified title for fancy headers, height-correct the dash
@@ -66,7 +68,6 @@ logicalmkup
 \maintain_unincluded_children false
 \begin_local_layout
 Format 49
-
 InsetLayout Flex:NoWrap
 LyxType	charstyle
 LabelString	NoWrap
@@ -81,16 +82,16 @@ End
 \language_package default
 \inputencoding utf8-plain
 \fontencoding global
-\font_roman Hoefler Text
-\font_sans Gill Sans
-\font_typewriter Menlo
-\font_math auto
+\font_roman "default" "Hoefler Text"
+\font_sans "default" "Gill Sans"
+\font_typewriter "default" "Menlo"
+\font_math "auto" "auto"
 \font_default_family default
 \use_non_tex_fonts true
 \font_sc false
 \font_osf false
-\font_sf_scale 100
-\font_tt_scale 83
+\font_sf_scale 100 100
+\font_tt_scale 100 83
 \graphics default
 \default_output_format pdf4
 \output_sync 0
@@ -1506,6 +1507,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
