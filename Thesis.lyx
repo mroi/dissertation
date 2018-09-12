@@ -1,5 +1,5 @@
-#LyX 2.2 created this file. For more info see http://www.lyx.org/
-\lyxformat 508
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
 \begin_document
 \begin_header
 \save_transient_properties true
@@ -171,6 +171,8 @@ End
 \font_osf false
 \font_sf_scale 100 100
 \font_tt_scale 100 83
+\use_microtype false
+\use_dash_ligatures false
 \graphics default
 \default_output_format pdf4
 \output_sync 0
@@ -213,6 +215,7 @@ End
 \suppress_date false
 \justification true
 \use_refstyle 1
+\use_minted 0
 \index Index
 \shortcut idx
 \color #008000
@@ -221,7 +224,10 @@ End
 \tocdepth 2
 \paragraph_separation indent
 \paragraph_indentation default
-\quotes_language english
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
 \papercolumns 1
 \papersides 2
 \paperpagestyle default
@@ -253,6 +259,7 @@ This document was originally built with a Xe\SpecialChar TeX
 LatexCommand href
 name "official PDF version"
 target "http://nbn-resolving.de/urn:nbn:de:bsz:14-qucosa-125346"
+literal "false"
 
 \end_inset
 
@@ -1073,6 +1080,7 @@ status collapsed
 LatexCommand href
 name "CNET News: Moore’s Law to roll on for another decade"
 target "http://news.cnet.com/2100-1001-984051.html"
+literal "false"
 
 \end_inset
 
@@ -1091,6 +1099,7 @@ target "http://news.cnet.com/2100-1001-984051.html"
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Deshpande:GrowthSoftware"
+literal "true"
 
 \end_inset
 
@@ -1117,6 +1126,7 @@ Users have grown accustomed to the constant improvement of technology.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Markoff:DongarraIPad"
+literal "true"
 
 \end_inset
 
@@ -1162,6 +1172,7 @@ non-functional properties
 \begin_inset CommandInset citation
 LatexCommand cite
 key "MSDN:FastFluid"
+literal "true"
 
 \end_inset
 
@@ -1170,6 +1181,7 @@ key "MSDN:FastFluid"
 \begin_inset CommandInset citation
 LatexCommand cite
 key "MSDN:PowerEfficiency"
+literal "true"
 
 \end_inset
 
@@ -1219,6 +1231,7 @@ timing requirements
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Sasinowski:ARTIFACT"
+literal "true"
 
 \end_inset
 
@@ -1288,6 +1301,7 @@ status collapsed
 LatexCommand href
 name "QNX: Meet the Power Behind the BackBerry Tablet OS"
 target "http://www.qnx.com/company/announcements/power_behind_playbook.html"
+literal "false"
 
 \end_inset
 
@@ -1339,6 +1353,7 @@ admission
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Apple:UserControl"
+literal "true"
 
 \end_inset
 
@@ -1398,6 +1413,7 @@ Cores: Single-core performance is leveling off, so processor manufacturers
 LatexCommand cite
 after "-5\\baselineskip"
 key "Sutter:FreeLunch"
+literal "true"
 
 \end_inset
 
@@ -1424,6 +1440,7 @@ manual offset
 LatexCommand cite
 after "-9\\baselineskip"
 key "Zhuravlev:DIO"
+literal "true"
 
 \end_inset
 
@@ -1432,6 +1449,7 @@ key "Zhuravlev:DIO"
 LatexCommand cite
 after "-4\\baselineskip"
 key "Rangan:ThreadMotion"
+literal "true"
 
 \end_inset
 
@@ -1597,6 +1615,7 @@ status collapsed
 LatexCommand href
 name "Wikipedia: Central Processing Unit"
 target "http://en.wikipedia.org/w/index.php?title=Central_processing_unit&oldid=511660312"
+literal "false"
 
 \end_inset
 
@@ -1616,6 +1635,7 @@ target "http://en.wikipedia.org/w/index.php?title=Central_processing_unit&oldid=
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Rajkumar:ResourceKernels"
+literal "true"
 
 \end_inset
 
@@ -1653,6 +1673,7 @@ peripheral device scheduling
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Love:IO_Schedulers"
+literal "true"
 
 \end_inset
 
@@ -1744,6 +1765,7 @@ shortest access time first
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Jacobson:SATF"
+literal "true"
 
 \end_inset
 
@@ -1912,6 +1934,7 @@ nice level
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Unix:Nice"
+literal "true"
 
 \end_inset
 
@@ -1947,6 +1970,7 @@ periodic task model
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Liu:RMS"
+literal "true"
 
 \end_inset
 
@@ -2257,6 +2281,7 @@ lambda
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Sutter:LambdasEverywhere"
+literal "true"
 
 \end_inset
 
@@ -2319,6 +2344,7 @@ and how the communication of jobs to the scheduler integrates with the use
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Apple:GrandCentralDispatchIntro"
+literal "true"
 
 \end_inset
 
@@ -2326,6 +2352,7 @@ key "Apple:GrandCentralDispatchIntro"
 \begin_inset CommandInset citation
 LatexCommand cite
 key "MSDN:C++PPL"
+literal "true"
 
 \end_inset
 
@@ -2514,6 +2541,7 @@ interactive systems
 \begin_inset CommandInset citation
 LatexCommand cite
 key "StatCounter:OSMarketShare"
+literal "true"
 
 \end_inset
 
@@ -2573,6 +2601,7 @@ reactive systems
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Harel:ReactiveSystems"
+literal "true"
 
 \end_inset
 
@@ -2584,6 +2613,7 @@ key "Harel:ReactiveSystems"
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Halbwachs:LUSTRE"
+literal "true"
 
 \end_inset
 
@@ -2605,6 +2635,7 @@ Real-time literature
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Liu:RealTimeSystems"
+literal "true"
 
 \end_inset
 
@@ -2796,6 +2827,7 @@ I presume that combining application-specific knowledge on workload and
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Peter:EndToEndScheduler"
+literal "true"
 
 \end_inset
 
@@ -3202,6 +3234,7 @@ status collapsed
 LatexCommand href
 name "Wikipedia: Atlas"
 target "http://en.wikipedia.org/wiki/Atlas_(mythology)"
+literal "false"
 
 \end_inset
 
@@ -3238,6 +3271,7 @@ Timeliness is the primary property of real-time scheduling.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Rajkumar:ResourceKernels"
+literal "true"
 
 \end_inset
 
@@ -3283,6 +3317,7 @@ The second overload condition is more interesting: Applications specify
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Isovic:QoS_Video"
+literal "true"
 
 \end_inset
 
@@ -3314,6 +3349,7 @@ imprecise computation
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Lin:Imprecise"
+literal "true"
 
 \end_inset
 
@@ -3323,6 +3359,7 @@ key "Lin:Imprecise"
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Roitzsch:VideoQuality"
+literal "true"
 
 \end_inset
 
@@ -3356,6 +3393,7 @@ periodic task model
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Liu:RMS"
+literal "true"
 
 \end_inset
 
@@ -3416,6 +3454,7 @@ th
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Roitzsch:Predict"
+literal "true"
 
 \end_inset
 
@@ -3436,6 +3475,7 @@ th
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Roitzsch:ATLAS"
+literal "true"
 
 \end_inset
 
@@ -3520,6 +3560,7 @@ constraint satisfaction problem
 LatexCommand cite
 after "-5\\baselineskip"
 key "Schaerf:CSP"
+literal "true"
 
 \end_inset
 
@@ -3537,6 +3578,7 @@ manual offset
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Itoh:ProductionScheduling"
+literal "true"
 
 \end_inset
 
@@ -3544,6 +3586,7 @@ key "Itoh:ProductionScheduling"
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Yu:VOD_LookAhead"
+literal "true"
 
 \end_inset
 
@@ -3572,6 +3615,7 @@ investigated the submission of future jobs to a peripheral scheduler to
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Patterson:InformedPrefetching"
+literal "true"
 
 \end_inset
 
@@ -3680,6 +3724,7 @@ Serving the timeliness goal, applications structure their execution into
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Roitzsch:Balancing"
+literal "true"
 
 \end_inset
 
@@ -3693,6 +3738,7 @@ presented a similar task model before,
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Collette:JobParallelism"
+literal "true"
 
 \end_inset
 
@@ -3724,6 +3770,7 @@ video playback
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Baiceanu:VideoScheduling"
+literal "true"
 
 \end_inset
 
@@ -3801,6 +3848,7 @@ status collapsed
 LatexCommand href
 name "Wikipedia: Telecine"
 target "http://en.wikipedia.org/w/index.php?title=Telecine&oldid=475341309#Telecine_judder"
+literal "false"
 
 \end_inset
 
@@ -4194,6 +4242,7 @@ single-threaded
 \begin_inset CommandInset citation
 LatexCommand cite
 key "OpenGroup:SingleThread"
+literal "true"
 
 \end_inset
 
@@ -4308,6 +4357,7 @@ callback-soup
 \begin_inset CommandInset citation
 LatexCommand cite
 key "SantAnna:ProblemEvents"
+literal "true"
 
 \end_inset
 
@@ -4328,6 +4378,7 @@ stack ripping
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Adya:StackRipping"
+literal "true"
 
 \end_inset
 
@@ -4346,6 +4397,7 @@ On the other hand, it is also difficult for programmers to orchestrate multiple
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Lu:ConcurrencyBugs"
+literal "true"
 
 \end_inset
 
@@ -4369,6 +4421,7 @@ A new approach to concurrency is needed.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Sutter:LambdasEverywhere"
+literal "true"
 
 \end_inset
 
@@ -4390,6 +4443,7 @@ closure
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Jarvi:Wording"
+literal "true"
 
 \end_inset
 
@@ -4414,6 +4468,7 @@ task-based programming
 \begin_inset CommandInset citation
 LatexCommand cite
 key "MSDN:TaskBasedProgramming"
+literal "true"
 
 \end_inset
 
@@ -4908,6 +4963,7 @@ longWork
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Reynolds:Continuation"
+literal "true"
 
 \end_inset
 
@@ -4929,6 +4985,7 @@ Threads similarly require manual passing of contextual state between the
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Apple:ThreadSafety,Qt:ThreadingBasics"
+literal "true"
 
 \end_inset
 
@@ -4954,6 +5011,7 @@ Version on the very right invokes a block of code asynchronously, but without
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Cowin:ParadigmShift"
+literal "true"
 
 \end_inset
 
@@ -4970,6 +5028,7 @@ Dispatch (GCD) system,
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Apple:GrandCentralDispatchIntro"
+literal "true"
 
 \end_inset
 
@@ -5007,6 +5066,7 @@ g of work back to the main thread.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Apple:MainThread"
+literal "true"
 
 \end_inset
 
@@ -5034,6 +5094,7 @@ Asynchronous lambdas combine a programming pattern based on asynchronous
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Voelp:ElasticManycores"
+literal "true"
 
 \end_inset
 
@@ -5059,6 +5120,7 @@ event-based programming
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Krohn:Events"
+literal "true"
 
 \end_inset
 
@@ -5069,6 +5131,7 @@ key "Krohn:Events"
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Welsh:SEDA"
+literal "true"
 
 \end_inset
 
@@ -5103,6 +5166,7 @@ Grail” for developing a library of parallel programming patterns.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Sutter:C++AMP_Keynote"
+literal "true"
 
 \end_inset
 
@@ -5110,6 +5174,7 @@ key "Sutter:C++AMP_Keynote"
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Murer:pSather"
+literal "true"
 
 \end_inset
 
@@ -5117,6 +5182,7 @@ key "Murer:pSather"
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Blumofe:Cilk"
+literal "true"
 
 \end_inset
 
@@ -6172,6 +6238,7 @@ Two complete solutions are available from commercial operating system vendors:
 \begin_inset CommandInset citation
 LatexCommand cite
 key "MSDN:C++PPL"
+literal "true"
 
 \end_inset
 
@@ -6207,6 +6274,7 @@ lambdas, and Apple is pushing for Grand Central Dispatch,
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Apple:GrandCentralDispatchIntro"
+literal "true"
 
 \end_inset
 
@@ -6224,6 +6292,7 @@ Goroutines in Google’s Go language
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Google_Go"
+literal "true"
 
 \end_inset
 
@@ -6272,6 +6341,7 @@ IBM developed
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Charles:X10"
+literal "true"
 
 \end_inset
 
@@ -6342,6 +6412,7 @@ status collapsed
 \begin_inset CommandInset citation
 LatexCommand cite
 key "C++11"
+literal "true"
 
 \end_inset
 
@@ -6349,6 +6420,7 @@ key "C++11"
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Milewski:C++Async"
+literal "true"
 
 \end_inset
 
@@ -6357,6 +6429,7 @@ key "Milewski:C++Async"
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Intel_TBB"
+literal "true"
 
 \end_inset
 
@@ -6369,6 +6442,7 @@ OpenMP
 \begin_inset CommandInset citation
 LatexCommand cite
 key "OpenMP"
+literal "true"
 
 \end_inset
 
@@ -6399,6 +6473,7 @@ Like OpenMP, the Galois research runtime parallelizes iterative work.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Kulkarni:Galois"
+literal "true"
 
 \end_inset
 
@@ -6504,6 +6579,7 @@ Among the application frameworks popular on Linux, the Qt library provides
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Qt:SignalsSlotsThreads"
+literal "true"
 
 \end_inset
 
@@ -6517,6 +6593,7 @@ Even hardware is trending towards asynchronous programming models, forecasting
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Knauerhase:ExtremeParallelism"
+literal "true"
 
 \end_inset
 
@@ -6524,6 +6601,7 @@ key "Knauerhase:ExtremeParallelism"
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Arnold:CoreManager"
+literal "true"
 
 \end_inset
 
@@ -6543,6 +6621,7 @@ tomahawk
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Limberg:Tomahawk"
+literal "true"
 
 \end_inset
 
@@ -6567,6 +6646,7 @@ gigathread engine
 \begin_inset CommandInset citation
 LatexCommand cite
 key "NVIDIA_Fermi"
+literal "true"
 
 \end_inset
 
@@ -6613,6 +6693,7 @@ X and iOS.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Apple:AVFoundation"
+literal "true"
 
 \end_inset
 
@@ -6690,6 +6771,7 @@ status collapsed
 LatexCommand href
 name "clang: a C language family frontend for LLVM"
 target "http://clang.llvm.org/"
+literal "false"
 
 \end_inset
 
@@ -6732,6 +6814,7 @@ status collapsed
 LatexCommand href
 name "libdispatch"
 target "http://libdispatch.macosforge.org/"
+literal "false"
 
 \end_inset
 
@@ -6773,6 +6856,7 @@ status collapsed
 LatexCommand href
 name "OpenGCD: Portable implementation of Grand Central Dispatch"
 target "http://sourceforge.net/projects/opengcd/"
+literal "false"
 
 \end_inset
 
@@ -6944,6 +7028,7 @@ status collapsed
 LatexCommand href
 name "Blocks Programming Topics"
 target "https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/Blocks/Blocks.pdf"
+literal "false"
 
 \end_inset
 
@@ -7228,6 +7313,7 @@ Here, libdispatch enters the stage.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Apple:SerialQueue"
+literal "true"
 
 \end_inset
 
@@ -7572,6 +7658,7 @@ Blocks package execution
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Liu:RealTimeSystems"
+literal "true"
 
 \end_inset
 
@@ -7716,6 +7803,7 @@ comquad
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Haertig:COMQUAD"
+literal "true"
 
 \end_inset
 
@@ -7845,6 +7933,7 @@ status collapsed
 LatexCommand href
 name "FFmpeg"
 target "http://ffmpeg.org"
+literal "false"
 
 \end_inset
 
@@ -7872,6 +7961,7 @@ status collapsed
 LatexCommand href
 name "Simple DirectMedia Layer"
 target "http://www.libsdl.org"
+literal "false"
 
 \end_inset
 
@@ -7908,6 +7998,7 @@ status collapsed
 LatexCommand href
 name "39fe8033"
 target "http://git.videolan.org/?p=ffmpeg.git;a=tree;h=6e8813a1c43a17b07e85af6872e86234d0167bcb;hb=39fe8033bbf94cac7935d749849fdf67ba8fc16a"
+literal "false"
 
 \end_inset
 
@@ -8212,6 +8303,7 @@ output stage
 \begin_inset CommandInset citation
 LatexCommand cite
 key "SDL:MultipleThreads"
+literal "true"
 
 \end_inset
 
@@ -8396,6 +8488,7 @@ Classical real-time terminology
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Liu:RealTimeSystems"
+literal "true"
 
 \end_inset
 
@@ -9242,6 +9335,7 @@ Developers are naturally reluctant
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Sutter:ParallelJungle"
+literal "true"
 
 \end_inset
 
@@ -9344,6 +9438,7 @@ real-time
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Kopetz:RealTimeSystems"
+literal "true"
 
 \end_inset
 
@@ -9711,6 +9806,7 @@ frame rate
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Ditze:MPEG_RT"
+literal "true"
 
 \end_inset
 
@@ -9718,6 +9814,7 @@ key "Ditze:MPEG_RT"
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Altenbernd:MPEG-WCET"
+literal "true"
 
 \end_inset
 
@@ -9725,6 +9822,7 @@ key "Altenbernd:MPEG-WCET"
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Isovic:QoS_Video"
+literal "true"
 
 \end_inset
 
@@ -9786,6 +9884,7 @@ second cadence:
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Card:RealTimeUI"
+literal "true"
 
 \end_inset
 
@@ -9813,6 +9912,7 @@ Users explore applications by scrolling through data views or operating
 \begin_inset CommandInset citation
 LatexCommand cite
 key "MSDN:FastFluid"
+literal "true"
 
 \end_inset
 
@@ -10099,6 +10199,7 @@ completely fair scheduler
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Jones:InsideCFS"
+literal "true"
 
 \end_inset
 
@@ -10106,6 +10207,7 @@ key "Jones:InsideCFS"
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Maia:AndroidRT"
+literal "true"
 
 \end_inset
 
@@ -10295,6 +10397,7 @@ nice level
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Unix:Nice"
+literal "true"
 
 \end_inset
 
@@ -10531,6 +10634,7 @@ rate-monotonic scheduling
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Liu:RMS"
+literal "true"
 
 \end_inset
 
@@ -10556,6 +10660,7 @@ The strictness of the periodic task model limits application development.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Baiceanu:VideoScheduling"
+literal "true"
 
 \end_inset
 
@@ -10635,6 +10740,7 @@ quality rate-monotonic scheduling
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Hamann:QRMS"
+literal "true"
 
 \end_inset
 
@@ -10719,6 +10825,7 @@ slack reclaiming
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Caccamo:SlackReclaiming"
+literal "true"
 
 \end_inset
 
@@ -10973,6 +11080,7 @@ deadline
 LatexCommand cite
 after "-1\\baselineskip"
 key "Cucinotta:Self-Tuning"
+literal "true"
 
 \end_inset
 
@@ -11008,6 +11116,7 @@ execution time
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Mercer:CapacityReserve"
+literal "true"
 
 \end_inset
 
@@ -11220,6 +11329,7 @@ reference "3-mar:Vertical-Integration-Timeliness"
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Roitzsch:ATLAS"
+literal "true"
 
 \end_inset
 
@@ -11361,6 +11471,7 @@ hierarchical scheduling
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Regehr:HLS"
+literal "true"
 
 \end_inset
 
@@ -11959,6 +12070,7 @@ dispatch_async(q, b)
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Apple:GrandCentralDispatchRef"
+literal "true"
 
 \end_inset
 
@@ -12632,6 +12744,7 @@ The developer should choose metrics on a “larger value means more work”
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Goldsmith:TrendProf"
+literal "true"
 
 \end_inset
 
@@ -12671,6 +12784,7 @@ linear auto-regressive predictor
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Roitzsch:Predict"
+literal "true"
 
 \end_inset
 
@@ -12883,6 +12997,7 @@ is the textbook solution
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Stoer:Numerics"
+literal "true"
 
 \end_inset
 
@@ -13229,6 +13344,7 @@ Literature on numerical algorithms offers updating solutions,
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Schwetlick:Numerics"
+literal "true"
 
 \end_inset
 
@@ -13546,6 +13662,7 @@ In summary, the estimator starts with an all-zero system
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Chambers:RegressionUpdating"
+literal "true"
 
 \end_inset
 
@@ -13686,6 +13803,7 @@ Both problems are related, because they are instances of the same fundamental
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Maciejowski:ModelPredictiveControl"
+literal "true"
 
 \end_inset
 
@@ -13873,6 +13991,7 @@ I approached this problem before
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Roitzsch:Beleg"
+literal "true"
 
 \end_inset
 
@@ -13899,6 +14018,7 @@ Atlas
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Clarke:SubsetRegression"
+literal "true"
 
 \end_inset
 
@@ -14609,6 +14729,7 @@ status collapsed
 LatexCommand href
 name "Apple Trailers"
 target "http://trailers.apple.com/trailers/fox_searchlight/blackswan/"
+literal "false"
 
 \end_inset
 
@@ -14712,6 +14833,7 @@ status collapsed
 LatexCommand href
 name "FastVDO"
 target "http://www.fastvdo.com/H.264.html"
+literal "false"
 
 \end_inset
 
@@ -14807,6 +14929,7 @@ status collapsed
 LatexCommand href
 name "Xiph Test Clip"
 target "http://media.xiph.org/video/derf/"
+literal "false"
 
 \end_inset
 
@@ -14906,6 +15029,7 @@ status collapsed
 LatexCommand href
 name "Apple Trailers"
 target "http://trailers.apple.com/trailers/lions_gate/thehungergames/"
+literal "false"
 
 \end_inset
 
@@ -15174,6 +15298,7 @@ H
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Wiegand:H264"
+literal "true"
 
 \end_inset
 
@@ -15210,6 +15335,7 @@ status collapsed
 LatexCommand href
 name "x264"
 target "http://www.videolan.org/developers/x264.html"
+literal "false"
 
 \end_inset
 
@@ -15249,6 +15375,7 @@ status collapsed
 LatexCommand href
 name "Video Codec Comparison"
 target "http://www.compression.ru/video/codec_comparison/h264_2012/"
+literal "false"
 
 \end_inset
 
@@ -15270,6 +15397,7 @@ status collapsed
 LatexCommand href
 name "37be5521"
 target "http://git.videolan.org/?p=x264.git;a=tree;h=853628a3c38c6bc06b049ff9c74dc33c7f2a317f;hb=37be55213a39db40cf159ada319bd482a1b00680"
+literal "false"
 
 \end_inset
 
@@ -15537,6 +15665,7 @@ workload metrics
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Zaparanuks:AlgoProf"
+literal "true"
 
 \end_inset
 
@@ -15566,6 +15695,7 @@ To determine candidate metrics
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Roitzsch:Predict"
+literal "true"
 
 \end_inset
 
@@ -15583,6 +15713,7 @@ H
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Roitzsch:Balancing"
+literal "true"
 
 \end_inset
 
@@ -15985,6 +16116,7 @@ CABAC
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Marpe:CABAC"
+literal "true"
 
 \end_inset
 
@@ -16330,6 +16462,7 @@ For spatially or temporally predicted macroblocks, this step compensates
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Ahmed:DCT"
+literal "true"
 
 \end_inset
 
@@ -17478,6 +17611,7 @@ Because SDL limits calls to graphics functions to the main thread,
 \begin_inset CommandInset citation
 LatexCommand cite
 key "SDL:MultipleThreads"
+literal "true"
 
 \end_inset
 
@@ -17570,6 +17704,7 @@ clock_gettime
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Unix:Clock_Gettime"
+literal "true"
 
 \end_inset
 
@@ -17617,6 +17752,7 @@ status collapsed
 LatexCommand href
 name "kernel’s vDSO facility"
 target "https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/plain/Documentation/ABI/stable/vdso?id=28a33cbc24e4256c143dce96c7d93bf423229f92"
+literal "false"
 
 \end_inset
 
@@ -17936,6 +18072,7 @@ status collapsed
 LatexCommand href
 name "Intel: Turbo Boost Technology"
 target "http://www.intel.com/technology/turboboost/"
+literal "false"
 
 \end_inset
 
@@ -18173,6 +18310,7 @@ status collapsed
 LatexCommand href
 name "Xiph Archive"
 target "http://media.xiph.org/sintel/"
+literal "false"
 
 \end_inset
 
@@ -18474,6 +18612,7 @@ staged decoder
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Altenbernd:MPEG-WCET"
+literal "true"
 
 \end_inset
 
@@ -18502,6 +18641,7 @@ Part
 \begin_inset CommandInset citation
 LatexCommand cite
 key "MPEG4-2"
+literal "true"
 
 \end_inset
 
@@ -18565,6 +18705,7 @@ exp-golomb coding
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Golomb:RLE"
+literal "true"
 
 \end_inset
 
@@ -19538,6 +19679,7 @@ microkernel
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Lackorzynski:vCPUs"
+literal "true"
 
 \end_inset
 
@@ -19545,6 +19687,7 @@ key "Lackorzynski:vCPUs"
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Ford:Fluke"
+literal "true"
 
 \end_inset
 
@@ -19572,6 +19715,7 @@ kernel
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Bovet:LinuxKernel"
+literal "true"
 
 \end_inset
 
@@ -19635,6 +19779,7 @@ The Atlas scheduler
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Waechtler:Look-Ahead"
+literal "true"
 
 \end_inset
 
@@ -19685,6 +19830,7 @@ RT
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Calandrino:LITMUSRT"
+literal "true"
 
 \end_inset
 
@@ -19804,6 +19950,7 @@ earliest deadline first
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Liu:RMS"
+literal "true"
 
 \end_inset
 
@@ -19946,6 +20093,7 @@ pthread_cond_wait()
 LatexCommand cite
 after "-3\\baselineskip"
 key "Unix:Pthread_Cond_Wait"
+literal "true"
 
 \end_inset
 
@@ -20080,6 +20228,7 @@ latest deadline first
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Lawler:LDF"
+literal "true"
 
 \end_inset
 
@@ -20176,6 +20325,7 @@ latest release time
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Liu:RealTimeSystems"
+literal "true"
 
 \end_inset
 
@@ -20448,6 +20598,7 @@ The actual implementation is optimized and does not continuously recalculate
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Tia:Slack"
+literal "true"
 
 \end_inset
 
@@ -20617,6 +20768,7 @@ Atlas
 LatexCommand cite
 after "-76pt"
 key "Rosti:NWC_Partitioning"
+literal "true"
 
 \end_inset
 
@@ -20635,6 +20787,7 @@ manual offset
 LatexCommand cite
 after "-2\\baselineskip"
 key "Fedorova:SMT_Scheduling"
+literal "true"
 
 \end_inset
 
@@ -20692,6 +20845,7 @@ gravitational task model
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Guerra:Gravitational"
+literal "true"
 
 \end_inset
 
@@ -20708,6 +20862,7 @@ When slack calculation reveals that no real-time job needs to run, we can
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Lehoczky:Slack"
+literal "true"
 
 \end_inset
 
@@ -20750,6 +20905,7 @@ completely fair scheduler
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Reuther:DAS"
+literal "true"
 
 \end_inset
 
@@ -21112,6 +21268,7 @@ Atlas
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Intel_HPET"
+literal "true"
 
 \end_inset
 
@@ -21119,6 +21276,7 @@ key "Intel_HPET"
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Mercer:CapacityReserve"
+literal "true"
 
 \end_inset
 
@@ -21149,6 +21307,7 @@ Atlas
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Lin:Backslash"
+literal "true"
 
 \end_inset
 
@@ -21262,6 +21421,7 @@ Atlas
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Stoyenko:Tardiness"
+literal "true"
 
 \end_inset
 
@@ -21386,6 +21546,7 @@ RLIMIT_RTPRIO
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Linux:Sched_Setscheduler"
+literal "true"
 
 \end_inset
 
@@ -21399,6 +21560,7 @@ Atlas
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Shin:Compositional"
+literal "true"
 
 \end_inset
 
@@ -21757,6 +21919,7 @@ My libdispatch reimplementation uses ordinary pthread locks at places that
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Waechtler:Look-Ahead"
+literal "true"
 
 \end_inset
 
@@ -21870,6 +22033,7 @@ parsec
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Bienia:Parsec"
+literal "true"
 
 \end_inset
 
@@ -21918,6 +22082,7 @@ status collapsed
 LatexCommand href
 name "Microsoft: Kinect for Windows"
 target "http://www.microsoft.com/en-us/kinectforwindows/"
+literal "false"
 
 \end_inset
 
@@ -21937,6 +22102,7 @@ target "http://www.microsoft.com/en-us/kinectforwindows/"
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Jacob:RBI"
+literal "true"
 
 \end_inset
 
@@ -22254,6 +22420,7 @@ endless loop
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Nieh:SVR4UNIX_Unacceptable"
+literal "true"
 
 \end_inset
 
@@ -22318,6 +22485,7 @@ time-constrained threads
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Apple:TimeConstrainedThread"
+literal "true"
 
 \end_inset
 
@@ -22485,6 +22653,7 @@ status collapsed
 LatexCommand href
 name "GTK+"
 target "http://www.gtk.org/"
+literal "false"
 
 \end_inset
 
@@ -22511,6 +22680,7 @@ status collapsed
 LatexCommand href
 name "GNOME"
 target "https://www.gnome.org/"
+literal "false"
 
 \end_inset
 
@@ -22572,6 +22742,7 @@ MiB.
 LatexCommand cite
 after "-3\\baselineskip"
 key "Card:RealTimeUI"
+literal "true"
 
 \end_inset
 
@@ -22905,6 +23076,7 @@ sleeper fairness
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Molnar:SleeperFairness"
+literal "true"
 
 \end_inset
 
@@ -23993,6 +24165,7 @@ priority inflation
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Duda:BVT"
+literal "true"
 
 \end_inset
 
@@ -24592,6 +24765,7 @@ earliest deadline first
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Liu:RMS"
+literal "true"
 
 \end_inset
 
@@ -24612,6 +24786,7 @@ s a schedule and enforces it.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Faggioli:SCHED_EDF"
+literal "true"
 
 \end_inset
 
@@ -24644,6 +24819,7 @@ event stream
 LatexCommand cite
 after "-12pt"
 key "Albers:EventStreams"
+literal "true"
 
 \end_inset
 
@@ -24670,6 +24846,7 @@ Worst-case execution times lead to pessimistic planning of jobs.
 LatexCommand cite
 after "-20pt"
 key "Hamann:QAS"
+literal "true"
 
 \end_inset
 
@@ -24699,6 +24876,7 @@ resource kernel
 LatexCommand cite
 after "-2\\baselineskip"
 key "Rajkumar:ResourceKernels"
+literal "true"
 
 \end_inset
 
@@ -24747,6 +24925,7 @@ RBED
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Brandt:RBED"
+literal "true"
 
 \end_inset
 
@@ -24821,6 +25000,7 @@ The Constant Bandwidth Server (CBS)
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Abeni:CBS"
+literal "true"
 
 \end_inset
 
@@ -24889,6 +25069,7 @@ IRIS
 LatexCommand cite
 after "-82pt"
 key "Marzario:IRIS"
+literal "true"
 
 \end_inset
 
@@ -24926,6 +25107,7 @@ BASH
 LatexCommand cite
 after "-12pt"
 key "Caccamo:SlackReclaiming"
+literal "true"
 
 \end_inset
 
@@ -24987,6 +25169,7 @@ adaptive reservations
 LatexCommand cite
 after "-106pt"
 key "Abeni:AdaptiveReservations"
+literal "true"
 
 \end_inset
 
@@ -24995,6 +25178,7 @@ key "Abeni:AdaptiveReservations"
 LatexCommand cite
 after "-4\\baselineskip"
 key "Palopoli:FeedbackReclaiming"
+literal "true"
 
 \end_inset
 
@@ -25012,6 +25196,7 @@ AQuoSA
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Palopoli:AQuoSA"
+literal "true"
 
 \end_inset
 
@@ -25055,6 +25240,7 @@ Atlas
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Ditze:MPEG_Utilization"
+literal "true"
 
 \end_inset
 
@@ -25067,6 +25253,7 @@ Further CBS extensions combine it with a multicore scheduler based on EDF
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Kato:AIRS"
+literal "true"
 
 \end_inset
 
@@ -25103,6 +25290,7 @@ present a solution for unmodified programs.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Cucinotta:Self-Tuning"
+literal "true"
 
 \end_inset
 
@@ -25167,6 +25355,7 @@ completely fair scheduler
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Molnar:CFS"
+literal "true"
 
 \end_inset
 
@@ -25188,6 +25377,7 @@ virtual time
 LatexCommand cite
 after "-35pt"
 key "Bavier:VirtualTime"
+literal "true"
 
 \end_inset
 
@@ -25209,6 +25399,7 @@ me-based algorithms.
 LatexCommand cite
 after "-30pt"
 key "Stoica:ProportionalShareRT"
+literal "true"
 
 \end_inset
 
@@ -25244,6 +25435,7 @@ start-time fair queuing
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Goyal:SFQ"
+literal "true"
 
 \end_inset
 
@@ -25282,6 +25474,7 @@ borrowed-virtual-time
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Duda:BVT"
+literal "true"
 
 \end_inset
 
@@ -25311,6 +25504,7 @@ Deadlines describe timing requirements
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Banachowski:BEST"
+literal "true"
 
 \end_inset
 
@@ -25342,6 +25536,7 @@ BERT
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Bavier:BERT"
+literal "true"
 
 \end_inset
 
@@ -25381,6 +25576,7 @@ real-rate scheduling
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Steere:RealRate"
+literal "true"
 
 \end_inset
 
@@ -25427,6 +25623,7 @@ point out that the performance available to an application depends on the
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Leslie:Nemesis"
+literal "true"
 
 \end_inset
 
@@ -25512,6 +25709,7 @@ SMART
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Nieh:SMART"
+literal "true"
 
 \end_inset
 
@@ -25553,6 +25751,7 @@ redline
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Yang:Redline"
+literal "true"
 
 \end_inset
 
@@ -25606,6 +25805,7 @@ Another scheduling infrastructure that targets high-throughput applications
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Krasic:CoopPoll"
+literal "true"
 
 \end_inset
 
@@ -25890,6 +26090,7 @@ quality rate-monotonic scheduling
 LatexCommand cite
 after "-21pt"
 key "Hamann:QRMS"
+literal "true"
 
 \end_inset
 
@@ -25910,6 +26111,7 @@ n capabilities allow them to tolerate.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Roitzsch:VideoQuality"
+literal "true"
 
 \end_inset
 
@@ -25995,6 +26197,7 @@ Multicore processors add a second dimension to the scheduling problem: placement
 LatexCommand cite
 after "-128pt"
 key "Chen:SchedulingHeterogeneous"
+literal "true"
 
 \end_inset
 
@@ -26014,6 +26217,7 @@ manual offset
 LatexCommand cite
 after "-108pt"
 key "Blagodurov:DINO"
+literal "true"
 
 \end_inset
 
@@ -26023,6 +26227,7 @@ key "Blagodurov:DINO"
 LatexCommand cite
 after "-60pt"
 key "Zhuravlev:DIO"
+literal "true"
 
 \end_inset
 
@@ -26052,6 +26257,7 @@ Atlas
 LatexCommand cite
 after "-77pt"
 key "Voelp:Consolidate"
+literal "true"
 
 \end_inset
 
@@ -26061,6 +26267,7 @@ key "Voelp:Consolidate"
 LatexCommand cite
 after "-20pt"
 key "LeSueur:SlowDownSleep"
+literal "true"
 
 \end_inset
 
@@ -26068,6 +26275,7 @@ key "LeSueur:SlowDownSleep"
 \begin_inset CommandInset citation
 LatexCommand cite
 key "LeSueur:DVFS"
+literal "true"
 
 \end_inset
 
@@ -26075,6 +26283,7 @@ key "LeSueur:DVFS"
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Amdahl:AmdahlsLaw"
+literal "true"
 
 \end_inset
 
@@ -26120,6 +26329,7 @@ Extending the task model toward intra-job parallelism
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Collette:JobParallelism"
+literal "true"
 
 \end_inset
 
@@ -26207,6 +26417,7 @@ Last-level cache misses
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Tam:SharingAwareScheduling"
+literal "true"
 
 \end_inset
 
@@ -26214,6 +26425,7 @@ key "Tam:SharingAwareScheduling"
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Fedorova:SMT_Scheduling"
+literal "true"
 
 \end_inset
 
@@ -26309,6 +26521,7 @@ When multiple real-time jobs wait for a peripheral, the more urgent job
 LatexCommand cite
 after "-3\\baselineskip"
 key "Kato:Timegraph"
+literal "true"
 
 \end_inset
 
@@ -26350,6 +26563,7 @@ Atlas
 LatexCommand cite
 after "-106pt"
 key "Lagar-Cavilla:TrafficBackfilling"
+literal "true"
 
 \end_inset
 
@@ -26358,6 +26572,7 @@ key "Lagar-Cavilla:TrafficBackfilling"
 LatexCommand cite
 after "-34pt"
 key "Pathak:PowerModeling"
+literal "true"
 
 \end_inset
 
@@ -26365,6 +26580,7 @@ key "Pathak:PowerModeling"
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Roy:Cinder"
+literal "true"
 
 \end_inset
 
@@ -26584,6 +26800,8 @@ restoregeometry
 \begin_inset CommandInset index_print
 LatexCommand printindex
 type "idx"
+name "Index"
+literal "true"
 
 \end_inset
 
