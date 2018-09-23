@@ -27,7 +27,7 @@ epub: Thesis.epub
 Thesis-stylight.pdf: Thesis-stylight.tex
 	ln -sf ../Data ../Figures ./
 	xelatex $<
-	rm Data/*/*.tex Figures/*/*.pdf Data Figures
+	rm Data/*/*.tex Figures/QR-Code.pdf Figures/*/*.pdf Data Figures
 	rm $(basename $@).{aux,idx,lof,log,lot,out,toc}
 
 Thesis-stylight.tex: Thesis.tex
@@ -41,20 +41,19 @@ Thesis.tex: ../Thesis.lyx
 	lyx --export pdf4 $<
 
 Thesis-print.pdf: ../Thesis.pdf empty.pdf
-	pdfopt $< $@-1  # PoDoFo otherwise barks about problems in the PDF
-	podofopages $@-1 $@-2 --delete 0 --delete 118  # delete cover pages
-	podofomerge empty.pdf $@-2 $@-3  # add empty front cover page
-	podofomerge $@-3 empty.pdf $@-4  # add empty back cover page
-	podofobox $@-4 $@-5 media -850 -850 61228 85890  # add 3mm margins with bleed
-	podofobox $@-5 $@-6 bleed -850 -850 61228 85890  # add bleed box
-	podofobox $@-6 $@ trim 0 0 59528 84189  # add trim box
-	rm $@-[1-6]
+	podofopages $< $@-1 --delete 0 --delete 118  # delete cover pages
+	podofomerge empty.pdf $@-1 $@-2  # add empty front cover page
+	podofomerge $@-2 empty.pdf $@-3  # add empty back cover page
+	podofobox $@-3 $@-4 media -850 -850 61228 85890  # add 3mm margins with bleed
+	podofobox $@-4 $@-5 bleed -850 -850 61228 85890  # add bleed box
+	podofobox $@-5 $@ trim 0 0 59528 84189  # add trim box
+	rm $@-[1-5]
 
 Thesis.epub: epub/Thesis.ncx epub/Thesis.xhtml
 	rm -f $@
 	cd $(<D) ; zip -0 ../$@ mimetype
-	cd $(<D) ; zip ../$@ META-INF/container.xml $(basename $@).* *.png
-	cd $(<D) ; rm *.png
+	cd $(<D) ; zip ../$@ META-INF/container.xml $(basename $@).* *.png *.svg
+	cd $(<D) ; rm *.png *.svg
 
 epub/Thesis.ncx: epub/Thesis.xhtml epub/template.ncx
 	cp epub/template.ncx $@
@@ -74,7 +73,7 @@ epub/Thesis.xhtml: ../Thesis.lyx
 		s_href='#\([A-Z]\)_href='#LyXCite-\1_g; \
 		s_, -[0-9]*\\\\baselineskip__g;s_\\\\raisebox{.*}{\(.*\)}_\1_g;s_\\\\noindent__g; \
 		s_MarginFigure_Margin Figure_g;s_Table of Contents_Contents_" < ../$(@F) > $@
-	mv $(<D)/*.png $(@D)
+	mv $(<D)/*.png $(<D)/*.svg $(@D)
 	rm $(<D)/$(@F)
 
 ../Thesis.lyx: force
