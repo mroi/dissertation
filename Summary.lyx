@@ -19,10 +19,10 @@
 
 % font setup: disable Hoefler swashes, set math fonts
 \usepackage{mathspec}
-\setmainfont[ItalicFeatures={Contextuals={NoLineInitial,NoLineFinal}}]{Hoefler Text}
-\setmathrm{Hoefler Text}
-\setmathsfont(Digits,Latin)[ItalicFeatures={Contextuals={NoLineInitial,NoLineFinal}},Numbers={Lining,Proportional}]{Hoefler Text}
-\setmathsfont(Greek){Georgia}
+\setmainfont[Renderer=OpenType,SmallCapsFont={Hoefler Text/OT:+smcp},ItalicFeatures={SmallCapsFont={Hoefler Text/I/OT:+smcp}}]{Hoefler Text}
+\setmathrm[Renderer=OpenType]{Hoefler Text}
+\setmathsfont(Digits,Latin)[Renderer=OpenType,RawFeature=+lnum]{Hoefler Text}
+\setmathsfont(Greek)[Renderer=OpenType]{Georgia}
 % restore mathspec's activation of " at document beginning, someone messes with it
 \begingroup
 \catcode`\"=\active
@@ -31,10 +31,10 @@
 
 % letter spacing for capitalized text
 \renewcommand{\allcapsspacing}[1]{{\addfontfeature{LetterSpace=6.5}#1}}
-\renewcommand{\smallcapsspacing}[1]{{\addfontfeature{LetterSpace=5.0,Letters=SmallCaps}#1}}
+\renewcommand{\smallcapsspacing}[1]{{\addfontfeature{LetterSpace=5.0}#1}}
 
 % lining figures for bibtex references (usually enabled by using math mode)
-\newcommand{\liningfigures}[1]{{\addfontfeature{Numbers=Lining}#1}}
+\newcommand{\liningfigures}[1]{{\addfontfeature{RawFeature=+lnum}#1}}
 
 % use all-bullets for itemize and give them the right size and height
 \AtBeginDocument{
@@ -61,13 +61,16 @@
 \options a4paper
 \use_default_options true
 \begin_modules
-fixltx2e
 enumitem
 logicalmkup
 \end_modules
 \maintain_unincluded_children false
 \begin_local_layout
-Format 49
+Format 66
+
+# override LyX wrongly choosing natbib citations with tufte-book
+Input ../citeengines/basic.citeengine
+
 InsetLayout Flex:NoWrap
 LyxType	charstyle
 LabelString	NoWrap
@@ -127,7 +130,7 @@ End
 \use_package stackrel 0
 \use_package stmaryrd 0
 \use_package undertilde 0
-\cite_engine basic
+\cite_engine natbib
 \cite_engine_type default
 \biblio_style plain
 \use_bibtopic false
@@ -680,7 +683,6 @@ Their complete source code:
 status open
 
 \begin_layout Plain Layout
-\noindent
 
 \series bold
 int
@@ -1611,7 +1613,6 @@ status collapsed
 status collapsed
 
 \begin_layout Plain Layout
-\noindent
 dispatch_async_atlas
 \end_layout
 
@@ -3437,7 +3438,7 @@ status collapsed
 
 {
 \backslash
-addfontfeature{Numbers={Lining}}
+addfontfeature{RawFeature=+lnum}
 \end_layout
 
 \end_inset
