@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -14,7 +12,7 @@
    id="svg2"
    version="1.1"
    viewBox="0 0 148.81889 230.31496"
-   inkscape:version="0.91+devel+osxmenu r12894"
+   inkscape:version="1.0.2 (e86c8708, 2021-01-15)"
    sodipodi:docname="LLSP_Update.svg">
   <defs
      id="defs4">
@@ -50,10 +48,11 @@
      inkscape:window-width="1192"
      inkscape:window-height="892"
      inkscape:window-x="71"
-     inkscape:window-y="23"
+     inkscape:window-y="25"
      inkscape:window-maximized="0"
      showguides="true"
-     inkscape:guide-bbox="true">
+     inkscape:guide-bbox="true"
+     inkscape:document-rotation="0">
     <inkscape:grid
        type="xygrid"
        id="grid2985"
@@ -62,8 +61,10 @@
        enabled="true"
        snapvisiblegridlinesonly="true"
        units="mm"
-       spacingx="1mm"
-       spacingy="1mm" />
+       spacingx="3.5433072"
+       spacingy="3.543307"
+       originx="0"
+       originy="0" />
   </sodipodi:namedview>
   <metadata
      id="metadata7">
@@ -81,19 +82,18 @@
      transform="translate(-3.5433107,-836.2205)"
      id="g3063">
     <text
-       sodipodi:linespacing="125%"
        id="text3065"
        y="1051.5624"
        x="124.01575"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';text-align:end;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';text-align:end;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none"
        xml:space="preserve"><tspan
          dy="0.69999999 -0.69999999"
-         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;line-height:100%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Light'"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:12px;line-height:100%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Light'"
          y="1051.5624"
          x="124.01575"
          sodipodi:role="line"
          id="tspan3067">② zero subdiagonal</tspan><tspan
-         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;line-height:100%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Light'"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:12px;line-height:100%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Light'"
          y="1063.5624"
          x="124.01575"
          sodipodi:role="line"
@@ -401,13 +401,12 @@
        transform="translate(8)"
        id="g3399">
       <text
-         sodipodi:linespacing="100%"
          id="text4547"
          y="1051.5624"
          x="11.140747"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:100%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
          xml:space="preserve"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;line-height:100%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Light';text-align:start;word-spacing:0px;text-anchor:start"
+           style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:12px;line-height:100%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Light';text-align:start;word-spacing:0px;text-anchor:start"
            y="1051.5624"
            x="11.140747"
            sodipodi:role="line"
@@ -417,16 +416,15 @@
              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;line-height:100%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Light';text-align:start;word-spacing:0px;text-anchor:start">① add new row,</tspan></tspan></text>
       <text
          xml:space="preserve"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:100%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
          x="26.629921"
          y="1063.7356"
-         id="text3387"
-         sodipodi:linespacing="100%"><tspan
+         id="text3387"><tspan
            id="tspan3391"
            sodipodi:role="line"
            x="26.629921"
            y="1063.7356"
-           style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;line-height:100%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Light';text-align:start;word-spacing:0px;text-anchor:start"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:12px;line-height:100%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Light';text-align:start;word-spacing:0px;text-anchor:start"><tspan
    dx="0 0 0 0 0"
    id="tspan3393"
    style="letter-spacing:0px">s</tspan>hift existing rows down</tspan></text>

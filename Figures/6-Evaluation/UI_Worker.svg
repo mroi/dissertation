@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -15,7 +13,7 @@
    id="svg2"
    version="1.1"
    viewBox="0 0 159.44882 63.779526"
-   inkscape:version="0.91+devel+osxmenu r12894"
+   inkscape:version="1.0.2 (e86c8708, 2021-01-15)"
    sodipodi:docname="UI_Worker.svg">
   <defs
      id="defs4">
@@ -48,8 +46,9 @@
      inkscape:window-width="998"
      inkscape:window-height="566"
      inkscape:window-x="86"
-     inkscape:window-y="23"
-     inkscape:window-maximized="0">
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:document-rotation="0">
     <inkscape:grid
        type="xygrid"
        id="grid2985"
@@ -58,8 +57,10 @@
        enabled="true"
        snapvisiblegridlinesonly="true"
        units="mm"
-       spacingx="1mm"
-       spacingy="1mm" />
+       spacingx="3.5433072"
+       spacingy="3.5433071"
+       originx="0"
+       originy="0" />
   </sodipodi:namedview>
   <metadata
      id="metadata7">
@@ -76,12 +77,12 @@
   <image
      sodipodi:absref="/Users/Michael/Documents/Forschung/Dissertation/Figures/6-Evaluation/UI_Worker.png"
      xlink:href="UI_Worker.png"
-     transform="translate(0,-988.58135)"
-     clip-path="url(#clipPath2987)"
-     mask="none"
-     width="159.44882"
-     height="63.514885"
-     id="image3105"
+     y="988.84601"
      x="0"
-     y="988.84601" />
+     id="image3105"
+     height="63.514885"
+     width="159.44882"
+     mask="none"
+     clip-path="url(#clipPath2987)"
+     transform="translate(0,-988.58135)" />
 </svg>

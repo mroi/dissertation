@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -14,7 +12,7 @@
    id="svg2"
    version="1.1"
    viewBox="0 0 152.3622 201.96851"
-   inkscape:version="0.91+devel+osxmenu r12894"
+   inkscape:version="1.0.2 (e86c8708, 2021-01-15)"
    sodipodi:docname="Givens_Rotation.svg">
   <defs
      id="defs4" />
@@ -35,10 +33,11 @@
      inkscape:window-width="1192"
      inkscape:window-height="892"
      inkscape:window-x="71"
-     inkscape:window-y="23"
+     inkscape:window-y="25"
      inkscape:window-maximized="0"
      showguides="true"
-     inkscape:guide-bbox="true">
+     inkscape:guide-bbox="true"
+     inkscape:document-rotation="0">
     <inkscape:grid
        type="xygrid"
        id="grid2985"
@@ -47,8 +46,10 @@
        enabled="true"
        snapvisiblegridlinesonly="true"
        units="mm"
-       spacingx="1mm"
-       spacingy="1mm" />
+       spacingx="3.5433067"
+       spacingy="3.5433074"
+       originx="0"
+       originy="0" />
   </sodipodi:namedview>
   <metadata
      id="metadata7">
@@ -66,19 +67,18 @@
      transform="translate(-3.5433071,-864.6107)"
      id="g3063">
     <text
-       sodipodi:linespacing="125%"
        id="text3065"
        y="1048.8627"
        x="3.5433071"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';text-align:end;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';text-align:end;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none"
        xml:space="preserve"><tspan
-         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;line-height:100%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Light';text-align:start;text-anchor:start"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:12px;line-height:100%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Light';text-align:start;text-anchor:start"
          y="1048.8627"
          x="3.5433071"
          sodipodi:role="line"
          id="tspan3069">Zeroing the element at row 4,</tspan><tspan
          id="tspan3052"
-         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;line-height:100%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Light';text-align:start;text-anchor:start"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:12px;line-height:100%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Light';text-align:start;text-anchor:start"
          y="1060.8627"
          x="3.5433071"
          sodipodi:role="line">column 3 changes rows 3 and 4.</tspan></text>

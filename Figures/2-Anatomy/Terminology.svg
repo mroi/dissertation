@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -14,7 +12,7 @@
    id="svg2"
    version="1.1"
    viewBox="0 0 159.44882 148.81889"
-   inkscape:version="0.91+devel+osxmenu r12894"
+   inkscape:version="1.0.2 (e86c8708, 2021-01-15)"
    sodipodi:docname="Terminology.svg">
   <defs
      id="defs4">
@@ -50,8 +48,9 @@
      inkscape:window-width="1232"
      inkscape:window-height="741"
      inkscape:window-x="72"
-     inkscape:window-y="23"
-     inkscape:window-maximized="0">
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:document-rotation="0">
     <inkscape:grid
        type="xygrid"
        id="grid2985"
@@ -59,9 +58,11 @@
        visible="true"
        enabled="true"
        snapvisiblegridlinesonly="true"
-       spacingx="1mm"
-       spacingy="1mm"
-       units="mm" />
+       spacingx="3.5433072"
+       spacingy="3.5433072"
+       units="mm"
+       originx="0"
+       originy="0" />
   </sodipodi:namedview>
   <metadata
      id="metadata7">
@@ -86,11 +87,10 @@
        sodipodi:nodetypes="cc" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#808785;fill-opacity:1;stroke:none"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#808785;fill-opacity:1;stroke:none"
        x="12.430344"
        y="884.22552"
-       id="text5812"
-       sodipodi:linespacing="125%"><tspan
+       id="text5812"><tspan
          sodipodi:role="line"
          id="tspan5814"
          x="12.430344"
@@ -111,11 +111,10 @@
   </g>
   <text
      transform="rotate(-90)"
-     sodipodi:linespacing="125%"
      id="text3950"
      y="8.2782917"
      x="-56.692883"
-     style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+     style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
      xml:space="preserve"><tspan
        dy="0 0 -1"
        style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:8px;line-height:125%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Light';text-align:start;word-spacing:0px;writing-mode:lr-tb;text-anchor:start"
@@ -126,15 +125,14 @@
    id="tspan3954"
    style="font-size:10px;word-spacing:0px"
    dy="1.8"><tspan
-     style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:7.50000048px;line-height:125%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans, Light';text-align:start;writing-mode:lr-tb;text-anchor:start"
+     style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:7.5px;line-height:125%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans, Light';text-align:start;writing-mode:lr-tb;text-anchor:start"
      id="tspan3773">◁</tspan></tspan> submission</tspan></text>
   <text
      xml:space="preserve"
-     style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+     style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
      x="-56.692883"
      y="68.442604"
      id="text3958"
-     sodipodi:linespacing="125%"
      transform="rotate(-90)"><tspan
        sodipodi:role="line"
        id="tspan3960"
@@ -145,38 +143,36 @@
    style="font-size:10px;word-spacing:0px"
    id="tspan3962"
    dy="1.8"><tspan
-     style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:7.50000048px;line-height:125%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans, Light';text-align:start;writing-mode:lr-tb;text-anchor:start"
+     style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:7.5px;line-height:125%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans, Light';text-align:start;writing-mode:lr-tb;text-anchor:start"
      id="tspan3775">◁</tspan></tspan> release</tspan></text>
   <text
      transform="rotate(-90)"
-     sodipodi:linespacing="100%"
      id="text6580"
      y="89.716797"
      x="-56.692883"
-     style="font-style:normal;font-weight:normal;font-size:40px;line-height:100%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+     style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
      xml:space="preserve"><tspan
        dy="0 0 -1"
-       style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:7.90000057px;line-height:100%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans, Light';text-align:start;word-spacing:0px;writing-mode:lr-tb;text-anchor:start"
+       style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:7.9px;line-height:100%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans, Light';text-align:start;word-spacing:0px;writing-mode:lr-tb;text-anchor:start"
        y="89.716797"
        x="-56.692883"
        id="tspan6582"
        sodipodi:role="line"><tspan
    dy="1.8"
    id="tspan6584"
-   style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:7.90000057px;line-height:100%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans, Light';text-align:start;word-spacing:0px;writing-mode:lr-tb;text-anchor:start">◁</tspan> blocking or</tspan><tspan
+   style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:7.9px;line-height:100%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans, Light';text-align:start;word-spacing:0px;writing-mode:lr-tb;text-anchor:start">◁</tspan> blocking or</tspan><tspan
        id="tspan6590"
        dy="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0"
-       style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:7.90000057px;line-height:100%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans, Light';text-align:start;word-spacing:0px;writing-mode:lr-tb;text-anchor:start"
+       style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:7.9px;line-height:100%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans, Light';text-align:start;word-spacing:0px;writing-mode:lr-tb;text-anchor:start"
        y="97.616798"
        x="-56.692883"
        sodipodi:role="line">    preemption</tspan></text>
   <text
      transform="rotate(-90)"
-     sodipodi:linespacing="125%"
      id="text3966"
      y="114.51996"
      x="-56.692883"
-     style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+     style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
      xml:space="preserve"><tspan
        dy="0 0 -1"
        style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:8px;line-height:125%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Light';text-align:start;word-spacing:0px;writing-mode:lr-tb;text-anchor:start"
@@ -187,15 +183,14 @@
    dy="1.8"
    id="tspan3970"
    style="font-size:10px;word-spacing:0px"><tspan
-     style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:7.50000048px;line-height:125%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans, Light';text-align:start;writing-mode:lr-tb;text-anchor:start"
+     style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:7.5px;line-height:125%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans, Light';text-align:start;writing-mode:lr-tb;text-anchor:start"
      id="tspan3779">◁</tspan></tspan> completion</tspan></text>
   <text
      xml:space="preserve"
-     style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+     style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
      x="-56.692883"
      y="153.79729"
      id="text3974"
-     sodipodi:linespacing="125%"
      transform="rotate(-90)"><tspan
        sodipodi:role="line"
        id="tspan3976"
@@ -206,7 +201,7 @@
    style="font-size:10px;word-spacing:0px"
    id="tspan3978"
    dy="1.8"><tspan
-     style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:7.50000048px;line-height:125%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans, Light';text-align:start;writing-mode:lr-tb;text-anchor:start"
+     style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:7.5px;line-height:125%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans, Light';text-align:start;writing-mode:lr-tb;text-anchor:start"
      id="tspan3781">◁</tspan></tspan> deadline</tspan></text>
   <g
      transform="translate(-5.8872491e-6,-889.36877)"
@@ -256,11 +251,10 @@
        transform="translate(0,875.19552)"
        ry="0" />
     <text
-       sodipodi:linespacing="125%"
        id="text3938"
        y="958.50134"
        x="116.91364"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
        xml:space="preserve"><tspan
          style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:8px;line-height:125%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Light';text-align:start;writing-mode:lr-tb;text-anchor:start"
          y="958.50134"
@@ -273,11 +267,10 @@
    dy="2.3">▸</tspan> next jobs</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
        x="63.779526"
        y="958.50018"
-       id="text3921"
-       sodipodi:linespacing="125%"><tspan
+       id="text3921"><tspan
          sodipodi:role="line"
          id="tspan3923"
          x="63.779526"
@@ -299,11 +292,10 @@
        sodipodi:nodetypes="cc" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
        x="72.866142"
        y="983.69476"
-       id="text5544"
-       sodipodi:linespacing="125%"><tspan
+       id="text5544"><tspan
          sodipodi:role="line"
          id="tspan5546"
          x="72.866142"
@@ -320,11 +312,10 @@
        d="m 67.322835,995.66795 85.039375,-2e-5"
        style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#SquareS);marker-mid:none;marker-end:url(#SquareS)" />
     <text
-       sodipodi:linespacing="125%"
        id="text5550"
        y="997.86798"
        x="61.779526"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;text-align:end;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:end;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none"
        xml:space="preserve"><tspan
          style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:8px;line-height:125%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Light';text-align:end;writing-mode:lr-tb;text-anchor:end"
          y="997.86798"
@@ -349,11 +340,10 @@
        style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#SquareS);marker-mid:none;marker-end:url(#SquareS)" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;text-align:end;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:end;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none"
        x="61.779526"
        y="1012.0411"
-       id="text5558"
-       sodipodi:linespacing="125%"><tspan
+       id="text5558"><tspan
          sodipodi:role="line"
          id="tspan5560"
          x="61.779526"
@@ -376,11 +366,10 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <text
-       sodipodi:linespacing="125%"
        id="text5566"
        y="1040.3876"
        x="61.779522"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;text-align:end;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:end;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none"
        xml:space="preserve"><tspan
          style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:8px;line-height:125%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Light';text-align:end;writing-mode:lr-tb;text-anchor:end"
          y="1040.3876"
@@ -399,11 +388,10 @@
        style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#SquareS);marker-mid:none;marker-end:url(#SquareS)" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;text-align:end;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:end;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none"
        x="61.779526"
        y="1026.2145"
-       id="text5572"
-       sodipodi:linespacing="125%"><tspan
+       id="text5572"><tspan
          sodipodi:role="line"
          id="tspan5574"
          x="61.779526"

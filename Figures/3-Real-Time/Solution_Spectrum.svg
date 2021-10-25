@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -14,7 +12,7 @@
    id="svg2"
    version="1.1"
    viewBox="0 0 141.73228 53.149605"
-   inkscape:version="0.91+devel+osxmenu r12894"
+   inkscape:version="1.0.2 (e86c8708, 2021-01-15)"
    sodipodi:docname="Solution_Spectrum.svg">
   <defs
      id="defs4" />
@@ -35,8 +33,9 @@
      inkscape:window-width="894"
      inkscape:window-height="584"
      inkscape:window-x="90"
-     inkscape:window-y="23"
-     inkscape:window-maximized="0">
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:document-rotation="0">
     <inkscape:grid
        type="xygrid"
        id="grid2985"
@@ -45,8 +44,10 @@
        enabled="true"
        snapvisiblegridlinesonly="true"
        units="mm"
-       spacingx="1mm"
-       spacingy="1mm" />
+       spacingx="3.5433069"
+       spacingy="3.543307"
+       originx="0"
+       originy="0" />
   </sodipodi:namedview>
   <metadata
      id="metadata7">
@@ -61,11 +62,10 @@
     </rdf:RDF>
   </metadata>
   <text
-     sodipodi:linespacing="100%"
      id="text3917"
      y="10.629896"
      x="0"
-     style="font-style:normal;font-weight:normal;font-size:40px;line-height:100%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+     style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
      xml:space="preserve"><tspan
        style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:12px;line-height:100%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Light';text-align:start;writing-mode:lr-tb;text-anchor:start"
        id="tspan3921"
@@ -74,11 +74,10 @@
        sodipodi:role="line">strict rules</tspan></text>
   <text
      xml:space="preserve"
-     style="font-style:normal;font-weight:normal;font-size:40px;line-height:100%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+     style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
      x="141.73228"
      y="10.629896"
-     id="text3923"
-     sodipodi:linespacing="100%"><tspan
+     id="text3923"><tspan
        sodipodi:role="line"
        x="141.73228"
        y="10.629896"
@@ -95,11 +94,10 @@
        sodipodi:nodetypes="cccc" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
        x="3.5433071"
        y="1027.5577"
-       id="text3909"
-       sodipodi:linespacing="125%"><tspan
+       id="text3909"><tspan
          sodipodi:role="line"
          id="tspan3911"
          x="3.5433071"
@@ -116,11 +114,10 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cccc" />
     <text
-       sodipodi:linespacing="125%"
        id="text3913"
        y="1047.2743"
        x="138.18898"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
        xml:space="preserve"><tspan
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12px;line-height:125%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Bold';text-align:end;writing-mode:lr-tb;text-anchor:end;fill:#ffffff"
          y="1047.2743"

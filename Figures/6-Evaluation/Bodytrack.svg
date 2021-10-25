@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -15,7 +13,7 @@
    id="svg2"
    version="1.1"
    viewBox="0 0 159.44882 120.47243"
-   inkscape:version="0.91+devel+osxmenu r12894"
+   inkscape:version="1.0.2 (e86c8708, 2021-01-15)"
    sodipodi:docname="Bodytrack.svg">
   <defs
      id="defs4">
@@ -41,8 +39,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="4.5446077"
-     inkscape:cx="85.03937"
-     inkscape:cy="64.25197"
+     inkscape:cx="39.710925"
+     inkscape:cy="41.367707"
      inkscape:document-units="mm"
      inkscape:current-layer="svg2"
      showgrid="true"
@@ -50,8 +48,9 @@
      inkscape:window-width="1050"
      inkscape:window-height="747"
      inkscape:window-x="97"
-     inkscape:window-y="23"
-     inkscape:window-maximized="0">
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:document-rotation="0">
     <inkscape:grid
        type="xygrid"
        id="grid2985"
@@ -78,11 +77,11 @@
   <image
      sodipodi:absref="/Users/Michael/Documents/Forschung/Dissertation/Figures/6-Evaluation/Bodytrack.bmp"
      xlink:href="Bodytrack.bmp"
-     clip-path="url(#clipPath2986)"
-     transform="matrix(-1.8,0,0,-1.8,-159.44882,-1773.777)"
-     width="177.16536"
-     height="132.87401"
-     id="image3158"
+     y="-1052.361"
      x="-177.16536"
-     y="-1052.361" />
+     id="image3158"
+     height="132.87401"
+     width="177.16536"
+     transform="matrix(-1.8,0,0,-1.8,-159.44882,-1773.777)"
+     clip-path="url(#clipPath2986)" />
 </svg>

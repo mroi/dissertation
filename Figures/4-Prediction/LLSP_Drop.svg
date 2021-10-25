@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -14,7 +12,7 @@
    id="svg2"
    version="1.1"
    viewBox="0 0 138.18898 177.16534"
-   inkscape:version="0.91+devel+osxmenu r12894"
+   inkscape:version="1.0.2 (e86c8708, 2021-01-15)"
    sodipodi:docname="LLSP_Drop.svg">
   <defs
      id="defs4">
@@ -50,10 +48,11 @@
      inkscape:window-width="1192"
      inkscape:window-height="892"
      inkscape:window-x="71"
-     inkscape:window-y="23"
+     inkscape:window-y="25"
      inkscape:window-maximized="0"
      showguides="true"
-     inkscape:guide-bbox="true">
+     inkscape:guide-bbox="true"
+     inkscape:document-rotation="0">
     <inkscape:grid
        type="xygrid"
        id="grid2985"
@@ -62,8 +61,10 @@
        enabled="true"
        snapvisiblegridlinesonly="true"
        units="mm"
-       spacingx="1mm"
-       spacingy="1mm" />
+       spacingx="3.543307"
+       spacingy="3.5433068"
+       originx="0"
+       originy="0" />
   </sodipodi:namedview>
   <metadata
      id="metadata7">
@@ -279,13 +280,12 @@
   </g>
   <text
      transform="rotate(-90)"
-     sodipodi:linespacing="125%"
      id="text3085"
      y="109.84251"
      x="-131.10217"
-     style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+     style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
      xml:space="preserve"><tspan
-       style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:12px;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Light'"
+       style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:12px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Light'"
        y="109.84251"
        x="-131.10217"
        id="tspan3087"
@@ -295,16 +295,15 @@
      id="g4611">
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';text-align:end;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';text-align:end;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none"
        x="124.01575"
        y="1051.5624"
-       id="text4547"
-       sodipodi:linespacing="125%"><tspan
+       id="text4547"><tspan
          sodipodi:role="line"
          id="tspan4549"
          x="124.01575"
          y="1051.5624"
-         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Light'">old residual error</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:12px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Light'">old residual error</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.75;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow2Mend)"
        d="m 127.55906,1048.8189 c 7.08661,0 10.62992,0 10.62992,-7.0866 l 0,-9.0866"
@@ -316,13 +315,12 @@
      id="g3089"
      transform="translate(-17.716544,-874.39708)">
     <text
-       sodipodi:linespacing="125%"
        id="text3091"
        y="1051.257"
        x="124.01577"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.00000572px;line-height:125%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';text-align:end;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';text-align:end;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none"
        xml:space="preserve"><tspan
-         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Light'"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:12px;line-height:1.25;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Light'"
          y="1051.257"
          x="124.01577"
          id="tspan3093"

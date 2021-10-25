@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -15,7 +13,7 @@
    id="svg2"
    version="1.1"
    viewBox="0 0 177.15894 177.16534"
-   inkscape:version="0.91+devel+osxmenu r12894"
+   inkscape:version="1.0.2 (e86c8708, 2021-01-15)"
    sodipodi:docname="Blocked_Redraw.svg">
   <defs
      id="defs4">
@@ -39,7 +37,7 @@
      inkscape:pageshadow="2"
      inkscape:zoom="2.9104167"
      inkscape:cx="94.488189"
-     inkscape:cy="94.488189"
+     inkscape:cy="104.1088"
      inkscape:document-units="mm"
      inkscape:current-layer="svg2"
      showgrid="false"
@@ -51,8 +49,9 @@
      inkscape:window-width="960"
      inkscape:window-height="713"
      inkscape:window-x="81"
-     inkscape:window-y="23"
-     inkscape:window-maximized="0" />
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:document-rotation="0" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -68,11 +67,11 @@
   <image
      sodipodi:absref="/Users/Michael/Documents/Forschung/Dissertation/Figures/2-Anatomy/Blocked_Redraw.tiff"
      xlink:href="Blocked_Redraw.tiff"
-     y="767.2193"
-     x="-114.28571"
-     id="image3047"
-     height="320"
-     width="400"
+     transform="matrix(1.150158,0,0,1.150158,-17.36102,-956.75572)"
      clip-path="url(#clipPath3829)"
-     transform="matrix(1.150158,0,0,1.150158,-17.36102,-956.75572)" />
+     width="400"
+     height="320"
+     id="image3047"
+     x="-114.28571"
+     y="767.2193" />
 </svg>

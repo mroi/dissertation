@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -14,7 +12,7 @@
    id="svg2"
    version="1.1"
    viewBox="0 0 138.18898 38.976376"
-   inkscape:version="0.91+devel+osxmenu r12894"
+   inkscape:version="1.0.2 (e86c8708, 2021-01-15)"
    sodipodi:docname="Periodic_Task.svg">
   <defs
      id="defs4" />
@@ -35,8 +33,9 @@
      inkscape:window-width="1006"
      inkscape:window-height="725"
      inkscape:window-x="71"
-     inkscape:window-y="23"
-     inkscape:window-maximized="0">
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:document-rotation="0">
     <inkscape:grid
        type="xygrid"
        id="grid2985"
@@ -45,8 +44,10 @@
        enabled="true"
        snapvisiblegridlinesonly="true"
        units="mm"
-       spacingx="1mm"
-       spacingy="1mm" />
+       spacingx="3.543307"
+       spacingy="3.543307"
+       originx="0"
+       originy="0" />
   </sodipodi:namedview>
   <metadata
      id="metadata7">
@@ -92,16 +93,15 @@
        sodipodi:nodetypes="ccccccccc" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
        x="126.01575"
        y="1041.731"
-       id="text4685"
-       sodipodi:linespacing="125%"><tspan
+       id="text4685"><tspan
          sodipodi:role="line"
          id="tspan4687"
          x="126.01575"
          y="1041.731"
-         style="font-weight:bold;font-size:12px;-inkscape-font-specification:'Gill Sans Bold'">…</tspan></text>
+         style="font-weight:bold;font-size:12px;line-height:1.25;-inkscape-font-specification:'Gill Sans Bold'">…</tspan></text>
   </g>
   <g
      transform="translate(-1.3385826e-8,-1000.9829)"
@@ -114,11 +114,10 @@
        sodipodi:nodetypes="ccccccccccc" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
        x="24.80315"
        y="1007.8412"
-       id="text4668"
-       sodipodi:linespacing="125%"><tspan
+       id="text4668"><tspan
          sodipodi:role="line"
          id="tspan4670"
          x="24.80315"
@@ -135,11 +134,10 @@
        d="m 3.5433071,1015.1561 7.0866139,5.315 0,-3.5433 10.629922,0 0,3.5433 7.086614,-5.315 -7.086614,-5.3149 0,3.5433 -10.629922,0 0,-3.5433 z"
        style="fill:#808785;fill-opacity:1;stroke:none" />
     <text
-       sodipodi:linespacing="125%"
        id="text4681"
        y="1008.0695"
        x="15.716536"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
        xml:space="preserve"><tspan
          style="font-style:italic;font-variant:normal;font-weight:300;font-stretch:normal;font-size:12px;line-height:125%;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans Light Italic';text-align:center;writing-mode:lr-tb;text-anchor:middle"
          y="1008.0695"
